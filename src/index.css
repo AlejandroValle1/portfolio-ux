@@ -1,0 +1,501 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap');
+
+:root {
+  /* Day/Sun Mode - Vibrant & Clear */
+  --bg-color: #A9DEF9;
+  /* Cielo despejado */
+  --text-color: #1A2A40;
+  /* Azul profundo para lectura */
+  --surface-color: rgba(255, 255, 255, 0.3);
+  --accent-primary: #FF6B35;
+  /* Naranja solar */
+  --accent-secondary: #FFD166;
+  /* Amarillo sol */
+  --accent-detail: #2B4162;
+  --hover-color: #FFD166;
+  /* Vitalidad y juventud original para botones */
+  --skill-hover: #E65A2B;
+  /* Naranja legible para textos finos sobre celeste */
+  --cursor-color: #FF6B35;
+
+  /* Composición de dos gradientes: Sol (sup. der.) y Anochecer sutil (inf. izq.) */
+  --main-gradient:
+    radial-gradient(circle at 88% 40px, #FFB347 0%, #FF9E5E 5%, rgba(169, 222, 249, 0) 35%),
+    radial-gradient(circle at 10% 90%, rgba(75, 93, 139, 0.25) 0%, rgba(169, 222, 249, 0) 50%),
+    #A9DEF9;
+  /* El celeste de base cubre el resto */
+
+  /* 8px Grid System Variables */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-6: 3rem;
+  --space-8: 4rem;
+  --space-12: 6rem;
+  --space-16: 8rem;
+  --space-24: 12rem;
+  --space-32: 16rem;
+
+  --radius: 4px;
+  --cv-glow: var(--accent-primary);
+  --border-inactive: rgba(26, 42, 64, 0.15);
+}
+
+[data-theme="dark"] {
+  /* Night/Moon Mode - Deep & Mystical */
+  --bg-color: #0B1118;
+  /* Negro noche */
+  --text-color: #F0F4F8;
+  /* Plateado lunar */
+  --surface-color: rgba(26, 42, 64, 0.4);
+  --accent-primary: #D69E7C;
+  /* Brillo del horizonte */
+  --accent-secondary: #FF6F91;
+  /* Luz magenta tenue */
+  --cv-glow: white;
+  --skill-hover: var(--hover-color);
+  /* En modo oscuro el arena tiene buen contraste */
+  --accent-detail: #1A2A40;
+  --hover-color: #D69E7C;
+  --cursor-color: #F0F4F8;
+  --border-inactive: rgba(240, 244, 248, 0.1);
+  /* Gradiente Radial que simula la Luna centrada con el icono en el header */
+  --main-gradient: radial-gradient(circle at 88% 40px, #F0F4F8 0%, #BCC6D1 5%, #1A2A40 30%, #0B1118 80%);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Base Accessibility: Clear focus indicators for AAA */
+:focus-visible {
+  outline: 3px solid var(--accent-primary);
+  outline-offset: 4px;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--main-gradient);
+  background-attachment: fixed;
+  /* Gradiente estático para mayor profundidad */
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  overflow-x: hidden;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* Cursor management - Global hide of native cursor unless keyboard navigating */
+body:not(.using-keyboard),
+body:not(.using-keyboard) * {
+  cursor: none !important;
+}
+
+.brutalist-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  /* Force lining figures (aligned numbers) */
+  font-feature-settings: "lnum" 1;
+}
+
+/* Optimized Noise Texture Overlay - Using a subtle static image pattern if possible, 
+   or reducing the complexity of the SVG to prevent scroll lag with backdrop-filters */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  /* Lower opacity for subtle effect */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  /* Force a separate layer to avoid re-paints of the whole body */
+  transform: translateZ(0);
+}
+
+a,
+button,
+img,
+.card,
+div[role="button"] {
+  border-radius: var(--radius);
+}
+
+/* Typography Utilities */
+.brutalist-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  font-feature-settings: "lnum" 1;
+}
+
+.serif-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+/* Elegant Button Hover Effect (Swipe Up) */
+.btn-elegant {
+  position: relative;
+  overflow: hidden;
+  /* Ensures the fill respects border radius */
+  transition: color 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  z-index: 1;
+  /* Important: Reset background to transparent to let the fill show */
+  background: transparent;
+}
+
+.btn-elegant::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background-color: var(--hover-color);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  z-index: -1;
+  border-radius: inherit;
+}
+
+.btn-elegant:hover::before {
+  transform: scaleY(1);
+}
+
+.btn-elegant:hover {
+  color: #1A2A40 !important;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 120px;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--space-2);
+  }
+
+  :root {
+    --space-12: 4rem;
+    --space-16: 6rem;
+    --space-24: 8rem;
+  }
+}
+
+.brutalist-title {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  /* Relaxed slightly from 0.9 for readability */
+}
+
+section {
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-12);
+  /* Hardware acceleration for sections with backdrop-filters */
+  will-change: transform;
+}
+
+.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-8);
+}
+
+@media (max-width: 1024px) {
+  .responsive-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}
+
+.hover-italic:hover {
+  font-style: italic;
+}
+
+/* Custom Cursor/Interactions css could go here or in component */
+.cursor-blob {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  /* styles managed by framer motion */
+}
+
+/* Selection */
+::selection {
+  background: var(--accent-primary);
+  color: var(--bg-color);
+}
+
+.hero-cta {
+  background: var(--accent-primary);
+  color: #FFFFFF;
+  border: 1.5px solid var(--accent-primary);
+  padding: var(--space-2) var(--space-4);
+  font-size: 1.1rem;
+  font-weight: 800;
+  cursor: pointer;
+  text-transform: uppercase;
+  margin-top: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.15);
+}
+
+.hero-cta:hover {
+  background: transparent;
+  color: var(--accent-primary);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+}
+
+.hero-cta:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.nav-link {
+  transition: color 0.3s ease;
+  padding: var(--space-1) var(--space-2);
+}
+
+.nav-link:hover {
+  color: var(--accent-primary) !important;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  background-color: transparent !important;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: var(--accent-primary);
+  color: var(--bg-color);
+  padding: 10px 20px;
+  z-index: 10000;
+  text-decoration: none;
+  font-weight: bold;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+.nav-link-elegant {
+  background: none !important;
+  border: none !important;
+  color: var(--text-color) !important;
+  font-size: 0.95rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  padding: 8px 12px;
+  position: relative;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+  display: block;
+  width: auto;
+}
+
+.nav-link-elegant::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 12px;
+  right: 12px;
+  height: 2px;
+  background: var(--accent-primary);
+  transform: scaleX(0);
+  transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transform-origin: left;
+}
+
+.nav-link-elegant:hover {
+  color: var(--accent-primary) !important;
+}
+
+.nav-link-elegant:hover::after {
+  transform: scaleX(1);
+}
+
+
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: block !important;
+    background: none !important;
+    border: none !important;
+    outline: none !important;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: column;
+    padding: var(--space-24) var(--space-8);
+    gap: var(--space-8) !important;
+    transform: translateX(100%);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(30px);
+    z-index: 1000;
+  }
+
+  [data-theme="dark"] .nav-menu {
+    background: rgba(11, 17, 24, 0.98);
+  }
+
+  [data-theme="light"] .nav-menu {
+    background: rgba(169, 222, 249, 0.98);
+  }
+
+  .nav-menu.open {
+    transform: translateX(0);
+  }
+
+  /* Mobile menu overrides */
+  .nav-menu.open .nav-link-elegant {
+    font-size: 2rem !important;
+    padding: var(--space-4) 0;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.about-bento-card {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.bento-about-cv {
+  background-color: rgba(255, 107, 53, 0.05) !important;
+  color: var(--accent-primary) !important;
+  border: 1.5px solid var(--text-color);
+  backdrop-filter: blur(8px);
+}
+
+[data-theme='dark'] .bento-about-cv {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  border: 1.5px solid var(--text-color);
+}
+
+.about-bento-layout,
+.process-grid-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Desktop Styles: 769px and above */
+@media (min-width: 769px) {
+  .about-bento-layout {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
+  }
+
+  .bento-about-1 {
+    grid-column: span 8;
+    grid-row: span 1;
+  }
+
+  .bento-about-2 {
+    grid-column: span 4;
+    grid-row: span 2;
+  }
+
+  .bento-about-3 {
+    grid-column: span 4;
+  }
+
+  .bento-about-4 {
+    grid-column: span 4;
+  }
+
+  .bento-about-5 {
+    grid-column: 1 / span 8;
+    grid-row: 3;
+  }
+
+  .bento-about-cv {
+    grid-column: 9 / span 4;
+    grid-row: 3;
+    display: flex !important;
+  }
+
+  .process-grid-layout {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
+  }
+
+  .process-step-0,
+  .process-step-3 {
+    grid-column: span 7;
+  }
+
+  .process-step-1,
+  .process-step-2 {
+    grid-column: span 5;
+  }
+}
+
+/* Skeleton Loading Effect */
+.skeleton-shimmer {
+  background: linear-gradient(90deg,
+      rgba(128, 128, 128, 0.05) 25%,
+      rgba(128, 128, 128, 0.1) 50%,
+      rgba(128, 128, 128, 0.05) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite ease-in-out;
+  border-radius: 12px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+[data-theme='dark'] .skeleton-shimmer {
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0.03) 25%,
+      rgba(255, 255, 255, 0.08) 50%,
+      rgba(255, 255, 255, 0.03) 75%);
+  background-size: 200% 100%;
+}
