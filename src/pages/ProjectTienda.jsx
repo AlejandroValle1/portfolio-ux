@@ -684,7 +684,7 @@ const ProjectTienda = () => {
                         display: 'grid',
                         gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
                         gap: 'var(--space-12)',
-                        alignItems: 'center',
+                        alignItems: 'start',
                         borderTop: '1px solid var(--text-color)',
                         paddingTop: 'var(--space-16)'
                     }}
