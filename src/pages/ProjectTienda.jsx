@@ -502,21 +502,23 @@ const ProjectTienda = () => {
 
                 {/* HERO */}
                 <header style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                    gap: 'var(--space-8)',
+                    display: 'flex',
+                    flexDirection: 'column',
                     alignItems: 'center',
-                    padding: '0',
+                    justifyContent: 'center',
+                    textAlign: 'center',
+                    gap: 'var(--space-8)',
+                    padding: 'var(--space-20) 0 var(--space-12) 0',
                     minHeight: '100vh',
                     marginBottom: 'var(--space-12)'
                 }}>
-                    {/* Left Column: Title & Text */}
+                    {/* Centered Content: Title & Text */}
                     <div style={{
                         display: 'flex',
                         flexDirection: 'column',
                         gap: 'var(--space-6)',
-                        alignItems: 'flex-start',
-                        paddingTop: 'clamp(100px, 15vh, 180px)'
+                        alignItems: 'center',
+                        maxWidth: '900px'
                     }}>
                         <motion.div
                             initial={{ opacity: 0, x: -30 }}
@@ -540,7 +542,8 @@ const ProjectTienda = () => {
                                 lineHeight: 0.85,
                                 letterSpacing: '-0.05em',
                                 color: 'var(--accent-primary)',
-                                margin: 0
+                                margin: 0,
+                                textAlign: 'center'
                             }}>
                                 TIENDA<br />TECNO
                             </h1>
@@ -554,9 +557,9 @@ const ProjectTienda = () => {
                                 fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
                                 lineHeight: 1.6,
                                 width: '100%',
-                                maxWidth: '650px',
+                                maxWidth: '750px',
                                 opacity: 1,
-                                textAlign: 'left',
+                                textAlign: 'center',
                                 fontWeight: 400
                             }}
                         >
@@ -574,7 +577,7 @@ const ProjectTienda = () => {
                                 gap: 'var(--space-3)',
                                 marginTop: 'var(--space-4)',
                                 width: '100%',
-                                maxWidth: '650px',
+                                maxWidth: '750px',
                                 opacity: 0.7,
                                 fontWeight: 700,
                                 textTransform: 'uppercase',
@@ -603,11 +606,11 @@ const ProjectTienda = () => {
                         style={{
                             position: 'relative',
                             zIndex: 1,
-                            alignSelf: 'center',
-                            marginTop: '40px',
+                            marginTop: 'var(--space-8)',
                             display: 'flex',
                             justifyContent: 'center',
-                            width: '100%'
+                            width: '100%',
+                            maxWidth: '1000px'
                         }}
                     >
                         <motion.div
