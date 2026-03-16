@@ -298,7 +298,7 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
             flexDirection: 'column',
             gap: '2.5rem',
             position: 'relative',
-            marginTop: '2rem',
+            marginTop: '0',
             alignItems: 'center'
         }}>
             <AnimatePresence>

@@ -23,7 +23,7 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            marginTop: '2rem',
+            marginTop: '0',
             marginBottom: '2rem'
         }}>
             {/* The Main Content Box */}
@@ -133,7 +133,8 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
                 )}
 
                 <div
-                    style={{ position: 'relative', width: '100%', height: '500px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'zoom-in' }}
+                    className="zoomable-image"
+                    style={{ position: 'relative', width: '100%', height: '500px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'none' }}
                     onClick={() => onImageClick && onImageClick(images, currentIndex)}
                 >
                     <AnimatePresence mode='wait'>

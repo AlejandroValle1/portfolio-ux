@@ -254,7 +254,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, mobileFra
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
                 gap: 'var(--space-8)',
-                alignItems: 'center',
+                alignItems: 'start',
                 width: '100%'
             }}>
                 {/* 
@@ -524,8 +524,8 @@ const ProjectSepara = () => {
                                 lineHeight: 1.6,
                                 width: '100%',
                                 maxWidth: '650px',
-                                opacity: 0.9,
-                                textAlign: 'center',
+                                opacity: 1,
+                                textAlign: 'left',
                                 fontWeight: 400
                             }}
                         >
@@ -539,7 +539,7 @@ const ProjectSepara = () => {
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                justifyContent: 'center',
+                                justifyContent: 'flex-start',
                                 gap: 'var(--space-3)',
                                 marginTop: 'var(--space-4)',
                                 width: '100%',
@@ -683,8 +683,9 @@ const ProjectSepara = () => {
                             backgroundColor: 'white',
                             transform: 'rotate(-1deg)',
                             boxShadow: 'var(--shadow-lg)',
-                            cursor: 'zoom-in'
+                            cursor: 'none'
                         }}
+                        className="zoomable-image"
                         onClick={() => openLightbox("/Cerificado-Udemy.webp")}
                     >
                         <img
