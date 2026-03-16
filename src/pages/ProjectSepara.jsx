@@ -471,23 +471,21 @@ const ProjectSepara = () => {
 
                 {/* HERO */}
                 <header style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    textAlign: 'center',
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
                     gap: 'var(--space-8)',
-                    padding: 'var(--space-20) 0 var(--space-12) 0',
+                    alignItems: 'center',
+                    padding: '0',
                     minHeight: '100vh',
                     marginBottom: 'var(--space-12)'
                 }}>
-                    {/* Centered Content: Title & Text */}
+                    {/* Left Column: Title & Text */}
                     <div style={{
                         display: 'flex',
                         flexDirection: 'column',
                         gap: 'var(--space-6)',
-                        alignItems: 'center',
-                        maxWidth: '900px'
+                        alignItems: 'flex-start',
+                        paddingTop: '60px' // Basic offset for navbar
                     }}>
                         <motion.div
                             initial={{ opacity: 0, x: -30 }}
@@ -512,7 +510,7 @@ const ProjectSepara = () => {
                                 letterSpacing: '-0.05em',
                                 color: 'var(--accent-primary)',
                                 margin: 0,
-                                textAlign: 'center'
+                                textAlign: 'left'
                             }}>
                                 SE-PA-RÁ
                             </h1>
@@ -526,9 +524,9 @@ const ProjectSepara = () => {
                                 fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
                                 lineHeight: 1.6,
                                 width: '100%',
-                                maxWidth: '750px',
+                                maxWidth: '650px',
                                 opacity: 1,
-                                textAlign: 'center',
+                                textAlign: 'left',
                                 fontWeight: 400
                             }}
                         >
@@ -546,7 +544,7 @@ const ProjectSepara = () => {
                                 gap: 'var(--space-3)',
                                 marginTop: 'var(--space-4)',
                                 width: '100%',
-                                maxWidth: '750px',
+                                maxWidth: '650px',
                                 opacity: 0.7,
                                 fontWeight: 700,
                                 textTransform: 'uppercase',
@@ -575,11 +573,10 @@ const ProjectSepara = () => {
                         style={{
                             position: 'relative',
                             zIndex: 1,
-                            marginTop: 'var(--space-8)',
+                            alignSelf: 'center',
                             display: 'flex',
                             justifyContent: 'center',
-                            width: '100%',
-                            maxWidth: '1000px'
+                            width: '100%'
                         }}
                     >
                         <motion.div
