@@ -503,8 +503,8 @@ const ProjectTienda = () => {
                 {/* HERO */}
                 <header style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-                    gap: 'var(--space-8)',
+                    gridTemplateColumns: '1fr 1fr',
+                    gap: 'var(--space-12)',
                     alignItems: 'center',
                     padding: '0',
                     minHeight: '100vh',
@@ -515,8 +515,7 @@ const ProjectTienda = () => {
                         display: 'flex',
                         flexDirection: 'column',
                         gap: 'var(--space-6)',
-                        alignItems: 'flex-start',
-                        paddingTop: '60px'
+                        alignItems: 'flex-start'
                     }}>
                         <motion.div
                             initial={{ opacity: 0, x: -30 }}
