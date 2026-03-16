@@ -574,7 +574,7 @@ const ProjectSepara = () => {
                             zIndex: 1,
                             alignSelf: 'center',
                             display: 'flex',
-                            justifyContent: 'center',
+                            justifyContent: 'flex-end',
                             width: '100%'
                         }}
                     >
@@ -589,8 +589,8 @@ const ProjectSepara = () => {
                                 src="/separa-mockup.webp"
                                 alt="Separa App Mockup"
                                 style={{
-                                    width: 'auto',
-                                    maxWidth: '85%',
+                                    width: '100%',
+                                    maxWidth: '600px',
                                     maxHeight: '70vh',
                                     display: 'block',
                                     border: '2px solid var(--text-color)',

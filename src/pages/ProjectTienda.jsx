@@ -605,7 +605,7 @@ const ProjectTienda = () => {
                             zIndex: 1,
                             alignSelf: 'center',
                             display: 'flex',
-                            justifyContent: 'center',
+                            justifyContent: 'flex-end',
                             width: '100%'
                         }}
                     >
@@ -620,8 +620,8 @@ const ProjectTienda = () => {
                                 src="/tienda-mockup.webp"
                                 alt="Tienda Tecno Mockup"
                                 style={{
-                                    width: 'auto',
-                                    maxWidth: '90%',
+                                    width: '100%',
+                                    maxWidth: '600px',
                                     maxHeight: '60vh',
                                     display: 'block',
                                     border: '2px solid var(--text-color)',
