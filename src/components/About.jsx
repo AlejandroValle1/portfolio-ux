@@ -249,24 +249,7 @@ const About = () => {
                         </p>
                     </motion.div>
 
-                    <motion.div
-                        variants={{
-                            hover: {
-                                opacity: 0.5,
-                                scale: 1.4,
-                                transition: { duration: 0.5, ease: "easeOut" }
-                            }
-                        }}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        style={{
-                            position: 'absolute',
-                            width: '100%',
-                            height: '100%',
-                            background: 'radial-gradient(circle, var(--cv-glow) 0%, transparent 70%)',
-                            pointerEvents: 'none',
-                            zIndex: -1
-                        }}
-                    />
+
                 </motion.a>
             </motion.div>
         </section>

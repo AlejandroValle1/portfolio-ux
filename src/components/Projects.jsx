@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -9,7 +9,8 @@ const projectsSummary = [
         intro: "Una propuesta digital para educar y motivar la separación de residuos en la ciudad.",
         type: "App Mobile design",
         link: "/separa",
-        image: "/separa-mockup.webp"
+        image: "/separa-mockup.webp",
+        imgStyle: { objectFit: 'contain', padding: 'var(--space-1)', backgroundColor: '#fff' }
     },
     {
         id: 'tiendatecno',
@@ -17,20 +18,45 @@ const projectsSummary = [
         intro: "E-commerce confiable para marca con locales físicos.",
         type: "Web Design / UX Research",
         link: "/tiendatecno",
-        image: "/tienda-mockup.webp"
+        image: "/tienda-mockup.webp",
+        imgStyle: { objectFit: 'contain', padding: 'var(--space-6)', backgroundColor: '#fff' }
     }
 ];
 
 
 
-const ImageWithSkeleton = ({ src, alt, hoverVariants }) => {
+const ImageWithSkeleton = ({ src, alt, hoverVariants, imgStyle = {} }) => {
     const [isLoaded, setIsLoaded] = useState(false);
+    const imgRef = useRef(null);
+
+    useEffect(() => {
+        const img = imgRef.current;
+        if (img) {
+            if (img.complete) {
+                setIsLoaded(true);
+            } else {
+                const handleLoad = () => setIsLoaded(true);
+                img.addEventListener('load', handleLoad);
+                return () => img.removeEventListener('load', handleLoad);
+            }
+        }
+    }, [src]); // Re-run effect if src changes
+
     return (
-        <>
+        <div style={{ width: '100%', height: '100%', position: 'relative' }}>
             {!isLoaded && (
-                <div className="skeleton-shimmer" style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }} />
+                <div className="skeleton-shimmer" style={{
+                    width: '100%',
+                    height: '100%',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    zIndex: 2,
+                    backgroundColor: 'rgba(255,255,255,0.05)'
+                }} />
             )}
             <motion.img
+                ref={imgRef}
                 src={src}
                 alt={alt}
                 variants={hoverVariants}
@@ -41,10 +67,13 @@ const ImageWithSkeleton = ({ src, alt, hoverVariants }) => {
                     height: '100%',
                     objectFit: 'cover',
                     opacity: isLoaded ? 1 : 0,
-                    transition: 'opacity 0.4s ease'
+                    transition: 'opacity 0.6s ease',
+                    position: 'relative',
+                    zIndex: 1,
+                    ...imgStyle
                 }}
             />
-        </>
+        </div>
     );
 };
 
@@ -132,6 +161,7 @@ const Projects = () => {
                                     src={project.image}
                                     alt=""
                                     hoverVariants={{ hover: { scale: 1.05 } }}
+                                    imgStyle={project.imgStyle}
                                 />
                             </div>
 
@@ -147,14 +177,16 @@ const Projects = () => {
                                     <span
                                         aria-label={`Categoría: ${project.type}`}
                                         style={{
-                                            fontSize: '0.8rem',
+                                            fontSize: '0.75rem',
                                             textTransform: 'uppercase',
-                                            letterSpacing: '0.05em',
-                                            fontWeight: 600,
-                                            opacity: 0.7,
-                                            border: '1.5px solid var(--border-inactive)',
-                                            padding: '4px 8px',
-                                            borderRadius: '4px'
+                                            letterSpacing: '0.1em',
+                                            fontWeight: 800,
+                                            backgroundColor: 'rgba(26, 42, 64, 0.05)',
+                                            color: 'var(--text-color)',
+                                            border: '1.2px solid var(--text-color)',
+                                            padding: '6px 14px',
+                                            borderRadius: '50px',
+                                            display: 'inline-block'
                                         }}
                                     >
                                         {project.type}

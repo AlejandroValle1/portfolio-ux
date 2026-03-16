@@ -91,7 +91,7 @@ const GlassToggle = ({ mode, setMode }) => {
 };
 
 // Component for handling Pan/Zoom logic in fullscreen
-const ZoomableImage = ({ src, alt, mobileFrame }) => {
+const ZoomableImage = ({ src, alt, mobileFrame, desktopFrame }) => {
     const [scale, setScale] = useState(1);
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const containerRef = useRef(null);
@@ -141,13 +141,110 @@ const ZoomableImage = ({ src, alt, mobileFrame }) => {
                     maxHeight: '80vh',
                     objectFit: 'contain',
                     pointerEvents: 'none',
-                    borderRadius: mobileFrame ? '32px' : '4px',
-                    border: mobileFrame ? '12px solid #111' : 'none',
+                    borderRadius: mobileFrame ? '32px' : (desktopFrame ? '12px' : '4px'),
+                    border: mobileFrame ? '12px solid #111' : (desktopFrame ? '16px solid #222' : 'none'),
                     boxShadow: '0 30px 100px rgba(0,0,0,0.5)'
                 }}
             />
         </div>
     );
+};
+
+const FullscreenOverlay = ({ src, title, mobileFrame, desktopFrame, onClose, onNext, onPrev }) => (
+    <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(2, 6, 15, 0.99)',
+            zIndex: 99999,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center'
+        }}
+        onClick={(e) => {
+            e.stopPropagation();
+        }}
+    >
+        <button
+            onClick={(e) => {
+                e.stopPropagation();
+                onClose();
+            }}
+            style={{
+                position: 'absolute',
+                top: '30px',
+                right: '30px',
+                background: 'rgba(255,255,255,0.1)',
+                border: '3px solid white',
+                borderRadius: '50%',
+                width: '60px',
+                height: '60px',
+                color: 'white',
+                cursor: 'pointer',
+                zIndex: 100001,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}
+        >
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+
+        <button
+            onClick={(e) => { e.stopPropagation(); onPrev(); }}
+            style={{
+                position: 'absolute',
+                left: '30px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'rgba(255,255,255,0.05)',
+                border: '3px solid white',
+                borderRadius: '50%',
+                width: '70px',
+                height: '70px',
+                color: 'white',
+                cursor: 'pointer',
+                zIndex: 100001,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}
+        >
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'translateX(-2px)' }}><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button
+            onClick={(e) => { e.stopPropagation(); onNext(); }}
+            style={{
+                position: 'absolute',
+                right: '30px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'rgba(255,255,255,0.05)',
+                border: '3px solid white',
+                borderRadius: '50%',
+                width: '70px',
+                height: '70px',
+                color: 'white',
+                cursor: 'pointer',
+                zIndex: 100001,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}
+        >
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'translateX(2px)' }}><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+
+        <ZoomableImage src={src} alt={title} mobileFrame={mobileFrame} desktopFrame={desktopFrame} />
+    </motion.div>
+);
+
+const Portal = ({ children }) => {
+    return createPortal(children, document.body);
 };
 
 const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false, desktopFrame = false }) => {
@@ -178,117 +275,46 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
     }, [currentImages]);
 
     useEffect(() => {
-        document.body.style.overflow = isFullscreen ? 'hidden' : '';
+        if (isFullscreen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
         return () => { document.body.style.overflow = ''; };
     }, [isFullscreen]);
 
     const toggleFullscreen = (e) => {
-        e?.preventDefault();
-        e?.stopPropagation();
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
         setIsFullscreen(!isFullscreen);
     };
-
-    const FullscreenOverlay = () => (
-        <motion.div
-            key="compare-fullscreen"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            style={{
-                position: 'fixed',
-                inset: 0,
-                background: 'rgba(2, 6, 15, 0.99)',
-                zIndex: 99999,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}
-            onClick={(e) => e.stopPropagation()}
-        >
-            <button
-                onClick={toggleFullscreen}
-                style={{
-                    position: 'absolute',
-                    top: '30px',
-                    right: '30px',
-                    background: 'rgba(255,255,255,0.1)',
-                    border: '3px solid white',
-                    borderRadius: '50%',
-                    width: '60px',
-                    height: '60px',
-                    color: 'white',
-                    cursor: 'pointer',
-                    zIndex: 100001,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}
-            >
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
-
-            <button
-                onClick={prevImage}
-                style={{
-                    position: 'absolute',
-                    left: '30px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    background: 'rgba(255,255,255,0.05)',
-                    border: '3px solid white',
-                    borderRadius: '50%',
-                    width: '70px',
-                    height: '70px',
-                    color: 'white',
-                    cursor: 'pointer',
-                    zIndex: 100001,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}
-            >
-                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'translateX(-2px)' }}><polyline points="15 18 9 12 15 6"></polyline></svg>
-            </button>
-            <button
-                onClick={nextImage}
-                style={{
-                    position: 'absolute',
-                    right: '30px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    background: 'rgba(255,255,255,0.05)',
-                    border: '3px solid white',
-                    borderRadius: '50%',
-                    width: '70px',
-                    height: '70px',
-                    color: 'white',
-                    cursor: 'pointer',
-                    zIndex: 100001,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}
-            >
-                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'translateX(2px)' }}><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </button>
-
-            <ZoomableImage src={currentImages[currentIndex]} alt={title} mobileFrame={mobileFrame} />
-        </motion.div>
-    );
 
     return (
         <div style={{
             width: '100%',
             display: 'flex',
             flexDirection: 'column',
-            gap: '2.5rem', // Added more gap from the switch to the container
+            gap: '2.5rem',
             position: 'relative',
             marginTop: '2rem',
             alignItems: 'center'
         }}>
             <AnimatePresence>
-                {isFullscreen && createPortal(<FullscreenOverlay />, document.body)}
+                {isFullscreen && (
+                    <Portal>
+                        <FullscreenOverlay
+                            src={currentImages[currentIndex]}
+                            title={title}
+                            mobileFrame={mobileFrame}
+                            desktopFrame={desktopFrame}
+                            onClose={() => setIsFullscreen(false)}
+                            onNext={nextImage}
+                            onPrev={prevImage}
+                        />
+                    </Portal>
+                )}
             </AnimatePresence>
 
             <GlassToggle mode={mode} setMode={setMode} />
@@ -296,7 +322,7 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
             <div style={{
                 position: 'relative',
                 width: '100%',
-                maxWidth: '1000px', // Adjusted to exactly 1000px as requested
+                maxWidth: '1000px',
                 backgroundColor: 'var(--surface-color)',
                 borderRadius: 'var(--radius)',
                 padding: 'var(--space-6) 60px 7rem 60px',
@@ -304,34 +330,11 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                height: '650px', // FIXED HEIGHT to avoid jumps
+                height: '650px',
                 zIndex: 1,
-                overflow: 'hidden' // Keep it clean
+                overflow: 'hidden'
             }}>
-                <button
-                    onClick={toggleFullscreen}
-                    style={{
-                        position: 'absolute',
-                        top: '20px',
-                        right: '25px',
-                        zIndex: 40,
-                        background: 'rgba(0,0,0,0.05)',
-                        backdropFilter: 'blur(10px)',
-                        color: 'var(--text-color)',
-                        border: '1.5px solid var(--text-color)',
-                        borderRadius: '10px',
-                        width: '42px',
-                        height: '42px',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        transition: 'all 0.3s ease'
-                    }}
-                >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
-                </button>
-
+                {/* Expand button removed as per user request */}
                 {currentImages.length > 1 && (
                     <>
                         <button onClick={prevImage} style={{
@@ -391,12 +394,13 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                             width: 'auto',
                             height: 'auto',
                             objectFit: 'contain',
-                            borderRadius: mobileFrame ? '32px' : '4px',
-                            border: mobileFrame ? '12px solid #111' : 'none',
+                            borderRadius: mobileFrame ? '32px' : (desktopFrame ? '12px' : '4px'),
+                            border: mobileFrame ? '12px solid #111' : (desktopFrame ? '16px solid #222' : 'none'),
                             boxShadow: '0 20px 60px rgba(0,0,0,0.12)',
                             display: 'block',
-                            cursor: 'zoom-in'
+                            cursor: 'none'
                         }}
+                        className="zoomable-image"
                     />
                 </AnimatePresence>
 

@@ -6,17 +6,15 @@
   /* Cielo despejado */
   --text-color: #1A2A40;
   /* Azul profundo para lectura */
-  --surface-color: rgba(255, 255, 255, 0.3);
-  --accent-primary: #FF6B35;
-  /* Naranja solar */
+  --surface-color: rgba(255, 255, 255, 0.4); /* Volviendo a la transparencia elegante */
+  --accent-primary: #E65A2B; 
   --accent-secondary: #FFD166;
   /* Amarillo sol */
   --accent-detail: #2B4162;
   --hover-color: #FFD166;
   /* Vitalidad y juventud original para botones */
-  --skill-hover: #E65A2B;
-  /* Naranja legible para textos finos sobre celeste */
-  --cursor-color: #FF6B35;
+  --skill-hover: #D14D23; 
+  --cursor-color: #1A2A40; 
 
   /* Composición de dos gradientes: Sol (sup. der.) y Anochecer sutil (inf. izq.) */
   --main-gradient:
@@ -40,6 +38,8 @@
   --radius: 4px;
   --cv-glow: var(--accent-primary);
   --border-inactive: rgba(26, 42, 64, 0.15);
+  --scrollbar-thumb: #8CA3B8; /* Gris azulado sólido y visible */
+  --scrollbar-track: rgba(0, 0, 0, 0.05); /* Muy tenue para el track */
 }
 
 [data-theme="dark"] {
@@ -60,6 +60,8 @@
   --hover-color: #D69E7C;
   --cursor-color: #F0F4F8;
   --border-inactive: rgba(240, 244, 248, 0.1);
+  --scrollbar-thumb: #D1D5DB; /* Gris claro/plateado sólido para máximo contraste en dark mode */
+  --scrollbar-track: rgba(255, 255, 255, 0.05);
   /* Gradiente Radial que simula la Luna centrada con el icono en el header */
   --main-gradient: radial-gradient(circle at 88% 40px, #F0F4F8 0%, #BCC6D1 5%, #1A2A40 30%, #0B1118 80%);
 }
@@ -87,6 +89,30 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 /* Cursor management - Global hide of native cursor unless keyboard navigating */
@@ -178,6 +204,26 @@ div[role="button"] {
   border-color: transparent;
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Glassmorphism Solidification for Contrast */
+.project-card, 
+.process-step-card,
+.card {
+  background: var(--surface-color);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-inactive);
+}
+
+/* Permitir que las cards de bento sigan usando sus estilos inline pero con el blur global */
+.about-bento-card {
+  backdrop-filter: blur(20px);
+}
+
+/* Specific fix for Titles over Sun gradient */
+[data-theme="light"] .brutalist-title {
+  color: var(--text-color); /* Forzar color oscuro en lugar de acento para legibilidad */
+  text-shadow: 0 0 40px rgba(169, 222, 249, 0.5); /* Sutil aura celeste para separar del sol */
 }
 
 

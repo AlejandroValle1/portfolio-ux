@@ -12,8 +12,8 @@ const Hero = () => {
             minHeight: '100vh',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'flex-start', // Cambiado a flex-start para mejor control
-            paddingTop: '180px', // Mayor espacio para evitar el header
+            justifyContent: 'flex-start',
+            paddingTop: '160px', // Reducido para elevar el contenido y ver el CTA sin scroll
             paddingBottom: 'var(--space-12)',
             position: 'relative',
             overflow: 'hidden',
@@ -26,9 +26,9 @@ const Hero = () => {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="brutalist-title"
                 style={{
-                    fontSize: 'clamp(3.5rem, 10vw, 9rem)',
-                    marginBottom: 'var(--space-6)',
-                    lineHeight: 0.9,
+                    fontSize: 'clamp(2.5rem, 7vw, 7.5rem)', // Recuperando un poco más el tamaño brutalista
+                    marginBottom: 'var(--space-4)', // Menos espacio respecto a la descripción para subir todo
+                    lineHeight: 1.1, // Espacio más brutalista
                     letterSpacing: '-0.04em'
                 }}
             >
@@ -41,9 +41,9 @@ const Hero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.8 }}
                 style={{
-                    fontSize: 'clamp(1.1rem, 2vw, 1.4rem)',
-                    maxWidth: '850px', // Aumentado para que "coherentes" suba
-                    marginBottom: 'var(--space-12)',
+                    fontSize: 'clamp(1rem, 1.6vw, 1.3rem)', // Un poco más grande para compensar el ajuste
+                    maxWidth: '700px', // Más angosto para que no sea tan alto el bloque de texto
+                    marginBottom: 'var(--space-8)', // Reducido de space-12 para subir el CTA
                     opacity: 0.9,
                     lineHeight: 1.6,
                     fontWeight: 400

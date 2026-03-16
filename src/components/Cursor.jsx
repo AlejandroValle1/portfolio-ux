@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Cursor = () => {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
+    const [cursorText, setCursorText] = useState("");
 
     useEffect(() => {
         const updateMousePosition = (e) => {
@@ -20,7 +21,18 @@ const Cursor = () => {
                 target.closest('[role="button"]') ||
                 target.classList.contains('clickable');
 
-            setIsHovering(!!isClickable);
+            const isZoomable = target.classList.contains('zoomable-image') || target.closest('.zoomable-image');
+
+            if (isZoomable) {
+                setCursorText("Ampliar");
+                setIsHovering(true);
+            } else if (isClickable) {
+                setCursorText("");
+                setIsHovering(true);
+            } else {
+                setCursorText("");
+                setIsHovering(false);
+            }
         };
 
         window.addEventListener('mousemove', updateMousePosition);
@@ -54,10 +66,26 @@ const Cursor = () => {
                     backgroundColor: "transparent",
                     border: "2px solid var(--text-color)",
                     opacity: 0.8,
-                    scale: 1
+                    scale: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                },
+                expand: {
+                    x: mousePosition.x - 40,
+                    y: mousePosition.y - 40,
+                    height: 80,
+                    width: 80,
+                    backgroundColor: "var(--accent-primary)",
+                    border: "2px solid var(--accent-primary)",
+                    opacity: 0.9,
+                    scale: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
                 }
             }}
-            animate={isHovering ? "hover" : "default"}
+            animate={cursorText ? "expand" : isHovering ? "hover" : "default"}
             transition={{
                 type: "spring",
                 stiffness: 800,
@@ -70,9 +98,32 @@ const Cursor = () => {
                 left: 0,
                 borderRadius: '50%',
                 pointerEvents: 'none',
-                zIndex: 9999,
+                zIndex: 1000000,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
             }}
-        />
+        >
+            <AnimatePresence>
+                {cursorText && (
+                    <motion.span
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.5 }}
+                        style={{
+                            color: 'white',
+                            fontSize: '12px',
+                            fontWeight: 'bold',
+                            letterSpacing: '0.05em',
+                            textTransform: 'uppercase',
+                            pointerEvents: 'none'
+                        }}
+                    >
+                        {cursorText}
+                    </motion.span>
+                )}
+            </AnimatePresence>
+        </motion.div>
     );
 };
 

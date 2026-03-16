@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { createPortal } from 'react-dom';
 
 const Lightbox = ({ images, initialIndex = 0, onClose }) => {
     const [currentIndex, setCurrentIndex] = useState(initialIndex);
@@ -15,6 +16,15 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
         setScale(1);
         setPosition({ x: 0, y: 0 });
     }, [currentIndex]);
+
+    // Prevent scrolling when Lightbox is open
+    useEffect(() => {
+        const originalStyle = window.getComputedStyle(document.body).overflow;
+        document.body.style.overflow = 'hidden';
+        return () => {
+            document.body.style.overflow = originalStyle;
+        };
+    }, []);
 
     if (!image) return null;
 
@@ -57,7 +67,7 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
         setCurrentIndex((prev) => (prev - 1 + imageList.length) % imageList.length);
     };
 
-    return (
+    return createPortal(
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -112,8 +122,8 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                             alt={`Zoomed view ${currentIndex + 1}`}
                             draggable={false}
                             style={{
-                                maxWidth: '100%',
-                                maxHeight: '80vh',
+                                maxWidth: '90vw',
+                                maxHeight: '85vh',
                                 objectFit: 'contain',
                                 borderRadius: '4px',
                                 pointerEvents: 'auto',
@@ -253,13 +263,15 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                     e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
                     e.currentTarget.style.borderColor = 'white';
                 }}
+                title="Cerrar imagen"
             >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
             </button>
-        </motion.div>
+        </motion.div>,
+        document.body
     );
 };
 

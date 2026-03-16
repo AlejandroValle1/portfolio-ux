@@ -14,6 +14,14 @@ import Lightbox from '../components/Lightbox';
 
 const ImageWithSkeleton = ({ src, alt, style, onClick }) => {
     const [isLoaded, setIsLoaded] = useState(false);
+    const imgRef = useRef(null);
+
+    useEffect(() => {
+        if (imgRef.current && imgRef.current.complete) {
+            setIsLoaded(true);
+        }
+    }, [src]);
+
     return (
         <div style={{ position: 'relative', width: style?.width || '100%', height: style?.height }}>
             {!isLoaded && (
@@ -23,10 +31,12 @@ const ImageWithSkeleton = ({ src, alt, style, onClick }) => {
                     width: '100%',
                     height: '100%',
                     borderRadius: style?.borderRadius || 'var(--radius)',
-                    zIndex: 1
+                    zIndex: 2,
+                    backgroundColor: 'rgba(255,255,255,0.05)'
                 }} />
             )}
             <img
+                ref={imgRef}
                 src={src}
                 alt={alt}
                 onLoad={() => setIsLoaded(true)}
@@ -34,7 +44,9 @@ const ImageWithSkeleton = ({ src, alt, style, onClick }) => {
                 style={{
                     ...style,
                     opacity: isLoaded ? 1 : 0,
-                    transition: 'opacity 0.6s ease-in-out'
+                    transition: 'opacity 0.6s ease-in-out',
+                    position: 'relative',
+                    zIndex: 1
                 }}
             />
         </div>
@@ -42,10 +54,6 @@ const ImageWithSkeleton = ({ src, alt, style, onClick }) => {
 };
 
 const Chapter = ({ title, text, image, index, isCompare, onImageClick, mobileFrame }) => {
-    // ... rest of Chapter component logic (needs to be adapted to use ImageWithSkeleton where appropriate)
-    // For brevity in this instruction, I will adapt the main Chapter render logic.
-    // (Internal logic omitted for clarity in replacementContent but I will implement it in the actual call)
-
     // Zig-Zag logic: Even index (0, 2) = Default (Text Left), Odd index (1) = Reversed (Image Left)
     // Zig-Zag logic: Now inverted visually (Index 0 acts like odd = Image Left) to balance Hero
     const isEven = (index + 1) % 2 === 0;
@@ -302,14 +310,17 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, mobileFra
                             transition={{ duration: 0.6, delay: 0.2 }}
                             onClick={() => image && onImageClick(image)}
                             style={{
+                                position: 'relative',
                                 boxShadow: '10px 10px 0px rgba(0,0,0,0.1)',
                                 borderRadius: 'var(--radius)',
                                 overflow: 'hidden',
                                 border: '1px solid rgba(0,0,0,0.1)',
-                                cursor: 'zoom-in'
+                                cursor: 'none'
                             }}
+                            className="zoomable-image"
                             whileHover={{ scale: 1.02 }}
                         >
+                            {/* Expand button removed */}
                             <ImageWithSkeleton
                                 src={image}
                                 alt={`Visual for ${title}`}
@@ -328,14 +339,17 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, mobileFra
                             transition={{ duration: 0.6, delay: 0.2 }}
                             onClick={() => image && onImageClick(image)}
                             style={{
+                                position: 'relative',
                                 boxShadow: '-10px 10px 0px rgba(0,0,0,0.1)',
                                 borderRadius: 'var(--radius)',
                                 overflow: 'hidden',
                                 border: '1px solid rgba(0,0,0,0.1)',
-                                cursor: 'zoom-in'
+                                cursor: 'none'
                             }}
+                            className="zoomable-image"
                             whileHover={{ scale: 1.02 }}
                         >
+                            {/* Expand button removed */}
                             <ImageWithSkeleton
                                 src={image}
                                 alt={`Visual for ${title}`}
@@ -559,20 +573,34 @@ const ProjectSepara = () => {
                             position: 'relative',
                             zIndex: 1,
                             alignSelf: 'center',
-                            marginTop: '40px'
+                            marginTop: '40px',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            width: '100%'
                         }}
                     >
-                        <ImageWithSkeleton
-                            src="/separa-mockup.webp"
-                            alt="Separa App Mockup"
-                            style={{
-                                width: '100%',
-                                display: 'block',
-                                border: '2px solid var(--text-color)',
-                                borderRadius: 'var(--radius)',
-                                boxShadow: '15px 15px 0px rgba(0,0,0,0.1)'
-                            }}
-                        />
+                        <motion.div
+                            whileHover={{ scale: 1.02 }}
+                            onClick={() => openLightbox("/separa-mockup.webp")}
+                            style={{ cursor: 'none', position: 'relative' }}
+                            className="zoomable-image"
+                        >
+                            {/* Expand button removed */}
+                            <ImageWithSkeleton
+                                src="/separa-mockup.webp"
+                                alt="Separa App Mockup"
+                                style={{
+                                    width: 'auto',
+                                    maxWidth: '85%',
+                                    maxHeight: '70vh',
+                                    display: 'block',
+                                    border: '2px solid var(--text-color)',
+                                    borderRadius: 'var(--radius)',
+                                    boxShadow: '15px 15px 0px rgba(0,0,0,0.1)',
+                                    objectFit: 'contain'
+                                }}
+                            />
+                        </motion.div>
                     </motion.div>
                 </header>
 

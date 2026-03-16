@@ -44,51 +44,7 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
                 transition: 'background-color 0.3s ease'
             }}>
                 {/* Maximize Icon - Universal Accessibility */}
-                <button
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        onImageClick && onImageClick(images, currentIndex);
-                    }}
-                    style={{
-                        position: 'absolute',
-                        top: '15px',
-                        right: '15px',
-                        zIndex: 30,
-                        background: 'rgba(0,0,0,0.1)',
-                        backdropFilter: 'blur(8px)',
-                        color: 'var(--text-color)',
-                        border: '2px solid var(--text-color)', // Strong contrast stroke
-                        borderRadius: '10px',
-                        width: '44px',
-                        height: '44px',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        transition: 'all 0.3s ease',
-                        opacity: 0.8
-                    }}
-                    onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'var(--accent-primary)';
-                        e.currentTarget.style.color = 'white';
-                        e.currentTarget.style.borderColor = 'var(--accent-primary)';
-                        e.currentTarget.style.opacity = '1';
-                    }}
-                    onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'rgba(0,0,0,0.1)';
-                        e.currentTarget.style.color = 'var(--text-color)';
-                        e.currentTarget.style.borderColor = 'var(--text-color)';
-                        e.currentTarget.style.opacity = '0.8';
-                    }}
-                    title="Ampliar imagen"
-                >
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="15 3 21 3 21 9"></polyline>
-                        <polyline points="9 21 3 21 3 15"></polyline>
-                        <line x1="21" y1="3" x2="14" y2="10"></line>
-                        <line x1="3" y1="21" x2="10" y2="14"></line>
-                    </svg>
-                </button>
+                {/* Expand button removed as per user request */}
 
                 {/* Navigation Arrows - AAA Contrast Standards & Perfect Alignment */}
                 {images.length > 1 && (

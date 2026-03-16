@@ -12,6 +12,14 @@ import Lightbox from '../components/Lightbox';
 
 const ImageWithSkeleton = ({ src, alt, style, onClick }) => {
     const [isLoaded, setIsLoaded] = useState(false);
+    const imgRef = useRef(null);
+
+    useEffect(() => {
+        if (imgRef.current && imgRef.current.complete) {
+            setIsLoaded(true);
+        }
+    }, [src]);
+
     return (
         <div style={{ position: 'relative', width: style?.width || '100%', height: style?.height }}>
             {!isLoaded && (
@@ -21,10 +29,12 @@ const ImageWithSkeleton = ({ src, alt, style, onClick }) => {
                     width: '100%',
                     height: '100%',
                     borderRadius: style?.borderRadius || 'var(--radius)',
-                    zIndex: 1
+                    zIndex: 2,
+                    backgroundColor: 'rgba(255,255,255,0.05)'
                 }} />
             )}
             <img
+                ref={imgRef}
                 src={src}
                 alt={alt}
                 onLoad={() => setIsLoaded(true)}
@@ -32,7 +42,9 @@ const ImageWithSkeleton = ({ src, alt, style, onClick }) => {
                 style={{
                     ...style,
                     opacity: isLoaded ? 1 : 0,
-                    transition: 'opacity 0.6s ease-in-out'
+                    transition: 'opacity 0.6s ease-in-out',
+                    position: 'relative',
+                    zIndex: 1
                 }}
             />
         </div>
@@ -301,14 +313,17 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, desktopFr
                                 <motion.div
                                     onClick={() => image && onImageClick(image)}
                                     style={{
+                                        position: 'relative',
                                         boxShadow: '10px 10px 0px rgba(0,0,0,0.1)',
                                         borderRadius: 'var(--radius)',
                                         overflow: 'hidden',
                                         border: '1px solid rgba(0,0,0,0.1)',
-                                        cursor: 'zoom-in'
+                                        cursor: 'none'
                                     }}
+                                    className="zoomable-image"
                                     whileHover={{ scale: 1.02 }}
                                 >
+                                    {/* Expand button removed */}
                                     <ImageWithSkeleton
                                         src={image}
                                         alt={`Visual for ${title}`}
@@ -343,14 +358,17 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, desktopFr
                                 <motion.div
                                     onClick={() => image && onImageClick(image)}
                                     style={{
+                                        position: 'relative',
                                         boxShadow: '-10px 10px 0px rgba(0,0,0,0.1)',
                                         borderRadius: 'var(--radius)',
                                         overflow: 'hidden',
                                         border: '1px solid rgba(0,0,0,0.1)',
-                                        cursor: 'zoom-in'
+                                        cursor: 'none'
                                     }}
+                                    className="zoomable-image"
                                     whileHover={{ scale: 1.02 }}
                                 >
+                                    {/* Expand button removed */}
                                     <ImageWithSkeleton
                                         src={image}
                                         alt={`Visual for ${title}`}
@@ -586,20 +604,34 @@ const ProjectTienda = () => {
                             position: 'relative',
                             zIndex: 1,
                             alignSelf: 'center',
-                            marginTop: '40px'
+                            marginTop: '40px',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            width: '100%'
                         }}
                     >
-                        <ImageWithSkeleton
-                            src="/tienda-mockup.webp"
-                            alt="Tienda Tecno Mockup"
-                            style={{
-                                width: '100%',
-                                display: 'block',
-                                border: '2px solid var(--text-color)',
-                                borderRadius: 'var(--radius)',
-                                boxShadow: '15px 15px 0px rgba(0,0,0,0.1)'
-                            }}
-                        />
+                        <motion.div
+                            whileHover={{ scale: 1.02 }}
+                            onClick={() => openLightbox("/tienda-mockup.webp")}
+                            style={{ cursor: 'none', position: 'relative' }}
+                            className="zoomable-image"
+                        >
+                            {/* Expand button removed */}
+                            <ImageWithSkeleton
+                                src="/tienda-mockup.webp"
+                                alt="Tienda Tecno Mockup"
+                                style={{
+                                    width: 'auto',
+                                    maxWidth: '90%',
+                                    maxHeight: '60vh',
+                                    display: 'block',
+                                    border: '2px solid var(--text-color)',
+                                    borderRadius: 'var(--radius)',
+                                    boxShadow: '15px 15px 0px rgba(0,0,0,0.1)',
+                                    objectFit: 'contain'
+                                }}
+                            />
+                        </motion.div>
                     </motion.div>
                 </header>
 
