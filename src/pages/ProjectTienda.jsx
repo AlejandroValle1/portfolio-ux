@@ -506,7 +506,7 @@ const ProjectTienda = () => {
                     gridTemplateColumns: '1fr 1fr',
                     gap: 'var(--space-12)',
                     alignItems: 'center',
-                    padding: '0',
+                    padding: 'var(--space-24) 0 0 0',
                     minHeight: '100vh',
                     marginBottom: 'var(--space-12)'
                 }}>
