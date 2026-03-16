@@ -570,11 +570,11 @@ const ProjectTienda = () => {
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                justifyContent: 'flex-start',
+                                justifyContent: 'center',
                                 gap: 'var(--space-3)',
                                 marginTop: 'var(--space-4)',
                                 width: '100%',
-                                maxWidth: '600px',
+                                maxWidth: '650px',
                                 opacity: 0.7,
                                 fontWeight: 700,
                                 textTransform: 'uppercase',
