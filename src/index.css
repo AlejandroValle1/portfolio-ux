@@ -4,7 +4,7 @@
   /* Day/Sun Mode - Vibrant & Clear */
   --bg-color: #A9DEF9;
   /* Cielo despejado */
-  --text-color: #1A2A40;
+  --text-color: #0A141F;
   /* Azul profundo para lectura */
   --surface-color: rgba(255, 255, 255, 0.4); /* Volviendo a la transparencia elegante */
   --accent-primary: #E65A2B; 
@@ -14,7 +14,7 @@
   --hover-color: #FFD166;
   /* Vitalidad y juventud original para botones */
   --skill-hover: #D14D23; 
-  --cursor-color: #1A2A40; 
+  --cursor-color: #0A141F; 
 
   /* Composición de dos gradientes: Sol (sup. der.) y Anochecer sutil (inf. izq.) */
   --main-gradient:
@@ -221,6 +221,18 @@ div[role="button"] {
 [data-theme="light"] .brutalist-title {
   color: var(--text-color); /* Forzar color oscuro en lugar de acento para legibilidad */
   text-shadow: 0 0 40px rgba(169, 222, 249, 0.5); /* Sutil aura celeste para separar del sol */
+}
+
+.project-chapter-text {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--text-color);
+  opacity: 1; /* Eliminando opacidad para mejorar contraste */
+}
+
+[data-theme="light"] .project-chapter-text {
+  /* Sutil sombra para "despegar" el texto del gradiente vibrante */
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
 

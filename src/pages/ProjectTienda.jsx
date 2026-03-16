@@ -91,7 +91,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, desktopFr
                         </span>
                         {title.split(':')[1] || title}
                     </h3>
-                    <p style={{ fontSize: '1.25rem', lineHeight: 1.6, color: 'var(--text-color)', opacity: 0.9 }}>
+                    <p className="project-chapter-text">
                         {text}
                     </p>
                 </motion.div>
@@ -287,7 +287,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, desktopFr
                                 </span>
                                 {title.split(':')[1] || title}
                             </h3>
-                            <p style={{ fontSize: '1.25rem', lineHeight: 1.6, color: 'var(--text-color)', opacity: 0.9 }}>
+                            <p className="project-chapter-text">
                                 {text}
                             </p>
                         </motion.div>
@@ -405,7 +405,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, desktopFr
                                 </span>
                                 {title.split(':')[1]?.trim() || title}
                             </h3>
-                            <p style={{ fontSize: '1.25rem', lineHeight: 1.6, color: 'var(--text-color)', opacity: 0.9 }}>
+                            <p className="project-chapter-text">
                                 {text}
                             </p>
                         </motion.div>
@@ -669,7 +669,7 @@ const ProjectTienda = () => {
                         <h3 className="brutalist-title" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', marginBottom: 'var(--space-6)', color: 'var(--accent-primary)' }}>
                             LO QUE APRENDÍ
                         </h3>
-                        <p style={{ fontSize: 'clamp(1.25rem, 2vw, 1.5rem)', lineHeight: 1.5, maxWidth: '900px', margin: '0 auto', fontWeight: '500', color: 'var(--text-color)' }}>
+                        <p className="project-chapter-text" style={{ fontSize: 'clamp(1.25rem, 2vw, 1.5rem)', maxWidth: '900px', margin: '0 auto', fontWeight: '500' }}>
                             Este proyecto me enseñó que un e‑commerce no se trata solo de mostrar productos, sino de transmitir <span className="serif-title" style={{ fontSize: '1.2em' }}>confianza</span> en cada paso. Las <span className="serif-title" style={{ fontSize: '1.2em' }}>migas de pan</span> fueron un recurso simple pero poderoso para dar seguridad y control al usuario durante el checkout.
                         </p>
                     </div>
@@ -703,7 +703,7 @@ const ProjectTienda = () => {
                         <h2 className="brutalist-title" style={{ fontSize: '2.5rem', marginBottom: 'var(--space-6)' }}>
                             MI FORMACIÓN
                         </h2>
-                        <p style={{ fontSize: '1.25rem', lineHeight: 1.6, opacity: 0.9 }}>
+                        <p className="project-chapter-text">
                             Este proyecto fue parte de mi experiencia en el bootcamp intensivo Digitalers de Telecom junto a Education IT, donde fui becado durante 4 meses. Al finalizar, obtuve el certificado que valida mi recorrido inicial en la disciplina. Para mí, Tienda Tecno no solo fue un ejercicio de diseño, sino también un paso fundamental en mi camino como diseñador UX.
                         </p>
                     </div>

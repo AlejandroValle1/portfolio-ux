@@ -93,7 +93,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, mobileFra
                         </span>
                         {title.split(':')[1] || title}
                     </h3>
-                    <p style={{ fontSize: '1.25rem', lineHeight: 1.6, color: 'var(--text-color)', opacity: 0.9 }}>
+                    <p className="project-chapter-text">
                         {text}
                     </p>
                 </motion.div>
@@ -298,7 +298,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, mobileFra
                                 </span>
                                 {title.split(':')[1] || title}
                             </h3>
-                            <p style={{ fontSize: '1.25rem', lineHeight: 1.6, color: 'var(--text-color)', opacity: 0.9 }}>
+                            <p className="project-chapter-text">
                                 {text}
                             </p>
                         </motion.div>
@@ -384,7 +384,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, mobileFra
                                 </span>
                                 {title.split(':')[1]?.trim() || title}
                             </h3>
-                            <p style={{ fontSize: '1.25rem', lineHeight: 1.6, color: 'var(--text-color)', opacity: 0.9 }}>
+                            <p className="project-chapter-text">
                                 {text}
                             </p>
                         </motion.div>
@@ -638,7 +638,7 @@ const ProjectSepara = () => {
                         <h3 className="brutalist-title" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', marginBottom: 'var(--space-6)', color: 'var(--accent-primary)' }}>
                             LO QUE APRENDÍ
                         </h3>
-                        <p style={{ fontSize: 'clamp(1.25rem, 2vw, 1.5rem)', lineHeight: 1.5, maxWidth: '900px', margin: '0 auto', fontWeight: '500', color: 'var(--text-color)' }}>
+                        <p className="project-chapter-text" style={{ fontSize: 'clamp(1.25rem, 2vw, 1.5rem)', maxWidth: '900px', margin: '0 auto', fontWeight: '500' }}>
                             Lo más valioso fue entender que el diseño puede ser un motor de <span className="serif-title" style={{ fontSize: '1.2em' }}>cambio social</span>. Lograr que una tarea tediosa se sienta gratificante a través de la gamificación y el <span className="serif-title" style={{ fontSize: '1.2em' }}>diseño claro</span> es el núcleo de este proyecto.
                         </p>
                     </div>
@@ -672,7 +672,7 @@ const ProjectSepara = () => {
                         <h2 className="brutalist-title" style={{ fontSize: '2.5rem', marginBottom: 'var(--space-6)' }}>
                             MI FORMACIÓN
                         </h2>
-                        <p style={{ fontSize: '1.25rem', lineHeight: 1.6, opacity: 0.9 }}>
+                        <p className="project-chapter-text">
                             Este proyecto fue parte de mi primera experiencia formándome como UX de manera autodidacta en Udemy, obteniendo el certificado que valida mi recorrido inicial.
                         </p>
                     </div>
