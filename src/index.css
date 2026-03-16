@@ -209,15 +209,12 @@ div[role="button"] {
 /* Glassmorphism Solidification for Contrast */
 .project-card, 
 .process-step-card,
+.about-bento-card,
 .card {
-  background: var(--surface-color);
+  background-color: var(--surface-color);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-inactive);
-}
-
-/* Permitir que las cards de bento sigan usando sus estilos inline pero con el blur global */
-.about-bento-card {
-  backdrop-filter: blur(20px);
 }
 
 /* Specific fix for Titles over Sun gradient */
@@ -445,15 +442,12 @@ section {
 }
 
 .bento-about-cv {
-  background-color: rgba(255, 107, 53, 0.05) !important;
   color: var(--accent-primary) !important;
-  border: 1.5px solid var(--text-color);
-  backdrop-filter: blur(8px);
+  display: flex !important;
 }
 
 [data-theme='dark'] .bento-about-cv {
-  background-color: rgba(255, 255, 255, 0.03) !important;
-  border: 1.5px solid var(--text-color);
+  color: var(--text-color) !important;
 }
 
 .about-bento-layout,

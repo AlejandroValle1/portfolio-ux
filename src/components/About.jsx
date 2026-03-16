@@ -58,11 +58,8 @@ const About = () => {
                     whileHover="hover"
                     className="bento-about-1 about-bento-card"
                     style={{
-                        backgroundColor: 'var(--surface-color)',
                         padding: 'var(--space-8)',
                         borderRadius: '24px',
-                        border: '1.5px solid var(--border-inactive)',
-                        backdropFilter: 'blur(12px)',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'center',
@@ -119,11 +116,8 @@ const About = () => {
                     whileHover="hover"
                     className="bento-about-3 about-bento-card"
                     style={{
-                        backgroundColor: 'var(--surface-color)',
                         padding: 'var(--space-6)',
                         borderRadius: '24px',
-                        border: '1.5px solid var(--border-inactive)',
-                        backdropFilter: 'blur(12px)',
                     }}
                 >
                     <h4 style={{ fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 'var(--space-2)', opacity: 0.7 }}>
@@ -161,11 +155,8 @@ const About = () => {
                     whileHover="hover"
                     className="bento-about-5 about-bento-card"
                     style={{
-                        backgroundColor: 'var(--surface-color)',
                         padding: 'var(--space-8)',
                         borderRadius: '24px',
-                        border: '1.5px solid var(--border-inactive)',
-                        backdropFilter: 'blur(12px)',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'center',
@@ -205,7 +196,6 @@ const About = () => {
                         minHeight: '200px',
                         zIndex: 5,
                         position: 'relative',
-                        border: '1.5px solid var(--border-inactive)',
                         transition: 'border-color 0.3s ease, transform 0.3s ease'
                     }}
                 >

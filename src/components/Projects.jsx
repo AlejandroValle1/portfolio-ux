@@ -131,17 +131,14 @@ const Projects = () => {
                                 boxShadow: '0 15px 35px rgba(0,0,0,0.1)',
                                 transition: { duration: 0.3 }
                             }}
+                            className="project-card"
                             style={{
                                 display: 'flex',
                                 flexDirection: 'column',
                                 cursor: 'pointer',
                                 height: '100%',
-                                backgroundColor: 'var(--surface-color)',
-                                border: '1.5px solid var(--border-inactive)',
                                 borderRadius: '32px',
                                 overflow: 'hidden',
-                                backdropFilter: 'blur(10px)',
-                                WebkitBackdropFilter: 'blur(10px)',
                                 transition: 'border-color 0.3s ease, background-color 0.3s ease',
                                 willChange: 'transform',
                                 transform: 'translateZ(0)',
