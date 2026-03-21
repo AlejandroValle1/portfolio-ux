@@ -27,20 +27,16 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
             marginBottom: '2rem'
         }}>
             {/* The Main Content Box */}
-            <div style={{
+            <div className="carousel-inner-box" style={{
                 position: 'relative',
-                width: 'calc(100% + 40px)',
-                left: '-20px',
                 backgroundColor: 'var(--surface-color)',
                 borderRadius: 'var(--radius)',
-                padding: 'var(--space-4) 80px',
                 paddingBottom: '3.5rem',
                 boxShadow: '0 15px 45px rgba(0,0,0,0.12)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 zIndex: 1,
-                minHeight: '400px',
                 transition: 'background-color 0.3s ease'
             }}>
                 {/* Maximize Icon - Universal Accessibility */}
@@ -50,10 +46,10 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
                 {images.length > 1 && (
                     <>
                         <button
+                            className="carousel-nav-button prev-button"
                             onClick={prevImage}
                             style={{
                                 position: 'absolute',
-                                left: '15px',
                                 top: '50%',
                                 transform: 'translateY(-50%)',
                                 zIndex: 10,
@@ -70,7 +66,7 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
                                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                                 opacity: 1,
                                 boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                                padding: 0 // Reset padding for perfect centering
+                                padding: 0 
                             }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.background = 'var(--accent-primary)';
@@ -90,10 +86,10 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
                             </svg>
                         </button>
                         <button
+                            className="carousel-nav-button next-button"
                             onClick={nextImage}
                             style={{
                                 position: 'absolute',
-                                right: '15px',
                                 top: '50%',
                                 transform: 'translateY(-50%)',
                                 zIndex: 10,
@@ -110,7 +106,7 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
                                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                                 opacity: 1,
                                 boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                                padding: 0 // Reset padding for perfect centering
+                                padding: 0
                             }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.background = 'var(--accent-primary)';
@@ -133,8 +129,8 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
                 )}
 
                 <div
-                    className="zoomable-image"
-                    style={{ position: 'relative', width: '100%', height: '500px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'none' }}
+                    className="carousel-image-viewport zoomable-image"
+                    style={{ position: 'relative', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'none' }}
                     onClick={() => onImageClick && onImageClick(images, currentIndex)}
                 >
                     <AnimatePresence mode='wait'>
@@ -160,32 +156,13 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
                 </div>
 
                 {/* Dots indicator - High Contrast Navigation */}
+                {/* Indicators Area - Moved outside viewport for better spacing on mobile */}
                 {images.length > 1 && (
-                    <div style={{
-                        position: 'absolute',
-                        bottom: '25px',
-                        display: 'flex',
-                        gap: '10px',
-                        zIndex: 20,
-                        background: 'rgba(128, 128, 128, 0.1)', // Subtle contrasting area
-                        padding: '8px 16px',
-                        borderRadius: '20px'
-                    }}>
+                    <div className="carousel-indicators">
                         {images.map((_, idx) => (
                             <div
                                 key={idx}
-                                style={{
-                                    width: idx === currentIndex ? '30px' : '10px',
-                                    height: '10px',
-                                    borderRadius: '5px',
-                                    backgroundColor: idx === currentIndex
-                                        ? 'var(--accent-primary)'
-                                        : 'var(--text-color)',
-                                    opacity: idx === currentIndex ? 1 : 0.35,
-                                    border: idx === currentIndex ? 'none' : '1px solid rgba(128,128,128,0.2)',
-                                    transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-                                    cursor: 'pointer'
-                                }}
+                                className={`indicator-dot ${idx === currentIndex ? 'active' : ''}`}
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     setCurrentIndex(idx);

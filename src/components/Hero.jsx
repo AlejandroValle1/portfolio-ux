@@ -13,12 +13,12 @@ const Hero = () => {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'flex-start',
-            paddingTop: '160px', // Reducido para elevar el contenido y ver el CTA sin scroll
+            paddingTop: '240px', // Espacio real para despegar del header fijo
             paddingBottom: 'var(--space-12)',
             position: 'relative',
             overflow: 'hidden',
             color: 'var(--text-color)'
-        }} className="container">
+        }} className="container hero-container">
 
             <motion.h1
                 initial={{ opacity: 0, y: 30 }}
@@ -71,6 +71,7 @@ const Hero = () => {
                     width: 'fit-content',
                     zIndex: 10
                 }}
+                className="hero-cta-wrapper"
             >
                 <button
                     onClick={scrollToProjects}

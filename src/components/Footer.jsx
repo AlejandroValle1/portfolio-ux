@@ -23,7 +23,7 @@ const Footer = () => {
                     ESTOY LISTO PARA UN NUEVO PROYECTO
                 </p>
 
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-4)', justifyContent: 'center' }}>
+                <div className="contact-buttons-wrapper" style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-4)', justifyContent: 'center' }}>
                     {links.map((link, index) => (
                         <a
                             key={index}

@@ -153,6 +153,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, mobileFra
                     }}>
                         {/* Left: Mockup Section */}
                         <motion.div
+                            className="hide-on-mobile"
                             animate={{ y: [0, -15, 0], rotate: [2, 0, 2] }}
                             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                             style={{
@@ -273,6 +274,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, mobileFra
                 {isEven ? (
                     <>
                         <motion.div
+                            className="project-chapter-text-wrapper"
                             initial={{ opacity: 0, x: -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
@@ -317,7 +319,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, mobileFra
                                 border: '1px solid rgba(0,0,0,0.1)',
                                 cursor: 'none'
                             }}
-                            className="zoomable-image"
+                            className="zoomable-image project-chapter-image-wrapper"
                             whileHover={{ scale: 1.02 }}
                         >
                             {/* Expand button removed */}
@@ -346,7 +348,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, mobileFra
                                 border: '1px solid rgba(0,0,0,0.1)',
                                 cursor: 'none'
                             }}
-                            className="zoomable-image"
+                            className="zoomable-image project-chapter-image-wrapper"
                             whileHover={{ scale: 1.02 }}
                         >
                             {/* Expand button removed */}
@@ -359,6 +361,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, mobileFra
                         </motion.div>
 
                         <motion.div
+                            className="project-chapter-text-wrapper"
                             initial={{ opacity: 0, x: 50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
@@ -470,7 +473,7 @@ const ProjectSepara = () => {
                 </AnimatePresence>
 
                 {/* HERO */}
-                <header style={{
+                <header className="project-hero-grid" style={{
                     display: 'grid',
                     gridTemplateColumns: '1fr 1fr',
                     gap: 'var(--space-12)',
@@ -480,7 +483,7 @@ const ProjectSepara = () => {
                     marginBottom: 'var(--space-12)'
                 }}>
                     {/* Left Column: Title & Text */}
-                    <div style={{
+                    <div className="project-chapter-text-wrapper" style={{
                         display: 'flex',
                         flexDirection: 'column',
                         gap: 'var(--space-6)',
@@ -566,6 +569,7 @@ const ProjectSepara = () => {
 
                     {/* Right Column: Image */}
                     <motion.div
+                        className="project-chapter-image-wrapper"
                         initial={{ opacity: 0, scale: 0.95, x: 50 }}
                         animate={{ opacity: 1, scale: 1, x: 0 }}
                         transition={{ duration: 1, delay: 0.2 }}

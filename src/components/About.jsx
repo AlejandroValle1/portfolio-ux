@@ -2,6 +2,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const About = () => {
+    const [isMobile, setIsMobile] = React.useState(false);
+    
+    React.useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -24,6 +33,13 @@ const About = () => {
             y: -8,
             borderColor: 'var(--accent-primary)',
             transition: { duration: 0.3, ease: "easeOut" }
+        },
+        mobileScroll: {
+            opacity: 1,
+            y: 0,
+            borderColor: ['var(--border-inactive)', 'var(--accent-primary)', 'var(--border-inactive)'],
+            boxShadow: ['0 4px 20px rgba(0,0,0,0.05)', '0 15px 35px rgba(230,90,43,0.15)', '0 4px 20px rgba(0,0,0,0.05)'],
+            transition: { duration: 2, ease: "easeInOut" }
         }
     };
 
@@ -55,22 +71,26 @@ const About = () => {
                 {/* Block 1: Quién soy (Principal) */}
                 <motion.div
                     variants={itemVariants}
-                    whileHover="hover"
+                    whileHover={!isMobile ? "hover" : undefined}
+                    whileInView={isMobile ? "mobileScroll" : undefined}
                     className="bento-about-1 about-bento-card"
                     style={{
+                        backgroundColor: 'var(--surface-color)',
+                        backdropFilter: 'blur(12px)',
                         padding: 'var(--space-8)',
                         borderRadius: '24px',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'center',
                         boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+                        border: '1.5px solid var(--border-inactive)',
                         cursor: 'default',
                     }}
                 >
-                    <h3 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: 'var(--space-4)', color: 'var(--accent-primary)' }}>
+                    <h3 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: 'var(--space-4)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
                         QUIÉN SOY
                     </h3>
-                    <p style={{ fontSize: '1.2rem', lineHeight: 1.6, fontWeight: 500 }}>
+                    <p style={{ fontSize: '1.25rem', lineHeight: 1.6, fontWeight: 500, opacity: 0.9 }}>
                         Soy Alejandro Valle, diseñador UX con una sólida base en Comunicación. Me apasiona crear experiencias digitales claras, inclusivas y funcionales, combinando la sensibilidad narrativa con la precisión estructural.
                     </p>
                 </motion.div>
@@ -78,18 +98,19 @@ const About = () => {
                 {/* Block 2: Foto */}
                 <motion.div
                     variants={itemVariants}
-                    whileHover={{
+                    whileHover={!isMobile ? {
                         ...itemVariants.hover,
                         boxShadow: '8px 8px 0 var(--accent-primary)'
-                    }}
+                    } : undefined}
+                    whileInView={isMobile ? "mobileScroll" : undefined}
                     className="bento-about-2 about-bento-card"
                     style={{
-                        backgroundColor: 'var(--text-color)',
+                        backgroundColor: 'var(--surface-color)',
+                        backdropFilter: 'blur(12px)',
                         borderRadius: '24px',
                         border: '1.5px solid var(--border-inactive)',
                         overflow: 'hidden',
-                        position: 'relative',
-                        transition: 'border-color 0.3s ease, box-shadow 0.3s ease'
+                        position: 'relative'
                     }}
                 >
                     <motion.img
@@ -113,17 +134,21 @@ const About = () => {
                 {/* Block 3: Mi recorrido (Comunicación) */}
                 <motion.div
                     variants={itemVariants}
-                    whileHover="hover"
+                    whileHover={!isMobile ? "hover" : undefined}
+                    whileInView={isMobile ? "mobileScroll" : undefined}
                     className="bento-about-3 about-bento-card"
                     style={{
+                        backgroundColor: 'var(--surface-color)',
+                        backdropFilter: 'blur(12px)',
                         padding: 'var(--space-6)',
                         borderRadius: '24px',
+                        border: '1.5px solid var(--border-inactive)',
                     }}
                 >
-                    <h4 style={{ fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 'var(--space-2)', opacity: 0.7 }}>
+                    <h4 style={{ fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 'var(--space-3)', opacity: 0.6, fontWeight: 700 }}>
                         Formación
                     </h4>
-                    <p style={{ fontSize: '1rem', lineHeight: 1.5 }}>
+                    <p style={{ fontSize: '1.05rem', lineHeight: 1.5, opacity: 0.9 }}>
                         Estudié Comunicación en la UNT (Tucumán). La semiótica y el guión me enseñaron a construir mensajes que generan confianza y narrativas que conectan.
                     </p>
                 </motion.div>
@@ -131,20 +156,21 @@ const About = () => {
                 {/* Block 4: Mi recorrido (UX) */}
                 <motion.div
                     variants={itemVariants}
-                    whileHover="hover"
+                    whileHover={!isMobile ? "hover" : undefined}
+                    whileInView={isMobile ? "mobileScroll" : undefined}
                     className="bento-about-4 about-bento-card"
                     style={{
-                        backgroundColor: 'var(--text-color)',
-                        color: 'var(--bg-color)',
+                        backgroundColor: 'var(--surface-color)',
+                        backdropFilter: 'blur(12px)',
                         padding: 'var(--space-6)',
                         borderRadius: '24px',
                         border: '1.5px solid var(--border-inactive)',
                     }}
                 >
-                    <h4 style={{ fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 'var(--space-2)', opacity: 0.8 }}>
+                    <h4 style={{ fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 'var(--space-3)', opacity: 0.6, fontWeight: 700 }}>
                         Evolución UX
                     </h4>
-                    <p style={{ fontSize: '1rem', lineHeight: 1.5 }}>
+                    <p style={{ fontSize: '1.05rem', lineHeight: 1.5, opacity: 0.9 }}>
                         De autodidacta a becado en Digitalers (Telecom). Hoy aplico investigación y diseño atómico para crear sistemas escalables y humanos.
                     </p>
                 </motion.div>
@@ -152,22 +178,26 @@ const About = () => {
                 {/* Block 5: Mi filosofía */}
                 <motion.div
                     variants={itemVariants}
-                    whileHover="hover"
+                    whileHover={!isMobile ? "hover" : undefined}
+                    whileInView={isMobile ? "mobileScroll" : undefined}
                     className="bento-about-5 about-bento-card"
                     style={{
+                        backgroundColor: 'var(--surface-color)',
+                        backdropFilter: 'blur(12px)',
                         padding: 'var(--space-8)',
                         borderRadius: '24px',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'center',
                         boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+                        border: '1.5px solid var(--border-inactive)',
                         cursor: 'default',
                     }}
                 >
-                    <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: 'var(--space-2)' }}>
+                    <h3 style={{ fontSize: '1.6rem', fontWeight: 900, marginBottom: 'var(--space-3)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
                         MI FILOSOFÍA
                     </h3>
-                    <p style={{ fontSize: '1.1rem', opacity: 0.9, lineHeight: 1.6 }}>
+                    <p style={{ fontSize: '1.15rem', opacity: 0.9, lineHeight: 1.6 }}>
                         Me caracterizo por ser detallista, metódico y transparente. No solo diseño interfaces; construyo puentes de confianza entre el negocio y las personas a través de la claridad visual y la arquitectura de información.
                     </p>
                 </motion.div>
@@ -178,11 +208,15 @@ const About = () => {
                     download="CV - ALEJANDRO VALLE.pdf"
                     variants={itemVariants}
                     initial="hidden"
-                    whileInView="visible"
-                    whileHover="hover"
+                    whileInView={isMobile ? "mobileScroll" : "visible"}
+                    whileHover={!isMobile ? "hover" : undefined}
+                    whileTap={{ scale: 0.95 }}
                     viewport={{ once: true, amount: 0.1 }}
                     className="bento-about-cv about-bento-card"
                     style={{
+                        backgroundColor: 'var(--surface-color)',
+                        backdropFilter: 'blur(12px)',
+                        border: '1.5px solid var(--border-inactive)',
                         padding: 'var(--space-8)',
                         borderRadius: '24px',
                         display: 'flex',
@@ -195,8 +229,7 @@ const About = () => {
                         cursor: 'pointer',
                         minHeight: '200px',
                         zIndex: 5,
-                        position: 'relative',
-                        transition: 'border-color 0.3s ease, transform 0.3s ease'
+                        position: 'relative'
                     }}
                 >
                     <motion.div

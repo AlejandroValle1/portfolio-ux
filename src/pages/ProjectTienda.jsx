@@ -151,6 +151,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, desktopFr
                     }}>
                         {/* Left: Mockup Section */}
                         <motion.div
+                            className="hide-on-mobile"
                             animate={{ y: [0, -15, 0], rotate: [-2, 0, -2] }}
                             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                             style={{
@@ -248,11 +249,11 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, desktopFr
                 padding: 'var(--space-8) 0',
             }}
         >
-            <div style={{
+            <div className="project-chapter-grid" style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
                 gap: 'var(--space-8)',
-                alignItems: 'start',
+                alignItems: 'center', // Better alignment for mobile
                 width: '100%'
             }}>
                 {/*
@@ -262,6 +263,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, desktopFr
                 {isEven ? (
                     <>
                         <motion.div
+                            className="project-chapter-text-wrapper"
                             initial={{ opacity: 0, x: -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
@@ -293,6 +295,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, desktopFr
                         </motion.div>
 
                         <motion.div
+                            className="project-chapter-image-wrapper"
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
@@ -338,6 +341,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, desktopFr
                     <>
                         {/* Swapped DOM Order for ZigZag Effect in Odd chapters */}
                         <motion.div
+                            className="project-chapter-image-wrapper"
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
@@ -380,6 +384,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, desktopFr
                         </motion.div>
 
                         <motion.div
+                            className="project-chapter-text-wrapper"
                             initial={{ opacity: 0, x: 50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
@@ -501,7 +506,7 @@ const ProjectTienda = () => {
                 </AnimatePresence>
 
                 {/* HERO */}
-                <header style={{
+                <header className="project-hero-grid" style={{
                     display: 'grid',
                     gridTemplateColumns: '1fr 1fr',
                     gap: 'var(--space-12)',
@@ -511,7 +516,7 @@ const ProjectTienda = () => {
                     marginBottom: 'var(--space-12)'
                 }}>
                     {/* Left Column: Title & Text */}
-                    <div style={{
+                    <div className="project-chapter-text-wrapper" style={{
                         display: 'flex',
                         flexDirection: 'column',
                         gap: 'var(--space-6)',
@@ -597,6 +602,7 @@ const ProjectTienda = () => {
 
                     {/* Right Column: Image */}
                     <motion.div
+                        className="project-chapter-image-wrapper"
                         initial={{ opacity: 0, scale: 0.95, x: 50 }}
                         animate={{ opacity: 1, scale: 1, x: 0 }}
                         transition={{ duration: 1, delay: 0.2 }}

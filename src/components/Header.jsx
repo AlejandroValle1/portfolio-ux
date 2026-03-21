@@ -67,17 +67,26 @@ const Header = ({ theme, toggleTheme }) => {
                 {/* Mobile Menu Toggle */}
                 <button
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    style={{ display: 'none', background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', padding: 'var(--space-1)' }}
+                    style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', padding: 'var(--space-1)' }}
                     className="mobile-menu-toggle"
                 >
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        {isMenuOpen ? <line x1="18" y1="6" x2="6" y2="18" /> : <line x1="3" y1="12" x2="21" y2="12" />}
-                        {!isMenuOpen && <line x1="3" y1="6" x2="21" y2="6" />}
-                        {!isMenuOpen && <line x1="3" y1="18" x2="21" y2="18" />}
+                        {isMenuOpen ? (
+                            <>
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </>
+                        ) : (
+                            <>
+                                <line x1="3" y1="12" x2="21" y2="12" />
+                                <line x1="3" y1="6" x2="21" y2="6" />
+                                <line x1="3" y1="18" x2="21" y2="18" />
+                            </>
+                        )}
                     </svg>
                 </button>
 
-                <nav className={`nav-menu ${isMenuOpen ? 'open' : ''}`} style={{ display: 'flex', gap: 'var(--space-6)', alignItems: 'center' }}>
+                <nav className={`nav-menu ${isMenuOpen ? 'open' : ''}`} style={{ gap: 'var(--space-6)', alignItems: 'center' }}>
                     <button className="nav-link-elegant" onClick={() => handleNavigation('projects')}>PROYECTOS</button>
                     <button className="nav-link-elegant" onClick={() => handleNavigation('about')}>SOBRE MÍ</button>
                     <button className="nav-link-elegant" onClick={() => handleNavigation('contact')}>CONTACTO</button>

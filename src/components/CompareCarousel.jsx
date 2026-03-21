@@ -319,7 +319,7 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
 
             <GlassToggle mode={mode} setMode={setMode} />
 
-            <div style={{
+            <div className="compare-carousel-box" style={{
                 position: 'relative',
                 width: '100%',
                 maxWidth: '1000px',
@@ -337,42 +337,46 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                 {/* Expand button removed as per user request */}
                 {currentImages.length > 1 && (
                     <>
-                        <button onClick={prevImage} style={{
-                            position: 'absolute',
-                            left: '15px',
-                            top: '50%',
-                            transform: 'translateY(-50%)',
-                            zIndex: 10,
-                            background: 'rgba(0,0,0,0.08)',
-                            border: '1.5px solid var(--text-color)',
-                            borderRadius: '50%',
-                            width: '50px',
-                            height: '50px',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: 'var(--text-color)'
-                        }}>
+                        <button 
+                            className="compare-nav-button prev-button" 
+                            onClick={prevImage} 
+                            style={{
+                                position: 'absolute',
+                                top: '50%',
+                                transform: 'translateY(-50%)',
+                                zIndex: 10,
+                                background: 'rgba(0,0,0,0.08)',
+                                border: '1.5px solid var(--text-color)',
+                                borderRadius: '50%',
+                                width: '50px',
+                                height: '50px',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'var(--text-color)'
+                            }}>
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'translateX(-1px)' }}><polyline points="15 18 9 12 15 6"></polyline></svg>
                         </button>
-                        <button onClick={nextImage} style={{
-                            position: 'absolute',
-                            right: '15px',
-                            top: '50%',
-                            transform: 'translateY(-50%)',
-                            zIndex: 10,
-                            background: 'rgba(0,0,0,0.08)',
-                            border: '1.5px solid var(--text-color)',
-                            borderRadius: '50%',
-                            width: '50px',
-                            height: '50px',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: 'var(--text-color)'
-                        }}>
+                        <button 
+                            className="compare-nav-button next-button" 
+                            onClick={nextImage} 
+                            style={{
+                                position: 'absolute',
+                                top: '50%',
+                                transform: 'translateY(-50%)',
+                                zIndex: 10,
+                                background: 'rgba(0,0,0,0.08)',
+                                border: '1.5px solid var(--text-color)',
+                                borderRadius: '50%',
+                                width: '50px',
+                                height: '50px',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'var(--text-color)'
+                            }}>
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'translateX(1px)' }}><polyline points="9 18 15 12 9 6"></polyline></svg>
                         </button>
                     </>
@@ -414,25 +418,11 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                     width: '100%',
                     zIndex: 20
                 }}>
-                    <div style={{
-                        display: 'flex',
-                        gap: '12px',
-                        background: 'rgba(128, 128, 128, 0.08)',
-                        padding: '10px 20px',
-                        borderRadius: '30px'
-                    }}>
+                    <div className="compare-indicators">
                         {currentImages.map((_, idx) => (
                             <div
                                 key={idx}
-                                style={{
-                                    width: idx === currentIndex ? '32px' : '10px',
-                                    height: '10px',
-                                    borderRadius: '5px',
-                                    backgroundColor: idx === currentIndex ? 'var(--accent-primary)' : 'var(--text-color)',
-                                    opacity: idx === currentIndex ? 1 : 0.2,
-                                    transition: 'all 0.4s ease',
-                                    cursor: 'pointer'
-                                }}
+                                className={`compare-indicator-dot ${idx === currentIndex ? 'active' : ''}`}
                                 onClick={() => setCurrentIndex(idx)}
                             />
                         ))}

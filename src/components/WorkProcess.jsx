@@ -26,6 +26,14 @@ const steps = [
 
 const WorkProcess = () => {
     const [hoveredIndex, setHoveredIndex] = React.useState(null);
+    const [isMobile, setIsMobile] = React.useState(false);
+    
+    React.useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     return (
         <section id="process" className="container" style={{ paddingBottom: 'var(--space-24)', paddingTop: 'var(--space-12)' }}>
@@ -53,17 +61,23 @@ const WorkProcess = () => {
                         key={index}
                         className={`process-step-${index}`}
                         initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                        onMouseEnter={() => setHoveredIndex(index)}
-                        onMouseLeave={() => setHoveredIndex(null)}
-                        whileHover={{
+                        whileInView={isMobile ? {
+                            opacity: 1, 
+                            y: 0,
+                            borderColor: ['rgba(0,0,0,0)', 'var(--accent-primary)', 'rgba(0,0,0,0)'],
+                            boxShadow: ['0 0px 0px transparent', '0 15px 35px rgba(230,90,43,0.15)', '0 0px 0px transparent'],
+                            transition: { duration: 1.5, delay: index * 0.1 }
+                        } : { opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={!isMobile ? { duration: 0.5, delay: index * 0.1 } : undefined}
+                        onMouseEnter={() => !isMobile && setHoveredIndex(index)}
+                        onMouseLeave={() => !isMobile && setHoveredIndex(null)}
+                        whileHover={!isMobile ? {
                             y: -8,
                             borderColor: 'var(--accent-primary)',
                             boxShadow: '0 15px 35px rgba(0,0,0,0.1)',
                             transition: { duration: 0.3 }
-                        }}
+                        } : undefined}
                         style={{
                             backgroundColor: 'var(--surface-color)',
                             padding: 'var(--space-8)',
@@ -83,12 +97,19 @@ const WorkProcess = () => {
                     >
                         {/* Large Background Number */}
                         <motion.div
-                            animate={{
+                            animate={isMobile ? undefined : {
                                 scale: hoveredIndex === index ? 1.1 : 1,
                                 color: 'var(--accent-primary)',
                                 opacity: hoveredIndex === index ? 0.4 : 0.08,
                             }}
-                            transition={{ duration: 0.4, ease: "easeOut" }}
+                            whileInView={isMobile ? {
+                                scale: [1, 1.1, 1],
+                                color: ['var(--text-color)', 'var(--accent-primary)', 'var(--text-color)'],
+                                opacity: [0.08, 0.4, 0.08],
+                                transition: { duration: 1.5, delay: index * 0.1 }
+                            } : undefined}
+                            viewport={{ once: true, margin: "-100px" }}
+                            transition={!isMobile ? { duration: 0.4, ease: "easeOut" } : undefined}
                             style={{
                                 position: 'absolute',
                                 top: '50%',

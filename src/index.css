@@ -19,9 +19,8 @@
   /* Composición de dos gradientes: Sol (sup. der.) y Anochecer sutil (inf. izq.) */
   --main-gradient:
     radial-gradient(circle at 88% 40px, #FFB347 0%, #FF9E5E 5%, rgba(169, 222, 249, 0) 35%),
-    radial-gradient(circle at 10% 90%, rgba(75, 93, 139, 0.25) 0%, rgba(169, 222, 249, 0) 50%),
-    #A9DEF9;
-  /* El celeste de base cubre el resto */
+    radial-gradient(circle at 10% 90%, rgba(75, 93, 139, 0.25) 0%, rgba(169, 222, 249, 0) 50%);
+  /* El celeste de base cubre el resto a traves de var(--bg-color) */
 
   /* 8px Grid System Variables */
   --space-1: 0.5rem;
@@ -40,6 +39,8 @@
   --border-inactive: rgba(26, 42, 64, 0.15);
   --scrollbar-thumb: #8CA3B8; /* Gris azulado sólido y visible */
   --scrollbar-track: rgba(0, 0, 0, 0.05); /* Muy tenue para el track */
+  
+  --nav-mobile-bg: #80C8F2; /* Darker than bg-color for contrast in Light Mode */
 }
 
 [data-theme="dark"] {
@@ -64,6 +65,7 @@
   --scrollbar-track: rgba(255, 255, 255, 0.05);
   /* Gradiente Radial que simula la Luna centrada con el icono en el header */
   --main-gradient: radial-gradient(circle at 88% 40px, #F0F4F8 0%, #BCC6D1 5%, #1A2A40 30%, #0B1118 80%);
+  --nav-mobile-bg: #070B10; /* Extra dark for contrast in mobile menu */
 }
 
 * {
@@ -80,7 +82,8 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: var(--main-gradient);
+  background-color: var(--bg-color);
+  background-image: var(--main-gradient);
   background-attachment: fixed;
   /* Gradiente estático para mayor profundidad */
   color: var(--text-color);
@@ -550,4 +553,301 @@ section {
       rgba(255, 255, 255, 0.08) 50%,
       rgba(255, 255, 255, 0.03) 75%);
   background-size: 200% 100%;
+}
+
+/* =========================================
+   HEADER BASE (DESKTOP)
+   ========================================= */
+.mobile-menu-toggle {
+  display: none;
+}
+
+.nav-menu {
+  display: flex;
+}
+
+/* Image Carousel Desktop Rules */
+.carousel-inner-box {
+  width: calc(100% + 40px);
+  left: -20px;
+  padding: var(--space-4) 80px;
+}
+
+.carousel-nav-button.prev-button {
+  left: 15px;
+}
+
+.carousel-nav-button.next-button {
+  right: 15px;
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: 25px;
+  display: flex;
+  gap: 10px;
+  z-index: 20;
+  background: rgba(128, 128, 128, 0.1);
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+.indicator-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: var(--text-color);
+  opacity: 0.35;
+  border: 1px solid rgba(128,128,128,0.2);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+}
+
+.indicator-dot.active {
+  width: 30px;
+  background-color: var(--accent-primary);
+  opacity: 1;
+  border: none;
+}
+
+.carousel-image-viewport {
+  height: 500px;
+}
+
+.project-chapter-grid {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.compare-indicators {
+  display: flex;
+  gap: 12px;
+  background: rgba(128, 128, 128, 0.08);
+  padding: 10px 20px;
+  border-radius: 30px;
+}
+
+.compare-indicator-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: var(--text-color);
+  opacity: 0.2;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.compare-indicator-dot.active {
+  width: 32px;
+  background-color: var(--accent-primary);
+  opacity: 1;
+}
+
+/* =========================================
+   MOBILE RESPONSIVENESS (max-width: 768px)
+   ========================================= */
+@media (max-width: 768px) {
+  /* Container & Global Spacing */
+  .container {
+    width: 100%;
+    padding: 0 var(--space-4);
+  }
+
+  /* Header adjustments & Menu */
+  .mobile-menu-toggle {
+    display: flex !important;
+  }
+
+  .nav-menu {
+    display: none !important;
+  }
+
+  .nav-menu.open {
+    display: flex !important;
+    position: fixed !important;
+    top: 80px !important;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: calc(100vh - 80px); /* Fill the rest of the screen */
+    flex-direction: column;
+    background-color: var(--nav-mobile-bg, var(--bg-color)) !important;
+    padding: var(--space-8) var(--space-4) !important;
+    border-top: 2px solid var(--accent-primary);
+    align-items: center !important; /* Centered menu items on mobile is better UX */
+    justify-content: flex-start;
+    gap: var(--space-6) !important;
+    z-index: 10000;
+    overflow-y: auto;
+  }
+
+  /* Hero Section */
+  .hero-container {
+    padding-top: 180px !important;
+    min-height: 90vh !important;
+    justify-content: flex-start !important;
+  }
+
+  .hero-container .brutalist-title {
+    font-size: clamp(3.2rem, 15vw, 5rem) !important;
+    line-height: 0.95 !important;
+  }
+
+  .hero-cta-wrapper {
+    margin-left: 0 !important;
+    width: 100% !important;
+    display: flex;
+    justify-content: center !important;
+    margin-top: auto; /* Push to bottom */
+    padding-bottom: var(--space-4);
+  }
+
+  /* Project Cards */
+  .project-card {
+    flex-direction: column !important;
+  }
+
+  .project-mockup-wrapper {
+    width: 100% !important;
+    height: 350px !important; /* Fixed height for mockups on mobile */
+  }
+
+  .project-info-wrapper {
+    width: 100% !important;
+    padding: var(--space-6) 0 !important;
+  }
+
+  /* About & Bento */
+  .about-bento-layout {
+    gap: 16px;
+  }
+
+  /* Project Detail Pages */
+  .project-hero-grid {
+    grid-template-columns: 1fr !important;
+    padding-top: 100px !important;
+    gap: var(--space-8) !important;
+    min-height: auto !important;
+  }
+
+  .project-hero-grid .project-chapter-image-wrapper {
+    order: -1 !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  .project-chapter-text-wrapper {
+    order: 1 !important;
+  }
+
+  .project-chapter-image-wrapper {
+    order: 2 !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    display: flex !important;
+  }
+
+  .project-chapter-image-wrapper > * {
+    margin: 0 auto !important;
+  }
+
+  .project-chapter-text {
+    font-size: 1.05rem !important;
+  }
+
+  /* Contact Wrapper */
+  .contact-buttons-wrapper {
+    flex-direction: column !important;
+    width: 100%;
+    align-items: stretch !important;
+  }
+  .contact-buttons-wrapper .btn-elegant {
+    width: 100% !important;
+  }
+
+  /* Utilities */
+  .hide-on-mobile {
+    display: none !important;
+  }
+
+  /* Image Carousel */
+  .carousel-inner-box {
+    width: 100% !important;
+    left: 0 !important;
+    padding: var(--space-4) var(--space-8) !important; /* Increased side padding to 4rem (64px) for mobile */
+  }
+
+  .carousel-nav-button.prev-button {
+    left: 10px !important;
+  }
+
+  .carousel-nav-button.next-button {
+    right: 10px !important;
+  }
+
+  .carousel-nav-button {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .carousel-indicators {
+    bottom: 15px !important; /* Push dots lower */
+    background: transparent !important; /* Remove the capsule background */
+    padding: 0 !important;
+  }
+
+  /* Chapter 3 spacing fix: More bottom padding for viewport area to keep image away from dots */
+  .carousel-image-viewport {
+    padding-bottom: 40px !important; 
+    height: auto !important;
+    min-height: 250px !important;
+    max-height: 60vh !important;
+  }
+
+  .project-chapter-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-4) !important;
+  }
+
+  /* Compare Carousel Mobile Refinements */
+  .compare-carousel-box {
+    height: auto !important;
+    min-height: 400px !important;
+    padding: var(--space-4) var(--space-8) 6rem var(--space-8) !important; /* Increased side padding */
+  }
+
+  .compare-nav-button {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .compare-nav-button.prev-button {
+    left: 10px !important;
+  }
+
+  .compare-nav-button.next-button {
+    right: 10px !important;
+  }
+
+  .compare-indicators {
+    background: transparent !important; /* Remove the capsule background */
+    padding: 0 !important;
+    gap: 10px !important;
+  }
+
+  .compare-indicator-dot {
+    width: 8px !important;
+    height: 8px !important;
+  }
+
+  .compare-indicator-dot.active {
+    width: 24px !important;
+  }
+
 }

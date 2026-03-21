@@ -78,6 +78,15 @@ const ImageWithSkeleton = ({ src, alt, hoverVariants, imgStyle = {} }) => {
 };
 
 const Projects = () => {
+    const [isMobile, setIsMobile] = React.useState(false);
+    
+    React.useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     // Preload images
     React.useEffect(() => {
         projectsSummary.forEach((project) => {
@@ -122,15 +131,21 @@ const Projects = () => {
                     >
                         <motion.article
                             initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
-                            whileHover={{
+                            whileInView={isMobile ? {
+                                opacity: 1, 
+                                y: 0,
+                                borderColor: ['rgba(0,0,0,0)', 'var(--accent-primary)', 'rgba(0,0,0,0)'],
+                                boxShadow: ['0 0px 0px transparent', '0 15px 35px rgba(230,90,43,0.15)', '0 0px 0px transparent'],
+                                transition: { duration: 1.5, delay: index * 0.1 }
+                            } : { opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            transition={!isMobile ? { duration: 0.6, delay: index * 0.1 } : undefined}
+                            whileHover={!isMobile ? {
                                 y: -8,
                                 borderColor: 'var(--accent-primary)',
                                 boxShadow: '0 15px 35px rgba(0,0,0,0.1)',
                                 transition: { duration: 0.3 }
-                            }}
+                            } : undefined}
                             className="project-card"
                             style={{
                                 display: 'flex',
