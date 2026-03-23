@@ -18,7 +18,21 @@ const ScrollToTop = () => {
 };
 
 function App() {
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
+  const [theme, setTheme] = useState(() => {
+    // 1. Ver si el usuario ya eligió manualmente un tema en una visita anterior
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) return savedTheme;
+    
+    // 2. Si no, consultar la preferencia del sistema operativo del usuario
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+        return 'light';
+      }
+    }
+    
+    // 3. Por defecto absoluto (si no se puede detectar o no tiene preferencia explícita)
+    return 'dark';
+  });
   const location = useLocation();
 
   useEffect(() => {
