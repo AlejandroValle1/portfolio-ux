@@ -49,7 +49,7 @@ const projectsSummary = [
         type: "App Mobile design",
         link: "/separa",
         image: "/mockups-separa-card-home.webp",
-        imgStyle: { objectFit: 'cover', objectPosition: 'center' }
+        imgStyle: { objectFit: 'contain', backgroundColor: '#fff', padding: '1rem' }
     },
     {
         id: 'tiendatecno',
