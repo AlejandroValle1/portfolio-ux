@@ -25,7 +25,10 @@ function useScrollSpotlight(refs) {
                     ratios[i] = entry.intersectionRatio;
                     updateActive();
                 },
-                { threshold: Array.from({ length: 21 }, (_, k) => k / 20) }
+                { 
+                    threshold: Array.from({ length: 21 }, (_, k) => k / 20),
+                    rootMargin: "-35% 0px -35% 0px"
+                }
             );
             obs.observe(ref.current);
             observers.push(obs);
