@@ -123,8 +123,9 @@ const Projects = () => {
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
-    // Refs y spotlight para tarjetas de proyectos
-    const cardRefs = projectsSummary.map(() => React.useRef(null));
+    // Refs y spotlight para tarjetas de proyectos (sin violar Rules of Hooks)
+    const cardRefsArray = React.useRef(projectsSummary.map(() => React.createRef()));
+    const cardRefs = cardRefsArray.current;
     const activeIndex = useScrollSpotlight(cardRefs);
 
     const getCardStyle = (index) => ({

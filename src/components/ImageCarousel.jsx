@@ -168,6 +168,7 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
                             key={currentIndex}
                             src={images[currentIndex]}
                             alt={`${title} - Image ${currentIndex + 1}`}
+                            loading="lazy"
                             initial={{ opacity: 0, scale: 0.98 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 1.02 }}

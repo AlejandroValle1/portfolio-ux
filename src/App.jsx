@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import ProjectSepara from './pages/ProjectSepara';
 import ProjectTienda from './pages/ProjectTienda';
 import Cursor from './components/Cursor';
+import ScrollUpButton from './components/ScrollToTop';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -45,6 +46,7 @@ function App() {
       <a href="#main-content" className="skip-link">Saltar al contenido principal</a>
       <Cursor />
       <ScrollToTop />
+      <ScrollUpButton />
       <Header theme={theme} toggleTheme={toggleTheme} />
       <main id="main-content">
         <AnimatePresence mode="wait">

@@ -4,7 +4,7 @@ const Footer = () => {
     const links = [
         { label: "Gmail", url: "mailto:alevalle1310@gmail.com" },
         { label: "LinkedIn", url: "https://www.linkedin.com/in/alejandro-valle-295a13306" },
-        { label: "WhatsApp", url: "https://wa.me/" } // Add number if available, otherwise just base
+        { label: "WhatsApp", url: "https://wa.me/5493815000000" } // Reemplazar con el número real de Ale
     ];
 
     return (
