@@ -51,7 +51,7 @@ const ContactLink = ({ label, sub, url, icon }) => {
                 alignItems: 'center',
                 gap: '10px',
                 color: hovered ? 'var(--accent-primary)' : 'var(--text-color)',
-                transition: 'color 0.25s ease',
+                transition: 'color 0.5s ease',
                 padding: '8px 20px',
                 minWidth: '100px',
             }}
@@ -61,8 +61,8 @@ const ContactLink = ({ label, sub, url, icon }) => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                transform: hovered ? 'translateY(-4px)' : 'translateY(0)',
-                transition: 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                transform: hovered ? 'translateY(-6px)' : 'translateY(0)',
+                transition: 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease',
                 opacity: hovered ? 1 : 0.75,
             }}>
                 {icon}
