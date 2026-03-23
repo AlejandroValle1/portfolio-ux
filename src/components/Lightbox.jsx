@@ -2,6 +2,27 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createPortal } from 'react-dom';
 
+// Hook de swipe táctil
+function useTouchSwipe(onSwipeLeft, onSwipeRight) {
+    const touchStartX = useRef(null);
+
+    const onTouchStart = (e) => {
+        touchStartX.current = e.touches[0].clientX;
+    };
+
+    const onTouchEnd = (e) => {
+        if (touchStartX.current === null) return;
+        const diff = touchStartX.current - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) {
+            if (diff > 0) onSwipeLeft();
+            else onSwipeRight();
+        }
+        touchStartX.current = null;
+    };
+
+    return { onTouchStart, onTouchEnd };
+}
+
 const Lightbox = ({ images, initialIndex = 0, onClose }) => {
     const [currentIndex, setCurrentIndex] = useState(initialIndex);
     const [scale, setScale] = useState(1);
@@ -58,33 +79,41 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
     };
 
     const nextImage = (e) => {
-        e.stopPropagation();
+        e?.stopPropagation();
         setCurrentIndex((prev) => (prev + 1) % imageList.length);
     };
 
     const prevImage = (e) => {
-        e.stopPropagation();
+        e?.stopPropagation();
         setCurrentIndex((prev) => (prev - 1 + imageList.length) % imageList.length);
     };
+
+    const swipe = useTouchSwipe(
+        () => { if (scale === 1) nextImage(); },
+        () => { if (scale === 1) prevImage(); }
+    );
 
     return createPortal(
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            {...swipe}
             style={{
                 position: 'fixed',
                 top: 0,
                 left: 0,
                 width: '100vw',
                 height: '100vh',
-                background: 'rgba(2, 6, 15, 0.99)', // Ultra dark for max contrast
+                background: 'rgba(2, 6, 15, 0.99)',
                 zIndex: 3000,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 overflow: 'hidden',
-                cursor: scale > 1 ? 'crosshair' : 'zoom-in'
+                cursor: scale > 1 ? 'crosshair' : 'zoom-in',
+                touchAction: 'pan-y',
+                userSelect: 'none',
             }}
             onClick={onClose}
             onWheel={handleWheel}
@@ -162,14 +191,16 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                         onClick={prevImage}
                         style={{
                             position: 'absolute',
-                            left: '40px',
+                            left: 'clamp(12px, 3vw, 40px)',
                             top: '50%',
                             transform: 'translateY(-50%)',
                             background: 'rgba(255,255,255,0.1)',
                             border: '3px solid white',
                             borderRadius: '50%',
-                            width: '72px',
-                            height: '72px',
+                            width: 'clamp(48px, 8vw, 72px)',
+                            height: 'clamp(48px, 8vw, 72px)',
+                            minWidth: '44px',
+                            minHeight: '44px',
                             color: 'white',
                             cursor: 'pointer',
                             display: 'flex',
@@ -199,14 +230,16 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                         onClick={nextImage}
                         style={{
                             position: 'absolute',
-                            right: '40px',
+                            right: 'clamp(12px, 3vw, 40px)',
                             top: '50%',
                             transform: 'translateY(-50%)',
                             background: 'rgba(255,255,255,0.1)',
                             border: '3px solid white',
                             borderRadius: '50%',
-                            width: '72px',
-                            height: '72px',
+                            width: 'clamp(48px, 8vw, 72px)',
+                            height: 'clamp(48px, 8vw, 72px)',
+                            minWidth: '44px',
+                            minHeight: '44px',
                             color: 'white',
                             cursor: 'pointer',
                             display: 'flex',

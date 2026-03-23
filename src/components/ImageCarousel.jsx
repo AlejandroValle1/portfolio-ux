@@ -1,18 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+
+// Hook de swipe táctil
+function useTouchSwipe(onSwipeLeft, onSwipeRight) {
+    const touchStartX = useRef(null);
+
+    const onTouchStart = (e) => {
+        touchStartX.current = e.touches[0].clientX;
+    };
+
+    const onTouchEnd = (e) => {
+        if (touchStartX.current === null) return;
+        const diff = touchStartX.current - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) {
+            if (diff > 0) onSwipeLeft();   // swipe izquierda = siguiente
+            else onSwipeRight();            // swipe derecha = anterior
+        }
+        touchStartX.current = null;
+    };
+
+    return { onTouchStart, onTouchEnd };
+}
 
 const ImageCarousel = ({ images, title, onImageClick }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const nextImage = (e) => {
-        e.stopPropagation();
+        e?.stopPropagation();
         setCurrentIndex((prev) => (prev + 1) % images.length);
     };
 
     const prevImage = (e) => {
-        e.stopPropagation();
+        e?.stopPropagation();
         setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
     };
+
+    const swipe = useTouchSwipe(nextImage, prevImage);
 
     if (!images || images.length === 0) return null;
 
@@ -27,22 +50,25 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
             marginBottom: '2rem'
         }}>
             {/* The Main Content Box */}
-            <div className="carousel-inner-box" style={{
-                position: 'relative',
-                backgroundColor: 'var(--surface-color)',
-                borderRadius: 'var(--radius)',
-                paddingBottom: '3.5rem',
-                boxShadow: '0 15px 45px rgba(0,0,0,0.12)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                zIndex: 1,
-                transition: 'background-color 0.3s ease'
-            }}>
-                {/* Maximize Icon - Universal Accessibility */}
-                {/* Expand button removed as per user request */}
-
-                {/* Navigation Arrows - AAA Contrast Standards & Perfect Alignment */}
+            <div
+                className="carousel-inner-box"
+                {...swipe}
+                style={{
+                    position: 'relative',
+                    backgroundColor: 'var(--surface-color)',
+                    borderRadius: 'var(--radius)',
+                    paddingBottom: '3.5rem',
+                    boxShadow: '0 15px 45px rgba(0,0,0,0.12)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 1,
+                    transition: 'background-color 0.3s ease',
+                    userSelect: 'none',
+                    touchAction: 'pan-y', // permite scroll vertical, captura horizontal
+                }}
+            >
+                {/* Navigation Arrows */}
                 {images.length > 1 && (
                     <>
                         <button
@@ -58,6 +84,8 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
                                 borderRadius: '50%',
                                 width: '54px',
                                 height: '54px',
+                                minWidth: '44px',
+                                minHeight: '44px',
                                 cursor: 'pointer',
                                 display: 'flex',
                                 alignItems: 'center',
@@ -66,7 +94,7 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
                                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                                 opacity: 1,
                                 boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                                padding: 0 
+                                padding: 0
                             }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.background = 'var(--accent-primary)';
@@ -98,6 +126,8 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
                                 borderRadius: '50%',
                                 width: '54px',
                                 height: '54px',
+                                minWidth: '44px',
+                                minHeight: '44px',
                                 cursor: 'pointer',
                                 display: 'flex',
                                 alignItems: 'center',
@@ -149,14 +179,14 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
                                 height: 'auto',
                                 objectFit: 'contain',
                                 display: 'block',
-                                borderRadius: '4px'
+                                borderRadius: '4px',
+                                pointerEvents: 'none',
                             }}
                         />
                     </AnimatePresence>
                 </div>
 
-                {/* Dots indicator - High Contrast Navigation */}
-                {/* Indicators Area - Moved outside viewport for better spacing on mobile */}
+                {/* Dot indicators */}
                 {images.length > 1 && (
                     <div className="carousel-indicators">
                         {images.map((_, idx) => (
@@ -167,7 +197,10 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
                                     e.stopPropagation();
                                     setCurrentIndex(idx);
                                 }}
-                            />
+                                style={{ minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                            >
+                                <div style={{ width: idx === currentIndex ? '30px' : '10px', height: '10px', borderRadius: '5px', backgroundColor: idx === currentIndex ? 'var(--accent-primary)' : 'var(--text-color)', opacity: idx === currentIndex ? 1 : 0.35, transition: 'all 0.3s ease' }} />
+                            </div>
                         ))}
                     </div>
                 )}

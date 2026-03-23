@@ -2,6 +2,27 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { createPortal } from 'react-dom';
 
+// Hook de swipe táctil
+function useTouchSwipe(onSwipeLeft, onSwipeRight) {
+    const touchStartX = useRef(null);
+
+    const onTouchStart = (e) => {
+        touchStartX.current = e.touches[0].clientX;
+    };
+
+    const onTouchEnd = (e) => {
+        if (touchStartX.current === null) return;
+        const diff = touchStartX.current - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) {
+            if (diff > 0) onSwipeLeft();
+            else onSwipeRight();
+        }
+        touchStartX.current = null;
+    };
+
+    return { onTouchStart, onTouchEnd };
+}
+
 // Modern Glass Toggle Component
 const GlassToggle = ({ mode, setMode }) => {
     return (
@@ -291,6 +312,11 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
         setIsFullscreen(!isFullscreen);
     };
 
+    const swipe = useTouchSwipe(
+        () => nextImage(),
+        () => prevImage()
+    );
+
     return (
         <div style={{
             width: '100%',
@@ -319,21 +345,27 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
 
             <GlassToggle mode={mode} setMode={setMode} />
 
-            <div className="compare-carousel-box" style={{
-                position: 'relative',
-                width: '100%',
-                maxWidth: '1000px',
-                backgroundColor: 'var(--surface-color)',
-                borderRadius: 'var(--radius)',
-                padding: 'var(--space-6) 60px 7rem 60px',
-                boxShadow: '0 15px 40px rgba(0,0,0,0.08)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '650px',
-                zIndex: 1,
-                overflow: 'hidden'
-            }}>
+            <div
+                className="compare-carousel-box"
+                {...swipe}
+                style={{
+                    position: 'relative',
+                    width: '100%',
+                    maxWidth: '1000px',
+                    backgroundColor: 'var(--surface-color)',
+                    borderRadius: 'var(--radius)',
+                    padding: 'var(--space-6) 60px 7rem 60px',
+                    boxShadow: '0 15px 40px rgba(0,0,0,0.08)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '650px',
+                    zIndex: 1,
+                    overflow: 'hidden',
+                    userSelect: 'none',
+                    touchAction: 'pan-y',
+                }}
+            >
                 {/* Expand button removed as per user request */}
                 {currentImages.length > 1 && (
                     <>
@@ -350,6 +382,8 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                                 borderRadius: '50%',
                                 width: '50px',
                                 height: '50px',
+                                minWidth: '44px',
+                                minHeight: '44px',
                                 cursor: 'pointer',
                                 display: 'flex',
                                 alignItems: 'center',
@@ -371,6 +405,8 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                                 borderRadius: '50%',
                                 width: '50px',
                                 height: '50px',
+                                minWidth: '44px',
+                                minHeight: '44px',
                                 cursor: 'pointer',
                                 display: 'flex',
                                 alignItems: 'center',

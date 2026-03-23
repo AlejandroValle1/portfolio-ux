@@ -407,8 +407,19 @@ section {
   transform: scaleX(1);
 }
 
+/* :active states — feedback táctil inmediato antes de Framer Motion */
+.btn-elegant:active {
+  transform: scale(0.97) !important;
+  opacity: 0.85 !important;
+}
 
-@media (max-width: 768px) {
+.nav-link-elegant:active {
+  color: var(--accent-primary) !important;
+  transform: scale(0.95) !important;
+}
+
+
+@media (max-width: 1024px) {
   .mobile-menu-toggle {
     display: block !important;
     background: none !important;
@@ -519,6 +530,94 @@ section {
   .process-step-1,
   .process-step-2 {
     grid-column: span 5;
+  }
+}
+
+/* =========================================
+   TABLET RESPONSIVENESS (769px - 1024px)
+   ========================================= */
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Nav: hamburguesa en tablet */
+  .mobile-menu-toggle {
+    display: flex !important;
+  }
+
+  .nav-menu {
+    display: none !important;
+  }
+
+  .nav-menu.open {
+    display: flex !important;
+    position: fixed !important;
+    top: 80px !important;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: calc(100vh - 80px);
+    flex-direction: column;
+    padding: var(--space-12) var(--space-6) !important;
+    border-top: 2px solid var(--accent-primary);
+    align-items: center !important;
+    justify-content: center !important;
+    gap: var(--space-8) !important;
+    z-index: 10000;
+    overflow-y: auto;
+  }
+
+  .nav-menu.open .nav-link-elegant {
+    font-size: 2.5rem !important;
+    padding: var(--space-4) 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Grids: 2 columnas en tablet */
+  .about-bento-layout {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+
+  .bento-about-1 { grid-column: span 2 !important; }
+  .bento-about-2 { grid-column: span 1 !important; }
+  .bento-about-3 { grid-column: span 1 !important; }
+  .bento-about-4 { grid-column: span 1 !important; }
+  .bento-about-5 { grid-column: span 1 !important; }
+  .bento-about-cv { grid-column: span 2 !important; display: flex !important; }
+
+  .process-grid-layout {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+
+  .process-step-0,
+  .process-step-1,
+  .process-step-2,
+  .process-step-3 {
+    grid-column: span 1 !important;
+  }
+
+  /* Hero */
+  .hero-container {
+    padding-top: 140px !important;
+  }
+
+  /* Contact */
+  .contact-buttons-wrapper {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+  }
+
+  /* Carouseles */
+  .carousel-image-viewport {
+    height: 400px;
+  }
+
+  .compare-carousel-box {
+    height: auto !important;
+    min-height: 500px !important;
+    padding: var(--space-6) 60px 6rem 60px !important;
   }
 }
 
