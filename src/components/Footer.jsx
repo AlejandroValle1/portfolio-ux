@@ -33,18 +33,19 @@ const Footer = () => {
                             className="btn-elegant"
                             style={{
                                 textDecoration: 'none',
-                                padding: 'var(--space-3) 0',
+                                padding: '10px 0',
                                 display: 'inline-flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                gap: 'var(--space-3)',
-                                fontSize: '1rem',
+                                gap: 'var(--space-2)',
+                                fontSize: '0.85rem',
                                 border: '1.5px solid var(--text-color)',
                                 borderRadius: '50px',
                                 background: 'transparent',
                                 color: 'var(--text-color)',
                                 fontWeight: 700,
-                                width: '220px'
+                                width: '160px',
+                                letterSpacing: '0.03em',
                             }}
                         >
                             {link.label === "Gmail" && (
