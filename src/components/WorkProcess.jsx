@@ -24,16 +24,86 @@ const steps = [
     }
 ];
 
+// Hook: detecta qué card está más centrada en el viewport
+function useScrollSpotlight(refs) {
+    const [activeIndex, setActiveIndex] = React.useState(null);
+
+    React.useEffect(() => {
+        const observers = [];
+        const ratios = new Array(refs.length).fill(0);
+
+        const updateActive = () => {
+            let maxRatio = 0;
+            let maxIndex = null;
+            ratios.forEach((r, i) => {
+                if (r > maxRatio) { maxRatio = r; maxIndex = i; }
+            });
+            setActiveIndex(maxRatio > 0.15 ? maxIndex : null);
+        };
+
+        refs.forEach((ref, i) => {
+            if (!ref.current) return;
+            const obs = new IntersectionObserver(
+                ([entry]) => {
+                    ratios[i] = entry.intersectionRatio;
+                    updateActive();
+                },
+                { threshold: Array.from({ length: 21 }, (_, k) => k / 20) }
+            );
+            obs.observe(ref.current);
+            observers.push(obs);
+        });
+
+        return () => observers.forEach(o => o.disconnect());
+    }, [refs]);
+
+    return activeIndex;
+}
+
 const WorkProcess = () => {
     const [hoveredIndex, setHoveredIndex] = React.useState(null);
     const [isMobile, setIsMobile] = React.useState(false);
-    
+
     React.useEffect(() => {
-        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        const checkMobile = () => setIsMobile(window.innerWidth <= 1024); // incluye tablets
         checkMobile();
         window.addEventListener('resize', checkMobile);
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
+
+    const cardRefs = [
+        React.useRef(null),
+        React.useRef(null),
+        React.useRef(null),
+        React.useRef(null),
+    ];
+    const activeIndex = useScrollSpotlight(cardRefs);
+
+    const getCardStyle = (index) => ({
+        backgroundColor: 'var(--surface-color)',
+        padding: 'var(--space-8)',
+        paddingLeft: 'var(--space-12)',
+        borderRadius: '32px',
+        border: '1.5px solid var(--border-inactive)',
+        backdropFilter: 'blur(12px)',
+        position: 'relative',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 'var(--space-4)',
+        justifyContent: 'center',
+        cursor: 'default',
+        minHeight: '280px',
+        transition: 'border-color 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease, transform 0.4s ease',
+        ...(isMobile && activeIndex !== null ? {
+            borderColor: activeIndex === index ? 'var(--accent-primary)' : 'var(--border-inactive)',
+            boxShadow: activeIndex === index
+                ? '0 0 0 1.5px var(--accent-primary), 0 16px 40px rgba(230,90,43,0.18)'
+                : '0 4px 20px rgba(0,0,0,0.05)',
+            opacity: activeIndex === index ? 1 : 0.7,
+            transform: activeIndex === index ? 'scale(1.01)' : 'scale(1)',
+        } : {}),
+    });
 
     return (
         <section id="process" className="container" style={{ paddingBottom: 'var(--space-24)', paddingTop: 'var(--space-12)' }}>
@@ -53,23 +123,16 @@ const WorkProcess = () => {
                 PROCESO DE TRABAJO
             </motion.h2>
 
-            <div className="process-grid-layout" style={{
-                gap: '20px',
-            }}>
+            <div className="process-grid-layout" style={{ gap: '20px' }}>
                 {steps.map((step, index) => (
                     <motion.div
                         key={index}
+                        ref={cardRefs[index]}
                         className={`process-step-${index}`}
                         initial={{ opacity: 0, y: 20 }}
-                        whileInView={isMobile ? {
-                            opacity: 1, 
-                            y: 0,
-                            borderColor: ['rgba(0,0,0,0)', 'var(--accent-primary)', 'rgba(0,0,0,0)'],
-                            boxShadow: ['0 0px 0px transparent', '0 15px 35px rgba(230,90,43,0.15)', '0 0px 0px transparent'],
-                            transition: { duration: 1.5, delay: index * 0.1 }
-                        } : { opacity: 1, y: 0 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
-                        transition={!isMobile ? { duration: 0.5, delay: index * 0.1 } : undefined}
+                        transition={{ duration: 0.5, delay: index * 0.1 }}
                         onMouseEnter={() => !isMobile && setHoveredIndex(index)}
                         onMouseLeave={() => !isMobile && setHoveredIndex(null)}
                         whileHover={!isMobile ? {
@@ -78,22 +141,8 @@ const WorkProcess = () => {
                             boxShadow: '0 15px 35px rgba(0,0,0,0.1)',
                             transition: { duration: 0.3 }
                         } : undefined}
-                        style={{
-                            backgroundColor: 'var(--surface-color)',
-                            padding: 'var(--space-8)',
-                            paddingLeft: 'var(--space-12)',
-                            borderRadius: '32px',
-                            border: '1.5px solid var(--border-inactive)',
-                            backdropFilter: 'blur(12px)',
-                            position: 'relative',
-                            overflow: 'hidden',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: 'var(--space-4)',
-                            justifyContent: 'center', // Vertical centering
-                            cursor: 'default',
-                            minHeight: '280px',
-                        }}
+                        whileTap={{ scale: 0.98 }}
+                        style={getCardStyle(index)}
                     >
                         {/* Large Background Number */}
                         <motion.div
@@ -102,13 +151,6 @@ const WorkProcess = () => {
                                 color: 'var(--accent-primary)',
                                 opacity: hoveredIndex === index ? 0.4 : 0.08,
                             }}
-                            whileInView={isMobile ? {
-                                scale: [1, 1.1, 1],
-                                color: ['var(--text-color)', 'var(--accent-primary)', 'var(--text-color)'],
-                                opacity: [0.08, 0.4, 0.08],
-                                transition: { duration: 1.5, delay: index * 0.1 }
-                            } : undefined}
-                            viewport={{ once: true, margin: "-100px" }}
                             transition={!isMobile ? { duration: 0.4, ease: "easeOut" } : undefined}
                             style={{
                                 position: 'absolute',
@@ -122,6 +164,10 @@ const WorkProcess = () => {
                                 fontFamily: 'var(--font-heading)',
                                 pointerEvents: 'none',
                                 zIndex: 0,
+                                // Active state: number glows with accent color
+                                color: isMobile && activeIndex === index ? 'var(--accent-primary)' : 'var(--text-color)',
+                                opacity: isMobile && activeIndex === index ? 0.35 : 0.08,
+                                transition: 'color 0.4s ease, opacity 0.4s ease',
                             }}
                         >
                             {index + 1}
@@ -133,7 +179,7 @@ const WorkProcess = () => {
                             display: 'flex',
                             flexDirection: 'column',
                             gap: 'var(--space-1)',
-                            paddingLeft: 'var(--space-12)', // Adequate space for alignment
+                            paddingLeft: 'var(--space-12)',
                         }}>
                             <span style={{
                                 fontSize: '0.8rem',

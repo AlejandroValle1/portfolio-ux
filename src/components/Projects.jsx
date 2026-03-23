@@ -2,6 +2,42 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// Hook: detecta qué card está más centrada en el viewport
+function useScrollSpotlight(refs) {
+    const [activeIndex, setActiveIndex] = React.useState(null);
+
+    React.useEffect(() => {
+        const observers = [];
+        const ratios = new Array(refs.length).fill(0);
+
+        const updateActive = () => {
+            let maxRatio = 0;
+            let maxIndex = null;
+            ratios.forEach((r, i) => {
+                if (r > maxRatio) { maxRatio = r; maxIndex = i; }
+            });
+            setActiveIndex(maxRatio > 0.15 ? maxIndex : null);
+        };
+
+        refs.forEach((ref, i) => {
+            if (!ref.current) return;
+            const obs = new IntersectionObserver(
+                ([entry]) => {
+                    ratios[i] = entry.intersectionRatio;
+                    updateActive();
+                },
+                { threshold: Array.from({ length: 21 }, (_, k) => k / 20) }
+            );
+            obs.observe(ref.current);
+            observers.push(obs);
+        });
+
+        return () => observers.forEach(o => o.disconnect());
+    }, [refs]);
+
+    return activeIndex;
+}
+
 const projectsSummary = [
     {
         id: 'separa',
@@ -79,13 +115,38 @@ const ImageWithSkeleton = ({ src, alt, hoverVariants, imgStyle = {} }) => {
 
 const Projects = () => {
     const [isMobile, setIsMobile] = React.useState(false);
-    
+
     React.useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth <= 1024); // incluye tablets
         checkMobile();
         window.addEventListener('resize', checkMobile);
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
+
+    // Refs y spotlight para tarjetas de proyectos
+    const cardRefs = projectsSummary.map(() => React.useRef(null));
+    const activeIndex = useScrollSpotlight(cardRefs);
+
+    const getCardStyle = (index) => ({
+        display: 'flex',
+        flexDirection: 'column',
+        cursor: 'pointer',
+        height: '100%',
+        borderRadius: '32px',
+        overflow: 'hidden',
+        willChange: 'transform',
+        transform: 'translateZ(0)',
+        WebkitTransform: 'translateZ(0)',
+        transition: 'border-color 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease, transform 0.4s ease',
+        ...(isMobile && activeIndex !== null ? {
+            borderColor: activeIndex === index ? 'var(--accent-primary)' : 'var(--border-inactive)',
+            boxShadow: activeIndex === index
+                ? '0 0 0 1.5px var(--accent-primary), 0 16px 40px rgba(230,90,43,0.18)'
+                : 'none',
+            opacity: activeIndex === index ? 1 : 0.65,
+            transform: activeIndex === index ? 'scale(1.01) translateZ(0)' : 'scale(1) translateZ(0)',
+        } : {}),
+    });
 
     // Preload images
     React.useEffect(() => {
@@ -130,16 +191,11 @@ const Projects = () => {
                         style={{ textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column', height: '100%' }}
                     >
                         <motion.article
+                            ref={cardRefs[index]}
                             initial={{ opacity: 0, y: 30 }}
-                            whileInView={isMobile ? {
-                                opacity: 1, 
-                                y: 0,
-                                borderColor: ['rgba(0,0,0,0)', 'var(--accent-primary)', 'rgba(0,0,0,0)'],
-                                boxShadow: ['0 0px 0px transparent', '0 15px 35px rgba(230,90,43,0.15)', '0 0px 0px transparent'],
-                                transition: { duration: 1.5, delay: index * 0.1 }
-                            } : { opacity: 1, y: 0 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-100px" }}
-                            transition={!isMobile ? { duration: 0.6, delay: index * 0.1 } : undefined}
+                            transition={{ duration: 0.6, delay: index * 0.1 }}
                             whileHover={!isMobile ? {
                                 y: -8,
                                 borderColor: 'var(--accent-primary)',
@@ -148,18 +204,7 @@ const Projects = () => {
                             } : undefined}
                             whileTap={{ scale: 0.98 }}
                             className="project-card"
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                cursor: 'pointer',
-                                height: '100%',
-                                borderRadius: '32px',
-                                overflow: 'hidden',
-                                transition: 'border-color 0.3s ease, background-color 0.3s ease',
-                                willChange: 'transform',
-                                transform: 'translateZ(0)',
-                                WebkitTransform: 'translateZ(0)'
-                            }}
+                            style={getCardStyle(index)}
                         >
                             {/* Image Container */}
                             <div style={{
