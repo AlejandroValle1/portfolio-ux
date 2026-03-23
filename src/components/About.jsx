@@ -41,7 +41,7 @@ const About = () => {
     const [isMobile, setIsMobile] = React.useState(false);
 
     React.useEffect(() => {
-        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        const checkMobile = () => setIsMobile(window.innerWidth <= 1024); // incluye tablets
         checkMobile();
         window.addEventListener('resize', checkMobile);
         return () => window.removeEventListener('resize', checkMobile);
