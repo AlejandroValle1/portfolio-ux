@@ -205,7 +205,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, mobileFra
 
                             <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                                 <a
-                                    href="https://www.figma.com/proto/9tZ8o95QpwKsMJEE9Iqw96/Proyecto-SE-PA-RA?node-id=65-59&starting-point-node-id=65%3A55&t=ethJmLuKXdVEIEMc-1"
+                                    href="https://www.figma.com/proto/9tZ8o95QpwKsMJEE9Iqw96/Proyecto-SE-PA-RA?node-id=65-59&starting-point-node-id=65%3A55&t=ethJmLuKXdVEIEMc-1&hide-ui=1"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     style={{ textDecoration: 'none' }}

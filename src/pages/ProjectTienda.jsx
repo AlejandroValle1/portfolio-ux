@@ -203,7 +203,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, desktopFr
 
                             <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                                 <a
-                                    href="https://www.figma.com/proto/BerM7QNvQfAiNONrNjHLVX/Wireframe-Tienda-Tecno.?node-id=232-705&t=WoaQTWZcyQQrxDfD-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=232%3A705&show-proto-sidebar=1"
+                                    href="https://www.figma.com/proto/BerM7QNvQfAiNONrNjHLVX/Wireframe-Tienda-Tecno.?node-id=232-705&t=WoaQTWZcyQQrxDfD-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=232%3A705&hide-ui=1"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     style={{ textDecoration: 'none' }}
