@@ -411,11 +411,13 @@ section {
 .btn-elegant:active {
   transform: scale(0.97) !important;
   opacity: 0.85 !important;
+  transition: all 0.1s cubic-bezier(0.19, 1, 0.22, 1) !important;
 }
 
 .nav-link-elegant:active {
   color: var(--accent-primary) !important;
   transform: scale(0.95) !important;
+  transition: all 0.1s cubic-bezier(0.19, 1, 0.22, 1) !important;
 }
 
 
