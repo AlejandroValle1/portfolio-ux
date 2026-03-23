@@ -73,6 +73,7 @@ const About = () => {
                     variants={itemVariants}
                     whileHover={!isMobile ? "hover" : undefined}
                     whileInView={isMobile ? "mobileScroll" : undefined}
+                    whileTap={{ scale: 0.98 }}
                     className="bento-about-1 about-bento-card"
                     style={{
                         backgroundColor: 'var(--surface-color)',
@@ -103,6 +104,7 @@ const About = () => {
                         boxShadow: '8px 8px 0 var(--accent-primary)'
                     } : undefined}
                     whileInView={isMobile ? "mobileScroll" : undefined}
+                    whileTap={{ scale: 0.98 }}
                     className="bento-about-2 about-bento-card"
                     style={{
                         backgroundColor: 'var(--surface-color)',
@@ -136,6 +138,7 @@ const About = () => {
                     variants={itemVariants}
                     whileHover={!isMobile ? "hover" : undefined}
                     whileInView={isMobile ? "mobileScroll" : undefined}
+                    whileTap={{ scale: 0.98 }}
                     className="bento-about-3 about-bento-card"
                     style={{
                         backgroundColor: 'var(--surface-color)',
@@ -158,6 +161,7 @@ const About = () => {
                     variants={itemVariants}
                     whileHover={!isMobile ? "hover" : undefined}
                     whileInView={isMobile ? "mobileScroll" : undefined}
+                    whileTap={{ scale: 0.98 }}
                     className="bento-about-4 about-bento-card"
                     style={{
                         backgroundColor: 'var(--surface-color)',
@@ -180,6 +184,7 @@ const About = () => {
                     variants={itemVariants}
                     whileHover={!isMobile ? "hover" : undefined}
                     whileInView={isMobile ? "mobileScroll" : undefined}
+                    whileTap={{ scale: 0.98 }}
                     className="bento-about-5 about-bento-card"
                     style={{
                         backgroundColor: 'var(--surface-color)',
@@ -210,7 +215,7 @@ const About = () => {
                     initial="hidden"
                     whileInView={isMobile ? "mobileScroll" : "visible"}
                     whileHover={!isMobile ? "hover" : undefined}
-                    whileTap={{ scale: 0.95 }}
+                    whileTap={{ scale: 0.98 }}
                     viewport={{ once: true, amount: 0.1 }}
                     className="bento-about-cv about-bento-card"
                     style={{
@@ -268,7 +273,7 @@ const About = () => {
                             fontWeight: 600,
                             color: 'inherit'
                         }}>
-                            PDF • 2024
+                            PDF
                         </p>
                     </motion.div>
 

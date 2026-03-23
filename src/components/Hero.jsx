@@ -13,7 +13,7 @@ const Hero = () => {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'flex-start',
-            paddingTop: '240px', // Espacio real para despegar del header fijo
+            paddingTop: '160px', // Reducido de 240px para subir todo el bloque
             paddingBottom: 'var(--space-12)',
             position: 'relative',
             overflow: 'hidden',
@@ -26,9 +26,9 @@ const Hero = () => {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="brutalist-title"
                 style={{
-                    fontSize: 'clamp(2.5rem, 7vw, 7.5rem)', // Recuperando un poco más el tamaño brutalista
-                    marginBottom: 'var(--space-4)', // Menos espacio respecto a la descripción para subir todo
-                    lineHeight: 1.1, // Espacio más brutalista
+                    fontSize: 'clamp(2.1rem, 8vw, 7.5rem)', 
+                    marginBottom: 'var(--space-3)', // Reducido de space-4
+                    lineHeight: 1.1, 
                     letterSpacing: '-0.04em'
                 }}
             >
@@ -41,9 +41,9 @@ const Hero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.8 }}
                 style={{
-                    fontSize: 'clamp(1rem, 1.6vw, 1.3rem)', // Un poco más grande para compensar el ajuste
-                    maxWidth: '700px', // Más angosto para que no sea tan alto el bloque de texto
-                    marginBottom: 'var(--space-8)', // Reducido de space-12 para subir el CTA
+                    fontSize: 'clamp(1rem, 1.6vw, 1.3rem)', 
+                    maxWidth: '700px', 
+                    marginBottom: 'var(--space-6)', // Reducido de space-8 para subir el CTA
                     opacity: 0.9,
                     lineHeight: 1.6,
                     fontWeight: 400
@@ -73,9 +73,10 @@ const Hero = () => {
                 }}
                 className="hero-cta-wrapper"
             >
-                <button
+                <motion.button
                     onClick={scrollToProjects}
                     className="hero-cta btn-elegant"
+                    whileTap={{ scale: 0.98 }}
                     style={{
                         padding: '1.2rem 3.5rem',
                         fontSize: '1rem',
@@ -92,7 +93,7 @@ const Hero = () => {
                 >
                     VER PROYECTOS
                     <span style={{ fontSize: '1.2rem' }}>↓</span>
-                </button>
+                </motion.button>
             </motion.div>
         </section>
     );

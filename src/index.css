@@ -432,11 +432,11 @@ section {
   }
 
   [data-theme="dark"] .nav-menu {
-    background: rgba(11, 17, 24, 0.98);
+    background: rgba(11, 17, 24, 0.85); /* Reducida la opacidad para mejor glassmorphism */
   }
 
   [data-theme="light"] .nav-menu {
-    background: rgba(169, 222, 249, 0.98);
+    background: rgba(169, 222, 249, 0.85);
   }
 
   .nav-menu.open {
@@ -457,19 +457,15 @@ section {
 }
 
 .bento-about-cv {
-  color: var(--accent-primary) !important;
-  display: flex !important;
-}
-
-[data-theme='dark'] .bento-about-cv {
   color: var(--text-color) !important;
+  display: flex !important;
 }
 
 .about-bento-layout,
 .process-grid-layout {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 32px; /* Aumentado de 24px para mejor escaneo en mobile */
 }
 
 /* Desktop Styles: 769px and above */

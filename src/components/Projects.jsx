@@ -146,6 +146,7 @@ const Projects = () => {
                                 boxShadow: '0 15px 35px rgba(0,0,0,0.1)',
                                 transition: { duration: 0.3 }
                             } : undefined}
+                            whileTap={{ scale: 0.98 }}
                             className="project-card"
                             style={{
                                 display: 'flex',

@@ -5,13 +5,26 @@ const Cursor = () => {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
     const [cursorText, setCursorText] = useState("");
+    const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
+        // No mostrar cursor en dispositivos táctiles o pantallas pequeñas
+        const checkMobile = () => {
+            const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            const isSmallScreen = window.innerWidth <= 1024;
+            setIsVisible(!isTouch && !isSmallScreen);
+        };
+
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+
         const updateMousePosition = (e) => {
+            if (!isVisible) return;
             setMousePosition({ x: e.clientX, y: e.clientY });
         };
 
         const handleMouseOver = (e) => {
+            if (!isVisible) return;
             const target = e.target;
             const isClickable =
                 target.tagName === 'A' ||
@@ -39,10 +52,13 @@ const Cursor = () => {
         window.addEventListener('mouseover', handleMouseOver);
 
         return () => {
+            window.removeEventListener('resize', checkMobile);
             window.removeEventListener('mousemove', updateMousePosition);
             window.removeEventListener('mouseover', handleMouseOver);
         };
-    }, []);
+    }, [isVisible]);
+
+    if (!isVisible) return null;
 
     return (
         <motion.div
