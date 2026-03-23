@@ -191,6 +191,7 @@ const FullscreenOverlay = ({ src, title, mobileFrame, desktopFrame, onClose, onN
         }}
     >
         <button
+            aria-label="Cerrar imagen ampliada"
             onClick={(e) => {
                 e.stopPropagation();
                 onClose();
@@ -216,6 +217,7 @@ const FullscreenOverlay = ({ src, title, mobileFrame, desktopFrame, onClose, onN
         </button>
 
         <button
+            aria-label="Ver imagen anterior"
             onClick={(e) => { e.stopPropagation(); onPrev(); }}
             style={{
                 position: 'absolute',
@@ -238,6 +240,7 @@ const FullscreenOverlay = ({ src, title, mobileFrame, desktopFrame, onClose, onN
             <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'translateX(-2px)' }}><polyline points="15 18 9 12 15 6"></polyline></svg>
         </button>
         <button
+            aria-label="Ver imagen siguiente"
             onClick={(e) => { e.stopPropagation(); onNext(); }}
             style={{
                 position: 'absolute',
@@ -370,6 +373,7 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                 {currentImages.length > 1 && (
                     <>
                         <button 
+                            aria-label="Ver imagen anterior"
                             className="compare-nav-button prev-button" 
                             onClick={prevImage} 
                             style={{
@@ -393,6 +397,7 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'translateX(-1px)' }}><polyline points="15 18 9 12 15 6"></polyline></svg>
                         </button>
                         <button 
+                            aria-label="Ver imagen siguiente"
                             className="compare-nav-button next-button" 
                             onClick={nextImage} 
                             style={{

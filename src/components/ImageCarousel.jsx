@@ -74,6 +74,7 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
                         <button
                             className="carousel-nav-button prev-button"
                             onClick={prevImage}
+                            aria-label="Ver imagen anterior"
                             style={{
                                 position: 'absolute',
                                 top: '50%',
@@ -116,6 +117,7 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
                         <button
                             className="carousel-nav-button next-button"
                             onClick={nextImage}
+                            aria-label="Ver imagen siguiente"
                             style={{
                                 position: 'absolute',
                                 top: '50%',
@@ -193,6 +195,8 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
                         {images.map((_, idx) => (
                             <div
                                 key={idx}
+                                role="button"
+                                aria-label={`Ir a imagen ${idx + 1}`}
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     setCurrentIndex(idx);

@@ -189,6 +189,7 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                 <>
                     <button
                         onClick={prevImage}
+                        aria-label="Ver imagen anterior"
                         style={{
                             position: 'absolute',
                             left: 'clamp(12px, 3vw, 40px)',
@@ -228,6 +229,7 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                     </button>
                     <button
                         onClick={nextImage}
+                        aria-label="Ver imagen siguiente"
                         style={{
                             position: 'absolute',
                             right: 'clamp(12px, 3vw, 40px)',
@@ -270,6 +272,7 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
 
             <button
                 onClick={onClose}
+                aria-label="Cerrar imagen ampliada"
                 style={{
                     position: 'absolute',
                     top: '40px',
