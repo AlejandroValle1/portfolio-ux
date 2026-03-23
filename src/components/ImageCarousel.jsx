@@ -187,20 +187,26 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
                     </AnimatePresence>
                 </div>
 
-                {/* Dot indicators */}
+                {/* Dot indicators — touch target 44px, estilo visual vía CSS */}
                 {images.length > 1 && (
                     <div className="carousel-indicators">
                         {images.map((_, idx) => (
                             <div
                                 key={idx}
-                                className={`indicator-dot ${idx === currentIndex ? 'active' : ''}`}
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     setCurrentIndex(idx);
                                 }}
-                                style={{ minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                style={{
+                                    minWidth: '44px',
+                                    minHeight: '44px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    cursor: 'pointer',
+                                }}
                             >
-                                <div style={{ width: idx === currentIndex ? '30px' : '10px', height: '10px', borderRadius: '5px', backgroundColor: idx === currentIndex ? 'var(--accent-primary)' : 'var(--text-color)', opacity: idx === currentIndex ? 1 : 0.35, transition: 'all 0.3s ease' }} />
+                                <div className={`indicator-dot ${idx === currentIndex ? 'active' : ''}`} />
                             </div>
                         ))}
                     </div>
