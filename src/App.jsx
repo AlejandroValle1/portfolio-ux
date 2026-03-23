@@ -18,12 +18,13 @@ const ScrollToTop = () => {
 };
 
 function App() {
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
   const location = useLocation();
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     document.documentElement.setAttribute('lang', 'es');
+    localStorage.setItem('theme', theme);
   }, [theme]);
 
   useEffect(() => {
