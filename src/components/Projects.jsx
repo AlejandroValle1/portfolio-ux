@@ -48,7 +48,7 @@ const projectsSummary = [
         intro: "Una propuesta digital para educar y motivar la separación de residuos en la ciudad.",
         type: "App Mobile design",
         link: "/separa",
-        image: "/Mockups-separá-card-home.webp",
+        image: "/mockups-separa-card-home.webp",
         imgStyle: { objectFit: 'cover', objectPosition: 'center' }
     },
     {
