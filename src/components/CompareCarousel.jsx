@@ -210,7 +210,16 @@ const FullscreenOverlay = ({ src, title, mobileFrame, desktopFrame, onClose, onN
                 zIndex: 100001,
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#ff4444';
+                e.currentTarget.style.borderColor = '#ff4444';
+            }}
+            onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
+                e.currentTarget.style.borderColor = 'white';
             }}
         >
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -234,7 +243,14 @@ const FullscreenOverlay = ({ src, title, mobileFrame, desktopFrame, onClose, onN
                 zIndex: 100001,
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.2)';
+            }}
+            onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
             }}
         >
             <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'translateX(-2px)' }}><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -257,7 +273,14 @@ const FullscreenOverlay = ({ src, title, mobileFrame, desktopFrame, onClose, onN
                 zIndex: 100001,
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.2)';
+            }}
+            onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
             }}
         >
             <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'translateX(2px)' }}><polyline points="9 18 15 12 9 6"></polyline></svg>
