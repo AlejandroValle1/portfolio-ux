@@ -77,6 +77,7 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
                             aria-label="Ver imagen anterior"
                             style={{
                                 position: 'absolute',
+                                left: 'clamp(12px, 3vw, 30px)',
                                 top: '50%',
                                 transform: 'translateY(-50%)',
                                 zIndex: 10,
@@ -120,6 +121,7 @@ const ImageCarousel = ({ images, title, onImageClick }) => {
                             aria-label="Ver imagen siguiente"
                             style={{
                                 position: 'absolute',
+                                right: 'clamp(12px, 3vw, 30px)',
                                 top: '50%',
                                 transform: 'translateY(-50%)',
                                 zIndex: 10,

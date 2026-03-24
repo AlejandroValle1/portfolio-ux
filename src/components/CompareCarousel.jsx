@@ -378,6 +378,7 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                             onClick={prevImage} 
                             style={{
                                 position: 'absolute',
+                                left: 'clamp(12px, 3vw, 30px)',
                                 top: '50%',
                                 transform: 'translateY(-50%)',
                                 zIndex: 10,
@@ -402,6 +403,7 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                             onClick={nextImage} 
                             style={{
                                 position: 'absolute',
+                                right: 'clamp(12px, 3vw, 30px)',
                                 top: '50%',
                                 transform: 'translateY(-50%)',
                                 zIndex: 10,
