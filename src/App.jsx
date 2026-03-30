@@ -12,7 +12,15 @@ import ScrollUpButton from './components/ScrollToTop';
 const ScrollToTop = () => {
   const { pathname } = useLocation();
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // Usar requestAnimationFrame para asegurar que el scroll ocurra después del render
+    const scrollTimeout = setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'instant' // 'smooth' puede causar tirones durante la transición
+      });
+    }, 0);
+    return () => clearTimeout(scrollTimeout);
   }, [pathname]);
   return null;
 };
@@ -64,7 +72,7 @@ function App() {
       <ScrollUpButton />
       <Header theme={theme} toggleTheme={toggleTheme} />
       <main id="main-content">
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="popLayout">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
             <Route path="/separa" element={<ProjectSepara />} />

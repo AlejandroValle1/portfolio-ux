@@ -152,13 +152,15 @@ const Projects = () => {
         } : {}),
     });
 
-    // Preload images
+    // Preload images - Solo en desktop para no saturar memoria en mobile
     React.useEffect(() => {
-        projectsSummary.forEach((project) => {
-            const img = new Image();
-            img.src = project.image;
-        });
-    }, []);
+        if (!isMobile) {
+            projectsSummary.forEach((project) => {
+                const img = new Image();
+                img.src = project.image;
+            });
+        }
+    }, [isMobile]);
 
     return (
         <section
@@ -206,7 +208,7 @@ const Projects = () => {
                                 boxShadow: '0 15px 35px rgba(0,0,0,0.1)',
                                 transition: { duration: 0.3 }
                             } : undefined}
-                            whileTap={{ scale: 0.98 }}
+                            whileTap={!isMobile ? { scale: 0.98 } : undefined}
                             className="project-card"
                             style={getCardStyle(index)}
                         >
