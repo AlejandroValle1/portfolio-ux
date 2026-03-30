@@ -195,13 +195,8 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                             left: 'clamp(12px, 3vw, 40px)',
                             top: '50%',
                             transform: 'translateY(-50%)',
-                            background: 'rgba(255,255,255,0.1)',
-                            border: '3px solid white',
-                            borderRadius: '50%',
-                            width: 'clamp(48px, 8vw, 72px)',
-                            height: 'clamp(48px, 8vw, 72px)',
-                            minWidth: '44px',
-                            minHeight: '44px',
+                            background: 'transparent',
+                            border: 'none',
                             color: 'white',
                             cursor: 'pointer',
                             display: 'flex',
@@ -209,17 +204,12 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                             justifyContent: 'center',
                             zIndex: 3001,
                             transition: 'all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)',
-                            boxShadow: '0 0 30px rgba(0,0,0,0.5)',
-                            padding: 0
+                            padding: '10px'
                         }}
                         onMouseEnter={(e) => {
-                            e.currentTarget.style.background = 'white';
-                            e.currentTarget.style.color = 'black';
-                            e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+                            e.currentTarget.style.transform = 'translateY(-50%) scale(1.2)';
                         }}
                         onMouseLeave={(e) => {
-                            e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
-                            e.currentTarget.style.color = 'white';
                             e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
                         }}
                     >
@@ -235,13 +225,8 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                             right: 'clamp(12px, 3vw, 40px)',
                             top: '50%',
                             transform: 'translateY(-50%)',
-                            background: 'rgba(255,255,255,0.1)',
-                            border: '3px solid white',
-                            borderRadius: '50%',
-                            width: 'clamp(48px, 8vw, 72px)',
-                            height: 'clamp(48px, 8vw, 72px)',
-                            minWidth: '44px',
-                            minHeight: '44px',
+                            background: 'transparent',
+                            border: 'none',
                             color: 'white',
                             cursor: 'pointer',
                             display: 'flex',
@@ -249,17 +234,12 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                             justifyContent: 'center',
                             zIndex: 3001,
                             transition: 'all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)',
-                            boxShadow: '0 0 30px rgba(0,0,0,0.5)',
-                            padding: 0
+                            padding: '10px'
                         }}
                         onMouseEnter={(e) => {
-                            e.currentTarget.style.background = 'white';
-                            e.currentTarget.style.color = 'black';
-                            e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+                            e.currentTarget.style.transform = 'translateY(-50%) scale(1.2)';
                         }}
                         onMouseLeave={(e) => {
-                            e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
-                            e.currentTarget.style.color = 'white';
                             e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
                         }}
                     >

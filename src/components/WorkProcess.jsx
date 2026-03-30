@@ -147,34 +147,35 @@ const WorkProcess = () => {
                         whileTap={{ scale: 0.98 }}
                         style={getCardStyle(index)}
                     >
-                        {/* Large Background Number */}
-                        <motion.div
-                            animate={isMobile ? undefined : {
-                                scale: hoveredIndex === index ? 1.1 : 1,
-                                color: 'var(--accent-primary)',
-                                opacity: hoveredIndex === index ? 0.4 : 0.08,
-                            }}
-                            transition={!isMobile ? { duration: 0.4, ease: "easeOut" } : undefined}
-                            style={{
-                                position: 'absolute',
-                                top: isMobile ? '10%' : '50%',
-                                left: isMobile ? 'var(--space-4)' : '5%',
-                                y: isMobile ? '0' : '-50%',
-                                transformOrigin: 'left center',
-                                fontSize: isMobile ? 'clamp(6rem, 25vw, 10rem)' : 'clamp(8rem, 15vw, 12rem)',
-                                fontWeight: 900,
-                                lineHeight: 1,
-                                fontFamily: 'var(--font-heading)',
-                                pointerEvents: 'none',
-                                zIndex: 0,
-                                // Active state: number glows with accent color
-                                color: isMobile && activeIndex === index ? 'var(--accent-primary)' : 'var(--text-color)',
-                                opacity: isMobile && activeIndex === index ? 0.35 : 0.08,
-                                transition: 'color 0.4s ease, opacity 0.4s ease',
-                            }}
-                        >
-                            {index + 1}
-                        </motion.div>
+                        {/* Large Background Number - Hidden on mobile */}
+                        {!isMobile && (
+                            <motion.div
+                                animate={{
+                                    scale: hoveredIndex === index ? 1.1 : 1,
+                                    color: 'var(--accent-primary)',
+                                    opacity: hoveredIndex === index ? 0.4 : 0.08,
+                                }}
+                                transition={{ duration: 0.4, ease: "easeOut" }}
+                                style={{
+                                    position: 'absolute',
+                                    top: '50%',
+                                    left: '5%',
+                                    y: '-50%',
+                                    transformOrigin: 'left center',
+                                    fontSize: 'clamp(8rem, 15vw, 12rem)',
+                                    fontWeight: 900,
+                                    lineHeight: 1,
+                                    fontFamily: 'var(--font-heading)',
+                                    pointerEvents: 'none',
+                                    zIndex: 0,
+                                    color: 'var(--text-color)',
+                                    opacity: 0.08,
+                                    transition: 'color 0.4s ease, opacity 0.4s ease',
+                                }}
+                            >
+                                {index + 1}
+                            </motion.div>
+                        )}
 
                         <div style={{
                             position: 'relative',
@@ -183,30 +184,69 @@ const WorkProcess = () => {
                             flexDirection: 'column',
                             gap: 'var(--space-1)',
                             paddingLeft: isMobile ? '0' : 'var(--space-12)',
-                            paddingRight: isMobile ? '0' : '0',
-                            marginTop: isMobile ? 'var(--space-8)' : '0',
                         }}>
-                            <span style={{
-                                fontSize: '0.8rem',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.25em',
-                                color: 'var(--accent-primary)',
-                                fontWeight: 800,
-                                marginBottom: 'var(--space-1)',
-                                display: 'block'
-                            }}>
-                                {step.subtitle}
-                            </span>
-                            <h3 style={{
-                                fontSize: 'clamp(2rem, 4vw, 2.8rem)',
-                                fontWeight: 900,
-                                textTransform: 'uppercase',
-                                lineHeight: 1,
-                                letterSpacing: '-0.03em',
-                                marginBottom: 'var(--space-2)'
-                            }}>
-                                {step.title}
-                            </h3>
+                            {isMobile ? (
+                                <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+                                    <div style={{
+                                        fontSize: '4.5rem',
+                                        fontWeight: 900,
+                                        lineHeight: 0.8,
+                                        color: 'var(--accent-primary)',
+                                        opacity: 0.9,
+                                        marginTop: '6px',
+                                        fontFamily: 'var(--font-heading)'
+                                    }}>
+                                        {index + 1}
+                                    </div>
+                                    <div>
+                                        <span style={{
+                                            fontSize: '0.8rem',
+                                            textTransform: 'uppercase',
+                                            letterSpacing: '0.25em',
+                                            color: 'var(--accent-primary)',
+                                            fontWeight: 800,
+                                            marginBottom: 'var(--space-1)',
+                                            display: 'block'
+                                        }}>
+                                            {step.subtitle}
+                                        </span>
+                                        <h3 style={{
+                                            fontSize: '2rem',
+                                            fontWeight: 900,
+                                            textTransform: 'uppercase',
+                                            lineHeight: 1,
+                                            letterSpacing: '-0.03em',
+                                            marginBottom: 'var(--space-2)'
+                                        }}>
+                                            {step.title}
+                                        </h3>
+                                    </div>
+                                </div>
+                            ) : (
+                                <>
+                                    <span style={{
+                                        fontSize: '0.8rem',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.25em',
+                                        color: 'var(--accent-primary)',
+                                        fontWeight: 800,
+                                        marginBottom: 'var(--space-1)',
+                                        display: 'block'
+                                    }}>
+                                        {step.subtitle}
+                                    </span>
+                                    <h3 style={{
+                                        fontSize: 'clamp(2rem, 4vw, 2.8rem)',
+                                        fontWeight: 900,
+                                        textTransform: 'uppercase',
+                                        lineHeight: 1,
+                                        letterSpacing: '-0.03em',
+                                        marginBottom: 'var(--space-2)'
+                                    }}>
+                                        {step.title}
+                                    </h3>
+                                </>
+                            )}
                             <p style={{
                                 fontSize: '1rem',
                                 lineHeight: 1.5,
