@@ -9,18 +9,10 @@ import ProjectTienda from './pages/ProjectTienda';
 import Cursor from './components/Cursor';
 import ScrollUpButton from './components/ScrollToTop';
 
-const ScrollToTop = () => {
+const PageTopScroller = () => {
   const { pathname } = useLocation();
   useEffect(() => {
-    // Usar requestAnimationFrame para asegurar que el scroll ocurra después del render
-    const scrollTimeout = setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'instant' // 'smooth' puede causar tirones durante la transición
-      });
-    }, 0);
-    return () => clearTimeout(scrollTimeout);
+    window.scrollTo(0, 0);
   }, [pathname]);
   return null;
 };
@@ -68,11 +60,11 @@ function App() {
     <div className="App">
       <a href="#main-content" className="skip-link">Saltar al contenido principal</a>
       <Cursor />
-      <ScrollToTop />
+      <PageTopScroller />
       <ScrollUpButton />
       <Header theme={theme} toggleTheme={toggleTheme} />
       <main id="main-content">
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
             <Route path="/separa" element={<ProjectSepara />} />
