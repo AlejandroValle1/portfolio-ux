@@ -2,17 +2,6 @@ import React, { useState } from 'react';
 
 const contactLinks = [
     {
-        label: "Gmail",
-        sub: "alevalle1310@gmail.com",
-        url: "mailto:alevalle1310@gmail.com",
-        icon: (
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                <polyline points="22,6 12,13 2,6" />
-            </svg>
-        )
-    },
-    {
         label: "LinkedIn",
         sub: "Alejandro Valle",
         url: "https://www.linkedin.com/in/alejandro-valle-295a13306",
@@ -32,6 +21,17 @@ const contactLinks = [
             </svg>
         )
     },
+    {
+        label: "Gmail",
+        sub: "alevalle1310@gmail.com",
+        url: "mailto:alevalle1310@gmail.com",
+        icon: (
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+            </svg>
+        )
+    }
 ];
 
 const ContactLink = ({ label, sub, url, icon }) => {
@@ -96,7 +96,9 @@ const Footer = () => {
     return (
         <footer id="contact" className="container" style={{ padding: 'var(--space-12) 0 var(--space-8) 0', borderTop: '20px solid var(--accent-primary)', textAlign: 'center' }}>
             <h2 className="brutalist-title" style={{
-                fontSize: 'clamp(3rem, 8vw, 6rem)',
+                fontSize: 'clamp(2.2rem, 9vw, 6rem)',
+                lineHeight: 0.95,
+                wordBreak: 'break-word',
                 marginBottom: 'var(--space-12)',
                 color: 'var(--accent-primary)',
                 textAlign: 'center'
@@ -112,10 +114,10 @@ const Footer = () => {
                 {/* Links estilo icono + label */}
                 <div style={{
                     display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: 'var(--space-2)',
+                    flexDirection: 'column',
+                    gap: 'var(--space-4)',
                     justifyContent: 'center',
-                    alignItems: 'flex-start',
+                    alignItems: 'center',
                 }}>
                     {/* Separadores entre links */}
                     {contactLinks.map((link, i) => (
@@ -123,12 +125,12 @@ const Footer = () => {
                             <ContactLink {...link} />
                             {i < contactLinks.length - 1 && (
                                 <div style={{
-                                    width: '1px',
-                                    height: '60px',
+                                    width: '60px',
+                                    height: '1px',
                                     background: 'var(--text-color)',
                                     opacity: 0.12,
                                     alignSelf: 'center',
-                                    marginTop: '8px',
+                                    margin: '4px 0',
                                 }} />
                             )}
                         </React.Fragment>

@@ -84,8 +84,8 @@ const WorkProcess = () => {
 
     const getCardStyle = (index) => ({
         backgroundColor: 'var(--surface-color)',
-        padding: 'var(--space-8)',
-        paddingLeft: 'var(--space-12)',
+        padding: isMobile ? 'var(--space-4)' : 'var(--space-8)',
+        paddingLeft: isMobile ? 'var(--space-4)' : 'var(--space-12)',
         borderRadius: '32px',
         border: '1.5px solid var(--border-inactive)',
         backdropFilter: 'blur(12px)',
@@ -182,7 +182,7 @@ const WorkProcess = () => {
                             display: 'flex',
                             flexDirection: 'column',
                             gap: 'var(--space-1)',
-                            paddingLeft: 'var(--space-12)',
+                            paddingLeft: isMobile ? 'var(--space-2)' : 'var(--space-12)',
                         }}>
                             <span style={{
                                 fontSize: '0.8rem',

@@ -275,8 +275,8 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                 aria-label="Cerrar imagen ampliada"
                 style={{
                     position: 'absolute',
-                    top: '40px',
-                    right: '40px',
+                    top: 'clamp(10px, 4vw, 40px)',
+                    right: 'clamp(10px, 4vw, 40px)',
                     background: 'rgba(255,255,255,0.1)',
                     border: '3px solid white',
                     borderRadius: '50%',
