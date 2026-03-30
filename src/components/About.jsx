@@ -138,7 +138,7 @@ const About = () => {
                     style={getCardStyle(0, {
                         backgroundColor: 'var(--surface-color)',
                         backdropFilter: 'blur(12px)',
-                        padding: isMobile ? 'var(--space-5)' : 'var(--space-8)',
+                        padding: isMobile ? 'var(--space-6)' : 'var(--space-8)',
                         borderRadius: '24px',
                         display: 'flex',
                         flexDirection: 'column',
@@ -205,7 +205,7 @@ const About = () => {
                     style={getCardStyle(2, {
                         backgroundColor: 'var(--surface-color)',
                         backdropFilter: 'blur(12px)',
-                        padding: isMobile ? 'var(--space-5)' : 'var(--space-6)',
+                        padding: isMobile ? 'var(--space-6)' : 'var(--space-6)',
                         borderRadius: '24px',
                         border: '1.5px solid var(--border-inactive)',
                     })}
@@ -229,7 +229,7 @@ const About = () => {
                     style={getCardStyle(3, {
                         backgroundColor: 'var(--surface-color)',
                         backdropFilter: 'blur(12px)',
-                        padding: isMobile ? 'var(--space-5)' : 'var(--space-6)',
+                        padding: isMobile ? 'var(--space-6)' : 'var(--space-6)',
                         borderRadius: '24px',
                         border: '1.5px solid var(--border-inactive)',
                     })}
@@ -253,7 +253,7 @@ const About = () => {
                     style={getCardStyle(4, {
                         backgroundColor: 'var(--surface-color)',
                         backdropFilter: 'blur(12px)',
-                        padding: isMobile ? 'var(--space-5)' : 'var(--space-8)',
+                        padding: isMobile ? 'var(--space-6)' : 'var(--space-8)',
                         borderRadius: '24px',
                         display: 'flex',
                         flexDirection: 'column',

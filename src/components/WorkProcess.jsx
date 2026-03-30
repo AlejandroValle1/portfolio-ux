@@ -157,11 +157,11 @@ const WorkProcess = () => {
                             transition={!isMobile ? { duration: 0.4, ease: "easeOut" } : undefined}
                             style={{
                                 position: 'absolute',
-                                top: '50%',
-                                left: '5%',
-                                y: '-50%',
+                                top: isMobile ? '10%' : '50%',
+                                left: isMobile ? 'var(--space-4)' : '5%',
+                                y: isMobile ? '0' : '-50%',
                                 transformOrigin: 'left center',
-                                fontSize: 'clamp(8rem, 15vw, 12rem)',
+                                fontSize: isMobile ? 'clamp(6rem, 25vw, 10rem)' : 'clamp(8rem, 15vw, 12rem)',
                                 fontWeight: 900,
                                 lineHeight: 1,
                                 fontFamily: 'var(--font-heading)',
@@ -182,7 +182,9 @@ const WorkProcess = () => {
                             display: 'flex',
                             flexDirection: 'column',
                             gap: 'var(--space-1)',
-                            paddingLeft: isMobile ? 'var(--space-2)' : 'var(--space-12)',
+                            paddingLeft: isMobile ? '0' : 'var(--space-12)',
+                            paddingRight: isMobile ? '0' : '0',
+                            marginTop: isMobile ? 'var(--space-8)' : '0',
                         }}>
                             <span style={{
                                 fontSize: '0.8rem',

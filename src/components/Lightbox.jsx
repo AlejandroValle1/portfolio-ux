@@ -151,7 +151,7 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                             alt={`Zoomed view ${currentIndex + 1}`}
                             draggable={false}
                             style={{
-                                maxWidth: '90vw',
+                                maxWidth: 'calc(100vw - clamp(60px, 15vw, 140px))',
                                 maxHeight: '85vh',
                                 objectFit: 'contain',
                                 borderRadius: '4px',
