@@ -142,7 +142,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, mobileFra
 
                     <div style={{
                         position: 'relative',
-                        padding: isMobile ? '40px 20px' : '48px 24px', // Adjusted for mobile
+                        padding: '48px 24px', // Strict 8px rule (6 * 8)
                         display: 'flex',
                         flexDirection: 'row',
                         alignItems: 'center',
@@ -317,7 +317,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, mobileFra
                                 borderRadius: 'var(--radius)',
                                 overflow: 'hidden',
                                 border: '1px solid rgba(0,0,0,0.1)',
-                                cursor: isMobile ? 'pointer' : 'none'
+                                cursor: 'none'
                             }}
                             className="zoomable-image project-chapter-image-wrapper"
                             whileHover={{ scale: 1.02 }}
@@ -346,7 +346,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, mobileFra
                                 borderRadius: 'var(--radius)',
                                 overflow: 'hidden',
                                 border: '1px solid rgba(0,0,0,0.1)',
-                                cursor: isMobile ? 'pointer' : 'none'
+                                cursor: 'none'
                             }}
                             className="zoomable-image project-chapter-image-wrapper"
                             whileHover={{ scale: 1.02 }}
@@ -599,7 +599,7 @@ const ProjectSepara = () => {
                                     display: 'block',
                                     border: '2px solid var(--text-color)',
                                     borderRadius: 'var(--radius)',
-                                    boxShadow: isMobile ? '8px 8px 0px rgba(0,0,0,0.1)' : '15px 15px 0px rgba(0,0,0,0.1)',
+                                    boxShadow: '15px 15px 0px rgba(0,0,0,0.1)',
                                     objectFit: 'contain'
                                 }}
                             />
