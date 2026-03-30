@@ -140,7 +140,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, desktopFr
 
                     <div style={{
                         position: 'relative',
-                        padding: '48px 24px', // Strict 8px rule (6 * 8)
+                        padding: isMobile ? '40px 20px' : '48px 24px', // Adjusted for mobile
                         display: 'flex',
                         flexDirection: 'row',
                         alignItems: 'center',
@@ -321,7 +321,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, desktopFr
                                         borderRadius: 'var(--radius)',
                                         overflow: 'hidden',
                                         border: '1px solid rgba(0,0,0,0.1)',
-                                        cursor: 'none'
+                                        cursor: isMobile ? 'pointer' : 'none'
                                     }}
                                     className="zoomable-image"
                                     whileHover={{ scale: 1.02 }}
@@ -367,7 +367,7 @@ const Chapter = ({ title, text, image, index, isCompare, onImageClick, desktopFr
                                         borderRadius: 'var(--radius)',
                                         overflow: 'hidden',
                                         border: '1px solid rgba(0,0,0,0.1)',
-                                        cursor: 'none'
+                                        cursor: isMobile ? 'pointer' : 'none'
                                     }}
                                     className="zoomable-image"
                                     whileHover={{ scale: 1.02 }}
@@ -618,7 +618,7 @@ const ProjectTienda = () => {
                         <motion.div
                             whileHover={{ scale: 1.02 }}
                             onClick={() => openLightbox("/tienda-mockup.webp")}
-                            style={{ cursor: 'none', position: 'relative' }}
+                            style={{ cursor: isMobile ? 'pointer' : 'none', position: 'relative' }}
                             className="zoomable-image"
                         >
                             {/* Expand button removed */}
@@ -632,7 +632,7 @@ const ProjectTienda = () => {
                                     display: 'block',
                                     border: '2px solid var(--text-color)',
                                     borderRadius: 'var(--radius)',
-                                    boxShadow: '15px 15px 0px rgba(0,0,0,0.1)',
+                                    boxShadow: isMobile ? '8px 8px 0px rgba(0,0,0,0.1)' : '15px 15px 0px rgba(0,0,0,0.1)',
                                     objectFit: 'contain'
                                 }}
                             />

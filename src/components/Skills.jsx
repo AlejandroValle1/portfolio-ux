@@ -76,8 +76,8 @@ const Skills = () => {
         padding: 'var(--space-4) 0',
         cursor: 'pointer',
         display: 'flex',
-        alignItems: 'baseline',
-        gap: 'var(--space-4)',
+        alignItems: isMobile ? 'center' : 'baseline',
+        gap: isMobile ? 'var(--space-3)' : 'var(--space-4)',
         borderBottom: '1.5px solid var(--text-color)',
         transition: 'opacity 0.35s ease, transform 0.35s ease',
         // Spotlight solo en mobile/tablet
@@ -155,7 +155,7 @@ const Skills = () => {
                                 hover: { opacity: 1, scale: 1.2, rotate: 0, color: 'var(--skill-hover)' }
                             }}
                             style={{
-                                fontSize: '2.5rem',
+                                fontSize: isMobile ? '1.8rem' : '2.5rem',
                                 lineHeight: 0.8,
                                 color: 'var(--accent-primary)',
                                 fontFamily: '"Playfair Display", serif',
