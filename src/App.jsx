@@ -9,7 +9,7 @@ import ProjectTienda from './pages/ProjectTienda';
 import Cursor from './components/Cursor';
 import ScrollUpButton from './components/ScrollToTop';
 
-const PageTopScroller = () => {
+const ScrollToTop = () => {
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -60,15 +60,17 @@ function App() {
     <div className="App">
       <a href="#main-content" className="skip-link">Saltar al contenido principal</a>
       <Cursor />
-      <PageTopScroller />
+      <ScrollToTop />
       <ScrollUpButton />
       <Header theme={theme} toggleTheme={toggleTheme} />
       <main id="main-content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/separa" element={<ProjectSepara />} />
-          <Route path="/tiendatecno" element={<ProjectTienda />} />
-        </Routes>
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<Home />} />
+            <Route path="/separa" element={<ProjectSepara />} />
+            <Route path="/tiendatecno" element={<ProjectTienda />} />
+          </Routes>
+        </AnimatePresence>
       </main>
       <Footer />
     </div>

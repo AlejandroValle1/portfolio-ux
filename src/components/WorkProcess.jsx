@@ -191,11 +191,10 @@ const WorkProcess = () => {
                                         fontSize: '4.5rem',
                                         fontWeight: 900,
                                         lineHeight: 0.8,
-                                        color: activeIndex === index ? 'var(--accent-primary)' : 'var(--text-color)',
-                                        opacity: activeIndex === index ? 0.9 : 0.15,
+                                        color: 'var(--accent-primary)',
+                                        opacity: 0.9,
                                         marginTop: '6px',
-                                        fontFamily: 'var(--font-heading)',
-                                        transition: 'all 0.4s ease'
+                                        fontFamily: 'var(--font-heading)'
                                     }}>
                                         {index + 1}
                                     </div>
