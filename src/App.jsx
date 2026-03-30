@@ -64,13 +64,11 @@ function App() {
       <ScrollUpButton />
       <Header theme={theme} toggleTheme={toggleTheme} />
       <main id="main-content">
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<Home />} />
-            <Route path="/separa" element={<ProjectSepara />} />
-            <Route path="/tiendatecno" element={<ProjectTienda />} />
-          </Routes>
-        </AnimatePresence>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/separa" element={<ProjectSepara />} />
+          <Route path="/tiendatecno" element={<ProjectTienda />} />
+        </Routes>
       </main>
       <Footer />
     </div>
