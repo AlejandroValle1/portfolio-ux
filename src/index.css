@@ -739,6 +739,24 @@ section {
   opacity: 1;
 }
 
+/* Footer Links */
+.footer-links-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-8);
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-link-separator {
+  width: 1px;
+  height: 60px;
+  background: var(--text-color);
+  opacity: 0.12;
+  align-self: center;
+  margin: 0 4px;
+}
+
 /* =========================================
    MOBILE RESPONSIVENESS (max-width: 768px)
    ========================================= */
@@ -860,6 +878,17 @@ section {
   }
   .contact-buttons-wrapper .btn-elegant {
     width: 100% !important;
+  }
+
+  /* Footer Links Mobile */
+  .footer-links-wrapper {
+    flex-direction: column !important;
+    gap: var(--space-4) !important;
+  }
+  .footer-link-separator {
+    width: 60px !important;
+    height: 1px !important;
+    margin: 4px 0 !important;
   }
 
   /* Utilities */

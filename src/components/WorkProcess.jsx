@@ -152,7 +152,7 @@ const WorkProcess = () => {
                             <motion.div
                                 animate={{
                                     scale: hoveredIndex === index ? 1.1 : 1,
-                                    color: 'var(--accent-primary)',
+                                    color: hoveredIndex === index ? 'var(--accent-primary)' : 'var(--text-color)',
                                     opacity: hoveredIndex === index ? 0.4 : 0.08,
                                 }}
                                 transition={{ duration: 0.4, ease: "easeOut" }}
@@ -191,8 +191,9 @@ const WorkProcess = () => {
                                         fontSize: '4.5rem',
                                         fontWeight: 900,
                                         lineHeight: 0.8,
-                                        color: 'var(--accent-primary)',
-                                        opacity: 0.9,
+                                        color: activeIndex === index ? 'var(--accent-primary)' : 'var(--text-color)',
+                                        opacity: activeIndex === index ? 0.9 : 0.15,
+                                        transition: 'color 0.4s ease, opacity 0.4s ease',
                                         marginTop: '6px',
                                         fontFamily: 'var(--font-heading)'
                                     }}>

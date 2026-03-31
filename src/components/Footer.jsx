@@ -112,26 +112,13 @@ const Footer = () => {
                 </p>
 
                 {/* Links estilo icono + label */}
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 'var(--space-4)',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}>
+                <div className="footer-links-wrapper">
                     {/* Separadores entre links */}
                     {contactLinks.map((link, i) => (
                         <React.Fragment key={link.label}>
                             <ContactLink {...link} />
                             {i < contactLinks.length - 1 && (
-                                <div style={{
-                                    width: '60px',
-                                    height: '1px',
-                                    background: 'var(--text-color)',
-                                    opacity: 0.12,
-                                    alignSelf: 'center',
-                                    margin: '4px 0',
-                                }} />
+                                <div className="footer-link-separator" />
                             )}
                         </React.Fragment>
                     ))}
