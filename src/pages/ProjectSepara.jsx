@@ -421,7 +421,16 @@ const ProjectSepara = () => {
         },
         {
             title: "Capítulo 2: Mapear el viaje del usuario",
-            text: "Para empatizar con las personas, armé un journey map. Descubrí que el proceso tenía varias etapas: informarse, separar, llevar al eco punto y esperar al camión recolector. En cada paso aparecían pain points: demasiada información dispersa, falta de bolsas verdes, pocos eco puntos, poca frecuencia de recolección. Pero también vi oportunidades: centralizar la información, ofrecer recompensas, abrir más eco puntos y mejorar la frecuencia de los camiones.",
+            text: (
+                <>
+                    Para empatizar con las personas, desarrollé un Journey Map y descubrí que en cada etapa (informarse, separar, llevar al eco punto) el proceso se frustraba. Transformé estos hallazgos en requerimientos funcionales:
+                    <ul style={{ marginTop: 'var(--space-4)', paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+                        <li><strong>Problema:</strong> Información dispersa y confusa. <br/><span style={{ color: 'var(--accent-primary)', fontWeight: 'bold' }}>↳</span> <strong>Oportunidad:</strong> Módulo de educación centralizado (Talleres).</li>
+                        <li><strong>Problema:</strong> Poco incentivo y escasez de bolsas verdes. <br/><span style={{ color: 'var(--accent-primary)', fontWeight: 'bold' }}>↳</span> <strong>Oportunidad:</strong> Programa de Recompensas por comprometerse.</li>
+                        <li><strong>Problema:</strong> Desconocimiento de puntos de recolección. <br/><span style={{ color: 'var(--accent-primary)', fontWeight: 'bold' }}>↳</span> <strong>Oportunidad:</strong> Mapa interactivo con la red de EcoPuntos cercana.</li>
+                    </ul>
+                </>
+            ),
             image: "/Capitulo-2.webp"
         },
         {
@@ -477,16 +486,16 @@ const ProjectSepara = () => {
                     display: 'grid',
                     gridTemplateColumns: '1fr 1fr',
                     gap: 'var(--space-12)',
-                    alignItems: 'center',
-                    padding: 'var(--space-24) 0 0 0',
+                    alignItems: 'flex-start',
+                    padding: '120px 0 60px',
                     minHeight: '100vh',
-                    marginBottom: 'var(--space-12)'
+                    marginBottom: '0'
                 }}>
                     {/* Left Column: Title & Text */}
                     <div className="project-chapter-text-wrapper" style={{
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: 'var(--space-6)',
+                        gap: 'var(--space-4)',
                         alignItems: 'flex-start'
                     }}>
                         <motion.div
@@ -536,47 +545,107 @@ const ProjectSepara = () => {
                         </motion.p>
 
                         <motion.div
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.6, duration: 0.8 }}
+                            style={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                alignItems: 'center',
+                                gap: 'var(--space-2)',
+                                borderTop: '1px solid var(--border-inactive)',
+                                borderBottom: '1px solid var(--border-inactive)',
+                                padding: 'var(--space-3) 0',
+                                width: '100%',
+                                maxWidth: '650px',
+                            }}
+                        >
+                            <div style={{ flex: 1, textAlign: 'center' }}>
+                                <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6, display: 'block', marginBottom: '4px' }}>Rol</span>
+                                <span style={{ fontSize: '0.95rem', fontWeight: 600 }}>UX/UI Designer</span>
+                            </div>
+                            <div style={{ flex: 1, textAlign: 'center' }}>
+                                <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6, display: 'block', marginBottom: '4px' }}>Tiempo</span>
+                                <span style={{ fontSize: '0.95rem', fontWeight: 600 }}>4 Semanas</span>
+                            </div>
+                            <div style={{ flex: 1, textAlign: 'center' }}>
+                                <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6, display: 'block', marginBottom: '4px' }}>Herramientas</span>
+                                <span style={{ fontSize: '0.95rem', fontWeight: 600 }}>Figma, FigJam</span>
+                            </div>
+                        </motion.div>
+
+                        <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.8, duration: 1 }}
                             style={{
                                 display: 'flex',
+                                flexDirection: 'column',
                                 alignItems: 'center',
-                                justifyContent: 'center',
                                 gap: 'var(--space-3)',
-                                marginTop: 'var(--space-4)',
                                 width: '100%',
                                 maxWidth: '650px',
-                                opacity: 0.7,
+                                alignSelf: 'flex-start'
+                            }}
+                        >
+                            <a
+                                href="https://www.figma.com/proto/9tZ8o95QpwKsMJEE9Iqw96/Proyecto-SE-PA-RA?node-id=65-59&starting-point-node-id=65%3A55&t=ethJmLuKXdVEIEMc-1&hide-ui=1"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn-elegant"
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    width: '100%',
+                                    maxWidth: '400px',
+                                    gap: '12px',
+                                    padding: '16px 28px',
+                                    borderRadius: '50px',
+                                    border: '1.5px solid var(--accent-primary)',
+                                    color: 'var(--text-color)',
+                                    textDecoration: 'none',
+                                    fontSize: '0.95rem',
+                                    fontWeight: 800,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.05em'
+                                }}
+                            >
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="currentColor" fillRule="evenodd" d="M8.667 9.417a2.583 2.583 0 1 0 0 5.166h2.583V9.417zm2.583-1.5H8.667a2.583 2.583 0 0 1 0-5.167h2.583zm1.5-5.167v5.167h2.583a2.584 2.584 0 0 0 0-5.167zm2.583 6.666a2.583 2.583 0 0 0-2.583 2.542v.083a2.583 2.583 0 1 0 2.583-2.625m-6.666 6.667a2.584 2.584 0 1 0 2.583 2.584v-2.584z" clipRule="evenodd" />
+                                </svg>
+                                Prototipo Interactivo
+                            </a>
+
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: '100%',
+                                gap: '8px',
+                                opacity: 0.6,
                                 fontWeight: 700,
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.1em',
-                                fontSize: '0.9rem',
-                                color: 'var(--text-color)'
-                            }}
-                        >
-                            <span>Explorar proceso de diseño</span>
-                            <motion.div
-                                animate={{ y: [0, 8, 0] }}
-                                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                            >
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
-                                </svg>
-                            </motion.div>
+                                fontSize: '0.8rem',
+                            }}>
+                                <span>Leer caso de estudio</span>
+                                <motion.div animate={{ y: [0, 5, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
+                                    ↓
+                                </motion.div>
+                            </div>
                         </motion.div>
                     </div>
 
                     {/* Right Column: Image */}
                     <motion.div
-                        className="project-chapter-image-wrapper"
+                        className="project-chapter-image-wrapper hero-mockup-wrapper"
                         initial={{ opacity: 0, scale: 0.95, x: 50 }}
                         animate={{ opacity: 1, scale: 1, x: 0 }}
                         transition={{ duration: 1, delay: 0.2 }}
                         style={{
                             position: 'relative',
                             zIndex: 1,
-                            alignSelf: 'center',
                             display: 'flex',
                             justifyContent: 'flex-end',
                             width: '100%'

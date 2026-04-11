@@ -32,15 +32,17 @@ const Header = ({ theme, toggleTheme }) => {
             position: 'fixed',
             top: 0,
             left: 0,
-            right: 0,
+            width: '100%',
             zIndex: 100,
             background: theme === 'dark' ? 'rgba(11, 17, 24, 0.8)' : 'rgba(169, 222, 249, 0.8)',
             backdropFilter: 'blur(12px)',
             WebkitBackdropFilter: 'blur(12px)',
             borderBottom: '1.5px solid var(--text-color)',
-            opacity: 1
+            opacity: 1,
+            transform: 'translateZ(0)',
+            willChange: 'backdrop-filter'
         }}>
-            <motion.div style={{ scaleX, position: 'absolute', bottom: 0, left: 0, right: 0, height: '3px', background: 'var(--accent-primary)', transformOrigin: '0%' }} />
+            <motion.div style={{ scaleX, position: 'absolute', bottom: 0, left: 0, width: '100%', height: '3px', background: 'var(--accent-primary)', transformOrigin: '0%' }} />
 
             <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--text-color)' }}>
                 <Link

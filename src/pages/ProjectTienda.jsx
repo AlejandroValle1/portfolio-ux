@@ -445,7 +445,16 @@ const ProjectTienda = () => {
         },
         {
             title: "Capítulo 2: Investigación y competencia",
-            text: "Analicé competidores como Maximus, Gaming City y ArmyTech. Vi fortalezas como variedad de hardware y asesoramiento gamer, pero también debilidades como mala atención postventa y escasa visibilidad digital. La oportunidad de Tienda Tecno estaba en diferenciarse con una experiencia cercana, asesoramiento claro y presencia digital sólida.",
+            text: (
+                <>
+                    Analicé competidores directos como Maximus, Gaming City y ArmyTech. Identifiqué oportunidades clave donde Tienda Tecno podía destacarse de la media:
+                    <ul style={{ marginTop: 'var(--space-4)', paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+                        <li><strong>Fortalezas del mercado:</strong> Alta variedad de hardware y asesoramiento técnico.</li>
+                        <li><strong>Debilidades detectadas:</strong> Fricción en el checkout, mala atención postventa y escasa presencia digital.</li>
+                        <li><strong>La Oportunidad:</strong> Diseñar una experiencia cercana y transparente en donde el asesoramiento acompañe amigablemente todo el proceso de compra.</li>
+                    </ul>
+                </>
+            ),
             image: "/Tienda-Tecno-benchmark_page-0001.webp"
         },
         {
@@ -510,16 +519,16 @@ const ProjectTienda = () => {
                     display: 'grid',
                     gridTemplateColumns: '1fr 1fr',
                     gap: 'var(--space-12)',
-                    alignItems: 'center',
-                    padding: 'var(--space-24) 0 0 0',
+                    alignItems: 'flex-start',
+                    padding: '120px 0 60px',
                     minHeight: '100vh',
-                    marginBottom: 'var(--space-12)'
+                    marginBottom: '0'
                 }}>
                     {/* Left Column: Title & Text */}
                     <div className="project-chapter-text-wrapper" style={{
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: 'var(--space-6)',
+                        gap: 'var(--space-4)',
                         alignItems: 'flex-start'
                     }}>
                         <motion.div
@@ -540,14 +549,13 @@ const ProjectTienda = () => {
                                 CASO DE ESTUDIO
                             </span>
                             <h1 className="brutalist-title" style={{
-                                fontSize: 'clamp(3.5rem, 8vw, 7.5rem)',
-                                lineHeight: 0.85,
-                                letterSpacing: '-0.05em',
+                                fontSize: 'clamp(2.5rem, 4.5vw, 4.5rem)',
                                 color: 'var(--accent-primary)',
+                                lineHeight: '1',
                                 margin: 0,
                                 textAlign: 'left'
                             }}>
-                                TIENDA<br />TECNO
+                                TIENDA TECNO
                             </h1>
                         </motion.div>
 
@@ -569,47 +577,107 @@ const ProjectTienda = () => {
                         </motion.p>
 
                         <motion.div
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.6, duration: 0.8 }}
+                            style={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                alignItems: 'center',
+                                gap: 'var(--space-2)',
+                                borderTop: '1px solid var(--border-inactive)',
+                                borderBottom: '1px solid var(--border-inactive)',
+                                padding: 'var(--space-3) 0',
+                                width: '100%',
+                                maxWidth: '650px',
+                            }}
+                        >
+                            <div style={{ flex: 1, textAlign: 'center' }}>
+                                <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6, display: 'block', marginBottom: '4px' }}>Rol</span>
+                                <span style={{ fontSize: '0.95rem', fontWeight: 600 }}>UX/UI Designer</span>
+                            </div>
+                            <div style={{ flex: 1, textAlign: 'center' }}>
+                                <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6, display: 'block', marginBottom: '4px' }}>Tiempo</span>
+                                <span style={{ fontSize: '0.95rem', fontWeight: 600 }}>4 Meses</span>
+                            </div>
+                            <div style={{ flex: 1, textAlign: 'center' }}>
+                                <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6, display: 'block', marginBottom: '4px' }}>Herramientas</span>
+                                <span style={{ fontSize: '0.95rem', fontWeight: 600 }}>Figma, FigJam</span>
+                            </div>
+                        </motion.div>
+
+                        <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.8, duration: 1 }}
                             style={{
                                 display: 'flex',
+                                flexDirection: 'column',
                                 alignItems: 'center',
-                                justifyContent: 'center',
                                 gap: 'var(--space-3)',
-                                marginTop: 'var(--space-4)',
                                 width: '100%',
                                 maxWidth: '650px',
-                                opacity: 0.7,
+                                alignSelf: 'flex-start'
+                            }}
+                        >
+                            <a
+                                href="https://www.figma.com/proto/BerM7QNvQfAiNONrNjHLVX/Wireframe-Tienda-Tecno.?node-id=232-705&t=WoaQTWZcyQQrxDfD-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=232%3A705&hide-ui=1"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn-elegant"
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    width: '100%',
+                                    maxWidth: '400px',
+                                    gap: '12px',
+                                    padding: '16px 28px',
+                                    borderRadius: '50px',
+                                    border: '1.5px solid var(--accent-primary)',
+                                    color: 'var(--text-color)',
+                                    textDecoration: 'none',
+                                    fontSize: '0.95rem',
+                                    fontWeight: 800,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.05em'
+                                }}
+                            >
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="currentColor" fillRule="evenodd" d="M8.667 9.417a2.583 2.583 0 1 0 0 5.166h2.583V9.417zm2.583-1.5H8.667a2.583 2.583 0 0 1 0-5.167h2.583zm1.5-5.167v5.167h2.583a2.584 2.584 0 0 0 0-5.167zm2.583 6.666a2.583 2.583 0 0 0-2.583 2.542v.083a2.583 2.583 0 1 0 2.583-2.625m-6.666 6.667a2.584 2.584 0 1 0 2.583 2.584v-2.584z" clipRule="evenodd" />
+                                </svg>
+                                Prototipo Interactivo
+                            </a>
+
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: '100%',
+                                gap: '8px',
+                                opacity: 0.6,
                                 fontWeight: 700,
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.1em',
-                                fontSize: '0.9rem',
-                                color: 'var(--text-color)'
-                            }}
-                        >
-                            <span>Explorar proceso de diseño</span>
-                            <motion.div
-                                animate={{ y: [0, 8, 0] }}
-                                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                            >
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
-                                </svg>
-                            </motion.div>
+                                fontSize: '0.8rem',
+                            }}>
+                                <span>Leer caso de estudio</span>
+                                <motion.div animate={{ y: [0, 5, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
+                                    ↓
+                                </motion.div>
+                            </div>
                         </motion.div>
                     </div>
 
                     {/* Right Column: Image */}
                     <motion.div
-                        className="project-chapter-image-wrapper"
+                        className="project-chapter-image-wrapper hero-tienda-mockup-wrapper"
                         initial={{ opacity: 0, scale: 0.95, x: 50 }}
                         animate={{ opacity: 1, scale: 1, x: 0 }}
                         transition={{ duration: 1, delay: 0.2 }}
                         style={{
                             position: 'relative',
                             zIndex: 1,
-                            alignSelf: 'center',
                             display: 'flex',
                             justifyContent: 'flex-end',
                             width: '100%'

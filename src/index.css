@@ -7,13 +7,13 @@
   --text-color: #0A141F;
   /* Azul profundo para lectura */
   --surface-color: rgba(255, 255, 255, 0.4); /* Volviendo a la transparencia elegante */
-  --accent-primary: #E65A2B; 
+  --accent-primary: #EE6C4D; /* Coral cálido (más orgánico que el naranja anterior) */
   --accent-secondary: #FFD166;
   /* Amarillo sol */
   --accent-detail: #2B4162;
   --hover-color: #FFD166;
   /* Vitalidad y juventud original para botones */
-  --skill-hover: #D14D23; 
+  --skill-hover: #D14D23;
   --cursor-color: #0A141F; 
 
   /* Composición de dos gradientes: Sol (sup. der.) y Anochecer sutil (inf. izq.) */
@@ -190,7 +190,7 @@ div[role="button"] {
   content: "";
   position: absolute;
   inset: -1px;
-  background-color: var(--hover-color);
+  background-color: var(--accent-primary);
   transform: scaleY(0);
   transform-origin: bottom;
   transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1);
@@ -198,11 +198,13 @@ div[role="button"] {
   border-radius: inherit;
 }
 
-.btn-elegant:hover::before {
+.btn-elegant:hover::before,
+.btn-elegant:active::before {
   transform: scaleY(1);
 }
 
-.btn-elegant:hover {
+.btn-elegant:hover,
+.btn-elegant:active {
   color: #1A2A40 !important;
   border-color: transparent;
   transform: translateY(-2px);
@@ -532,6 +534,16 @@ section {
   .process-step-1,
   .process-step-2 {
     grid-column: span 5;
+  }
+
+  .hero-mockup-wrapper {
+    transform: none !important;
+    margin-top: 32px !important;
+  }
+
+  .hero-tienda-mockup-wrapper {
+    transform: none !important;
+    margin-top: 84px !important;
   }
 }
 
