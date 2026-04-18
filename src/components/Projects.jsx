@@ -52,11 +52,11 @@ const projectsSummary = [
         imgStyle: { objectFit: 'contain', backgroundColor: '#fff' }
     },
     {
-        id: 'tiendatecno',
+        id: 'tienda-tecno',
         title: "TIENDA TECNO",
         intro: "E-commerce confiable para marca con locales físicos.",
         type: "Web Design / UX Research",
-        link: "/tiendatecno",
+        link: "/tienda-tecno",
         image: "/tienda-mockup.webp",
         imgStyle: { objectFit: 'contain', backgroundColor: '#fff' }
     }
@@ -228,7 +228,7 @@ const Projects = () => {
                             transition={{ duration: 0.6, delay: index * 0.1 }}
                             whileHover={!isMobile ? {
                                 borderColor: 'var(--accent-primary)',
-                                boxShadow: '0 0 0 1.5px var(--accent-primary), 0 24px 64px rgba(0,0,0,0.12)',
+                                boxShadow: '0 15px 50px rgba(0,0,0,0.1), 0 0 30px var(--accent-glow)',
                                 transition: { duration: 0.3 }
                             } : undefined}
                             whileTap={{ scale: 0.98 }}
@@ -238,7 +238,7 @@ const Projects = () => {
                                 ...(isMobile && activeIndex !== null ? {
                                     borderColor: activeIndex === index ? 'var(--accent-primary)' : 'var(--border-inactive)',
                                     boxShadow: activeIndex === index
-                                        ? '0 0 0 1.5px var(--accent-primary), 0 20px 60px rgba(0,0,0,0.1)'
+                                        ? '0 20px 60px var(--accent-glow)'
                                         : 'none',
                                     opacity: activeIndex === index ? 1 : 0.45,
                                 } : {})

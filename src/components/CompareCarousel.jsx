@@ -33,16 +33,11 @@ const GlassToggle = ({ mode, setMode }) => {
             width: '100%',
             zIndex: 10
         }}>
-            <div style={{
+            <div className="glass-card" style={{
                 position: 'relative',
                 display: 'flex',
-                background: 'rgba(255, 255, 255, 0.05)',
-                backdropFilter: 'blur(16px)',
-                border: '1.5px solid var(--text-color)',
-                opacity: 0.8,
                 borderRadius: '50px',
-                padding: '4px',
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+                padding: '6px',
                 width: 'fit-content'
             }}>
                 <LayoutGroup id="glassToggle">

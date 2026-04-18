@@ -1,428 +1,25 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import ProjectHero from '../components/ProjectHero';
+import ProjectSection from '../components/ProjectSection';
+import ProjectGroupLabel from '../components/ProjectGroupLabel';
+import ProjectSummary from '../components/ProjectSummary';
+import Lightbox from '../components/Lightbox';
 import ImageCarousel from '../components/ImageCarousel';
 import CompareCarousel from '../components/CompareCarousel';
-import Lightbox from '../components/Lightbox';
-
-// --- Components ---
-
-// Lightbox for zooming images with Mouse Panning
-// Lightbox has been moved to its own component file to be shared across projects.
-
-const ImageWithSkeleton = ({ src, alt, style, onClick }) => {
-    const [isLoaded, setIsLoaded] = useState(false);
-    const imgRef = useRef(null);
-
-    useEffect(() => {
-        if (imgRef.current && imgRef.current.complete) {
-            setIsLoaded(true);
-        }
-    }, [src]);
-
-    return (
-        <div style={{ position: 'relative', width: style?.width || '100%', height: style?.height }}>
-            {!isLoaded && (
-                <div className="skeleton-shimmer" style={{
-                    position: 'absolute',
-                    inset: 0,
-                    width: '100%',
-                    height: '100%',
-                    borderRadius: style?.borderRadius || 'var(--radius)',
-                    zIndex: 2,
-                    backgroundColor: 'rgba(255,255,255,0.05)'
-                }} />
-            )}
-            <img
-                ref={imgRef}
-                src={src}
-                alt={alt}
-                onLoad={() => setIsLoaded(true)}
-                onClick={onClick}
-                style={{
-                    ...style,
-                    opacity: isLoaded ? 1 : 0,
-                    transition: 'opacity 0.6s ease-in-out',
-                    position: 'relative',
-                    zIndex: 1
-                }}
-            />
-        </div>
-    );
-};
-
-const Chapter = ({ title, text, image, index, isCompare, onImageClick, desktopFrame }) => {
-    // Zig-Zag logic: Even index (0, 2) = Default (Text Left), Odd index (1) = Reversed (Image Left)
-    // Zig-Zag logic: Now inverted visually (Index 0 acts like odd = Image Left) to balance Hero
-    const isEven = (index + 1) % 2 === 0;
-
-    // Special Layout for Comparison Chapter (Top Text, Bottom Image)
-    if (isCompare) {
-        return (
-            <section style={{
-                padding: 'var(--space-8) 0',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 'var(--space-8)',
-                alignItems: 'center',
-                textAlign: 'center'
-            }}>
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    style={{ maxWidth: '800px' }}
-                >
-                    <h3 className="brutalist-title" style={{
-                        fontSize: 'clamp(2rem, 4vw, 3rem)',
-                        color: 'var(--accent-primary)',
-                        marginBottom: 'var(--space-4)',
-                        lineHeight: 1.1
-                    }}>
-                        <span style={{
-                            display: 'block',
-                            fontSize: '0.4em',
-                            opacity: 0.7,
-                            marginBottom: 'var(--space-2)',
-                            fontFamily: 'monospace'
-                        }}>
-                            CAPÍTULO 0{index + 1}
-                        </span>
-                        {title.split(':')[1] || title}
-                    </h3>
-                    <p className="project-chapter-text">
-                        {text}
-                    </p>
-                </motion.div>
-
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    style={{ width: '100%' }}
-                >
-                    <CompareCarousel
-                        lowFiImages={image.low}
-                        highFiImages={image.high}
-                        title={title}
-                        desktopFrame={desktopFrame}
-                    />
-                </motion.div>
-
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    style={{
-                        marginTop: 'var(--space-16)',
-                        width: '100%',
-                        maxWidth: '1000px',
-                        position: 'relative',
-                        borderRadius: '40px',
-                        overflow: 'hidden',
-                        background: 'linear-gradient(135deg, rgba(2, 6, 23, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
-                        boxShadow: '0 40px 100px rgba(0,0,0,0.3)'
-                    }}
-                >
-                    {/* Mesh Gradient Background */}
-                    <div style={{
-                        position: 'absolute',
-                        inset: 0,
-                        zIndex: 0,
-                        opacity: 0.4,
-                        pointerEvents: 'none',
-                        background: 'radial-gradient(circle at 70% 20%, var(--accent-primary) 0%, transparent 50%), radial-gradient(circle at 30% 80%, #6366f1 0%, transparent 50%)',
-                        filter: 'blur(60px)'
-                    }} />
-
-                    <div style={{
-                        position: 'relative',
-                        padding: '48px 24px', // Strict 8px rule (6 * 8)
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        gap: '24px', // 3 * 8
-                        zIndex: 1,
-                        flexWrap: 'wrap-reverse'
-                    }}>
-                        {/* Left: Mockup Section */}
-                        <motion.div
-                            className="hide-on-mobile"
-                            animate={{ y: [0, -15, 0], rotate: [-2, 0, -2] }}
-                            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                            style={{
-                                flex: '1 1 300px',
-                                display: 'flex',
-                                justifyContent: 'center'
-                            }}
-                        >
-                            <img
-                                src="/tienda-mockup.webp"
-                                alt="Figma Prototype Preview"
-                                style={{
-                                    width: '320px',
-                                    borderRadius: '16px',
-                                    boxShadow: '20px 20px 60px rgba(0,0,0,0.5)',
-                                    transform: 'perspective(1000px) rotateY(-15deg) rotateX(5deg)',
-                                    border: '1px solid rgba(255,255,255,0.2)'
-                                }}
-                            />
-                        </motion.div>
-
-                        {/* Right: Content Section */}
-                        <div style={{
-                            flex: '1.2 1 350px',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'flex-start',
-                            textAlign: 'left'
-                        }}>
-                            <h2 className="brutalist-title" style={{
-                                fontSize: 'clamp(2rem, 5vw, 3.2rem)',
-                                color: '#fff',
-                                margin: '0 0 16px 0',
-                                lineHeight: 1,
-                                letterSpacing: '-0.02em'
-                            }}>
-                                Prototipo <br /> Interactivo
-                            </h2>
-                            <p style={{
-                                color: 'rgba(255,255,255,0.7)',
-                                fontSize: '1.1rem',
-                                marginBottom: '32px',
-                                maxWidth: '450px',
-                                fontWeight: 500,
-                                lineHeight: 1.4
-                            }}>
-                                Te invito a testear y conocer en detalle el diseño
-                            </p>
-
-                            <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                                <a
-                                    href="https://www.figma.com/proto/BerM7QNvQfAiNONrNjHLVX/Wireframe-Tienda-Tecno.?node-id=232-705&t=WoaQTWZcyQQrxDfD-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=232%3A705&hide-ui=1"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    style={{ textDecoration: 'none' }}
-                                >
-                                    <motion.div
-                                        whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.1)' }}
-                                        whileTap={{ scale: 0.95 }}
-                                        style={{
-                                            display: 'inline-flex',
-                                            alignItems: 'center',
-                                            gap: '16px',
-                                            padding: '16px 32px',
-                                            background: 'rgba(255,255,255,0.05)',
-                                            backdropFilter: 'blur(10px)',
-                                            border: '1px solid rgba(255,255,255,0.2)',
-                                            borderRadius: '50px',
-                                            color: '#fff',
-                                            fontWeight: 800,
-                                            fontSize: '1rem',
-                                            textTransform: 'uppercase',
-                                            letterSpacing: '0.05em',
-                                            transition: 'all 0.3s ease'
-                                        }}
-                                    >
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill="currentColor" fillRule="evenodd" d="M8.667 9.417a2.583 2.583 0 1 0 0 5.166h2.583V9.417zm2.583-1.5H8.667a2.583 2.583 0 0 1 0-5.167h2.583zm1.5-5.167v5.167h2.583a2.584 2.584 0 0 0 0-5.167zm2.583 6.666a2.583 2.583 0 0 0-2.583 2.542v.083a2.583 2.583 0 1 0 2.583-2.625m-6.666 6.667a2.584 2.584 0 1 0 2.583 2.584v-2.584z" clipRule="evenodd" />
-                                        </svg>
-                                        Ver prototipo en figma
-                                    </motion.div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </motion.div>
-            </section>
-        );
-    }
-
-    // Standard Zig-Zag Layout
-    return (
-        <section
-            style={{
-                padding: 'var(--space-8) 0',
-            }}
-        >
-            <div className="project-chapter-grid" style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                gap: 'var(--space-8)',
-                alignItems: 'center', // Better alignment for mobile
-                width: '100%'
-            }}>
-                {/*
-               ZigZag Logic:
-               Even (0, 2): Text Left, Image Right.
-            */}
-                {isEven ? (
-                    <>
-                        <motion.div
-                            className="project-chapter-text-wrapper"
-                            initial={{ opacity: 0, x: -50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
-                        >
-                            <h3 className="brutalist-title" style={{
-                                fontSize: 'clamp(2rem, 4vw, 3rem)',
-                                color: 'var(--accent-primary)',
-                                marginBottom: 'var(--space-6)',
-                                lineHeight: 1.1
-                            }}>
-                                <span style={{
-                                    display: 'block',
-                                    fontSize: '0.8rem',
-                                    marginBottom: 'var(--space-2)',
-                                    fontFamily: 'monospace',
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '0.2em',
-                                    color: 'var(--accent-primary)',
-                                    fontWeight: 800
-                                }}>
-                                    CAPÍTULO 0{index + 1}
-                                </span>
-                                {title.split(':')[1] || title}
-                            </h3>
-                            <p className="project-chapter-text">
-                                {text}
-                            </p>
-                        </motion.div>
-
-                        <motion.div
-                            className="project-chapter-image-wrapper"
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: 'var(--space-4)'
-                            }}
-                        >
-                            {Array.isArray(image) ? (
-                                <ImageCarousel
-                                    images={image}
-                                    title={title}
-                                    onImageClick={onImageClick}
-                                />
-                            ) : (
-                                <motion.div
-                                    onClick={() => image && onImageClick(image)}
-                                    style={{
-                                        position: 'relative',
-                                        boxShadow: '10px 10px 0px rgba(0,0,0,0.1)',
-                                        borderRadius: 'var(--radius)',
-                                        overflow: 'hidden',
-                                        border: '1px solid rgba(0,0,0,0.1)',
-                                        cursor: 'none'
-                                    }}
-                                    className="zoomable-image"
-                                    whileHover={{ scale: 1.02 }}
-                                >
-                                    {/* Expand button removed */}
-                                    <ImageWithSkeleton
-                                        src={image}
-                                        alt={`Visual for ${title}`}
-                                        style={{ width: '100%', height: 'auto', display: 'block' }}
-                                        onClick={() => image && onImageClick(image)}
-                                    />
-                                </motion.div>
-                            )}
-                        </motion.div>
-                    </>
-                ) : (
-                    <>
-                        {/* Swapped DOM Order for ZigZag Effect in Odd chapters */}
-                        <motion.div
-                            className="project-chapter-image-wrapper"
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: 'var(--space-4)'
-                            }}
-                        >
-                            {Array.isArray(image) ? (
-                                <ImageCarousel
-                                    images={image}
-                                    title={title}
-                                    onImageClick={onImageClick}
-                                />
-                            ) : (
-                                <motion.div
-                                    onClick={() => image && onImageClick(image)}
-                                    style={{
-                                        position: 'relative',
-                                        boxShadow: '-10px 10px 0px rgba(0,0,0,0.1)',
-                                        borderRadius: 'var(--radius)',
-                                        overflow: 'hidden',
-                                        border: '1px solid rgba(0,0,0,0.1)',
-                                        cursor: 'none'
-                                    }}
-                                    className="zoomable-image"
-                                    whileHover={{ scale: 1.02 }}
-                                >
-                                    {/* Expand button removed */}
-                                    <ImageWithSkeleton
-                                        src={image}
-                                        alt={`Visual for ${title}`}
-                                        style={{ width: '100%', height: 'auto', display: 'block' }}
-                                        onClick={() => image && onImageClick(image)}
-                                    />
-                                </motion.div>
-                            )}
-                        </motion.div>
-
-                        <motion.div
-                            className="project-chapter-text-wrapper"
-                            initial={{ opacity: 0, x: 50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        >
-                            <h3 className="brutalist-title" style={{
-                                fontSize: 'clamp(2rem, 4vw, 3rem)',
-                                color: 'var(--accent-primary)',
-                                marginBottom: 'var(--space-6)',
-                                lineHeight: 1.1
-                            }}>
-                                <span style={{
-                                    display: 'block',
-                                    fontSize: '0.8rem',
-                                    marginBottom: 'var(--space-2)',
-                                    fontFamily: 'monospace',
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '0.2em',
-                                    color: 'var(--accent-primary)',
-                                    fontWeight: 800
-                                }}>
-                                    CAPÍTULO 0{index + 1}
-                                </span>
-                                {title.split(':')[1]?.trim() || title}
-                            </h3>
-                            <p className="project-chapter-text">
-                                {text}
-                            </p>
-                        </motion.div>
-                    </>
-                )}
-            </div>
-        </section>
-    );
-};
+import { TIENDA_DATA } from '../data/projectsData';
 
 const ProjectTienda = () => {
     const [lightboxState, setLightboxState] = useState({ isOpen: false, images: [], index: 0 });
+    const [hoveredFlowStep, setHoveredFlowStep] = useState(null);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     const openLightbox = (images, index = 0) => {
         setLightboxState({
@@ -432,428 +29,238 @@ const ProjectTienda = () => {
         });
     };
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-
-    // Placeholder images - User needs to replace these
-    const sections = [
-        {
-            title: "Capítulo 1: El punto de partida",
-            text: "El cliente tenía dos locales físicos en Buenos Aires pero ninguna presencia digital. La meta era clara: crear una tienda online accesible y funcional, capaz de mostrar el catálogo completo, ampliar el alcance geográfico y generar confianza en un mercado competitivo.",
-            image: "/Tienda-Tecno-punto-de-partida_page-0001.webp"
-        },
-        {
-            title: "Capítulo 2: Investigación y competencia",
-            text: (
-                <>
-                    Analicé competidores directos como Maximus, Gaming City y ArmyTech. Identifiqué oportunidades clave donde Tienda Tecno podía destacarse de la media:
-                    <ul style={{ marginTop: 'var(--space-4)', paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-                        <li><strong>Fortalezas del mercado:</strong> Alta variedad de hardware y asesoramiento técnico.</li>
-                        <li><strong>Debilidades detectadas:</strong> Fricción en el checkout, mala atención postventa y escasa presencia digital.</li>
-                        <li><strong>La Oportunidad:</strong> Diseñar una experiencia cercana y transparente en donde el asesoramiento acompañe amigablemente todo el proceso de compra.</li>
-                    </ul>
-                </>
-            ),
-            image: "/Tienda-Tecno-benchmark_page-0001.webp"
-        },
-        {
-            title: "Capítulo 3: Conocer a los usuarios",
-            text: "Definí tres protopersonas: Franco (usuario avanzado), Camila (principiante) y Leonardo (funcional). Sus objetivos y frustraciones me ayudaron a diseñar una experiencia inclusiva: desde especificaciones técnicas para expertos hasta guías claras para principiantes.",
-            image: [
-                "/Tienda-Tecno-protopersona_page-0001.webp",
-                "/Tienda-Tecno-protopersona_page-0002.webp",
-                "/Tienda-Tecno-protopersona_page-0003.webp"
-            ]
-        },
-        {
-            title: "Capítulo 4: Estructura y flujo",
-            text: "Armé el sitemap con secciones clave: productos, armá tu PC, guía y asesoramiento, comunidad y carrito. Luego definí el user flow para la compra de una PC, incluyendo filtros, ficha de producto, checkout y login. El foco estuvo en reducir fricciones y dar seguridad en cada paso.",
-            image: ["/Tienda-tecno-sitemap.webp", "/tienda-tecno-user-flow.webp"]
-        },
-        {
-            title: "Capítulo 5: Iterar y ajustar",
-            text: "El proceso pasó de wireframes de baja fidelidad, donde definí la estructura y jerarquía básica, a wireframes de alta fidelidad, donde integré tipografía, color, iconografía y reforcé las breadcrumbs para dar más control al usuario en el checkout. Esta transición muestra cómo pasé de la idea inicial a una experiencia visualmente atractiva y validada.",
-            isCompare: true,
-            desktopFrame: true,
-            image: {
-                low: [
-                    "/1-Home-baja-fidelidad.webp",
-                    "/3-Catalogo-baja-fidelidad.webp",
-                    "/4-Ficha-de-producto-baja-fidelidad.webp",
-                    "/5-Carrito-de-compras-baja-fidelidad.webp",
-                    "/8-Pago-baja-fidelidad.webp"
-                ],
-                high: [
-                    "/1-Home-alta-fidelidad.webp",
-                    "/3-Catalogo-alta-fidelidad.webp",
-                    "/4-Ficha-de-producto-alta-fidelidad.webp",
-                    "/5-Carrito-de-compras-alta-fidelidad.webp",
-                    "/8-Pago-alta-fidelidad.webp"
-                ]
-            }
-        }
-    ];
+    useEffect(() => { window.scrollTo(0, 0); }, []);
 
     return (
         <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.02 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
         >
-            <section className="container" style={{ paddingBottom: 'var(--space-16)' }}>
+            <AnimatePresence>
+                {lightboxState.isOpen && (
+                    <Lightbox
+                        images={lightboxState.images}
+                        initialIndex={lightboxState.index}
+                        onClose={() => setLightboxState({ ...lightboxState, isOpen: false })}
+                    />
+                )}
+            </AnimatePresence>
 
-                <AnimatePresence>
-                    {lightboxState.isOpen && (
-                        <Lightbox
-                            images={lightboxState.images}
-                            initialIndex={lightboxState.index}
-                            onClose={() => setLightboxState({ ...lightboxState, isOpen: false })}
-                        />
-                    )}
-                </AnimatePresence>
+            {/* ── Hero ── */}
+            <ProjectHero {...TIENDA_DATA} />
 
-                {/* HERO */}
-                <header className="project-hero-grid" style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
-                    gap: 'var(--space-12)',
-                    alignItems: 'flex-start',
-                    padding: '120px 0 60px',
-                    minHeight: '100vh',
-                    marginBottom: '0'
-                }}>
-                    {/* Left Column: Title & Text */}
-                    <div className="project-chapter-text-wrapper" style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: 'var(--space-4)',
-                        alignItems: 'flex-start'
-                    }}>
-                        <motion.div
-                            initial={{ opacity: 0, x: -30 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8 }}
-                        >
-                            <span style={{
-                                fontFamily: 'monospace',
-                                fontSize: '0.9rem',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.3em',
-                                opacity: 0.6,
-                                display: 'block',
-                                marginBottom: 'var(--space-4)',
-                                fontWeight: 700
-                            }}>
-                                CASO DE ESTUDIO
-                            </span>
-                            <h1 className="brutalist-title" style={{
-                                fontSize: 'clamp(2.5rem, 4.5vw, 4.5rem)',
-                                color: 'var(--accent-primary)',
-                                lineHeight: '1',
-                                margin: 0,
-                                textAlign: 'left'
-                            }}>
-                                TIENDA TECNO
-                            </h1>
-                        </motion.div>
+            {/* ════════════════════════════════
+                GRUPO 1: Contexto
+            ════════════════════════════════ */}
+            <ProjectGroupLabel label="Contexto y Punto de Partida" />
 
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.4, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                            style={{
-                                fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
-                                lineHeight: 1.6,
-                                width: '100%',
-                                maxWidth: '650px',
-                                opacity: 1,
-                                textAlign: 'left',
-                                fontWeight: 400
-                            }}
-                        >
-                            Tienda Tecno nace como respuesta a la necesidad de expandirse al <span className="serif-title" style={{ fontSize: '1.2em' }}>mundo digital</span>. El objetivo era crear un <span style={{ whiteSpace: 'nowrap' }}>e-commerce</span> que no solo venda hardware, sino que asesore y acompañe al usuario en su compra, replicando la esencia de un local físico.
-                        </motion.p>
+            <ProjectSection
+                icon="○"
+                title="El desafío"
+                text="El cliente tenía dos locales físicos en Buenos Aires pero ninguna presencia digital. La meta era clara: crear una tienda online accesible y funcional, capaz de mostrar el catálogo completo, ampliar el alcance geográfico y generar confianza en un mercado competitivo."
+            />
 
-                        <motion.div
-                            initial={{ opacity: 0, y: 15 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.6, duration: 0.8 }}
-                            style={{
-                                display: 'flex',
-                                flexWrap: 'wrap',
-                                alignItems: 'center',
-                                gap: 'var(--space-2)',
-                                borderTop: '1px solid var(--border-inactive)',
-                                borderBottom: '1px solid var(--border-inactive)',
-                                padding: 'var(--space-3) 0',
-                                width: '100%',
-                                maxWidth: '650px',
-                            }}
-                        >
-                            <div style={{ flex: 1, textAlign: 'center' }}>
-                                <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6, display: 'block', marginBottom: '4px' }}>Rol</span>
-                                <span style={{ fontSize: '0.95rem', fontWeight: 600 }}>UX/UI Designer</span>
-                            </div>
-                            <div style={{ flex: 1, textAlign: 'center' }}>
-                                <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6, display: 'block', marginBottom: '4px' }}>Tiempo</span>
-                                <span style={{ fontSize: '0.95rem', fontWeight: 600 }}>4 Meses</span>
-                            </div>
-                            <div style={{ flex: 1, textAlign: 'center' }}>
-                                <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6, display: 'block', marginBottom: '4px' }}>Herramientas</span>
-                                <span style={{ fontSize: '0.95rem', fontWeight: 600 }}>Figma, FigJam</span>
-                            </div>
-                        </motion.div>
+            {/* ════════════════════════════════
+                GRUPO 2: Investigación
+            ════════════════════════════════ */}
+            <ProjectGroupLabel label="Investigación" />
 
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.8, duration: 1 }}
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                gap: 'var(--space-3)',
-                                width: '100%',
-                                maxWidth: '650px',
-                                alignSelf: 'flex-start'
-                            }}
-                        >
-                            <a
-                                href="https://www.figma.com/proto/BerM7QNvQfAiNONrNjHLVX/Wireframe-Tienda-Tecno.?node-id=232-705&t=WoaQTWZcyQQrxDfD-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=232%3A705&hide-ui=1"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn-elegant"
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    width: '100%',
-                                    maxWidth: '400px',
-                                    gap: '12px',
-                                    padding: '16px 28px',
-                                    borderRadius: '50px',
-                                    border: '1.5px solid var(--accent-primary)',
-                                    color: 'var(--text-color)',
-                                    textDecoration: 'none',
-                                    fontSize: '0.95rem',
-                                    fontWeight: 800,
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '0.05em'
-                                }}
-                            >
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill="currentColor" fillRule="evenodd" d="M8.667 9.417a2.583 2.583 0 1 0 0 5.166h2.583V9.417zm2.583-1.5H8.667a2.583 2.583 0 0 1 0-5.167h2.583zm1.5-5.167v5.167h2.583a2.584 2.584 0 0 0 0-5.167zm2.583 6.666a2.583 2.583 0 0 0-2.583 2.542v.083a2.583 2.583 0 1 0 2.583-2.625m-6.666 6.667a2.584 2.584 0 1 0 2.583 2.584v-2.584z" clipRule="evenodd" />
-                                </svg>
-                                Prototipo Interactivo
-                            </a>
-
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                width: '100%',
-                                gap: '8px',
-                                opacity: 0.6,
-                                fontWeight: 700,
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.1em',
-                                fontSize: '0.8rem',
-                            }}>
-                                <span>Leer caso de estudio</span>
-                                <motion.div animate={{ y: [0, 5, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
-                                    ↓
-                                </motion.div>
-                            </div>
-                        </motion.div>
-                    </div>
-
-                    {/* Right Column: Image */}
-                    <motion.div
-                        className="project-chapter-image-wrapper hero-tienda-mockup-wrapper"
-                        initial={{ opacity: 0, scale: 0.95, x: 50 }}
-                        animate={{ opacity: 1, scale: 1, x: 0 }}
-                        transition={{ duration: 1, delay: 0.2 }}
-                        style={{
-                            position: 'relative',
-                            zIndex: 1,
-                            display: 'flex',
-                            justifyContent: 'flex-end',
-                            width: '100%'
-                        }}
-                    >
-                        <motion.div
-                            whileHover={{ scale: 1.02 }}
-                            onClick={() => openLightbox("/tienda-mockup.webp")}
-                            style={{ cursor: 'none', position: 'relative' }}
-                            className="zoomable-image"
-                        >
-                            {/* Expand button removed */}
-                            <ImageWithSkeleton
-                                src="/tienda-mockup.webp"
-                                alt="Tienda Tecno Mockup"
-                                style={{
-                                    width: '100%',
-                                    maxWidth: '600px',
-                                    maxHeight: '60vh',
-                                    display: 'block',
-                                    border: '2px solid var(--text-color)',
-                                    borderRadius: 'var(--radius)',
-                                    boxShadow: '15px 15px 0px rgba(0,0,0,0.1)',
-                                    objectFit: 'contain'
-                                }}
-                            />
-                        </motion.div>
-                    </motion.div>
-                </header>
-
-                {/* CONTENT CHAPTERS - ZIG ZAG and TOP-BOTTOM for COMPARE */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-16)' }}>
-                    {sections.map((section, idx) => (
-                        <Chapter
-                            key={idx}
-                            index={idx}
-                            {...section}
-                            onImageClick={openLightbox}
-                        />
-                    ))}
-                </div>
-
-                {/* KEY LEARNING CARD */}
-                <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    style={{
-                        backgroundColor: 'var(--surface-color)',
-                        backdropFilter: 'blur(12px)',
-                        border: '1px solid var(--text-color)',
-                        padding: 'var(--space-12) var(--space-8)',
-                        margin: 'var(--space-16) 0',
-                        borderRadius: '24px',
-                        textAlign: 'center',
-                        position: 'relative',
-                        overflow: 'hidden',
-                        boxShadow: '0 10px 30px rgba(0,0,0,0.05)'
-                    }}
-                >
-                    <div style={{ position: 'relative', zIndex: 2 }}>
-                        <h3 className="brutalist-title" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', marginBottom: 'var(--space-6)', color: 'var(--accent-primary)' }}>
-                            LO QUE APRENDÍ
-                        </h3>
-                        <p className="project-chapter-text" style={{ fontSize: 'clamp(1.25rem, 2vw, 1.5rem)', maxWidth: '900px', margin: '0 auto', fontWeight: '500' }}>
-                            Este proyecto me enseñó que un e‑commerce no se trata solo de mostrar productos, sino de transmitir <span className="serif-title" style={{ fontSize: '1.2em' }}>confianza</span> en cada paso. Las <span className="serif-title" style={{ fontSize: '1.2em' }}>migas de pan</span> fueron un recurso simple pero poderoso para dar seguridad y control al usuario durante el checkout.
-                        </p>
-                    </div>
-                </motion.div>
-
-                {/* EPILOGUE CARD */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
+            <ProjectSection
+                icon="◎"
+                title="Análisis de la competencia"
+                text="Analicé competidores directos como Maximus, Gaming City y ArmyTech para identificar dónde el mercado fallaba y dónde Tienda Tecno podía diferenciarse."
+            >
+                {/* Key findings as cards */}
+                <motion.div 
+                    variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.15 } } }}
+                    initial="hidden" whileInView="show" viewport={{ once: true, margin: '-50px' }}
                     style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                        gap: 'var(--space-12)',
-                        alignItems: 'start',
-                        borderTop: '1px solid var(--text-color)',
-                        paddingTop: 'var(--space-16)'
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                        gap: 'var(--space-4)',
+                        marginTop: 'var(--space-6)'
                     }}
                 >
-                    <div>
-                        <span style={{
-                            fontFamily: 'monospace',
-                            fontSize: '1rem',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.1em',
-                            display: 'block',
-                            marginBottom: 'var(--space-4)'
-                        }}>
-                            Epílogo
-                        </span>
-                        <h2 className="brutalist-title" style={{ fontSize: '2.5rem', marginBottom: 'var(--space-6)' }}>
-                            MI FORMACIÓN
-                        </h2>
-                        <p className="project-chapter-text">
-                            Este proyecto fue parte de mi experiencia en el bootcamp intensivo Digitalers de Telecom junto a Education IT, donde fui becado durante 4 meses. Al finalizar, obtuve el certificado que valida mi recorrido inicial en la disciplina. Para mí, Tienda Tecno no solo fue un ejercicio de diseño, sino también un paso fundamental en mi camino como diseñador UX.
-                        </p>
-                    </div>
-                    <motion.div
-                        whileHover={{ rotate: 1, scale: 1.02 }}
-                        style={{
+                    {[
+                        { label: 'Fortaleza del mercado', text: 'Alta variedad de hardware y asesoramiento técnico presencial' },
+                        { label: 'Debilidad detectada', text: 'Fricción en el checkout, mala atención postventa y escasa presencia digital' },
+                        { label: 'Nuestra oportunidad', text: 'Experiencia cercana donde el asesoramiento acompañe todo el proceso de compra' }
+                    ].map((item, i) => (
+                        <motion.div key={i} whileHover={{ y: -4, scale: 1.01 }} variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } } }} className="glass-card" style={{
                             padding: 'var(--space-4)',
-                            backgroundColor: 'white',
-                            transform: 'rotate(-1deg)',
-                            boxShadow: 'var(--shadow-lg)',
-                            cursor: 'none'
-                        }}
-                        className="zoomable-image"
-                        onClick={() => openLightbox("/Certificado-Asistencia-digitalers-2025_page-0001.webp")}
-                    >
-                        {/* Placeholder image for certificate */}
-                        <img
-                            src="/Certificado-Asistencia-digitalers-2025_page-0001.webp"
-                            alt="Certificado Digitalers"
-                            style={{ width: '100%', display: 'block' }}
-                        />
-                    </motion.div>
-                </motion.div>
-
-                {/* Navegación entre Proyectos */}
-                <section style={{
-                    marginTop: 'var(--space-24)',
-                    borderTop: '1px solid rgba(128,128,128,0.1)',
-                    paddingTop: 'var(--space-16)',
-                    textAlign: 'center'
-                }}>
-                    <p style={{
-                        fontSize: '0.9rem',
-                        opacity: 0.6,
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.25em',
-                        marginBottom: 'var(--space-4)'
-                    }}>
-                        Explorar otros proyectos
-                    </p>
-                    <Link
-                        to="/separa"
-                        onClick={() => window.scrollTo(0, 0)}
-                        style={{ textDecoration: 'none' }}
-                    >
-                        <motion.div
-                            whileHover={{ scale: 0.98 }}
-                            className="btn-elegant"
-                            style={{
-                                display: 'inline-block',
-                                padding: 'var(--space-12) var(--space-8)',
-                                backgroundColor: 'var(--surface-color)',
-                                border: '1px solid var(--text-color)',
-                                borderRadius: '32px',
-                                width: '100%',
-                                backdropFilter: 'blur(10px)',
-                            }}
-                        >
-                            <h2 className="brutalist-title" style={{
-                                fontSize: 'clamp(2.5rem, 8vw, 6rem)',
-                                color: 'var(--text-color)',
-                                margin: 0
-                            }}>
-                                SE-PA-RÁ
-                            </h2>
-                            <p style={{
-                                fontSize: '1.2rem',
-                                color: 'var(--text-color)',
-                                opacity: 0.7,
-                                marginTop: 'var(--space-2)'
-                            }}>
-                                App Mobile Design
+                            borderRadius: '20px',
+                        }}>
+                            <p style={{ fontSize: '0.8rem', opacity: 0.5, margin: '0 0 6px', color: i === 2 ? 'var(--accent-primary)' : 'inherit' }}>
+                                {item.label}
                             </p>
+                            <p style={{ fontWeight: 600, margin: 0, fontSize: '0.95rem' }}>{item.text}</p>
                         </motion.div>
-                    </Link>
-                </section>
-            </section>
+                    ))}
+                </motion.div>
+            </ProjectSection>
+
+            <ProjectSection
+                icon="◉"
+                title="Quiénes son los usuarios"
+                text="Definí tres protopersonas que representan los distintos tipos de compradores: Franco (usuario avanzado que busca specs), Camila (principiante que necesita orientación) y Leonardo (funcional, que solo quiere que funcione). Sus objetivos y frustraciones guiaron cada decisión de diseño."
+            >
+                <motion.div
+                    variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.15 } } }}
+                    initial="hidden" whileInView="show" viewport={{ once: true, margin: '-50px' }}
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                        gap: 'var(--space-4)',
+                        marginTop: 'var(--space-6)'
+                    }}
+                >
+                    {[
+                        { name: 'Franco', type: 'Modo Avanzado', desc: 'Busca especificaciones técnicas precisas y rendimiento extremo para gaming o trabajo pesado.' },
+                        { name: 'Camila', type: 'Modo Principiante', desc: 'Necesita orientación, explicaciones claras y recomendaciones armadas para su uso diario.' },
+                        { name: 'Leonardo', type: 'Modo Funcional', desc: 'Prioriza que el producto funcione y resuelva su necesidad rápido y sin demasiadas vueltas.' }
+                    ].map((persona, i) => (
+                        <motion.div key={i} whileHover={{ y: -4, scale: 1.01 }} variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } } }} className="glass-card" style={{ padding: 'var(--space-4)', borderRadius: '20px' }}>
+                            <p style={{ fontSize: '0.8rem', opacity: 0.5, margin: '0 0 6px' }}>{persona.type}</p>
+                            <p style={{ fontWeight: 600, margin: '0 0 var(--space-2)', fontSize: '1.05rem', color: 'var(--accent-primary)' }}>{persona.name}</p>
+                            <p style={{ fontSize: '0.9rem', margin: 0, opacity: 0.8, lineHeight: 1.6 }}>{persona.desc}</p>
+                        </motion.div>
+                    ))}
+                </motion.div>
+            </ProjectSection>
+
+            {/* ════════════════════════════════
+                GRUPO 3: Proceso de Diseño
+            ════════════════════════════════ */}
+            <ProjectGroupLabel label="Proceso de Diseño" />
+
+            <ProjectSection
+                icon="→"
+                title="Estructura y flujo de compra"
+                text="Armé el sitemap con secciones clave: productos, armá tu PC, guía y asesoramiento, comunidad y carrito. Luego definí el user flow para la compra de una PC, incluyendo filtros, ficha de producto, checkout y login. El foco estuvo en reducir fricciones y dar seguridad en cada paso."
+            >
+                <motion.div 
+                    variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.15 } } }}
+                    initial="hidden" whileInView="show" viewport={{ once: true, margin: '-50px' }}
+                    className="user-flow-container"
+                >
+                    {['Home / Catálogo', 'Filtros y Búsqueda', 'Ficha del Producto', 'Carrito de Compras', 'Checkout seguro'].map((step, i, arr) => (
+                        <React.Fragment key={i}>
+                            <motion.div 
+                                onHoverStart={() => setHoveredFlowStep(i)}
+                                onHoverEnd={() => setHoveredFlowStep(null)}
+                                variants={{ hidden: { opacity: 0, x: -10 }, show: { opacity: 1, x: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } } }} 
+                                whileHover={{ y: -4, scale: 1.03 }} 
+                                className="glass-card capsule-flow" 
+                                style={{ padding: 'var(--space-2) var(--space-4)', borderRadius: '50px', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-color)' }}
+                            >
+                                {step}
+                            </motion.div>
+                            {i < arr.length - 1 && (
+                                <motion.span variants={{ hidden: { opacity: 0 }, show: { opacity: 1 } }} style={{ fontWeight: 700, display: 'inline-block' }}>
+                                    <motion.span 
+                                        animate={{ 
+                                            opacity: hoveredFlowStep === i ? 1 : 0.3, 
+                                            color: hoveredFlowStep === i ? 'var(--accent-primary)' : 'var(--text-color)', 
+                                            x: !isMobile && hoveredFlowStep === i ? [0, 4, 0] : 0,
+                                            y: isMobile && hoveredFlowStep === i ? [0, 4, 0] : 0 
+                                        }} 
+                                        transition={{ 
+                                            x: !isMobile && hoveredFlowStep === i ? { repeat: Infinity, duration: 1.5, ease: "easeInOut" } : { duration: 0.3 },
+                                            y: isMobile && hoveredFlowStep === i ? { repeat: Infinity, duration: 1.5, ease: "easeInOut" } : { duration: 0.3 },
+                                            color: { duration: 0.4 },
+                                            opacity: { duration: 0.4 }
+                                        }} 
+                                        style={{ display: 'inline-block' }}>
+                                        {isMobile ? '↓' : '→'}
+                                    </motion.span>
+                                </motion.span>
+                            )}
+                        </React.Fragment>
+                    ))}
+                </motion.div>
+            </ProjectSection>
+
+            <ProjectSection
+                icon="⟳"
+                title="Iteración: de baja a alta fidelidad"
+                text="El proceso pasó de wireframes de baja fidelidad a alta fidelidad, integrando tipografía, color y reforzando las breadcrumbs para dar más control y seguridad al usuario durante el checkout."
+            >
+                <div style={{ marginTop: 'var(--space-4)', width: '100%' }}>
+                    <CompareCarousel
+                        lowFiImages={[
+                            "/1-Home-baja-fidelidad.webp",
+                            "/3-Catalogo-baja-fidelidad.webp",
+                            "/4-Ficha-de-producto-baja-fidelidad.webp",
+                            "/5-Carrito-de-compras-baja-fidelidad.webp",
+                            "/8-Pago-baja-fidelidad.webp"
+                        ]}
+                        highFiImages={[
+                            "/1-Home-alta-fidelidad.webp",
+                            "/3-Catalogo-alta-fidelidad.webp",
+                            "/4-Ficha-de-producto-alta-fidelidad.webp",
+                            "/5-Carrito-de-compras-alta-fidelidad.webp",
+                            "/8-Pago-alta-fidelidad.webp"
+                        ]}
+                        desktopFrame={true}
+                    />
+                </div>
+            </ProjectSection>
+
+            {/* ════════════════════════════════
+                GRUPO 4: Reflexión
+            ════════════════════════════════ */}
+            <ProjectGroupLabel label="Reflexión" />
+
+            <ProjectSummary
+                title="Lo que Aprendí"
+                content="Este proyecto me enseñó que un e‑commerce no se trata solo de mostrar productos, sino de transmitir confianza en cada paso. Las migas de pan fueron un recurso simple pero poderoso para dar seguridad y control al usuario durante el checkout."
+            />
+
+            <ProjectSummary
+                title="Epílogo"
+                type="epilogue"
+                content={
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-8)', alignItems: 'center' }}>
+                        <div style={{ flex: '1 1 400px' }}>
+                            Este proyecto fue parte de mi experiencia en el bootcamp intensivo Digitalers de Telecom junto a Education IT, donde fui becado durante 4 meses. Para mí, Tienda Tecno no solo fue un ejercicio de diseño, sino un paso fundamental en mi camino como diseñador UX.
+                        </div>
+                        <motion.div
+                            whileHover={{ rotate: 1, scale: 1.03 }}
+                            style={{
+                                flex: '0 0 320px',
+                                padding: 'var(--space-2)',
+                                backgroundColor: 'white',
+                                transform: 'rotate(-1.5deg)',
+                                boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+                                cursor: 'pointer',
+                                borderRadius: '4px'
+                            }}
+                            onClick={() => openLightbox("/Certificado-Asistencia-digitalers-2025_page-0001.webp")}
+                        >
+                            <img
+                                src="/Certificado-Asistencia-digitalers-2025_page-0001.webp"
+                                alt="Certificado Digitalers"
+                                style={{ width: '100%', display: 'block' }}
+                            />
+                        </motion.div>
+                    </div>
+                }
+            />
+
+            {/* ── Navegación al siguiente proyecto ── */}
+            <div className="container" style={{ paddingTop: 'var(--space-16)', paddingBottom: 'var(--space-16)', borderTop: '1px solid var(--border-inactive)', marginTop: 'var(--space-16)' }}>
+                <Link to="/separa" style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
+                    <motion.div
+                        className="glass-card btn-elegant"
+                        style={{ padding: 'var(--space-12)', borderRadius: '32px', textAlign: 'center', cursor: 'pointer' }}
+                    >
+                        <span style={{ fontSize: '0.75rem', opacity: 0.4, textTransform: 'uppercase', letterSpacing: '0.25em' }}>Siguiente Proyecto</span>
+                        <h4 className="brutalist-title" style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', marginTop: 'var(--space-2)' }}>← SE-PA-RÁ</h4>
+                    </motion.div>
+                </Link>
+            </div>
         </motion.div>
     );
 };

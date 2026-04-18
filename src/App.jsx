@@ -68,7 +68,7 @@ function App() {
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
             <Route path="/separa" element={<ProjectSepara />} />
-            <Route path="/tiendatecno" element={<ProjectTienda />} />
+            <Route path="/tienda-tecno" element={<ProjectTienda />} />
           </Routes>
         </AnimatePresence>
       </main>

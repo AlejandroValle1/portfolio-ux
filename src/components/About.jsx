@@ -67,7 +67,7 @@ const About = () => {
         ...(isMobile && activeIndex !== null ? {
             borderColor: activeIndex === index ? 'var(--accent-primary)' : 'var(--border-inactive)',
             boxShadow: activeIndex === index
-                ? '0 0 0 1.5px var(--accent-primary), 0 16px 40px rgba(230,90,43,0.18)'
+                ? '0 0 0 1.5px var(--accent-primary), 0 16px 40px var(--accent-glow)'
                 : '0 4px 20px rgba(0,0,0,0.05)',
             opacity: activeIndex === index ? 1 : 0.7,
             transform: activeIndex === index ? 'scale(1.01)' : 'scale(1)',
@@ -162,7 +162,7 @@ const About = () => {
                     variants={itemVariants}
                     whileHover={!isMobile ? {
                         ...itemVariants.hover,
-                        boxShadow: '8px 8px 0 var(--accent-primary)'
+                        boxShadow: '0 15px 40px var(--accent-glow)'
                     } : undefined}
                     whileInView={isMobile ? "mobileScroll" : undefined}
                     whileTap={{ scale: 0.98 }}
@@ -282,9 +282,8 @@ const About = () => {
                     whileHover={!isMobile ? "hover" : undefined}
                     whileTap={{ scale: 0.98 }}
                     viewport={{ once: true, amount: 0.1 }}
-                    className="bento-about-cv about-bento-card"
+                    className="bento-about-cv about-bento-card btn-elegant"
                     style={getCardStyle(5, {
-                        backgroundColor: 'var(--surface-color)',
                         backdropFilter: 'blur(12px)',
                         border: '1.5px solid var(--border-inactive)',
                         padding: 'var(--space-8)',

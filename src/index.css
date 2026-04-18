@@ -12,9 +12,9 @@
   /* Amarillo sol */
   --accent-detail: #2B4162;
   --hover-color: #FFD166;
-  /* Vitalidad y juventud original para botones */
   --skill-hover: #D14D23;
   --cursor-color: #0A141F; 
+  --accent-glow: rgba(238, 108, 77, 0.18);
 
   /* Composición de dos gradientes: Sol (sup. der.) y Anochecer sutil (inf. izq.) */
   --main-gradient:
@@ -63,6 +63,7 @@
   --border-inactive: rgba(240, 244, 248, 0.1);
   --scrollbar-thumb: #D1D5DB; /* Gris claro/plateado sólido para máximo contraste en dark mode */
   --scrollbar-track: rgba(255, 255, 255, 0.05);
+  --accent-glow: rgba(214, 158, 124, 0.18);
   /* Gradiente Radial que simula la Luna centrada con el icono en el header */
   --main-gradient: radial-gradient(circle at 88% 40px, #F0F4F8 0%, #BCC6D1 5%, #1A2A40 30%, #0B1118 80%);
   --nav-mobile-bg: #070B10; /* Extra dark for contrast in mobile menu */
@@ -284,6 +285,46 @@ section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--space-8);
+}
+
+/* User Flow Responsive */
+.user-flow-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .user-flow-container {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    /* The trick for uniform width: container fits children, and children stretch */
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .user-flow-container .capsule-flow {
+    display: flex !important;
+    width: 100% !important; /* All capsules match the widest one's width */
+    min-width: 220px;
+    max-width: 90vw;
+    padding: var(--space-2) var(--space-1) !important; /* 8px lateral padding */
+    text-align: center;
+    justify-content: center;
+  }
+
+  /* Ensure arrows are centered between capsules */
+  .user-flow-container > span {
+    display: flex !important;
+    justify-content: center;
+    width: 100%;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -988,4 +1029,108 @@ section {
     width: 24px !important;
   }
 
+}
+
+/* =========================================
+   GLASS CARD UTILITY
+   ========================================= */
+.glass-card {
+  background-color: var(--surface-color);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-inactive);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.4s ease;
+}
+
+.glass-card:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), 0 0 20px var(--accent-glow);
+}
+
+.capsule-flow:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), 0 0 30px var(--accent-glow);
+  background-color: var(--accent-glow);
+}
+
+/* =========================================
+   PROJECT HERO RESPONSIVE
+   ========================================= */
+.project-hero .container > div {
+  gap: var(--space-8);
+}
+
+@media (max-width: 768px) {
+  .project-hero {
+    padding: 120px 0 60px !important;
+    min-height: auto !important;
+  }
+
+  .project-hero .container > div {
+    grid-template-columns: 1fr !important;
+  }
+
+  .project-hero img {
+    max-height: 50vh !important;
+  }
+
+  .project-hero .brutalist-title {
+    font-size: clamp(3rem, 14vw, 5rem) !important;
+  }
+}
+
+/* =========================================
+   PROJECT SECTION RESPONSIVE
+   ========================================= */
+.project-tile {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.12) !important;
+}
+
+@media (max-width: 768px) {
+  .project-tile {
+    border-radius: 20px !important;
+  }
+}
+
+/* =========================================
+   PROJECT SUMMARY SECTION
+   ========================================= */
+@media (max-width: 768px) {
+  .project-hero .container > div > div:last-child {
+    display: none; /* Hide hero image on very small screens to save space */
+  }
+}
+
+/* =========================================
+   HIDE ON MOBILE UTILITY
+   ========================================= */
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+}
+
+/* =========================================
+   EDITORIAL PROJECT LAYOUT
+   ========================================= */
+.project-hero-metadata {
+  grid-template-columns: 1fr 2fr;
+}
+
+.section-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) 2.5fr;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .project-hero-metadata, .section-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-6) !important;
+  }
 }
