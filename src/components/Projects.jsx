@@ -48,7 +48,7 @@ const projectsSummary = [
         intro: "Una propuesta digital para educar y motivar la separación de residuos en la ciudad.",
         type: "App Mobile design",
         link: "/separa",
-        image: "/mockups-separa-card-home.webp",
+        image: "/Mockup-home-separa.webp",
         imgStyle: { objectFit: 'contain', backgroundColor: '#fff' }
     },
     {
@@ -57,8 +57,8 @@ const projectsSummary = [
         intro: "E-commerce confiable para marca con locales físicos.",
         type: "Web Design / UX Research",
         link: "/tienda-tecno",
-        image: "/tienda-mockup.webp",
-        imgStyle: { objectFit: 'contain', backgroundColor: '#fff' }
+        image: "/Mockup-home-tienda_tecno.webp",
+        imgStyle: { objectFit: 'contain', scale: 1.6, backgroundColor: '#fff' }
     }
 ];
 
@@ -108,6 +108,9 @@ const ParallaxImage = ({ src, alt, imgStyle = {}, isMobile = false }) => {
         );
     }
 
+    const baseScale = imgStyle.scale || 1;
+    const hoverScaleValue = baseScale * 0.97; // Proportional shrink
+
     // DESKTOP: clip-path reveal + parallax + hover zoom
     return (
         <motion.div
@@ -129,7 +132,7 @@ const ParallaxImage = ({ src, alt, imgStyle = {}, isMobile = false }) => {
                 ref={imgRef}
                 src={src}
                 alt={alt}
-                whileHover={{ scale: 1.04 }}
+                whileHover={{ scale: hoverScaleValue }}
                 style={{
                     width: '100%',
                     height: '100%',

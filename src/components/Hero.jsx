@@ -82,7 +82,7 @@ const Hero = () => {
                         fontSize: '1rem',
                         backgroundColor: 'transparent',
                         color: 'var(--text-color)',
-                        border: '1px solid var(--text-color)',
+                        border: '1.5px solid var(--accent-primary)',
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: '12px',
@@ -92,7 +92,22 @@ const Hero = () => {
                     }}
                 >
                     VER PROYECTOS
-                    <span style={{ fontSize: '1.2rem' }}>↓</span>
+                    <motion.span 
+                        animate={{ y: [-3, 3, -3] }}
+                        transition={{ 
+                            duration: 2, 
+                            repeat: Infinity, 
+                            ease: "easeInOut" 
+                        }}
+                        style={{ 
+                            display: 'inline-flex', 
+                            alignItems: 'center',
+                            fontSize: '1.2rem',
+                            lineHeight: 1
+                        }}
+                    >
+                        ↓
+                    </motion.span>
                 </motion.button>
             </motion.div>
         </section>

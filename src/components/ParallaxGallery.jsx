@@ -9,7 +9,13 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
  * - Smooth scroll-based parallax
  * - Premium overflow container with bleed
  */
-const ParallaxGallery = ({ darkImage, lightImage, alt = "Project Gallery" }) => {
+const ParallaxGallery = ({ 
+    darkImage, 
+    lightImage, 
+    alt = "Project Gallery",
+    objectFit = "contain",
+    scale = 1.12
+}) => {
     const [theme, setTheme] = useState('dark');
     const containerRef = useRef(null);
 
@@ -65,7 +71,7 @@ const ParallaxGallery = ({ darkImage, lightImage, alt = "Project Gallery" }) => 
                     maxHeight: '1000px', 
                     borderRadius: '32px',
                     overflow: 'hidden',
-                    /* Background sync to allow scale zoom without visible seams */
+                    /* Background sync */
                     backgroundColor: theme === 'light' ? '#A9DEF9' : '#0B1118',
                     border: '1px solid var(--border-inactive)',
                     boxShadow: '0 30px 60px rgba(0,0,0,0.1)',
@@ -78,12 +84,12 @@ const ParallaxGallery = ({ darkImage, lightImage, alt = "Project Gallery" }) => 
                 <motion.div
                     style={{
                         position: 'absolute',
-                        inset: 0, 
+                        inset: objectFit === 'cover' ? '-10%' : 0, 
                         y,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        scale: 1.12 // Precise zoom: utilizes Figma padding to make phone larger while staying inside
+                        scale: scale
                     }}
                 >
                     <motion.img
@@ -97,7 +103,7 @@ const ParallaxGallery = ({ darkImage, lightImage, alt = "Project Gallery" }) => 
                         style={{
                             width: '100%',
                             height: '100%',
-                            objectFit: 'contain', // Base: no cropping
+                            objectFit: objectFit,
                             display: 'block'
                         }}
                     />

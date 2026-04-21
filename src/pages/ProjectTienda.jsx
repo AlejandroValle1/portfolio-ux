@@ -8,6 +8,7 @@ import ProjectSummary from '../components/ProjectSummary';
 import Lightbox from '../components/Lightbox';
 import ImageCarousel from '../components/ImageCarousel';
 import CompareCarousel from '../components/CompareCarousel';
+import ParallaxGallery from '../components/ParallaxGallery';
 import { TIENDA_DATA } from '../data/projectsData';
 
 const ProjectTienda = () => {
@@ -49,7 +50,22 @@ const ProjectTienda = () => {
             </AnimatePresence>
 
             {/* ── Hero ── */}
-            <ProjectHero {...TIENDA_DATA} />
+            <ProjectHero 
+                title={TIENDA_DATA.title}
+                tagline={TIENDA_DATA.tagline}
+                metadata={TIENDA_DATA.metadata}
+                figmaLink={TIENDA_DATA.figmaLink}
+                mainImage={null} 
+            />
+
+            {/* ── Galería Destacada Parallax ── */}
+            <ParallaxGallery 
+                darkImage="/Mockup-tienda_tecno dark.webp"
+                lightImage="/Mockup-tienda_tecno light.webp"
+                alt="Showcase final de Tienda Tecno en desktop"
+                objectFit="contain"
+                scale={1}
+            />
 
             {/* ════════════════════════════════
                 GRUPO 1: Contexto
