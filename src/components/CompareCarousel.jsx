@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { createPortal } from 'react-dom';
+import { usePerformance } from '../context/PerformanceContext';
+import ComparisonSlider from './ComparisonSlider';
 
 // Hook de swipe táctil
 function useTouchSwipe(onSwipeLeft, onSwipeRight) {
@@ -23,117 +25,67 @@ function useTouchSwipe(onSwipeLeft, onSwipeRight) {
     return { onTouchStart, onTouchEnd };
 }
 
-// Modern Glass Toggle Component
-const GlassToggle = ({ mode, setMode }) => {
-    return (
-        <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%',
-            zIndex: 10
-        }}>
-            <div className="glass-card" style={{
-                position: 'relative',
-                display: 'flex',
-                borderRadius: '50px',
-                padding: '6px',
-                width: 'fit-content'
-            }}>
-                <LayoutGroup id="glassToggle">
-                    <motion.div
-                        layoutId="activePill"
-                        style={{
-                            position: 'absolute',
-                            top: '4px',
-                            bottom: '4px',
-                            left: mode === 'low' ? '4px' : '50%',
-                            width: 'calc(50% - 4px)',
-                            background: 'var(--accent-primary)',
-                            borderRadius: '40px',
-                            zIndex: 0,
-                            boxShadow: '0 4px 15px rgba(0,0,0,0.2)'
-                        }}
-                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                    <button
-                        onClick={() => setMode('low')}
-                        style={{
-                            position: 'relative',
-                            padding: '10px 28px',
-                            border: 'none',
-                            background: 'transparent',
-                            color: mode === 'low' ? 'white' : 'var(--text-color)',
-                            cursor: 'pointer',
-                            fontWeight: '800',
-                            fontSize: '0.85rem',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.1em',
-                            transition: 'color 0.3s ease',
-                            borderRadius: '40px',
-                            zIndex: 1,
-                            minWidth: '150px',
-                            opacity: mode === 'low' ? 1 : 0.6
-                        }}
-                    >
-                        Baja Fidelidad
-                    </button>
-                    <button
-                        onClick={() => setMode('high')}
-                        style={{
-                            position: 'relative',
-                            padding: '10px 28px',
-                            border: 'none',
-                            background: 'transparent',
-                            color: mode === 'high' ? 'white' : 'var(--text-color)',
-                            cursor: 'pointer',
-                            fontWeight: '800',
-                            fontSize: '0.85rem',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.1em',
-                            transition: 'color 0.3s ease',
-                            borderRadius: '40px',
-                            zIndex: 1,
-                            minWidth: '150px',
-                            opacity: mode === 'high' ? 1 : 0.6
-                        }}
-                    >
-                        Alta Fidelidad
-                    </button>
-                </LayoutGroup>
-            </div>
-        </div>
-    );
-};
-
-// Component for handling Pan/Zoom logic in fullscreen
-const ZoomableImage = ({ src, alt, mobileFrame, desktopFrame }) => {
+// Component that combines Slider + Zoom + Pan for Fullscreen
+const ZoomableComparisonSlider = ({ srcLow, srcHigh, alt, mobileFrame, desktopFrame }) => {
+    const { isLowEnd, isMobile } = usePerformance();
     const [scale, setScale] = useState(1);
     const [position, setPosition] = useState({ x: 0, y: 0 });
+    const [sliderPosition, setSliderPosition] = useState(50);
+    const [isDraggingSlider, setIsDraggingSlider] = useState(false);
     const containerRef = useRef(null);
 
-    const handleMouseMove = (e) => {
-        if (scale === 1 || !containerRef.current) {
-            setPosition({ x: 0, y: 0 });
-            return;
-        }
-        const { left, top, width, height } = containerRef.current.getBoundingClientRect();
-        const xPct = (e.clientX - left) / width;
-        const yPct = (e.clientY - top) / height;
-        const moveX = (0.5 - xPct) * (width * (scale - 1));
-        const moveY = (0.5 - yPct) * (height * (scale - 1));
-        setPosition({ x: moveX, y: moveY });
+    const handleWheel = (e) => {
+        e.stopPropagation();
+        const delta = -e.deltaY * 0.0015;
+        const newScale = Math.max(1, Math.min(5, scale + delta));
+        setScale(newScale);
+        if (newScale === 1) setPosition({ x: 0, y: 0 });
     };
 
-    const handleClick = (e) => {
-        e.stopPropagation();
-        setScale(scale === 1 ? 2.2 : 1);
-        if (scale !== 1) setPosition({ x: 0, y: 0 });
+    const handleMove = (e) => {
+        const containerRect = containerRef.current.getBoundingClientRect();
+        const x = 'touches' in e ? e.touches[0].clientX : e.clientX;
+        const y = 'touches' in e ? e.touches[0].clientY : e.clientY;
+
+        // Lógica de Slider (solo si no estamos haciendo pan o si el usuario toca el centro)
+        if (isDraggingSlider) {
+            const relativeX = x - containerRect.left;
+            const pos = Math.max(0, Math.min(100, (relativeX / containerRect.width) * 100));
+            setSliderPosition(pos);
+            return;
+        }
+
+        // Lógica de Paneo (solo si hay zoom)
+        if (scale > 1) {
+            const xPct = (x - containerRect.left) / containerRect.width;
+            const yPct = (y - containerRect.top) / containerRect.height;
+            const moveX = (0.5 - xPct) * (containerRect.width * (scale - 1));
+            const moveY = (0.5 - yPct) * (containerRect.height * (scale - 1));
+            setPosition({ x: moveX, y: moveY });
+        }
     };
+
+    const handleSliderMouseDown = (e) => {
+        e.stopPropagation();
+        setIsDraggingSlider(true);
+    };
+
+    useEffect(() => {
+        const handleGlobalMouseUp = () => setIsDraggingSlider(false);
+        window.addEventListener('mouseup', handleGlobalMouseUp);
+        window.addEventListener('touchend', handleGlobalMouseUp);
+        return () => {
+            window.removeEventListener('mouseup', handleGlobalMouseUp);
+            window.removeEventListener('touchend', handleGlobalMouseUp);
+        };
+    }, []);
 
     return (
         <div
             ref={containerRef}
+            onWheel={handleWheel}
+            onMouseMove={handleMove}
+            onTouchMove={handleMove}
             style={{
                 width: '100%',
                 height: '100%',
@@ -141,32 +93,164 @@ const ZoomableImage = ({ src, alt, mobileFrame, desktopFrame }) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 overflow: 'hidden',
-                cursor: scale > 1 ? 'crosshair' : 'zoom-in'
+                cursor: isDraggingSlider ? 'grabbing' : (scale > 1 ? 'crosshair' : 'default'),
+                userSelect: 'none',
+                WebkitUserSelect: 'none',
+                msUserSelect: 'none'
             }}
-            onMouseMove={handleMouseMove}
-            onClick={handleClick}
         >
-            <motion.img
-                src={src}
-                alt={alt}
-                draggable={false}
+            <motion.div
                 animate={{ scale: scale, x: position.x, y: position.y }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                style={{
-                    maxWidth: '85vw',
-                    maxHeight: '80vh',
-                    objectFit: 'contain',
-                    pointerEvents: 'none',
-                    borderRadius: mobileFrame ? '32px' : (desktopFrame ? '12px' : '4px'),
-                    border: mobileFrame ? '12px solid #111' : (desktopFrame ? '16px solid #222' : 'none'),
-                    boxShadow: '0 30px 100px rgba(0,0,0,0.5)'
+                transition={{ 
+                    type: "spring", stiffness: 300, damping: 30,
+                    scale: { type: "tween", ease: "easeOut", duration: 0.15 }
                 }}
-            />
+                style={{
+                    position: 'relative',
+                    width: '85vw',
+                    height: '80vh',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    pointerEvents: 'auto'
+                }}
+            >
+                {/* Image High (Bottom) */}
+                <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    clipPath: `inset(0 0 0 ${sliderPosition}%)`, // Muestra solo la parte derecha
+                    zIndex: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    pointerEvents: 'none'
+                }}>
+                    <img
+                        src={srcHigh}
+                        alt={alt}
+                        draggable={false}
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'contain',
+                            borderRadius: mobileFrame ? '32px' : (desktopFrame ? '12px' : '4px'),
+                            border: mobileFrame ? '12px solid #111' : (desktopFrame ? '16px solid #222' : 'none'),
+                            boxShadow: '0 30px 100px rgba(0,0,0,0.5)',
+                            pointerEvents: 'none'
+                        }}
+                    />
+                </div>
+
+                {/* Image Low (Top Overlay) */}
+                <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`, // Muestra solo la parte izquierda
+                    zIndex: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    pointerEvents: 'none'
+                }}>
+                    <img
+                        src={srcLow}
+                        alt={`${alt} Low Fi`}
+                        draggable={false}
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'contain',
+                            borderRadius: mobileFrame ? '32px' : (desktopFrame ? '12px' : '4px'),
+                            border: mobileFrame ? '12px solid #111' : (desktopFrame ? '16px solid #222' : 'none'),
+                            pointerEvents: 'none'
+                        }}
+                    />
+                </div>
+
+                {/* Slider Handle */}
+                <div 
+                    onMouseDown={handleSliderMouseDown}
+                    onTouchStart={handleSliderMouseDown}
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        bottom: 0,
+                        left: `${sliderPosition}%`,
+                        width: '3px',
+                        background: 'var(--accent-primary)',
+                        zIndex: 10,
+                        cursor: 'ew-resize',
+                        boxShadow: '0 0 15px rgba(0,0,0,0.5)'
+                    }}
+                >
+                    <div style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: '48px',
+                        height: '48px',
+                        backgroundColor: 'var(--surface-color)',
+                        backdropFilter: (isLowEnd || isMobile) ? 'none' : 'blur(10px)',
+                        border: '3px solid var(--accent-primary)',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: '0 4px 20px rgba(0,0,0,0.4)'
+                    }}>
+                        <div style={{ display: 'flex', gap: '4px', color: 'var(--accent-primary)', fontWeight: 'bold' }}>
+                            <span>◀</span><span>▶</span>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Floating Labels for Fullscreen */}
+                <div style={{
+                    position: 'absolute',
+                    top: '30px',
+                    left: '30px',
+                    background: 'rgba(0,0,0,0.6)',
+                    color: 'white',
+                    padding: '8px 16px',
+                    borderRadius: '20px',
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    zIndex: 20,
+                    pointerEvents: 'none',
+                    opacity: sliderPosition > 15 ? 1 : 0,
+                    transition: 'opacity 0.3s'
+                }}>
+                    UX / Wireframe
+                </div>
+                <div style={{
+                    position: 'absolute',
+                    top: '30px',
+                    right: '30px',
+                    background: 'var(--accent-primary)',
+                    color: 'white',
+                    padding: '8px 16px',
+                    borderRadius: '20px',
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    zIndex: 20,
+                    pointerEvents: 'none',
+                    opacity: sliderPosition < 85 ? 1 : 0,
+                    transition: 'opacity 0.3s'
+                }}>
+                    UI / Final
+                </div>
+            </motion.div>
         </div>
     );
 };
 
-const FullscreenOverlay = ({ src, title, mobileFrame, desktopFrame, onClose, onNext, onPrev }) => (
+const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, onClose, onNext, onPrev }) => (
     <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -181,107 +265,86 @@ const FullscreenOverlay = ({ src, title, mobileFrame, desktopFrame, onClose, onN
             alignItems: 'center',
             justifyContent: 'center'
         }}
-        onClick={(e) => {
-            e.stopPropagation();
-        }}
     >
+        {/* Navigation Buttons (Close, Next, Prev) */}
         <button
-            aria-label="Cerrar imagen ampliada"
-            onClick={(e) => {
-                e.stopPropagation();
-                onClose();
-            }}
+            aria-label="Cerrar"
+            onClick={onClose}
             style={{
                 position: 'absolute',
-                top: 'clamp(16px, 4vw, 30px)',
-                right: 'clamp(12px, 4vw, 30px)',
+                top: '30px',
+                right: '30px',
                 background: 'rgba(255,255,255,0.1)',
                 border: '3px solid white',
                 borderRadius: '50%',
-                width: 'clamp(44px, 10vw, 60px)',
-                height: 'clamp(44px, 10vw, 60px)',
+                width: '60px',
+                height: '60px',
                 color: 'white',
                 cursor: 'pointer',
-                zIndex: 100001,
+                zIndex: 100002,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#ff4444';
-                e.currentTarget.style.borderColor = '#ff4444';
-            }}
-            onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
-                e.currentTarget.style.borderColor = 'white';
+                transition: 'all 0.3s'
             }}
         >
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
 
         <button
-            aria-label="Ver imagen anterior"
-            onClick={(e) => { e.stopPropagation(); onPrev(); }}
+            aria-label="Anterior"
+            onClick={onPrev}
             style={{
                 position: 'absolute',
-                left: 'clamp(8px, 3vw, 30px)',
+                left: '30px',
                 top: '50%',
                 transform: 'translateY(-50%)',
                 background: 'rgba(255,255,255,0.05)',
                 border: '3px solid white',
                 borderRadius: '50%',
-                width: 'clamp(44px, 12vw, 70px)',
-                height: 'clamp(44px, 12vw, 70px)',
+                width: '60px',
+                height: '60px',
                 color: 'white',
                 cursor: 'pointer',
-                zIndex: 100001,
+                zIndex: 100002,
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255,255,255,0.2)';
-            }}
-            onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                justifyContent: 'center'
             }}
         >
-            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'translateX(-2px)' }}><polyline points="15 18 9 12 15 6"></polyline></svg>
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
         </button>
         <button
-            aria-label="Ver imagen siguiente"
-            onClick={(e) => { e.stopPropagation(); onNext(); }}
+            aria-label="Siguiente"
+            onClick={onNext}
             style={{
                 position: 'absolute',
-                right: 'clamp(8px, 3vw, 30px)',
+                right: '30px',
                 top: '50%',
                 transform: 'translateY(-50%)',
                 background: 'rgba(255,255,255,0.05)',
                 border: '3px solid white',
                 borderRadius: '50%',
-                width: 'clamp(44px, 12vw, 70px)',
-                height: 'clamp(44px, 12vw, 70px)',
+                width: '60px',
+                height: '60px',
                 color: 'white',
                 cursor: 'pointer',
-                zIndex: 100001,
+                zIndex: 100002,
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255,255,255,0.2)';
-            }}
-            onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                justifyContent: 'center'
             }}
         >
-            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'translateX(2px)' }}><polyline points="9 18 15 12 9 6"></polyline></svg>
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </button>
 
-        <ZoomableImage src={src} alt={title} mobileFrame={mobileFrame} desktopFrame={desktopFrame} />
+        <ZoomableComparisonSlider 
+            srcLow={srcLow} 
+            srcHigh={srcHigh} 
+            alt={title} 
+            mobileFrame={mobileFrame} 
+            desktopFrame={desktopFrame} 
+        />
     </motion.div>
 );
 
@@ -290,20 +353,18 @@ const Portal = ({ children }) => {
 };
 
 const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false, desktopFrame = false }) => {
-    const [mode, setMode] = useState('low'); // 'low' or 'high'
+    const { isLowEnd, isMobile } = usePerformance();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isFullscreen, setIsFullscreen] = useState(false);
 
-    const currentImages = mode === 'low' ? lowFiImages : highFiImages;
-
     const nextImage = (e) => {
         e?.stopPropagation();
-        setCurrentIndex((prev) => (prev + 1) % currentImages.length);
+        setCurrentIndex((prev) => (prev + 1) % lowFiImages.length);
     };
 
     const prevImage = (e) => {
         e?.stopPropagation();
-        setCurrentIndex((prev) => (prev - 1 + currentImages.length) % currentImages.length);
+        setCurrentIndex((prev) => (prev - 1 + lowFiImages.length) % lowFiImages.length);
     };
 
     useEffect(() => {
@@ -314,7 +375,7 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
         };
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [currentImages]);
+    }, [lowFiImages]);
 
     useEffect(() => {
         if (isFullscreen) {
@@ -343,16 +404,18 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
             width: '100%',
             display: 'flex',
             flexDirection: 'column',
-            gap: '2.5rem',
+            gap: 'var(--space-8)',
             position: 'relative',
             marginTop: '0',
-            alignItems: 'center'
+            alignItems: 'center',
+            padding: 'var(--space-12) 0'
         }}>
             <AnimatePresence>
                 {isFullscreen && (
                     <Portal>
                         <FullscreenOverlay
-                            src={currentImages[currentIndex]}
+                            srcLow={lowFiImages[currentIndex]}
+                            srcHigh={highFiImages[currentIndex]}
                             title={title}
                             mobileFrame={mobileFrame}
                             desktopFrame={desktopFrame}
@@ -364,144 +427,128 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                 )}
             </AnimatePresence>
 
-            <GlassToggle mode={mode} setMode={setMode} />
+            {/* 1. Texto de contexto (Arriba, despejado) */}
+            <div style={{
+                textAlign: 'center',
+                color: 'var(--text-color)',
+                opacity: 0.9,
+                fontSize: '0.9rem',
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '0.15em'
+            }}>
+                Deslizá para comparar
+                <span style={{ marginLeft: '12px', opacity: 0.5, fontWeight: 400 }}>
+                    [{currentIndex + 1} / {lowFiImages.length}]
+                </span>
+            </div>
 
-            <div
-                className="compare-carousel-box"
-                {...swipe}
-                style={{
-                    position: 'relative',
-                    width: '100%',
-                    maxWidth: '1000px',
-                    backgroundColor: 'var(--surface-color)',
-                    borderRadius: 'var(--radius)',
-                    padding: 'var(--space-6) 60px 7rem 60px',
-                    boxShadow: '0 15px 40px rgba(0,0,0,0.08)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: '650px',
-                    zIndex: 1,
-                    overflow: 'hidden',
-                    userSelect: 'none',
-                    touchAction: 'pan-y',
-                }}
-            >
-                {/* Expand button removed as per user request */}
-                {currentImages.length > 1 && (
-                    <>
-                        <button 
-                            aria-label="Ver imagen anterior"
-                            className="compare-nav-button prev-button" 
-                            onClick={prevImage} 
-                            style={{
-                                position: 'absolute',
-                                left: 'clamp(12px, 3vw, 30px)',
-                                top: '50%',
-                                transform: 'translateY(-50%)',
-                                zIndex: 10,
-                                background: 'rgba(0,0,0,0.08)',
-                                border: '1.5px solid var(--text-color)',
-                                borderRadius: '50%',
-                                width: '50px',
-                                height: '50px',
-                                minWidth: '44px',
-                                minHeight: '44px',
-                                cursor: 'pointer',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: 'var(--text-color)'
-                            }}>
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'translateX(-1px)' }}><polyline points="15 18 9 12 15 6"></polyline></svg>
-                        </button>
-                        <button 
-                            aria-label="Ver imagen siguiente"
-                            className="compare-nav-button next-button" 
-                            onClick={nextImage} 
-                            style={{
-                                position: 'absolute',
-                                right: 'clamp(12px, 3vw, 30px)',
-                                top: '50%',
-                                transform: 'translateY(-50%)',
-                                zIndex: 10,
-                                background: 'rgba(0,0,0,0.08)',
-                                border: '1.5px solid var(--text-color)',
-                                borderRadius: '50%',
-                                width: '50px',
-                                height: '50px',
-                                minWidth: '44px',
-                                minHeight: '44px',
-                                cursor: 'pointer',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: 'var(--text-color)'
-                            }}>
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'translateX(1px)' }}><polyline points="9 18 15 12 9 6"></polyline></svg>
-                        </button>
-                    </>
+            {/* 2. Contenedor del Slider con Flechas Laterales */}
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '100%',
+                maxWidth: '1400px',
+                gap: 'var(--space-4)',
+                padding: '0 20px'
+            }}>
+                {lowFiImages.length > 1 && (
+                    <button 
+                        aria-label="Ver imagen anterior"
+                        onClick={prevImage} 
+                        style={{
+                            flexShrink: 0,
+                            background: 'var(--surface-color)',
+                            backdropFilter: (isLowEnd || isMobile) ? 'none' : 'blur(10px)',
+                            border: '1.5px solid var(--text-color)',
+                            borderRadius: '50%',
+                            width: '48px',
+                            height: '48px',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: 'var(--text-color)',
+                            transition: 'all 0.3s'
+                        }}>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
                 )}
 
-                <AnimatePresence mode='wait'>
-                    <motion.img
-                        key={`${mode}-${currentIndex}`}
-                        src={currentImages[currentIndex]}
-                        alt={`${title} - ${mode} Fidelity`}
-                        onClick={toggleFullscreen}
-                        initial={{ opacity: 0, scale: 0.98 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 1.02 }}
-                        transition={{ duration: 0.4 }}
-                        style={{
-                            maxWidth: '90%',
-                            maxHeight: '85%',
-                            width: 'auto',
-                            height: 'auto',
-                            objectFit: 'contain',
-                            borderRadius: mobileFrame ? '32px' : (desktopFrame ? '12px' : '4px'),
-                            border: mobileFrame ? '12px solid #111' : (desktopFrame ? '16px solid #222' : 'none'),
-                            boxShadow: '0 20px 60px rgba(0,0,0,0.12)',
-                            display: 'block',
-                            cursor: 'none'
-                        }}
-                        className="zoomable-image"
-                    />
-                </AnimatePresence>
-
-                <div style={{
-                    position: 'absolute',
-                    bottom: '30px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: '20px',
-                    width: '100%',
-                    zIndex: 20
-                }}>
-                    <div className="compare-indicators">
-                        {currentImages.map((_, idx) => (
-                            <div
-                                key={idx}
-                                className={`compare-indicator-dot ${idx === currentIndex ? 'active' : ''}`}
-                                onClick={() => setCurrentIndex(idx)}
+                <div
+                    className="compare-carousel-box"
+                    {...swipe}
+                    style={{
+                        position: 'relative',
+                        width: '100%',
+                        maxWidth: mobileFrame ? '550px' : '1100px',
+                        backgroundColor: 'transparent',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        zIndex: 1,
+                        overflow: 'visible',
+                        userSelect: 'none',
+                        touchAction: 'pan-y',
+                    }}
+                >
+                    <AnimatePresence mode='wait'>
+                        <motion.div
+                            key={currentIndex}
+                            initial={{ opacity: 0, scale: 0.98 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 1.02 }}
+                            transition={{ duration: 0.4 }}
+                            style={{ width: '100%', height: '100%' }}
+                            onClick={toggleFullscreen}
+                        >
+                            <ComparisonSlider 
+                                itemOne={lowFiImages[currentIndex]}
+                                itemTwo={highFiImages[currentIndex]}
+                                mobileFrame={mobileFrame}
+                                desktopFrame={desktopFrame}
                             />
-                        ))}
-                    </div>
-
-                    <div style={{
-                        textAlign: 'center',
-                        color: 'var(--text-color)',
-                        opacity: 0.9,
-                        fontSize: '1rem',
-                        fontWeight: 700
-                    }}>
-                        {mode === 'low' ? 'Bocetos y estructura base' : 'Diseño visual final'}
-                        <span style={{ marginLeft: '12px', opacity: 0.5, fontWeight: 400 }}>
-                            [{currentIndex + 1} / {currentImages.length}]
-                        </span>
-                    </div>
+                        </motion.div>
+                    </AnimatePresence>
                 </div>
+
+                {lowFiImages.length > 1 && (
+                    <button 
+                        aria-label="Ver imagen siguiente"
+                        onClick={nextImage} 
+                        style={{
+                            flexShrink: 0,
+                            background: 'var(--surface-color)',
+                            backdropFilter: (isLowEnd || isMobile) ? 'none' : 'blur(10px)',
+                            border: '1.5px solid var(--text-color)',
+                            borderRadius: '50%',
+                            width: '48px',
+                            height: '48px',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: 'var(--text-color)',
+                            transition: 'all 0.3s'
+                        }}>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                )}
+            </div>
+
+            {/* 3. Indicadores (Abajo, limpio) */}
+            <div className="compare-indicators" style={{ marginTop: '0' }}>
+                {lowFiImages.map((_, idx) => (
+                    <div
+                        key={idx}
+                        className={`compare-indicator-dot ${idx === currentIndex ? 'active' : ''}`}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setCurrentIndex(idx);
+                        }}
+                    />
+                ))}
             </div>
         </div>
     );

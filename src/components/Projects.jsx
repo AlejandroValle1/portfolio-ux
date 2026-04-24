@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { usePerformance } from '../context/PerformanceContext';
 
 // Hook: detecta qué card está más centrada en el viewport
-function useScrollSpotlight(refs) {
+function useScrollSpotlight(refs, isLowPerformance) {
     const [activeIndex, setActiveIndex] = React.useState(null);
 
     React.useEffect(() => {
@@ -16,7 +17,7 @@ function useScrollSpotlight(refs) {
             ratios.forEach((r, i) => {
                 if (r > maxRatio) { maxRatio = r; maxIndex = i; }
             });
-            setActiveIndex(maxRatio > 0.15 ? maxIndex : null);
+            setActiveIndex(maxRatio > 0.5 ? maxIndex : null);
         };
 
         refs.forEach((ref, i) => {
@@ -27,8 +28,8 @@ function useScrollSpotlight(refs) {
                     updateActive();
                 },
                 { 
-                    threshold: Array.from({ length: 21 }, (_, k) => k / 20),
-                    rootMargin: "-35% 0px -35% 0px"
+                    threshold: isLowPerformance ? [0.5] : [0.2, 0.5, 0.8],
+                    rootMargin: isLowPerformance ? "-20% 0px -20% 0px" : "-35% 0px -35% 0px"
                 }
             );
             obs.observe(ref.current);
@@ -36,7 +37,7 @@ function useScrollSpotlight(refs) {
         });
 
         return () => observers.forEach(o => o.disconnect());
-    }, [refs]);
+    }, [refs, isLowPerformance]);
 
     return activeIndex;
 }
@@ -62,21 +63,20 @@ const projectsSummary = [
     }
 ];
 
-
-
 // Desktop: clip-path reveal + parallax + hover zoom
 // Mobile: imagen estática plana, sin animaciones
-const ParallaxImage = ({ src, alt, imgStyle = {}, isMobile = false }) => {
+const ParallaxImage = ({ src, alt, imgStyle = {}, isMobile = false, isLowPerformance = false }) => {
     const [isLoaded, setIsLoaded] = useState(false);
     const containerRef = useRef(null);
     const imgRef = useRef(null);
 
-    // Hooks siempre declarados (Rules of Hooks), solo se usan en desktop
+    // Hooks siempre declarados
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start end", "end start"]
     });
-    const y = useTransform(scrollYProgress, [0, 1], [10, -10]);
+    // Inmovilizamos el parallax en movil o gama baja
+    const y = useTransform(scrollYProgress, [0, 1], (isMobile || isLowPerformance) ? [0, 0] : [10, -10]);
 
     useEffect(() => {
         const img = imgRef.current;
@@ -90,8 +90,8 @@ const ParallaxImage = ({ src, alt, imgStyle = {}, isMobile = false }) => {
         }
     }, [src]);
 
-    // MOBILE: imagen plana, sin ninguna animación, centrada con flex en el contenedor
-    if (isMobile) {
+    // MOBILE o Low Performance: imagen plana
+    if (isMobile || isLowPerformance) {
         return (
             <img
                 src={src}
@@ -109,9 +109,8 @@ const ParallaxImage = ({ src, alt, imgStyle = {}, isMobile = false }) => {
     }
 
     const baseScale = imgStyle.scale || 1;
-    const hoverScaleValue = baseScale * 0.97; // Proportional shrink
+    const hoverScaleValue = baseScale * 0.97;
 
-    // DESKTOP: clip-path reveal + parallax + hover zoom
     return (
         <motion.div
             ref={containerRef}
@@ -152,19 +151,11 @@ const ParallaxImage = ({ src, alt, imgStyle = {}, isMobile = false }) => {
 };
 
 const Projects = () => {
-    const [isMobile, setIsMobile] = React.useState(false);
+    const { isLowEnd, isMobile } = usePerformance();
 
-    React.useEffect(() => {
-        const checkMobile = () => setIsMobile(window.innerWidth <= 1024); // incluye tablets
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
-
-    // Refs y spotlight para tarjetas de proyectos (sin violar Rules of Hooks)
     const cardRefsArray = React.useRef(projectsSummary.map(() => React.createRef()));
     const cardRefs = cardRefsArray.current;
-    const activeIndex = useScrollSpotlight(cardRefs);
+    const activeIndex = useScrollSpotlight(cardRefs, isLowEnd || isMobile);
 
     const getCardStyle = () => ({
         display: 'flex',
@@ -178,7 +169,7 @@ const Projects = () => {
         willChange: 'transform',
         transform: 'translateZ(0)',
         WebkitTransform: 'translateZ(0)',
-        transition: 'border-color 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease, transform 0.4s ease',
+        transition: 'all 0.4s ease',
     });
 
     // Preload images
@@ -238,7 +229,7 @@ const Projects = () => {
                             className="project-card"
                             style={{
                                 ...getCardStyle(),
-                                ...(isMobile && activeIndex !== null ? {
+                                ...((isLowEnd || isMobile) && activeIndex !== null ? {
                                     borderColor: activeIndex === index ? 'var(--accent-primary)' : 'var(--border-inactive)',
                                     boxShadow: activeIndex === index
                                         ? '0 20px 60px var(--accent-glow)'
@@ -268,6 +259,7 @@ const Projects = () => {
                                 alt={`Mockup del proyecto ${project.title}`}
                                 imgStyle={project.imgStyle}
                                 isMobile={isMobile}
+                                isLowPerformance={isLowEnd}
                             />
                             </div>
 

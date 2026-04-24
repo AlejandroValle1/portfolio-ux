@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { usePerformance } from '../context/PerformanceContext';
 
 // Hook: tracks which card ref is most centered in the viewport
-function useScrollSpotlight(refs) {
+function useScrollSpotlight(refs, isLowPerformance) {
     const [activeIndex, setActiveIndex] = React.useState(null);
 
     React.useEffect(() => {
@@ -15,7 +16,7 @@ function useScrollSpotlight(refs) {
             ratios.forEach((r, i) => {
                 if (r > maxRatio) { maxRatio = r; maxIndex = i; }
             });
-            setActiveIndex(maxRatio > 0.15 ? maxIndex : null);
+            setActiveIndex(maxRatio > 0.5 ? maxIndex : null);
         };
 
         refs.forEach((ref, i) => {
@@ -26,8 +27,8 @@ function useScrollSpotlight(refs) {
                     updateActive();
                 },
                 { 
-                    threshold: Array.from({ length: 21 }, (_, k) => k / 20),
-                    rootMargin: "-35% 0px -35% 0px"
+                    threshold: isLowPerformance ? [0.5] : [0.2, 0.5, 0.8],
+                    rootMargin: isLowPerformance ? "-20% 0px -20% 0px" : "-35% 0px -35% 0px"
                 }
             );
             obs.observe(ref.current);
@@ -35,20 +36,13 @@ function useScrollSpotlight(refs) {
         });
 
         return () => observers.forEach(o => o.disconnect());
-    }, [refs]);
+    }, [refs, isLowPerformance]);
 
     return activeIndex;
 }
 
 const About = () => {
-    const [isMobile, setIsMobile] = React.useState(false);
-
-    React.useEffect(() => {
-        const checkMobile = () => setIsMobile(window.innerWidth <= 1024); // incluye tablets
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
+    const { isLowEnd, isMobile } = usePerformance();
 
     // Refs for each bento card (scroll spotlight)
     const cardRefs = [
@@ -59,19 +53,17 @@ const About = () => {
         React.useRef(null),
         React.useRef(null),
     ];
-    const activeIndex = useScrollSpotlight(cardRefs);
+    const activeIndex = useScrollSpotlight(cardRefs, isLowEnd || isMobile);
 
     const getCardStyle = (index, baseStyle = {}) => ({
         ...baseStyle,
-        transition: 'border-color 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease, transform 0.4s ease',
-        ...(isMobile && activeIndex !== null ? {
+        transition: 'all 0.4s ease',
+        ...((isLowEnd || isMobile) && activeIndex !== null ? {
             borderColor: activeIndex === index ? 'var(--accent-primary)' : 'var(--border-inactive)',
-            boxShadow: activeIndex === index
-                ? '0 0 0 1.5px var(--accent-primary), 0 16px 40px var(--accent-glow)'
-                : '0 4px 20px rgba(0,0,0,0.05)',
-            opacity: activeIndex === index ? 1 : 0.7,
-            transform: activeIndex === index ? 'scale(1.01)' : 'scale(1)',
+            opacity: activeIndex === index ? 1 : 0.4,
+            transform: 'none',
         } : {}),
+        backdropFilter: (isLowEnd || isMobile) ? 'none' : (baseStyle.backdropFilter || 'blur(12px)'),
     });
 
     const containerVariants = {

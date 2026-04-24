@@ -6,7 +6,6 @@ import ProjectSection from '../components/ProjectSection';
 import ProjectGroupLabel from '../components/ProjectGroupLabel';
 import ProjectSummary from '../components/ProjectSummary';
 import Lightbox from '../components/Lightbox';
-import ImageCarousel from '../components/ImageCarousel';
 import CompareCarousel from '../components/CompareCarousel';
 import ParallaxGallery from '../components/ParallaxGallery';
 import { TIENDA_DATA } from '../data/projectsData';
@@ -273,7 +272,7 @@ const ProjectTienda = () => {
                         style={{ padding: 'var(--space-12)', borderRadius: '32px', textAlign: 'center', cursor: 'pointer' }}
                     >
                         <span style={{ fontSize: '0.75rem', opacity: 0.4, textTransform: 'uppercase', letterSpacing: '0.25em' }}>Siguiente Proyecto</span>
-                        <h4 className="brutalist-title" style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', marginTop: 'var(--space-2)' }}>← SE-PA-RÁ</h4>
+                        <h4 className="brutalist-title" style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', marginTop: 'var(--space-2)' }}>SE-PA-RÁ →</h4>
                     </motion.div>
                 </Link>
             </div>

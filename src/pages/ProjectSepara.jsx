@@ -186,6 +186,7 @@ const ProjectSepara = () => {
                     <CompareCarousel
                         lowFiImages={[
                             "/Pagina-principal-baja-fidelidad.webp",
+                            "/recoleccion-diferenciada.webp",
                             "/EcoPuntos.webp",
                             "/Perfil.webp",
                             "/Recompensas.webp",
@@ -193,6 +194,7 @@ const ProjectSepara = () => {
                         ]}
                         highFiImages={[
                             "/Pagina-principal-alta-fidelidad.webp",
+                            "/recoleccion-diferenciada-3.webp",
                             "/EcoPuntos-alta-fidelidad.webp",
                             "/Perfil-alta-fidelidad.webp",
                             "/Recompensas-alta-fidelidad.webp",

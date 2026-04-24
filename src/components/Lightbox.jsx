@@ -51,7 +51,9 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
 
     const handleWheel = (e) => {
         e.stopPropagation();
-        const newScale = Math.max(1, Math.min(4, scale - e.deltaY * 0.001));
+        // Mayor sensibilidad para el zoom con rueda
+        const delta = -e.deltaY * 0.0015;
+        const newScale = Math.max(1, Math.min(5, scale + delta));
         setScale(newScale);
         if (newScale === 1) setPosition({ x: 0, y: 0 });
     };
@@ -66,8 +68,9 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
         const xPct = e.clientX / width;
         const yPct = e.clientY / height;
 
-        const moveX = (width * scale * 0.5) * (0.5 - xPct);
-        const moveY = (height * scale * 0.5) * (0.5 - yPct);
+        // Paneo dinámico basado en la escala
+        const moveX = (width * (scale - 1) * 0.5) * (0.5 - xPct) * 2;
+        const moveY = (height * (scale - 1) * 0.5) * (0.5 - yPct) * 2;
 
         setPosition({ x: moveX, y: moveY });
     };
@@ -132,8 +135,10 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                     }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{
-                        scale: { type: "tween", ease: "linear", duration: 0.1 },
-                        opacity: { duration: 0.3 }
+                        scale: { type: "tween", ease: "easeOut", duration: 0.15 },
+                        opacity: { duration: 0.3 },
+                        x: { type: "spring", stiffness: 300, damping: 30 },
+                        y: { type: "spring", stiffness: 300, damping: 30 }
                     }}
                     style={{
                         display: 'flex',

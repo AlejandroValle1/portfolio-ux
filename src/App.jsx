@@ -8,6 +8,7 @@ import ProjectSepara from './pages/ProjectSepara';
 import ProjectTienda from './pages/ProjectTienda';
 import Cursor from './components/Cursor';
 import ScrollUpButton from './components/ScrollToTop';
+import { PerformanceProvider } from './context/PerformanceContext';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -58,21 +59,23 @@ function App() {
 
   return (
     <div className="App">
-      <a href="#main-content" className="skip-link">Saltar al contenido principal</a>
-      <Cursor />
-      <ScrollToTop />
-      <ScrollUpButton />
-      <Header theme={theme} toggleTheme={toggleTheme} />
-      <main id="main-content">
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<Home />} />
-            <Route path="/separa" element={<ProjectSepara />} />
-            <Route path="/tienda-tecno" element={<ProjectTienda />} />
-          </Routes>
-        </AnimatePresence>
-      </main>
-      <Footer />
+      <PerformanceProvider>
+        <a href="#main-content" className="skip-link">Saltar al contenido principal</a>
+        <Cursor />
+        <ScrollToTop />
+        <ScrollUpButton />
+        <Header theme={theme} toggleTheme={toggleTheme} />
+        <main id="main-content">
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<Home />} />
+              <Route path="/separa" element={<ProjectSepara />} />
+              <Route path="/tienda-tecno" element={<ProjectTienda />} />
+            </Routes>
+          </AnimatePresence>
+        </main>
+        <Footer />
+      </PerformanceProvider>
     </div>
   );
 }

@@ -150,6 +150,13 @@ body::after {
   transform: translateZ(0);
 }
 
+/* Optimize for mobile: disable noise to save GPU */
+@media (max-width: 768px) {
+  body::after {
+    display: none;
+  }
+}
+
 a,
 button,
 img,
@@ -221,6 +228,16 @@ div[role="button"] {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-inactive);
+}
+
+@media (max-width: 768px) {
+  .project-card, 
+  .process-step-card,
+  .about-bento-card,
+  .card {
+    backdrop-filter: blur(8px); /* Much lighter for mobile GPU */
+    -webkit-backdrop-filter: blur(8px);
+  }
 }
 
 /* Specific fix for Titles over Sun gradient */
@@ -716,54 +733,6 @@ section {
   display: flex;
 }
 
-/* Image Carousel Desktop Rules */
-.carousel-inner-box {
-  width: calc(100% + 40px);
-  left: -20px;
-  padding: var(--space-4) 80px;
-}
-
-.carousel-nav-button.prev-button {
-  left: 15px;
-}
-
-.carousel-nav-button.next-button {
-  right: 15px;
-}
-
-.carousel-indicators {
-  position: absolute;
-  bottom: 25px;
-  display: flex;
-  gap: 10px;
-  z-index: 20;
-  background: rgba(128, 128, 128, 0.1);
-  padding: 8px 16px;
-  border-radius: 20px;
-}
-
-.indicator-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  background-color: var(--text-color);
-  opacity: 0.35;
-  border: 1px solid rgba(128,128,128,0.2);
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  cursor: pointer;
-}
-
-.indicator-dot.active {
-  width: 30px;
-  background-color: var(--accent-primary);
-  opacity: 1;
-  border: none;
-}
-
-.carousel-image-viewport {
-  height: 500px;
-}
-
 .project-chapter-grid {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
@@ -949,43 +918,6 @@ section {
     display: none !important;
   }
 
-  /* Image Carousel */
-  .carousel-inner-box {
-    width: 100% !important;
-    left: 0 !important;
-    padding: var(--space-4) var(--space-8) !important; /* Increased side padding to 4rem (64px) for mobile */
-  }
-
-  .carousel-nav-button.prev-button {
-    left: 10px !important;
-  }
-
-  .carousel-nav-button.next-button {
-    right: 10px !important;
-  }
-
-  .carousel-nav-button {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    width: 32px !important;
-    height: 32px !important;
-  }
-
-  .carousel-indicators {
-    bottom: 15px !important; /* Push dots lower */
-    background: transparent !important; /* Remove the capsule background */
-    padding: 0 !important;
-  }
-
-  /* Chapter 3 spacing fix: More bottom padding for viewport area to keep image away from dots */
-  .carousel-image-viewport {
-    padding-bottom: 40px !important; 
-    height: auto !important;
-    min-height: 250px !important;
-    max-height: 60vh !important;
-  }
-
   .project-chapter-grid {
     grid-template-columns: 1fr !important;
     gap: var(--space-4) !important;
@@ -993,9 +925,9 @@ section {
 
   /* Compare Carousel Mobile Refinements */
   .compare-carousel-box {
-    height: auto !important;
+    height: 500px !important; /* Reduced from 800px for mobile performance */
     min-height: 400px !important;
-    padding: var(--space-4) var(--space-8) 6rem var(--space-8) !important; /* Increased side padding */
+    padding: var(--space-4) var(--space-4) 4rem var(--space-4) !important;
   }
 
   .compare-nav-button {
@@ -1040,6 +972,14 @@ section {
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-inactive);
   transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.4s ease;
+  will-change: transform, opacity;
+}
+
+@media (max-width: 768px) {
+  .glass-card {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
 }
 
 .glass-card:hover {

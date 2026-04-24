@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePerformance } from '../context/PerformanceContext';
 
 const Cursor = () => {
+    const { isLowEnd, isMobile: isMobilePerf } = usePerformance();
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
     const [cursorText, setCursorText] = useState("");
     const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
-        // No mostrar cursor en dispositivos táctiles o pantallas pequeñas
+        // No mostrar cursor en dispositivos táctiles, pantallas pequeñas o gama baja
         const checkMobile = () => {
             const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
             const isSmallScreen = window.innerWidth <= 1024;
-            setIsVisible(!isTouch && !isSmallScreen);
+            // Si es gama baja, mejor usar el cursor nativo para evitar lag
+            setIsVisible(!isTouch && !isSmallScreen && !isLowEnd);
         };
 
         checkMobile();
