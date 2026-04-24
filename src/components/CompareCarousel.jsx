@@ -529,19 +529,32 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                                             boxShadow: '0 20px 40px rgba(0,0,0,0.15)'
                                         }}
                                     />
-                                    <div style={{
-                                        position: 'absolute',
-                                        bottom: '20px',
-                                        background: 'rgba(0,0,0,0.6)',
-                                        color: 'white',
-                                        padding: '6px 14px',
-                                        borderRadius: '20px',
-                                        fontSize: '10px',
-                                        fontWeight: 600,
-                                        textTransform: 'uppercase'
-                                    }}>
-                                        Tocar para comparar
-                                    </div>
+                                    <motion.div 
+                                        animate={{ y: [0, -4, 0], scale: [1, 1.05, 1] }}
+                                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                                        style={{
+                                            position: 'absolute',
+                                            bottom: '30px',
+                                            background: 'var(--accent-primary)',
+                                            color: 'white',
+                                            padding: '10px 20px',
+                                            borderRadius: '30px',
+                                            fontSize: '11px',
+                                            fontWeight: 800,
+                                            textTransform: 'uppercase',
+                                            letterSpacing: '0.05em',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '8px',
+                                            boxShadow: '0 10px 25px rgba(0,0,0,0.3)',
+                                            pointerEvents: 'none',
+                                            border: '1.5px solid rgba(255,255,255,0.2)',
+                                            zIndex: 10
+                                        }}
+                                    >
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                                        Tocar para comparar UX / UI
+                                    </motion.div>
                                 </div>
                             ) : (
                                 <ComparisonSlider 
