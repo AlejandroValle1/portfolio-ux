@@ -438,7 +438,7 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                 textTransform: 'uppercase',
                 letterSpacing: '0.15em'
             }}>
-                Deslizá para comparar
+                {isMobile ? 'Explorar Galería' : 'Deslizá para comparar'}
                 <span style={{ marginLeft: '12px', opacity: 0.5, fontWeight: 400 }}>
                     [{currentIndex + 1} / {lowFiImages.length}]
                 </span>
@@ -484,8 +484,8 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                         position: 'relative',
                         width: '100%',
                         maxWidth: isMobile ? (mobileFrame ? '300px' : '100%') : (mobileFrame ? '550px' : '1100px'),
-                        height: isMobile && mobileFrame ? '580px' : (isMobile ? '350px' : 'auto'),
-                        minHeight: isMobile && mobileFrame ? '500px' : 'auto',
+                        height: isMobile ? 'auto' : 'auto',
+                        minHeight: isMobile ? '300px' : 'auto',
                         backgroundColor: 'transparent',
                         display: 'flex',
                         alignItems: 'center',
@@ -506,12 +506,51 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                             style={{ width: '100%', height: '100%' }}
                             onClick={toggleFullscreen}
                         >
-                            <ComparisonSlider 
-                                itemOne={lowFiImages[currentIndex]}
-                                itemTwo={highFiImages[currentIndex]}
-                                mobileFrame={mobileFrame}
-                                desktopFrame={desktopFrame}
-                            />
+                            {isMobile ? (
+                                <div style={{ 
+                                    width: '100%', 
+                                    height: '100%', 
+                                    display: 'flex', 
+                                    alignItems: 'center', 
+                                    justifyContent: 'center',
+                                    padding: 'var(--space-2)' 
+                                }}>
+                                    <img 
+                                        src={highFiImages[currentIndex]} 
+                                        alt={title}
+                                        style={{
+                                            width: 'auto',
+                                            maxWidth: '100%',
+                                            height: 'auto',
+                                            maxHeight: '100%',
+                                            objectFit: 'contain',
+                                            borderRadius: mobileFrame ? '32px' : '12px',
+                                            border: mobileFrame ? '12px solid #111' : 'none',
+                                            boxShadow: '0 20px 40px rgba(0,0,0,0.15)'
+                                        }}
+                                    />
+                                    <div style={{
+                                        position: 'absolute',
+                                        bottom: '20px',
+                                        background: 'rgba(0,0,0,0.6)',
+                                        color: 'white',
+                                        padding: '6px 14px',
+                                        borderRadius: '20px',
+                                        fontSize: '10px',
+                                        fontWeight: 600,
+                                        textTransform: 'uppercase'
+                                    }}>
+                                        Tocar para comparar
+                                    </div>
+                                </div>
+                            ) : (
+                                <ComparisonSlider 
+                                    itemOne={lowFiImages[currentIndex]}
+                                    itemTwo={highFiImages[currentIndex]}
+                                    mobileFrame={mobileFrame}
+                                    desktopFrame={desktopFrame}
+                                />
+                            )}
                         </motion.div>
                     </AnimatePresence>
                 </div>
