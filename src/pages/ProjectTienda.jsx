@@ -13,10 +13,11 @@ import { TIENDA_DATA } from '../data/projectsData';
 const ProjectTienda = () => {
     const [lightboxState, setLightboxState] = useState({ isOpen: false, images: [], index: 0 });
     const [hoveredFlowStep, setHoveredFlowStep] = useState(null);
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile();
         window.addEventListener('resize', checkMobile);
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
@@ -87,7 +88,6 @@ const ProjectTienda = () => {
                 title="Análisis de la competencia"
                 text="Analicé competidores directos como Maximus, Gaming City y ArmyTech para identificar dónde el mercado fallaba y dónde Tienda Tecno podía diferenciarse."
             >
-                {/* Key findings as cards */}
                 <motion.div 
                     variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.15 } } }}
                     initial="hidden" whileInView="show" viewport={{ once: true, margin: '-50px' }}
@@ -152,8 +152,8 @@ const ProjectTienda = () => {
 
             <ProjectSection
                 icon="→"
-                title="Estructura y flujo de compra"
-                text="Armé el sitemap con secciones clave: productos, armá tu PC, guía y asesoramiento, comunidad y carrito. Luego definí el user flow para la compra de una PC, incluyendo filtros, ficha de producto, checkout y login. El foco estuvo en reducir fricciones y dar seguridad en cada paso."
+                title="El flujo dentro de la app"
+                text="Con esos hallazgos, definí el user flow de la aplicación. El recorrido empezaba con una bienvenida motivadora, luego el registro o ingreso, y desde el inicio el usuario podía elegir entre aprender sobre reciclaje o conocer eco puntos cercanos."
             >
                 <motion.div 
                     variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.15 } } }}

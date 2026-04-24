@@ -349,6 +349,7 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
 );
 
 const Portal = ({ children }) => {
+    if (typeof document === 'undefined') return null;
     return createPortal(children, document.body);
 };
 

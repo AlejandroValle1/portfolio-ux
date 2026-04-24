@@ -13,10 +13,11 @@ import { SEPARA_DATA } from '../data/projectsData';
 const ProjectSepara = () => {
     const [lightboxState, setLightboxState] = useState({ isOpen: false, images: [], index: 0 });
     const [hoveredFlowStep, setHoveredFlowStep] = useState(null);
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile();
         window.addEventListener('resize', checkMobile);
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
@@ -84,7 +85,6 @@ const ProjectSepara = () => {
                     </>
                 }
             >
-                {/* Findings as cards — no redundant image needed */}
                 <motion.div 
                     variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.15 } } }}
                     initial="hidden" whileInView="show" viewport={{ once: true, margin: '-50px' }}
