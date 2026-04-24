@@ -482,8 +482,9 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                     style={{
                         position: 'relative',
                         width: '100%',
-                        maxWidth: isMobile ? (mobileFrame ? '280px' : '100%') : (mobileFrame ? '550px' : '1100px'),
-                        height: isMobile && mobileFrame ? '540px' : (isMobile ? '300px' : 'auto'),
+                        maxWidth: isMobile ? (mobileFrame ? '300px' : '100%') : (mobileFrame ? '550px' : '1100px'),
+                        height: isMobile && mobileFrame ? '580px' : (isMobile ? '350px' : 'auto'),
+                        minHeight: isMobile && mobileFrame ? '500px' : 'auto',
                         backgroundColor: 'transparent',
                         display: 'flex',
                         alignItems: 'center',

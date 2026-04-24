@@ -220,19 +220,20 @@ const ProjectSepara = () => {
                 type="epilogue"
                 content={
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-8)', alignItems: 'center' }}>
-                        <div style={{ flex: '1 1 400px' }}>
+                        <div style={{ flex: isMobile ? '1 1 100%' : '1 1 400px', fontSize: '1rem', lineHeight: 1.75 }}>
                             Este proyecto fue parte de mi primera experiencia formándome como UX de manera autodidacta en Udemy, obteniendo el certificado que valida mi recorrido inicial.
                         </div>
                         <motion.div
-                            whileHover={{ rotate: 1, scale: 1.03 }}
+                            whileHover={!isMobile ? { rotate: 1, scale: 1.03 } : {}}
                             style={{
-                                flex: '0 0 280px',
+                                flex: isMobile ? '1 1 100%' : '0 0 280px',
                                 padding: 'var(--space-2)',
                                 backgroundColor: 'white',
-                                transform: 'rotate(-1.5deg)',
+                                transform: !isMobile ? 'rotate(-1.5deg)' : 'none',
                                 boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
                                 cursor: 'pointer',
-                                borderRadius: '4px'
+                                borderRadius: '4px',
+                                marginTop: isMobile ? 'var(--space-4)' : '0'
                             }}
                             onClick={() => openLightbox("/Cerificado-Udemy.webp")}
                         >
