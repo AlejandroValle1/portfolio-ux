@@ -239,15 +239,16 @@ const ProjectTienda = () => {
                 content={
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-8)', alignItems: 'center' }}>
                         <div style={{ flex: '1 1 400px' }}>
+                        <div style={{ flex: '1 1 400px', fontSize: 'clamp(1rem, 1.5vw, 1.15rem)', lineHeight: 1.75, maxWidth: isMobile ? '100%' : '72ch' }}>
                             Este proyecto fue parte de mi experiencia en el bootcamp intensivo Digitalers de Telecom junto a Education IT, donde fui becado durante 4 meses. Para mí, Tienda Tecno no solo fue un ejercicio de diseño, sino un paso fundamental en mi camino como diseñador UX.
                         </div>
                         <motion.div
-                            whileHover={{ rotate: 1, scale: 1.03 }}
+                            whileHover={!isMobile ? { rotate: 1, scale: 1.03 } : {}}
                             style={{
                                 flex: '0 0 320px',
                                 padding: 'var(--space-2)',
                                 backgroundColor: 'white',
-                                transform: 'rotate(-1.5deg)',
+                                transform: !isMobile ? 'rotate(-1.5deg)' : 'none',
                                 boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
                                 cursor: 'pointer',
                                 borderRadius: '4px'

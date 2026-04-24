@@ -116,8 +116,8 @@ const ComparisonSlider = ({ itemOne, itemTwo, mobileFrame, desktopFrame }) => {
                     top: '50%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
-                    width: '44px',
-                    height: '44px',
+                    width: isMobile ? '32px' : '44px',
+                    height: isMobile ? '32px' : '44px',
                     backgroundColor: 'var(--surface-color)',
                     backdropFilter: (isLowEnd || isMobile) ? 'none' : 'blur(10px)',
                     border: '2px solid var(--accent-primary)',
@@ -130,9 +130,9 @@ const ComparisonSlider = ({ itemOne, itemTwo, mobileFrame, desktopFrame }) => {
                 }}>
                     <div style={{
                         display: 'flex',
-                        gap: '4px',
+                        gap: '2px',
                         color: 'var(--accent-primary)',
-                        fontSize: '12px',
+                        fontSize: isMobile ? '10px' : '12px',
                         fontWeight: 'bold'
                     }}>
                         <span>◀</span>

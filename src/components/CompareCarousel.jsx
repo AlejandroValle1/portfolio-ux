@@ -450,10 +450,10 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                 justifyContent: 'center',
                 width: '100%',
                 maxWidth: '1400px',
-                gap: 'var(--space-4)',
-                padding: '0 20px'
+                gap: isMobile ? '0' : 'var(--space-4)',
+                padding: isMobile ? '0' : '0 20px'
             }}>
-                {lowFiImages.length > 1 && (
+                {!isMobile && lowFiImages.length > 1 && (
                     <button 
                         aria-label="Ver imagen anterior"
                         onClick={prevImage} 
@@ -482,7 +482,8 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                     style={{
                         position: 'relative',
                         width: '100%',
-                        maxWidth: mobileFrame ? '550px' : '1100px',
+                        maxWidth: isMobile ? (mobileFrame ? '280px' : '100%') : (mobileFrame ? '550px' : '1100px'),
+                        height: isMobile && mobileFrame ? '540px' : (isMobile ? '300px' : 'auto'),
                         backgroundColor: 'transparent',
                         display: 'flex',
                         alignItems: 'center',
@@ -513,7 +514,7 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                     </AnimatePresence>
                 </div>
 
-                {lowFiImages.length > 1 && (
+                {!isMobile && lowFiImages.length > 1 && (
                     <button 
                         aria-label="Ver imagen siguiente"
                         onClick={nextImage} 

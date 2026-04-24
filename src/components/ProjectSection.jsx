@@ -59,7 +59,7 @@ const ProjectSection = ({
                             style={{
                                 fontSize: 'clamp(1rem, 1.5vw, 1.15rem)',
                                 lineHeight: 1.75,
-                                maxWidth: '72ch'
+                                maxWidth: window.innerWidth <= 768 ? '100%' : '72ch'
                             }}
                         >
                             {text}
