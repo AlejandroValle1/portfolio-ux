@@ -144,7 +144,7 @@ const About = () => {
                         QUIÉN SOY
                     </h3>
                     <p style={{ fontSize: '1.25rem', lineHeight: 1.6, fontWeight: 500, opacity: 0.9 }}>
-                        Soy Alejandro Valle, diseñador UX con una sólida base en Comunicación. Me apasiona crear experiencias digitales claras, inclusivas y funcionales, combinando la sensibilidad narrativa con la precisión estructural.
+                        Soy Alejandro Valle, <strong>Diseñador UX</strong> con background en <strong>Comunicación</strong>. Transformo la complejidad en experiencias digitales <strong>claras, inclusivas y funcionales</strong>, combinando sensibilidad narrativa con precisión estructural.
                     </p>
                 </motion.div>
 
@@ -206,7 +206,7 @@ const About = () => {
                         Formación
                     </h4>
                     <p style={{ fontSize: '1.05rem', lineHeight: 1.5, opacity: 0.9 }}>
-                        Estudié Comunicación en la UNT (Tucumán). La semiótica y el guión me enseñaron a construir mensajes que generan confianza y narrativas que conectan.
+                        Estudié <strong>Comunicación</strong> (UNT). Mi formación en semiótica me permite entender profundamente a las personas y construir arquitecturas de información que generan <strong>confianza y conexión real</strong>.
                     </p>
                 </motion.div>
 
@@ -230,7 +230,7 @@ const About = () => {
                         Evolución UX
                     </h4>
                     <p style={{ fontSize: '1.05rem', lineHeight: 1.5, opacity: 0.9 }}>
-                        De autodidacta a becado en Digitalers (Telecom). Hoy aplico investigación y diseño atómico para crear sistemas escalables y humanos.
+                        Egresado becado del bootcamp <strong>Digitalers (Telecom)</strong>. Aplico investigación de usuarios y diseño atómico para desarrollar interfaces escalables que equilibran usabilidad con <strong>objetivos de negocio</strong>.
                     </p>
                 </motion.div>
 
@@ -259,7 +259,7 @@ const About = () => {
                         MI FILOSOFÍA
                     </h3>
                     <p style={{ fontSize: '1.15rem', opacity: 0.9, lineHeight: 1.6 }}>
-                        Me caracterizo por ser detallista, metódico y transparente. No solo diseño interfaces; construyo puentes de confianza entre el negocio y las personas a través de la claridad visual y la arquitectura de información.
+                        Soy detallista, metódico y transparente. Mi visión va más allá de dibujar pantallas: <strong>construyo puentes entre los objetivos de la empresa y las necesidades de las personas</strong>, apoyándome en datos, claridad visual y decisiones estratégicas.
                     </p>
                 </motion.div>
 
