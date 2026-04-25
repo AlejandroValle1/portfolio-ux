@@ -209,13 +209,13 @@ const ZoomableComparisonSlider = ({ srcLow, srcHigh, alt, mobileFrame, desktopFr
                 {/* Floating Labels for Fullscreen */}
                 <div style={{
                     position: 'absolute',
-                    top: '30px',
-                    left: '30px',
+                    top: isMobile ? '12px' : '30px',
+                    left: isMobile ? '12px' : '30px',
                     background: 'rgba(0,0,0,0.6)',
                     color: 'white',
-                    padding: '8px 16px',
+                    padding: isMobile ? '4px 10px' : '8px 16px',
                     borderRadius: '20px',
-                    fontSize: '11px',
+                    fontSize: isMobile ? '9px' : '11px',
                     fontWeight: 600,
                     textTransform: 'uppercase',
                     letterSpacing: '0.1em',
@@ -228,13 +228,13 @@ const ZoomableComparisonSlider = ({ srcLow, srcHigh, alt, mobileFrame, desktopFr
                 </div>
                 <div style={{
                     position: 'absolute',
-                    top: '30px',
-                    right: '30px',
+                    top: isMobile ? '12px' : '30px',
+                    right: isMobile ? '12px' : '30px',
                     background: 'var(--accent-primary)',
                     color: 'white',
-                    padding: '8px 16px',
+                    padding: isMobile ? '4px 10px' : '8px 16px',
                     borderRadius: '20px',
-                    fontSize: '11px',
+                    fontSize: isMobile ? '9px' : '11px',
                     fontWeight: 600,
                     textTransform: 'uppercase',
                     letterSpacing: '0.1em',
@@ -250,7 +250,7 @@ const ZoomableComparisonSlider = ({ srcLow, srcHigh, alt, mobileFrame, desktopFr
     );
 };
 
-const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, onClose, onNext, onPrev, isMobile }) => {
+const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, onClose, onNext, onPrev, isMobile, currentIndex, totalCount }) => {
     const swipe = useTouchSwipe(onNext, onPrev);
     return (
         <motion.div
@@ -275,13 +275,13 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
             onClick={onClose}
             style={{
                 position: 'absolute',
-                top: isMobile ? '20px' : '30px',
-                right: isMobile ? '20px' : '30px',
-                background: 'rgba(255,255,255,0.1)',
-                border: isMobile ? '2px solid white' : '3px solid white',
+                top: isMobile ? '16px' : '30px',
+                right: isMobile ? '16px' : '30px',
+                background: isMobile ? 'transparent' : 'rgba(255,255,255,0.1)',
+                border: isMobile ? 'none' : '3px solid white',
                 borderRadius: '50%',
-                width: isMobile ? '44px' : '60px',
-                height: isMobile ? '44px' : '60px',
+                width: isMobile ? '40px' : '60px',
+                height: isMobile ? '40px' : '60px',
                 color: 'white',
                 cursor: 'pointer',
                 zIndex: 100002,
@@ -291,8 +291,33 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
                 transition: 'all 0.3s'
             }}
         >
-            <svg width={isMobile ? "20" : "28"} height={isMobile ? "20" : "28"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            <svg width={isMobile ? "28" : "28"} height={isMobile ? "28" : "28"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
+
+        {isMobile && (
+            <div style={{
+                position: 'absolute',
+                bottom: '30px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                color: 'rgba(255,255,255,0.85)',
+                fontSize: '10px',
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em',
+                zIndex: 100003,
+                pointerEvents: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'rgba(0,0,0,0.6)',
+                padding: '8px 20px',
+                borderRadius: '30px'
+            }}>
+                <span>Deslizá para explorar</span>
+                <span style={{ opacity: 0.6 }}>[{currentIndex + 1} / {totalCount}]</span>
+            </div>
+        )}
 
         {!isMobile && (
             <>
@@ -432,6 +457,8 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                             onNext={nextImage}
                             onPrev={prevImage}
                             isMobile={isMobile}
+                            currentIndex={currentIndex}
+                            totalCount={lowFiImages.length}
                         />
                     </Portal>
                 )}
