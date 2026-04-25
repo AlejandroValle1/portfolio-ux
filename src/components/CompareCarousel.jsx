@@ -381,6 +381,54 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
 
         {!isMobile && (
             <>
+                {/* Desktop Instructions & Counter */}
+                <div style={{
+                    position: 'absolute',
+                    bottom: '40px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '12px',
+                    zIndex: 100003,
+                    pointerEvents: 'none'
+                }}>
+                    <div style={{
+                        color: 'rgba(255,255,255,0.9)',
+                        fontSize: '12px',
+                        fontWeight: 700,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.15em',
+                        background: 'rgba(0,0,0,0.6)',
+                        padding: '10px 30px',
+                        borderRadius: '30px',
+                        backdropFilter: 'blur(10px)',
+                        border: '1px solid rgba(255,255,255,0.1)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px'
+                    }}>
+                        Explorar Galería <span style={{ opacity: 0.5 }}>[{currentIndex + 1} / {totalCount}]</span>
+                    </div>
+                    <div style={{
+                        color: 'rgba(255,255,255,0.6)',
+                        fontSize: '11px',
+                        fontWeight: 500,
+                        letterSpacing: '0.05em',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '16px',
+                        background: 'rgba(0,0,0,0.4)',
+                        padding: '6px 20px',
+                        borderRadius: '20px'
+                    }}>
+                        <span><span style={{fontWeight: 700, color: 'white'}}>Rueda</span> para hacer zoom</span>
+                        <span style={{ opacity: 0.3 }}>|</span>
+                        <span><span style={{fontWeight: 700, color: 'white'}}>Clic + Arrastrar</span> para paneo</span>
+                    </div>
+                </div>
+
                 <button
                     aria-label="Anterior"
                     onClick={onPrev}
