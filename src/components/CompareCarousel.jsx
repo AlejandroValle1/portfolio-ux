@@ -290,21 +290,22 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
                 position: 'absolute',
                 top: isMobile ? '16px' : '30px',
                 right: isMobile ? '16px' : '30px',
-                background: isMobile ? 'transparent' : 'rgba(255,255,255,0.1)',
-                border: isMobile ? 'none' : '3px solid white',
+                background: 'rgba(0,0,0,0.2)',
+                border: 'none',
                 borderRadius: '50%',
-                width: isMobile ? '40px' : '60px',
-                height: isMobile ? '40px' : '60px',
+                width: isMobile ? '40px' : '48px',
+                height: isMobile ? '40px' : '48px',
                 color: 'white',
                 cursor: 'pointer',
                 zIndex: 100002,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                transition: 'all 0.3s'
+                transition: 'all 0.3s',
+                backdropFilter: 'blur(4px)'
             }}
         >
-            <svg width={isMobile ? "28" : "28"} height={isMobile ? "28" : "28"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            <svg width={isMobile ? "28" : "24"} height={isMobile ? "28" : "24"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={isMobile ? "3" : "2.5"} strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
 
         {isMobile && (
@@ -381,7 +382,34 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
 
         {!isMobile && (
             <>
-                {/* Desktop Instructions & Counter */}
+                {/* Desktop Counter (Top) */}
+                <div style={{
+                    position: 'absolute',
+                    top: '30px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    zIndex: 100003,
+                    pointerEvents: 'none'
+                }}>
+                    <div style={{
+                        color: 'rgba(255,255,255,0.9)',
+                        fontSize: '11px',
+                        fontWeight: 700,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.15em',
+                        background: 'rgba(0,0,0,0.4)',
+                        padding: '8px 24px',
+                        borderRadius: '30px',
+                        backdropFilter: 'blur(10px)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px'
+                    }}>
+                        Explorar Galería <span style={{ opacity: 0.5 }}>[{currentIndex + 1} / {totalCount}]</span>
+                    </div>
+                </div>
+
+                {/* Desktop Instructions (Bottom) */}
                 <div style={{
                     position: 'absolute',
                     bottom: '40px',
@@ -390,27 +418,9 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    gap: '12px',
                     zIndex: 100003,
                     pointerEvents: 'none'
                 }}>
-                    <div style={{
-                        color: 'rgba(255,255,255,0.9)',
-                        fontSize: '12px',
-                        fontWeight: 700,
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.15em',
-                        background: 'rgba(0,0,0,0.6)',
-                        padding: '10px 30px',
-                        borderRadius: '30px',
-                        backdropFilter: 'blur(10px)',
-                        border: '1px solid rgba(255,255,255,0.1)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px'
-                    }}>
-                        Explorar Galería <span style={{ opacity: 0.5 }}>[{currentIndex + 1} / {totalCount}]</span>
-                    </div>
                     <div style={{
                         color: 'rgba(255,255,255,0.6)',
                         fontSize: '11px',
@@ -421,7 +431,8 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
                         gap: '16px',
                         background: 'rgba(0,0,0,0.4)',
                         padding: '6px 20px',
-                        borderRadius: '20px'
+                        borderRadius: '20px',
+                        backdropFilter: 'blur(10px)'
                     }}>
                         <span><span style={{fontWeight: 700, color: 'white'}}>Rueda</span> para hacer zoom</span>
                         <span style={{ opacity: 0.3 }}>|</span>
@@ -437,20 +448,22 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
                         left: '30px',
                         top: '50%',
                         transform: 'translateY(-50%)',
-                        background: 'rgba(255,255,255,0.05)',
-                        border: '3px solid white',
+                        background: 'rgba(0,0,0,0.2)',
+                        border: 'none',
                         borderRadius: '50%',
-                        width: '60px',
-                        height: '60px',
-                        color: 'white',
+                        width: '48px',
+                        height: '48px',
+                        color: 'rgba(255,255,255,0.8)',
                         cursor: 'pointer',
                         zIndex: 100002,
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center'
+                        justifyContent: 'center',
+                        backdropFilter: 'blur(4px)',
+                        transition: 'all 0.3s'
                     }}
                 >
-                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                 </button>
                 <button
                     aria-label="Siguiente"
@@ -460,20 +473,22 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
                         right: '30px',
                         top: '50%',
                         transform: 'translateY(-50%)',
-                        background: 'rgba(255,255,255,0.05)',
-                        border: '3px solid white',
+                        background: 'rgba(0,0,0,0.2)',
+                        border: 'none',
                         borderRadius: '50%',
-                        width: '60px',
-                        height: '60px',
-                        color: 'white',
+                        width: '48px',
+                        height: '48px',
+                        color: 'rgba(255,255,255,0.8)',
                         cursor: 'pointer',
                         zIndex: 100002,
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center'
+                        justifyContent: 'center',
+                        backdropFilter: 'blur(4px)',
+                        transition: 'all 0.3s'
                     }}
                 >
-                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </button>
             </>
         )}
