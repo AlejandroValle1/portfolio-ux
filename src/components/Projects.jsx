@@ -308,7 +308,8 @@ const Projects = () => {
                                 <p style={{
                                     fontSize: isMobile ? '0.95rem' : '1.1rem',
                                     lineHeight: 1.6,
-                                    opacity: 0.72,
+                                    opacity: 0.9,
+                                    fontWeight: 500,
                                     margin: '0',
                                     maxWidth: isMobile ? 'none' : '38ch'
                                 }}>
