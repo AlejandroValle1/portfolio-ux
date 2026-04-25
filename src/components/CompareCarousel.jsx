@@ -250,7 +250,7 @@ const ZoomableComparisonSlider = ({ srcLow, srcHigh, alt, mobileFrame, desktopFr
     );
 };
 
-const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, onClose, onNext, onPrev }) => (
+const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, onClose, onNext, onPrev, isMobile }) => (
     <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -427,6 +427,7 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                             onClose={() => setIsFullscreen(false)}
                             onNext={nextImage}
                             onPrev={prevImage}
+                            isMobile={isMobile}
                         />
                     </Portal>
                 )}
