@@ -32,6 +32,7 @@ const ZoomableComparisonSlider = ({ srcLow, srcHigh, alt, mobileFrame, desktopFr
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [sliderPosition, setSliderPosition] = useState(50);
     const [isDraggingSlider, setIsDraggingSlider] = useState(false);
+    const [isPanning, setIsPanning] = useState(false);
     const containerRef = useRef(null);
 
     const handleWheel = (e) => {
@@ -47,21 +48,23 @@ const ZoomableComparisonSlider = ({ srcLow, srcHigh, alt, mobileFrame, desktopFr
         const x = 'touches' in e ? e.touches[0].clientX : e.clientX;
         const y = 'touches' in e ? e.touches[0].clientY : e.clientY;
 
-        // Lógica de Slider (solo si no estamos haciendo pan o si el usuario toca el centro)
-        if (isDraggingSlider) {
-            const relativeX = x - containerRect.left;
-            const pos = Math.max(0, Math.min(100, (relativeX / containerRect.width) * 100));
-            setSliderPosition(pos);
-            return;
-        }
-
-        // Lógica de Paneo (solo si hay zoom)
-        if (scale > 1) {
+        if (scale > 1 && isPanning) {
+            // Paneo (Desktop)
             const xPct = (x - containerRect.left) / containerRect.width;
             const yPct = (y - containerRect.top) / containerRect.height;
             const moveX = (0.5 - xPct) * (containerRect.width * (scale - 1));
             const moveY = (0.5 - yPct) * (containerRect.height * (scale - 1));
             setPosition({ x: moveX, y: moveY });
+        } else if (!isMobile) {
+            // Slider sigue al cursor en escritorio
+            const relativeX = x - containerRect.left;
+            const pos = Math.max(0, Math.min(100, (relativeX / containerRect.width) * 100));
+            setSliderPosition(pos);
+        } else if (isMobile && isDraggingSlider) {
+            // Slider se mueve arrastrando el handle en móvil
+            const relativeX = x - containerRect.left;
+            const pos = Math.max(0, Math.min(100, (relativeX / containerRect.width) * 100));
+            setSliderPosition(pos);
         }
     };
 
@@ -70,8 +73,17 @@ const ZoomableComparisonSlider = ({ srcLow, srcHigh, alt, mobileFrame, desktopFr
         setIsDraggingSlider(true);
     };
 
+    const handleContainerMouseDown = (e) => {
+        if (!isMobile && scale > 1 && e.button === 0) {
+            setIsPanning(true);
+        }
+    };
+
     useEffect(() => {
-        const handleGlobalMouseUp = () => setIsDraggingSlider(false);
+        const handleGlobalMouseUp = () => {
+            setIsDraggingSlider(false);
+            setIsPanning(false);
+        };
         window.addEventListener('mouseup', handleGlobalMouseUp);
         window.addEventListener('touchend', handleGlobalMouseUp);
         return () => {
@@ -86,6 +98,7 @@ const ZoomableComparisonSlider = ({ srcLow, srcHigh, alt, mobileFrame, desktopFr
             onWheel={handleWheel}
             onMouseMove={handleMove}
             onTouchMove={handleMove}
+            onMouseDown={handleContainerMouseDown}
             style={{
                 width: '100%',
                 height: '100%',
@@ -93,7 +106,7 @@ const ZoomableComparisonSlider = ({ srcLow, srcHigh, alt, mobileFrame, desktopFr
                 alignItems: 'center',
                 justifyContent: 'center',
                 overflow: 'hidden',
-                cursor: isDraggingSlider ? 'grabbing' : (scale > 1 ? 'crosshair' : 'default'),
+                cursor: isPanning ? 'grabbing' : (!isMobile && scale > 1 ? 'grab' : (isDraggingSlider ? 'ew-resize' : 'ew-resize')),
                 userSelect: 'none',
                 WebkitUserSelect: 'none',
                 msUserSelect: 'none'
