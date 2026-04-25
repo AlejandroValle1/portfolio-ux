@@ -25,7 +25,7 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage }) => {
                         fontSize: '0.8rem',
                         textTransform: 'uppercase',
                         letterSpacing: '0.3em',
-                        opacity: 0.5,
+                        opacity: 0.85,
                         display: 'block',
                         marginBottom: 'var(--space-3)',
                         fontWeight: 700
@@ -105,14 +105,14 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage }) => {
                             fontSize: '0.75rem',
                             textTransform: 'uppercase',
                             letterSpacing: '0.12em',
-                            opacity: 0.5,
+                            opacity: 0.85,
                             fontWeight: 800,
                             display: 'block',
                             marginBottom: 'var(--space-3)'
                         }}>
                             Resumen
                         </span>
-                        <p style={{ fontSize: '1.05rem', lineHeight: 1.8, opacity: 0.85, margin: 0 }}>
+                        <p style={{ fontSize: '1.1rem', lineHeight: 1.8, opacity: 0.95, fontWeight: 500, margin: 0 }}>
                             {tagline}
                         </p>
                     </div>
@@ -125,7 +125,7 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage }) => {
                                     fontSize: '0.75rem',
                                     textTransform: 'uppercase',
                                     letterSpacing: '0.12em',
-                                    opacity: 0.5,
+                                    opacity: 0.85,
                                     fontWeight: 800,
                                     display: 'block',
                                     marginBottom: '4px'
