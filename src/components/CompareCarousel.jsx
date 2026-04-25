@@ -250,11 +250,14 @@ const ZoomableComparisonSlider = ({ srcLow, srcHigh, alt, mobileFrame, desktopFr
     );
 };
 
-const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, onClose, onNext, onPrev, isMobile }) => (
-    <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
+const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, onClose, onNext, onPrev, isMobile }) => {
+    const swipe = useTouchSwipe(onNext, onPrev);
+    return (
+        <motion.div
+            {...swipe}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
         style={{
             position: 'fixed',
             inset: 0,
@@ -350,7 +353,8 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
             desktopFrame={desktopFrame} 
         />
     </motion.div>
-);
+    );
+};
 
 const Portal = ({ children }) => {
     if (typeof document === 'undefined') return null;
@@ -409,11 +413,11 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
             width: '100%',
             display: 'flex',
             flexDirection: 'column',
-            gap: 'var(--space-8)',
+            gap: isMobile ? 'var(--space-4)' : 'var(--space-8)',
             position: 'relative',
             marginTop: '0',
             alignItems: 'center',
-            padding: 'var(--space-12) 0'
+            padding: isMobile ? 'var(--space-4) 0' : 'var(--space-12) 0'
         }}>
             <AnimatePresence>
                 {isFullscreen && (
@@ -445,7 +449,7 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: 'var(--space-4)'
+                gap: 'var(--space-2)'
             }}>
                 <div>
                     {isMobile ? 'Explorar Galería' : 'Deslizá para comparar'}
