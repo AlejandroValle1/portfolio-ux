@@ -208,17 +208,21 @@ const ProjectSepara = () => {
             <ProjectGroupLabel label="Reflexión" />
 
             <ProjectSummary
-                title="Lo que Aprendí"
-                content="Lo más valioso fue entender que el diseño puede ser un motor de cambio social. Lograr que una tarea tediosa se sienta gratificante a través de la gamificación y el diseño claro es el núcleo de este proyecto."
+                title="Impacto del Diseño"
+                content={
+                    <>
+                        Pasar de 0 a 1 requirió eliminar suposiciones mediante investigación real. El resultado es un prototipo escalable que no solo informa, sino que <strong>incentiva la acción a través de gamificación</strong>, transformando el tedio de reciclar en una <strong>experiencia gratificante y de impacto social</strong>.
+                    </>
+                }
             />
 
             <ProjectSummary
-                title="Epílogo"
+                title="Contexto del Proyecto"
                 type="epilogue"
                 content={
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-8)', alignItems: 'center' }}>
                         <div style={{ flex: isMobile ? '1 1 100%' : '1 1 400px', fontSize: '1rem', lineHeight: 1.75 }}>
-                            Este proyecto fue parte de mi primera experiencia formándome como UX de manera autodidacta en Udemy, obteniendo el certificado que valida mi recorrido inicial.
+                            SE-PA-RÁ fue mi primer desafío integral de UX/UI. Nació de mi frustración al intentar reciclar en mi ciudad, demostrando cómo una correcta arquitectura de información puede transformar un <strong>problema ambiental complejo en una solución digital accesible</strong>.
                         </div>
                         <motion.div
                             whileHover={!isMobile ? { rotate: 1, scale: 1.03 } : {}}

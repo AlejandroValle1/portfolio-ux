@@ -221,12 +221,16 @@ const ProjectTienda = () => {
             <ProjectGroupLabel label="Reflexión" />
 
             <ProjectSummary
-                title="Lo que Aprendí"
-                content="Este proyecto me enseñó que un e‑commerce no se trata solo de mostrar productos, sino de transmitir confianza en cada paso. Las migas de pan fueron un recurso simple pero poderoso para dar seguridad y control al usuario durante el checkout."
+                title="Impacto del Diseño"
+                content={
+                    <>
+                        El rediseño transformó un catálogo disperso en una <strong>experiencia de venta guiada</strong>. Al implementar un flujo de checkout transparente y estructurar la información para distintos perfiles de usuario, se logró un prototipo que <strong>reduce la fricción cognitiva y garantiza confianza</strong> en cada paso de la compra.
+                    </>
+                }
             />
 
             <ProjectSummary
-                title="Epílogo"
+                title="Contexto del Proyecto"
                 type="epilogue"
                 content={
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-8)', alignItems: 'center' }}>
@@ -236,7 +240,7 @@ const ProjectTienda = () => {
                             lineHeight: 1.75, 
                             maxWidth: isMobile ? '100%' : '72ch' 
                         }}>
-                            Este proyecto fue parte de mi experiencia en el bootcamp intensivo Digitalers de Telecom junto a Education IT, donde fui becado durante 4 meses. Para mí, Tienda Tecno no solo fue un ejercicio de diseño, sino un paso fundamental en mi camino como diseñador UX.
+                            Tienda Tecno fue desarrollado como proyecto final para el bootcamp intensivo <strong>Digitalers (Telecom)</strong>, donde fui becado. Fue un desafío clave para consolidar metodologías de investigación y diseño orientado a conversión (e-commerce).
                         </div>
                         <motion.div
                             whileHover={!isMobile ? { rotate: 1, scale: 1.03 } : {}}
