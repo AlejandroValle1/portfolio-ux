@@ -15,7 +15,7 @@ const ProjectGroupLabel = ({ label, id }) => (
                     position: 'absolute',
                     top: 'var(--space-24)',
                     height: 0,
-                    scrollMarginTop: '80px'
+                    scrollMarginTop: '70px'
                 }}
             />
         )}
