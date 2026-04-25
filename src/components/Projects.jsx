@@ -46,7 +46,7 @@ const projectsSummary = [
     {
         id: 'separa',
         title: "SE-PA-RÁ",
-        intro: "Una propuesta digital para educar y motivar la separación de residuos en la ciudad.",
+        intro: <>App sustentable con <strong>gamificación</strong> para incentivar y facilitar la separación de residuos urbanos.</>,
         type: "App Mobile design",
         link: "/separa",
         image: "/Mockup-home-separa.webp",
@@ -55,7 +55,7 @@ const projectsSummary = [
     {
         id: 'tienda-tecno',
         title: "TIENDA TECNO",
-        intro: "E-commerce confiable para marca con locales físicos.",
+        intro: <>Rediseño UX/UI de e-commerce enfocado en reducir <strong>fricción</strong> y aumentar la <strong>confianza de compra</strong>.</>,
         type: "Web Design / UX Research",
         link: "/tienda-tecno",
         image: "/Mockup-home-tienda_tecno.webp",

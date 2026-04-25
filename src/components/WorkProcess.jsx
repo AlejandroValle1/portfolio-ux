@@ -6,22 +6,22 @@ const steps = [
     {
         title: "Empatizar",
         subtitle: "Investigación",
-        description: "Más allá de lo evidente, revelando los verdaderos puntos de dolor. Uso de tesis académicas, visitas de campo y benchmarks de mercado.",
+        description: <>Más allá de lo evidente, revelando los verdaderos puntos de dolor. Utilizo <strong>investigación de campo y benchmarks</strong> para entender el contexto real.</>,
     },
     {
         title: "Definir",
         subtitle: "Arquitectura",
-        description: "Estructuras escalables y diseño atómico. Grillas consistentes y sistemas de diseño duraderos que responden a los pain points detectados.",
+        description: <>Estructuras escalables y <strong>diseño atómico</strong>. Creo sistemas consistentes que responden directamente a los <strong>pain points detectados</strong>.</>,
     },
     {
         title: "Idear",
         subtitle: "Prototipar",
-        description: "Diseños funcionales y visuales que transforman insights en soluciones claras y atractivas.",
+        description: <>Diseños funcionales y visuales que transforman <strong>insights de usuarios</strong> en <strong>soluciones claras y de alto impacto</strong>.</>,
     },
     {
         title: "Iterar",
         subtitle: "Validar",
-        description: "Integración de IA generativa para retroalimentación rápida y simulación de escenarios. Feedback puntual externo documentado.",
+        description: <>Integración de <strong>feedback de usuarios</strong> e <strong>IA generativa</strong> para validación rápida, asegurando la mejora continua del producto.</>,
     }
 ];
 
