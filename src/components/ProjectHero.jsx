@@ -5,9 +5,15 @@ import { motion, useScroll, useTransform } from 'framer-motion';
  * ProjectHero — Stacked Editorial Layout
  * Title → Tagline → Two-col Metadata → Full-width Hero Image
  */
-const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItems = ['Descubrimiento', 'Proceso de Diseño', 'Impacto y Resultados'] }) => {
+const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItems = [] }) => {
     const { scrollY } = useScroll();
     const imageY = useTransform(scrollY, [0, 800], [0, 150]);
+    const [hoveredIndex, setHoveredIndex] = React.useState(null);
+
+    const scrollToSection = (id) => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+    };
 
     return (
         <header style={{ paddingTop: '140px', paddingBottom: 0 }}>
@@ -116,12 +122,54 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                         }}>
                             Índice
                         </span>
-                        {indexItems.map((item, i) => (
-                            <div key={i} style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-                                <span style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--accent-primary)', opacity: 0.9 }}>0{i+1}</span>
-                                <span style={{ fontSize: '0.95rem', fontWeight: 600, letterSpacing: '-0.02em', opacity: 0.95 }}>{item}</span>
-                            </div>
-                        ))}
+                        {indexItems.map((item, i) => {
+                            const label = typeof item === 'string' ? item : item.label;
+                            const id    = typeof item === 'string' ? null  : item.id;
+                            const isHovered = hoveredIndex === i;
+                            return (
+                                <button
+                                    key={i}
+                                    onClick={() => id && scrollToSection(id)}
+                                    onMouseEnter={() => setHoveredIndex(i)}
+                                    onMouseLeave={() => setHoveredIndex(null)}
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'baseline',
+                                        gap: '8px',
+                                        background: 'none',
+                                        border: 'none',
+                                        padding: '4px 0',
+                                        cursor: id ? 'pointer' : 'default',
+                                        textAlign: 'left',
+                                        transition: 'transform 0.2s ease',
+                                        transform: isHovered && id ? 'translateX(4px)' : 'translateX(0)'
+                                    }}
+                                    aria-label={`Ir a la sección: ${label}`}
+                                >
+                                    <span style={{ 
+                                        fontSize: '0.7rem', 
+                                        fontWeight: 800, 
+                                        color: 'var(--accent-primary)', 
+                                        opacity: isHovered ? 1 : 0.7,
+                                        transition: 'opacity 0.2s'
+                                    }}>
+                                        {String(i + 1).padStart(2, '0')}
+                                    </span>
+                                    <span style={{ 
+                                        fontSize: '0.95rem', 
+                                        fontWeight: 600, 
+                                        letterSpacing: '-0.02em', 
+                                        color: 'var(--text-color)',
+                                        opacity: isHovered ? 1 : 0.85,
+                                        transition: 'opacity 0.2s',
+                                        borderBottom: isHovered && id ? '1px solid var(--accent-primary)' : '1px solid transparent',
+                                        paddingBottom: '1px'
+                                    }}>
+                                        {label}
+                                    </span>
+                                </button>
+                            );
+                        })}
                     </motion.div>
                 </div>
 

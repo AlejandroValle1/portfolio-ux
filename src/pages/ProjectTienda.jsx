@@ -66,7 +66,12 @@ const ProjectTienda = () => {
                 metadata={TIENDA_DATA.metadata}
                 figmaLink={TIENDA_DATA.figmaLink}
                 mainImage={null}
-                indexItems={['Contexto y Punto de Partida', 'Investigación', 'Proceso de Diseño', 'Impacto del Diseño']}
+                indexItems={[
+                    { label: 'Contexto y Punto de Partida', id: 'tienda-contexto' },
+                    { label: 'Investigación',               id: 'tienda-investigacion' },
+                    { label: 'Proceso de Diseño',           id: 'tienda-proceso' },
+                    { label: 'Impacto del Diseño',          id: 'tienda-impacto' },
+                ]}
             />
 
             {/* ── Galería Destacada Parallax ── */}
@@ -81,7 +86,7 @@ const ProjectTienda = () => {
             {/* ════════════════════════════════
                 GRUPO 1: Contexto
             ════════════════════════════════ */}
-            <ProjectGroupLabel label="Contexto y Punto de Partida" />
+            <ProjectGroupLabel label="Contexto y Punto de Partida" id="tienda-contexto" />
 
             <ProjectSection
                 icon="○"
@@ -92,7 +97,7 @@ const ProjectTienda = () => {
             {/* ════════════════════════════════
                 GRUPO 2: Investigación
             ════════════════════════════════ */}
-            <ProjectGroupLabel label="Investigación" />
+            <ProjectGroupLabel label="Investigación" id="tienda-investigacion" />
 
             <ProjectSection
                 icon="◎"
@@ -140,7 +145,7 @@ const ProjectTienda = () => {
             {/* ════════════════════════════════
                 GRUPO 3: Proceso de Diseño
             ════════════════════════════════ */}
-            <ProjectGroupLabel label="Proceso de Diseño" />
+            <ProjectGroupLabel label="Proceso de Diseño" id="tienda-proceso" />
 
             <ProjectSection
                 icon="→"
@@ -219,7 +224,7 @@ const ProjectTienda = () => {
             {/* ════════════════════════════════
                 GRUPO 4: Reflexión
             ════════════════════════════════ */}
-            <ProjectGroupLabel label="Reflexión" />
+            <ProjectGroupLabel label="Reflexión" id="tienda-impacto" />
 
             <ProjectSummary
                 title="Impacto del Diseño"

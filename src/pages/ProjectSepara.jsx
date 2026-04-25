@@ -66,7 +66,11 @@ const ProjectSepara = () => {
                 metadata={SEPARA_DATA.metadata}
                 figmaLink={SEPARA_DATA.figmaLink}
                 mainImage={null}
-                indexItems={['Investigación y Diagnóstico', 'Proceso de Diseño', 'Impacto del Diseño']}
+                indexItems={[
+                    { label: 'Investigación y Diagnóstico', id: 'separa-investigacion' },
+                    { label: 'Proceso de Diseño',            id: 'separa-proceso' },
+                    { label: 'Impacto del Diseño',            id: 'separa-impacto' },
+                ]}
             />
 
             {/* ── Galería Destacada Parallax ── */}
@@ -79,7 +83,7 @@ const ProjectSepara = () => {
             {/* ════════════════════════════════
                 GRUPO 1: Investigación
             ════════════════════════════════ */}
-            <ProjectGroupLabel label="Investigación y Diagnóstico" />
+            <ProjectGroupLabel label="Investigación y Diagnóstico" id="separa-investigacion" />
 
             <ProjectSection
                 icon="○"
@@ -125,7 +129,7 @@ const ProjectSepara = () => {
             {/* ════════════════════════════════
                 GRUPO 2: Proceso de Diseño
             ════════════════════════════════ */}
-            <ProjectGroupLabel label="Proceso de Diseño" />
+            <ProjectGroupLabel label="Proceso de Diseño" id="separa-proceso" />
 
             <ProjectSection
                 icon="→"
@@ -206,7 +210,7 @@ const ProjectSepara = () => {
             {/* ════════════════════════════════
                 GRUPO 3: Reflexión
             ════════════════════════════════ */}
-            <ProjectGroupLabel label="Reflexión" />
+            <ProjectGroupLabel label="Reflexión" id="separa-impacto" />
 
             <ProjectSummary
                 title="Impacto del Diseño"

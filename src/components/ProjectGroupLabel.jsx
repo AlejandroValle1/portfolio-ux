@@ -5,8 +5,8 @@ import { motion } from 'framer-motion';
  * ProjectGroupLabel — Visual chapter/group separator
  * Renders a centered, muted label like "Investigación y Descubrimiento"
  */
-const ProjectGroupLabel = ({ label }) => (
-    <div className="container">
+const ProjectGroupLabel = ({ label, id }) => (
+    <div className="container" id={id} style={{ scrollMarginTop: '100px' }}>
         <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -28,5 +28,6 @@ const ProjectGroupLabel = ({ label }) => (
         </div>
     </div>
 );
+
 
 export default ProjectGroupLabel;
