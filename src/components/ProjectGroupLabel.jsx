@@ -6,7 +6,19 @@ import { motion } from 'framer-motion';
  * Renders a centered, muted label like "Investigación y Descubrimiento"
  */
 const ProjectGroupLabel = ({ label, id }) => (
-    <div className="container" id={id} style={{ scrollMarginTop: '100px' }}>
+    <div className="container" style={{ position: 'relative' }}>
+        {/* Phantom anchor: positioned at the label text level so smooth scroll lands correctly */}
+        {id && (
+            <div
+                id={id}
+                style={{
+                    position: 'absolute',
+                    top: 'var(--space-24)',
+                    height: 0,
+                    scrollMarginTop: '80px'
+                }}
+            />
+        )}
         <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -28,6 +40,7 @@ const ProjectGroupLabel = ({ label, id }) => (
         </div>
     </div>
 );
+
 
 
 export default ProjectGroupLabel;
