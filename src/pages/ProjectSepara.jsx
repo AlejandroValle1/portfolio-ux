@@ -13,7 +13,8 @@ import SpotlightGrid from '../components/SpotlightGrid';
 
 const ProjectSepara = () => {
     const [lightboxState, setLightboxState] = useState({ isOpen: false, images: [], index: 0 });
-    const [hoveredFlowStep, setHoveredFlowStep] = useState(null);
+    const [hoveredFlowStep, setHoveredFlowStep] = useState(0);
+    const [isFlowPaused, setIsFlowPaused] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
@@ -22,6 +23,14 @@ const ProjectSepara = () => {
         window.addEventListener('resize', checkMobile);
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
+
+    useEffect(() => {
+        if (isFlowPaused) return;
+        const interval = setInterval(() => {
+            setHoveredFlowStep(prev => (prev + 1) % 5);
+        }, 2000);
+        return () => clearInterval(interval);
+    }, [isFlowPaused]);
 
     const openLightbox = (images, index = 0) => {
         setLightboxState({
@@ -130,8 +139,8 @@ const ProjectSepara = () => {
                     {['Onboarding Motivador', 'Sign up / Login', 'Home Personalizado', 'Módulo Educativo', 'Mapa de EcoPuntos'].map((step, i, arr) => (
                         <React.Fragment key={i}>
                             <motion.div 
-                                onHoverStart={() => setHoveredFlowStep(i)}
-                                onHoverEnd={() => setHoveredFlowStep(null)}
+                                onHoverStart={() => { setHoveredFlowStep(i); setIsFlowPaused(true); }}
+                                onHoverEnd={() => setIsFlowPaused(false)}
                                 variants={{ hidden: { opacity: 0, x: -10 }, show: { opacity: 1, x: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } } }} 
                                 whileHover={{ y: -4, scale: 1.03 }} 
                                 className="glass-card capsule-flow" 
