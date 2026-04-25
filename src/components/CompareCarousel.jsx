@@ -672,6 +672,60 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                             )}
                         </motion.div>
                     </AnimatePresence>
+
+                    {/* Flechas de navegación sutiles para móvil en vista normal */}
+                    {isMobile && lowFiImages.length > 1 && (
+                        <>
+                            <button
+                                onClick={(e) => { e.stopPropagation(); prevImage(e); }}
+                                aria-label="Ver imagen anterior"
+                                style={{
+                                    position: 'absolute',
+                                    left: '8px',
+                                    top: '50%',
+                                    transform: 'translateY(-50%)',
+                                    background: 'rgba(0,0,0,0.2)',
+                                    border: 'none',
+                                    borderRadius: '50%',
+                                    width: '32px',
+                                    height: '32px',
+                                    color: 'rgba(255,255,255,0.8)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    zIndex: 10,
+                                    backdropFilter: 'blur(4px)',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                            </button>
+                            <button
+                                onClick={(e) => { e.stopPropagation(); nextImage(e); }}
+                                aria-label="Ver imagen siguiente"
+                                style={{
+                                    position: 'absolute',
+                                    right: '8px',
+                                    top: '50%',
+                                    transform: 'translateY(-50%)',
+                                    background: 'rgba(0,0,0,0.2)',
+                                    border: 'none',
+                                    borderRadius: '50%',
+                                    width: '32px',
+                                    height: '32px',
+                                    color: 'rgba(255,255,255,0.8)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    zIndex: 10,
+                                    backdropFilter: 'blur(4px)',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </button>
+                        </>
+                    )}
                 </div>
 
                 {!isMobile && lowFiImages.length > 1 && (
