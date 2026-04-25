@@ -106,7 +106,7 @@ const ProjectTienda = () => {
                     ]}
                     renderItem={(item, i) => (
                         <>
-                            <p style={{ fontSize: '0.8rem', opacity: 0.5, margin: '0 0 6px', color: i === 2 ? 'var(--accent-primary)' : 'inherit' }}>
+                            <p style={{ fontSize: '0.75rem', opacity: 0.85, margin: '0 0 6px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: i === 2 ? 'var(--accent-primary)' : 'inherit' }}>
                                 {item.label}
                             </p>
                             <p style={{ fontWeight: 600, margin: 0, fontSize: '0.95rem' }}>{item.text}</p>
@@ -128,7 +128,7 @@ const ProjectTienda = () => {
                     ]}
                     renderItem={(persona) => (
                         <>
-                            <p style={{ fontSize: '0.8rem', opacity: 0.5, margin: '0 0 6px' }}>{persona.type}</p>
+                            <p style={{ fontSize: '0.75rem', opacity: 0.85, margin: '0 0 6px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{persona.type}</p>
                             <p style={{ fontWeight: 600, margin: '0 0 var(--space-2)', fontSize: '1.05rem', color: 'var(--accent-primary)' }}>{persona.name}</p>
                             <p style={{ fontSize: '0.9rem', margin: 0, opacity: 0.8, lineHeight: 1.6 }}>{persona.desc}</p>
                         </>

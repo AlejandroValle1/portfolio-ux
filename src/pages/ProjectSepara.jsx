@@ -103,14 +103,14 @@ const ProjectSepara = () => {
                     ]}
                     renderItem={(item) => (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-                            <p style={{ fontSize: '0.85rem', opacity: 0.55, margin: 0 }}>
+                            <p style={{ fontSize: '0.75rem', opacity: 0.85, margin: 0, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                                 Problema
                             </p>
                             <p style={{ fontWeight: 600, margin: 0, fontSize: '0.95rem' }}>
                                 {item.problem}
                             </p>
                             <div style={{ height: '1px', background: 'var(--border-inactive)', margin: 'var(--space-1) 0' }} />
-                            <p style={{ fontSize: '0.85rem', opacity: 0.55, margin: 0, color: 'var(--accent-primary)' }}>
+                            <p style={{ fontSize: '0.75rem', opacity: 0.85, margin: 0, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--accent-primary)' }}>
                                 Oportunidad ↳
                             </p>
                             <p style={{ fontWeight: 600, margin: 0, fontSize: '0.95rem' }}>
