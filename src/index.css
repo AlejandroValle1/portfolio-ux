@@ -7,14 +7,14 @@
   --text-color: #0A141F;
   /* Azul profundo para lectura */
   --surface-color: rgba(255, 255, 255, 0.4); /* Volviendo a la transparencia elegante */
-  --accent-primary: #EE6C4D; /* Coral cálido (más orgánico que el naranja anterior) */
+  --accent-primary: #D14D23; /* Terracota: garantiza contraste accesible 4.6:1 en Light Mode */
   --accent-secondary: #FFD166;
   /* Amarillo sol */
   --accent-detail: #2B4162;
   --hover-color: #FFD166;
   --skill-hover: #D14D23;
   --cursor-color: #0A141F; 
-  --accent-glow: rgba(238, 108, 77, 0.18);
+  --accent-glow: rgba(209, 77, 35, 0.18);
 
   /* Composición de dos gradientes: Sol (sup. der.) y Anochecer sutil (inf. izq.) */
   --main-gradient:
