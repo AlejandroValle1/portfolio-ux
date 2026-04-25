@@ -9,6 +9,7 @@ import Lightbox from '../components/Lightbox';
 import CompareCarousel from '../components/CompareCarousel';
 import ParallaxGallery from '../components/ParallaxGallery';
 import { SEPARA_DATA } from '../data/projectsData';
+import SpotlightGrid from '../components/SpotlightGrid';
 
 const ProjectSepara = () => {
     const [lightboxState, setLightboxState] = useState({ isOpen: false, images: [], index: 0 });
@@ -85,28 +86,14 @@ const ProjectSepara = () => {
                     </>
                 }
             >
-                <motion.div 
-                    variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.15 } } }}
-                    initial="hidden" whileInView="show" viewport={{ once: true, margin: '-50px' }}
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-                        gap: 'var(--space-4)',
-                        marginTop: 'var(--space-6)'
-                    }}
-                >
-                    {[
+                <SpotlightGrid 
+                    items={[
                         { problem: 'Información dispersa y confusa', opportunity: 'Módulo de educación centralizado (Talleres)' },
                         { problem: 'Poco incentivo y escasez de bolsas verdes', opportunity: 'Programa de Recompensas por comprometerse' },
                         { problem: 'Desconocimiento de puntos de recolección', opportunity: 'Mapa interactivo con la red de EcoPuntos' }
-                    ].map((item, i) => (
-                        <motion.div key={i} whileHover={{ y: -4, scale: 1.01 }} variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } } }} className="glass-card" style={{
-                            padding: 'var(--space-4)',
-                            borderRadius: '20px',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: 'var(--space-2)'
-                        }}>
+                    ]}
+                    renderItem={(item) => (
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
                             <p style={{ fontSize: '0.85rem', opacity: 0.55, margin: 0 }}>
                                 Problema
                             </p>
@@ -120,9 +107,9 @@ const ProjectSepara = () => {
                             <p style={{ fontWeight: 600, margin: 0, fontSize: '0.95rem' }}>
                                 {item.opportunity}
                             </p>
-                        </motion.div>
-                    ))}
-                </motion.div>
+                        </div>
+                    )}
+                />
             </ProjectSection>
 
             {/* ════════════════════════════════

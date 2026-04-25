@@ -9,6 +9,7 @@ import Lightbox from '../components/Lightbox';
 import CompareCarousel from '../components/CompareCarousel';
 import ParallaxGallery from '../components/ParallaxGallery';
 import { TIENDA_DATA } from '../data/projectsData';
+import SpotlightGrid from '../components/SpotlightGrid';
 
 const ProjectTienda = () => {
     const [lightboxState, setLightboxState] = useState({ isOpen: false, images: [], index: 0 });
@@ -88,32 +89,21 @@ const ProjectTienda = () => {
                 title="Análisis de la competencia"
                 text="Analicé competidores directos como Maximus, Gaming City y ArmyTech para identificar dónde el mercado fallaba y dónde Tienda Tecno podía diferenciarse."
             >
-                <motion.div 
-                    variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.15 } } }}
-                    initial="hidden" whileInView="show" viewport={{ once: true, margin: '-50px' }}
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-                        gap: 'var(--space-4)',
-                        marginTop: 'var(--space-6)'
-                    }}
-                >
-                    {[
+                <SpotlightGrid 
+                    items={[
                         { label: 'Fortaleza del mercado', text: 'Alta variedad de hardware y asesoramiento técnico presencial' },
                         { label: 'Debilidad detectada', text: 'Fricción en el checkout, mala atención postventa y escasa presencia digital' },
                         { label: 'Nuestra oportunidad', text: 'Experiencia cercana donde el asesoramiento acompañe todo el proceso de compra' }
-                    ].map((item, i) => (
-                        <motion.div key={i} whileHover={{ y: -4, scale: 1.01 }} variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } } }} className="glass-card" style={{
-                            padding: 'var(--space-4)',
-                            borderRadius: '20px',
-                        }}>
+                    ]}
+                    renderItem={(item, i) => (
+                        <>
                             <p style={{ fontSize: '0.8rem', opacity: 0.5, margin: '0 0 6px', color: i === 2 ? 'var(--accent-primary)' : 'inherit' }}>
                                 {item.label}
                             </p>
                             <p style={{ fontWeight: 600, margin: 0, fontSize: '0.95rem' }}>{item.text}</p>
-                        </motion.div>
-                    ))}
-                </motion.div>
+                        </>
+                    )}
+                />
             </ProjectSection>
 
             <ProjectSection
@@ -121,28 +111,20 @@ const ProjectTienda = () => {
                 title="Quiénes son los usuarios"
                 text="Definí tres protopersonas que representan los distintos tipos de compradores: Franco (usuario avanzado que busca specs), Camila (principiante que necesita orientación) y Leonardo (funcional, que solo quiere que funcione). Sus objetivos y frustraciones guiaron cada decisión de diseño."
             >
-                <motion.div
-                    variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.15 } } }}
-                    initial="hidden" whileInView="show" viewport={{ once: true, margin: '-50px' }}
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-                        gap: 'var(--space-4)',
-                        marginTop: 'var(--space-6)'
-                    }}
-                >
-                    {[
+                <SpotlightGrid 
+                    items={[
                         { name: 'Franco', type: 'Modo Avanzado', desc: 'Busca especificaciones técnicas precisas y rendimiento extremo para gaming o trabajo pesado.' },
                         { name: 'Camila', type: 'Modo Principiante', desc: 'Necesita orientación, explicaciones claras y recomendaciones armadas para su uso diario.' },
                         { name: 'Leonardo', type: 'Modo Funcional', desc: 'Prioriza que el producto funcione y resuelva su necesidad rápido y sin demasiadas vueltas.' }
-                    ].map((persona, i) => (
-                        <motion.div key={i} whileHover={{ y: -4, scale: 1.01 }} variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } } }} className="glass-card" style={{ padding: 'var(--space-4)', borderRadius: '20px' }}>
+                    ]}
+                    renderItem={(persona) => (
+                        <>
                             <p style={{ fontSize: '0.8rem', opacity: 0.5, margin: '0 0 6px' }}>{persona.type}</p>
                             <p style={{ fontWeight: 600, margin: '0 0 var(--space-2)', fontSize: '1.05rem', color: 'var(--accent-primary)' }}>{persona.name}</p>
                             <p style={{ fontSize: '0.9rem', margin: 0, opacity: 0.8, lineHeight: 1.6 }}>{persona.desc}</p>
-                        </motion.div>
-                    ))}
-                </motion.div>
+                        </>
+                    )}
+                />
             </ProjectSection>
 
             {/* ════════════════════════════════
