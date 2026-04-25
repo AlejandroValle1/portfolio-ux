@@ -440,7 +440,8 @@ section {
   cursor: pointer;
   padding: 8px 12px;
   position: relative;
-  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  /* Only transition color — transform is handled by Framer Motion */
+  transition: color 0.3s ease;
   font-family: 'Inter', sans-serif;
   display: block;
   width: auto;
@@ -476,8 +477,7 @@ section {
 
 .nav-link-elegant:active {
   color: var(--accent-primary) !important;
-  transform: scale(0.95) !important;
-  transition: all 0.1s cubic-bezier(0.19, 1, 0.22, 1) !important;
+  /* transform handled by Framer Motion's whileTap — no CSS scale here */
 }
 
 
