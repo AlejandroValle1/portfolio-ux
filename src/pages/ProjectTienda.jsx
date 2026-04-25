@@ -65,7 +65,8 @@ const ProjectTienda = () => {
                 tagline={TIENDA_DATA.tagline}
                 metadata={TIENDA_DATA.metadata}
                 figmaLink={TIENDA_DATA.figmaLink}
-                mainImage={null} 
+                mainImage={null}
+                indexItems={['Contexto y Punto de Partida', 'Investigación', 'Proceso de Diseño', 'Impacto del Diseño']}
             />
 
             {/* ── Galería Destacada Parallax ── */}

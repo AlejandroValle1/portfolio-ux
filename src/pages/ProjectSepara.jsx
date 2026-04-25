@@ -65,7 +65,8 @@ const ProjectSepara = () => {
                 tagline={SEPARA_DATA.tagline}
                 metadata={SEPARA_DATA.metadata}
                 figmaLink={SEPARA_DATA.figmaLink}
-                mainImage={null} 
+                mainImage={null}
+                indexItems={['Investigación y Diagnóstico', 'Proceso de Diseño', 'Impacto del Diseño']}
             />
 
             {/* ── Galería Destacada Parallax ── */}

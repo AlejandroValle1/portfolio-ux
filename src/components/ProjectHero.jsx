@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
  * ProjectHero — Stacked Editorial Layout
  * Title → Tagline → Two-col Metadata → Full-width Hero Image
  */
-const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage }) => {
+const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItems = ['Descubrimiento', 'Proceso de Diseño', 'Impacto y Resultados'] }) => {
     const { scrollY } = useScroll();
     const imageY = useTransform(scrollY, [0, 800], [0, 150]);
 
@@ -13,74 +13,117 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage }) => {
         <header style={{ paddingTop: '140px', paddingBottom: 0 }}>
             <div className="container">
 
-                {/* Top: label + title + tagline */}
-                <motion.div
-                    initial={{ opacity: 0, y: 24 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7 }}
-                    style={{ width: 'fit-content', maxWidth: '100%', marginBottom: 'var(--space-8)' }}
-                >
-                    <span style={{
-                        fontFamily: 'monospace',
-                        fontSize: '0.8rem',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.3em',
-                        opacity: 0.85,
-                        display: 'block',
-                        marginBottom: 'var(--space-3)',
-                        fontWeight: 700
-                    }}>
-                        Caso de Estudio
-                    </span>
+                {/* Top Section: Title Area (Left) + Index (Right) */}
+                <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-start',
+                    gap: 'var(--space-8)',
+                    marginBottom: 'var(--space-8)'
+                }}>
+                    {/* Left: label + title + tagline */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 24 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7 }}
+                        style={{ flex: '1 1 500px', maxWidth: '100%' }}
+                    >
+                        <span style={{
+                            fontFamily: 'monospace',
+                            fontSize: '0.8rem',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.3em',
+                            opacity: 0.85,
+                            display: 'block',
+                            marginBottom: 'var(--space-3)',
+                            fontWeight: 700
+                        }}>
+                            Caso de Estudio
+                        </span>
 
-                    <h1 className="brutalist-title" style={{
-                        fontSize: 'clamp(3.5rem, 9vw, 7rem)',
-                        lineHeight: 0.9,
-                        color: 'var(--accent-primary)',
-                        marginBottom: 'var(--space-6)'
-                    }}>
-                        {title}
-                    </h1>
+                        <h1 className="brutalist-title" style={{
+                            fontSize: 'clamp(3.5rem, 9vw, 7rem)',
+                            lineHeight: 0.9,
+                            color: 'var(--accent-primary)',
+                            marginBottom: 'var(--space-6)'
+                        }}>
+                            {title}
+                        </h1>
 
-                    {figmaLink && (
-                        <motion.a
-                            href={figmaLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="btn-elegant"
-                            initial="initial"
-                            whileHover="hover"
-                            style={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                gap: '10px',
-                                padding: '14px 28px',
-                                borderRadius: '50px',
-                                border: '1.5px solid var(--accent-primary)',
-                                color: 'var(--text-color)',
-                                textDecoration: 'none',
-                                fontSize: '0.9rem',
-                                fontWeight: 800,
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.08em',
-                                width: '100%'
-                            }}
-                        >
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                <path fill="currentColor" d="M8.667 9.417a2.583 2.583 0 1 0 0 5.166h2.583V9.417zm2.583-1.5H8.667a2.583 2.583 0 0 1 0-5.167h2.583zm1.5-5.167v5.167h2.583a2.584 2.584 0 0 0 0-5.167zm2.583 6.666a2.583 2.583 0 0 0-2.583 2.542v.083a2.583 2.583 0 1 0 2.583-2.625m-6.666 6.667a2.584 2.584 0 1 0 2.583 2.584v-2.584z" />
-                            </svg>
-                            Ver Prototipo
-                            <motion.span 
-                                variants={{ initial: { x: 0, y: 0 }, hover: { x: 3, y: -3 } }} 
-                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                                style={{ display: 'inline-block', fontWeight: 900 }}
+                        {figmaLink && (
+                            <motion.a
+                                href={figmaLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn-elegant"
+                                initial="initial"
+                                whileHover="hover"
+                                style={{
+                                    display: 'inline-flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    gap: '10px',
+                                    padding: '14px 32px',
+                                    borderRadius: '50px',
+                                    border: '1.5px solid var(--accent-primary)',
+                                    color: 'var(--text-color)',
+                                    textDecoration: 'none',
+                                    fontSize: '0.9rem',
+                                    fontWeight: 800,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.08em'
+                                }}
                             >
-                                ↗
-                            </motion.span>
-                        </motion.a>
-                    )}
-                </motion.div>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                    <path fill="currentColor" d="M8.667 9.417a2.583 2.583 0 1 0 0 5.166h2.583V9.417zm2.583-1.5H8.667a2.583 2.583 0 0 1 0-5.167h2.583zm1.5-5.167v5.167h2.583a2.584 2.584 0 0 0 0-5.167zm2.583 6.666a2.583 2.583 0 0 0-2.583 2.542v.083a2.583 2.583 0 1 0 2.583-2.625m-6.666 6.667a2.584 2.584 0 1 0 2.583 2.584v-2.584z" />
+                                </svg>
+                                Ver Prototipo
+                                <motion.span 
+                                    variants={{ initial: { x: 0, y: 0 }, hover: { x: 3, y: -3 } }} 
+                                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                    style={{ display: 'inline-block', fontWeight: 900 }}
+                                >
+                                    ↗
+                                </motion.span>
+                            </motion.a>
+                        )}
+                    </motion.div>
+
+                    {/* Right: Editorial Index */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.4, duration: 0.7 }}
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 'var(--space-2)',
+                            minWidth: '220px',
+                            borderLeft: '2px solid var(--accent-primary)',
+                            paddingLeft: 'var(--space-4)',
+                            flex: '0 0 auto',
+                            marginTop: 'var(--space-4)'
+                        }}
+                    >
+                        <span style={{ 
+                            fontSize: '0.7rem', 
+                            textTransform: 'uppercase', 
+                            letterSpacing: '0.15em', 
+                            fontWeight: 800,
+                            marginBottom: 'var(--space-2)',
+                            opacity: 0.85
+                        }}>
+                            Índice
+                        </span>
+                        {indexItems.map((item, i) => (
+                            <div key={i} style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
+                                <span style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--accent-primary)', opacity: 0.9 }}>0{i+1}</span>
+                                <span style={{ fontSize: '0.95rem', fontWeight: 600, letterSpacing: '-0.02em', opacity: 0.95 }}>{item}</span>
+                            </div>
+                        ))}
+                    </motion.div>
+                </div>
 
                 {/* Two-column metadata block */}
                 <motion.div
