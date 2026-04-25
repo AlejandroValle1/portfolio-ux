@@ -300,22 +300,69 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
                 bottom: '30px',
                 left: '50%',
                 transform: 'translateX(-50%)',
-                color: 'rgba(255,255,255,0.85)',
-                fontSize: '10px',
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                letterSpacing: '0.1em',
-                zIndex: 100003,
-                pointerEvents: 'none',
+                width: '85vw',
+                background: 'rgba(0,0,0,0.6)',
+                borderRadius: '30px',
+                padding: '6px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '8px',
-                background: 'rgba(0,0,0,0.6)',
-                padding: '8px 20px',
-                borderRadius: '30px'
+                justifyContent: 'space-between',
+                zIndex: 100003,
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255,255,255,0.1)'
             }}>
-                <span>Deslizá para explorar</span>
-                <span style={{ opacity: 0.6 }}>[{currentIndex + 1} / {totalCount}]</span>
+                <button 
+                    onClick={(e) => { e.stopPropagation(); onPrev(); }}
+                    aria-label="Anterior"
+                    style={{
+                        background: 'rgba(255,255,255,0.15)',
+                        border: 'none',
+                        borderRadius: '50%',
+                        width: '36px',
+                        height: '36px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'white',
+                        cursor: 'pointer'
+                    }}
+                >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+
+                <div style={{
+                    color: 'rgba(255,255,255,0.9)',
+                    fontSize: '9px',
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    pointerEvents: 'none'
+                }}>
+                    <span>Explorar</span>
+                    <span style={{ opacity: 0.5 }}>[{currentIndex + 1} / {totalCount}]</span>
+                </div>
+
+                <button 
+                    onClick={(e) => { e.stopPropagation(); onNext(); }}
+                    aria-label="Siguiente"
+                    style={{
+                        background: 'rgba(255,255,255,0.15)',
+                        border: 'none',
+                        borderRadius: '50%',
+                        width: '36px',
+                        height: '36px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'white',
+                        cursor: 'pointer'
+                    }}
+                >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
             </div>
         )}
 
