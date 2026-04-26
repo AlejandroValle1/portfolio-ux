@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePerformance } from '../context/PerformanceContext';
 import Lightbox from './Lightbox';
+import ImageWithSkeleton from './ImageWithSkeleton';
 
 // Hook: tracks which card ref is most centered in the viewport
 function useScrollSpotlight(refs, isLowPerformance) {
@@ -152,15 +153,14 @@ const InterestCardContent = ({ isMobile, onOpenGallery }) => {
                             </p>
                             <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', paddingBottom: '8px', scrollbarWidth: 'none', justifyContent: 'center' }}>
                                 {interests.find(i => i.id === 'fotografia').images.map((img, i) => (
-                                    <motion.img 
+                                    <ImageWithSkeleton 
                                         key={i} 
                                         src={img} 
                                         alt="Fotografía de Ale" 
                                         onClick={() => onOpenGallery(interests.find(i => i.id === 'fotografia').images, i)}
-                                        whileHover={{ scale: 1.05 }}
                                         style={{ 
                                             height: '110px', 
-                                            minWidth: '90px',
+                                            width: '90px',
                                             borderRadius: '12px', 
                                             objectFit: 'cover',
                                             border: '1px solid rgba(255,255,255,0.1)',
@@ -356,12 +356,7 @@ const About = () => {
                         position: 'relative'
                     })}
                 >
-                    <motion.img
-                        initial={{ scale: 1.1 }}
-                        whileHover={{
-                            scale: 1.05,
-                            transition: { duration: 0.6 }
-                        }}
+                    <ImageWithSkeleton
                         src="/ale-valle-selfie.webp"
                         alt="Alejandro Valle"
                         style={{
@@ -370,6 +365,7 @@ const About = () => {
                             minHeight: '300px',
                             objectFit: 'cover',
                             filter: 'grayscale(10%) contrast(110%)',
+                            borderRadius: '24px'
                         }}
                     />
                 </motion.div>

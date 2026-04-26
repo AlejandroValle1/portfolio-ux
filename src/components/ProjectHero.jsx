@@ -1,5 +1,5 @@
-import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import ImageWithSkeleton from './ImageWithSkeleton';
 
 /**
  * ProjectHero — Stacked Editorial Layout
@@ -261,7 +261,7 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                 paddingRight: 'var(--space-8)',
                             }}
                         >
-                            <img
+                            <ImageWithSkeleton
                                 src={mainImage}
                                 alt={`${title} preview`}
                                 style={{
