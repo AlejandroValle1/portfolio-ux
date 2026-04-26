@@ -71,8 +71,7 @@ const ComparisonSlider = ({ itemOne, itemTwo, mobileFrame, desktopFrame }) => {
                         width: '100%',
                         height: '100%',
                         objectFit: 'contain',
-                        pointerEvents: 'none',
-                        padding: '10px'
+                        pointerEvents: 'none'
                     }}
                 />
             </div>
@@ -94,8 +93,7 @@ const ComparisonSlider = ({ itemOne, itemTwo, mobileFrame, desktopFrame }) => {
                         width: '100%',
                         height: '100%',
                         objectFit: 'contain',
-                        pointerEvents: 'none',
-                        padding: '10px'
+                        pointerEvents: 'none'
                     }}
                 />
             </div>
@@ -105,11 +103,10 @@ const ComparisonSlider = ({ itemOne, itemTwo, mobileFrame, desktopFrame }) => {
                 position: 'absolute',
                 top: 0,
                 bottom: 0,
-                left: `${sliderPosition}%`,
+                left: `calc(${sliderPosition}% - 1px)`,
                 width: '2px',
                 background: 'var(--accent-primary)',
-                zIndex: 2,
-                boxShadow: '0 0 15px rgba(0,0,0,0.2)'
+                zIndex: 2
             }}>
                 <div style={{
                     position: 'absolute',

@@ -200,30 +200,18 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                             left: 'clamp(12px, 3vw, 40px)',
                             top: '50%',
                             transform: 'translateY(-50%)',
-                            background: 'rgba(0,0,0,0.3)',
+                            background: 'transparent',
                             border: 'none',
-                            borderRadius: '50%',
-                            width: '48px',
-                            height: '48px',
                             color: 'white',
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             zIndex: 3001,
-                            transition: 'all 0.3s ease',
-                            backdropFilter: 'blur(8px)'
-                        }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.background = 'rgba(0,0,0,0.5)';
-                            e.currentTarget.style.scale = '1.1';
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.background = 'rgba(0,0,0,0.3)';
-                            e.currentTarget.style.scale = '1';
+                            transition: 'all 0.3s ease'
                         }}
                     >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="15 18 9 12 15 6"></polyline>
                         </svg>
                     </button>
@@ -235,30 +223,18 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                             right: 'clamp(12px, 3vw, 40px)',
                             top: '50%',
                             transform: 'translateY(-50%)',
-                            background: 'rgba(0,0,0,0.3)',
+                            background: 'transparent',
                             border: 'none',
-                            borderRadius: '50%',
-                            width: '48px',
-                            height: '48px',
                             color: 'white',
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             zIndex: 3001,
-                            transition: 'all 0.3s ease',
-                            backdropFilter: 'blur(8px)'
-                        }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.background = 'rgba(0,0,0,0.5)';
-                            e.currentTarget.style.scale = '1.1';
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.background = 'rgba(0,0,0,0.3)';
-                            e.currentTarget.style.scale = '1';
+                            transition: 'all 0.3s ease'
                         }}
                     >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="9 18 15 12 9 6"></polyline>
                         </svg>
                     </button>
@@ -272,31 +248,18 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                     position: 'absolute',
                     top: 'clamp(16px, 4vw, 40px)',
                     right: 'clamp(16px, 4vw, 40px)',
-                    background: 'rgba(0,0,0,0.3)',
+                    background: 'transparent',
                     border: 'none',
-                    borderRadius: '50%',
-                    width: '48px',
-                    height: '48px',
                     color: 'white',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     zIndex: 3020,
-                    transition: 'all 0.3s ease',
-                    backdropFilter: 'blur(8px)'
+                    transition: 'all 0.3s ease'
                 }}
-                onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(255,68,68,0.4)';
-                    e.currentTarget.style.scale = '1.1';
-                }}
-                onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(0,0,0,0.3)';
-                    e.currentTarget.style.scale = '1';
-                }}
-                title="Cerrar imagen"
             >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
