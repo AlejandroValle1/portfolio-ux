@@ -73,13 +73,13 @@ const InterestCardContent = ({ isMobile, onOpenGallery }) => {
         { 
             id: 'fotografia', 
             label: '📸 Fotografía', 
-            content: 'Capturando momentos a través del lente. (Tocá para ampliar)',
+            content: 'La fotografía me permite observar el mundo con otros ojos. Aquí comparto algunos fragmentos de mi mirada; te invito a explorarlos y ampliarlos para ver los detalles.',
             images: ['/Fotos para galeria about me.webp', '/Fotos para galeria about me 2.webp', '/Fotos para galeria about me 3.webp'] 
         },
         { 
             id: 'social', 
-            label: '💼 LinkedIn', 
-            content: 'Me encanta charlar, conocer gente apasionada y construir vínculos laborales fructíferos.', 
+            label: '🗣️ Social', 
+            content: 'Me encanta charlar, conocer gente apasionada y construir vínculos laborales fructíferos. ¿Hablamos?', 
             link: 'https://www.linkedin.com/in/alejandro-valle-ux/' 
         }
     ];
