@@ -452,10 +452,11 @@ section {
   position: absolute;
   bottom: 4px;
   left: 12px;
-  width: 0;
+  right: 12px;
   height: 2px;
   background: var(--accent-primary);
-  transition: width 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .nav-link-elegant:hover {
@@ -463,7 +464,7 @@ section {
 }
 
 .nav-link-elegant:hover::after {
-  width: calc(100% - 24px);
+  opacity: 1;
 }
 
 /* :active states — feedback táctil inmediato antes de Framer Motion */
