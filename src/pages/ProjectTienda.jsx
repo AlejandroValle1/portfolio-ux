@@ -230,7 +230,7 @@ const ProjectTienda = () => {
                 title="Impacto del Diseño"
                 content={
                     <>
-                        El rediseño transformó un catálogo confuso en una <strong>experiencia de venta guiada</strong>. Al simplificar los pasos de compra y organizar la información para distintos perfiles, se logró un diseño que <strong>elimina dudas al comprar y garantiza confianza</strong> en cada paso.
+                        Este proyecto transformó la necesidad de un catálogo digital en una <strong>experiencia de venta guiada</strong>. Al diseñar cada paso desde cero y organizar la información para distintos perfiles, se logró un producto que <strong>elimina dudas al comprar y garantiza confianza</strong> en cada etapa.
                     </>
                 }
             />

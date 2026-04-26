@@ -55,7 +55,7 @@ const projectsSummary = [
     {
         id: 'tienda-tecno',
         title: "TIENDA TECNO",
-        intro: <>Rediseño de e-commerce enfocado en eliminar <strong>dificultades</strong> y aumentar la <strong>confianza de compra</strong>.</>,
+        intro: <>Diseño de e-commerce desde cero, enfocado en eliminar <strong>dificultades</strong> y aumentar la <strong>confianza de compra</strong>.</>,
         type: "Web Design / UX Research",
         link: "/tienda-tecno",
         image: "/Mockup-home-tienda_tecno.webp",
