@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { usePerformance } from '../context/PerformanceContext';
 
 // Hook: tracks which card ref is most centered in the viewport
@@ -40,6 +40,168 @@ function useScrollSpotlight(refs, isLowPerformance) {
 
     return activeIndex;
 }
+
+const InterestCardContent = ({ isMobile }) => {
+    const [activeTab, setActiveTab] = React.useState('default');
+
+    const interests = [
+        { 
+            id: 'musica', 
+            label: '🎹 Música', 
+            content: 'Mi recomendación de hoy: "About Today" - The National. Una mezcla perfecta de melancolía y calma.', 
+            link: 'https://www.youtube.com/watch?v=O37Qr5XqOfg' 
+        },
+        { 
+            id: 'cosmos', 
+            label: '🌌 Cosmos', 
+            content: 'Fascinado por la inmensidad. Me encanta observar las estrellas para recordar lo pequeña y a la vez inmensa que es nuestra historia.' 
+        },
+        { 
+            id: 'fotografia', 
+            label: '📸 Fotografía', 
+            content: 'Capturando momentos a través del lente. Estas son algunas de mis fotos preferidas:',
+            images: ['/Fotos para galeria about me.webp', '/Fotos para galeria about me 2.webp', '/Fotos para galeria about me 3.webp'] 
+        },
+        { 
+            id: 'social', 
+            label: '🗣️ Social', 
+            content: 'Me encanta charlar, conocer gente apasionada y construir vínculos reales. (Instagram próximamente)', 
+            link: '#' 
+        }
+    ];
+
+    return (
+        <AnimatePresence mode="wait">
+            {activeTab === 'default' ? (
+                <motion.div 
+                    key="default" 
+                    initial={{ opacity: 0, y: 10 }} 
+                    animate={{ opacity: 1, y: 0 }} 
+                    exit={{ opacity: 0, y: -10 }}
+                >
+                    <h3 style={{ fontSize: '1.3rem', fontWeight: 900, marginBottom: 'var(--space-4)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
+                        MÁS ALLÁ DEL DISEÑO
+                    </h3>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                        {interests.map((item) => (
+                            <button 
+                                key={item.id} 
+                                onClick={() => setActiveTab(item.id)}
+                                style={{ 
+                                    padding: '8px 16px', 
+                                    borderRadius: '50px', 
+                                    border: '1px solid var(--border-inactive)', 
+                                    fontSize: '0.85rem', 
+                                    fontWeight: 700,
+                                    background: 'rgba(255,255,255,0.05)',
+                                    color: 'var(--text-color)',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s ease',
+                                    fontFamily: 'Inter, sans-serif'
+                                }}
+                            >
+                                {item.label}
+                            </button>
+                        ))}
+                    </div>
+                    <p style={{ fontSize: '1rem', marginTop: 'var(--space-4)', opacity: 0.8, lineHeight: 1.5 }}>
+                        Tocá las etiquetas para conocer un poco más sobre mis intereses personales.
+                    </p>
+                </motion.div>
+            ) : (
+                <motion.div 
+                    key="active" 
+                    initial={{ opacity: 0, x: 20 }} 
+                    animate={{ opacity: 1, x: 0 }} 
+                    exit={{ opacity: 0, x: -20 }} 
+                    style={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                >
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--space-4)' }}>
+                        <span style={{ fontWeight: 800, fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                            {interests.find(i => i.id === activeTab).label}
+                        </span>
+                        <button 
+                            onClick={() => setActiveTab('default')} 
+                            style={{ 
+                                background: 'none', 
+                                border: 'none', 
+                                color: 'var(--accent-primary)', 
+                                fontWeight: 800, 
+                                cursor: 'pointer', 
+                                fontSize: '0.8rem',
+                                padding: '4px 8px'
+                            }}
+                        >
+                            VOLVER
+                        </button>
+                    </div>
+                    
+                    {activeTab === 'fotografia' ? (
+                        <div style={{ display: 'flex', gap: '10px', flex: 1, overflowX: 'auto', paddingBottom: '12px', scrollbarWidth: 'none' }}>
+                            {interests.find(i => i.id === 'fotografia').images.map((img, i) => (
+                                <img 
+                                    key={i} 
+                                    src={img} 
+                                    alt="Fotografía de Ale" 
+                                    style={{ 
+                                        height: '130px', 
+                                        minWidth: '100px',
+                                        borderRadius: '12px', 
+                                        objectFit: 'cover',
+                                        border: '1px solid rgba(255,255,255,0.1)' 
+                                    }} 
+                                />
+                            ))}
+                        </div>
+                    ) : (
+                        <p style={{ fontSize: '1.05rem', lineHeight: 1.5, flex: 1, opacity: 0.95 }}>
+                            {interests.find(i => i.id === activeTab).content}
+                        </p>
+                    )}
+
+                    {interests.find(i => i.id === activeTab).link && activeTab !== 'social' && (
+                        <a 
+                            href={interests.find(i => i.id === activeTab).link} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="btn-elegant" 
+                            style={{ 
+                                marginTop: 'var(--space-2)', 
+                                padding: '12px', 
+                                fontSize: '0.75rem', 
+                                textAlign: 'center', 
+                                borderRadius: '12px',
+                                textDecoration: 'none',
+                                fontWeight: 800
+                            }}
+                        >
+                            {activeTab === 'musica' ? 'ESCUCHAR TEMA ↗' : 'VER MÁS ↗'}
+                        </a>
+                    )}
+                    
+                    {activeTab === 'social' && (
+                        <div 
+                            style={{ 
+                                marginTop: 'var(--space-2)', 
+                                padding: '12px', 
+                                fontSize: '0.75rem', 
+                                textAlign: 'center', 
+                                borderRadius: '12px',
+                                background: 'rgba(255,255,255,0.05)',
+                                color: 'var(--text-color)',
+                                opacity: 0.5,
+                                fontWeight: 800,
+                                border: '1px solid var(--border-inactive)'
+                            }}
+                        >
+                            INSTAGRAM (PRÓXIMAMENTE)
+                        </div>
+                    )}
+                </motion.div>
+            )}
+        </AnimatePresence>
+    );
+};
 
 const About = () => {
     const { isLowEnd, isMobile } = usePerformance();
@@ -264,45 +426,28 @@ const About = () => {
                     </p>
                 </motion.div>
 
-                {/* Block 6: Intereses (NEW) */}
+                {/* Block 6: Intereses Interactivos */}
                 <motion.div
                     ref={cardRefs[5]}
                     variants={itemVariants}
-                    whileHover={!isMobile ? "hover" : undefined}
                     whileInView={isMobile ? "mobileScroll" : undefined}
                     whileTap={{ scale: 0.98 }}
                     className="bento-about-6 about-bento-card"
                     style={getCardStyle(5, {
                         backgroundColor: 'var(--surface-color)',
                         backdropFilter: 'blur(12px)',
-                        padding: isMobile ? 'var(--space-6)' : 'var(--space-8)',
+                        padding: 'var(--space-6)',
                         borderRadius: '24px',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'center',
                         border: '1.5px solid var(--border-inactive)',
+                        minHeight: '240px',
+                        position: 'relative',
+                        overflow: 'hidden'
                     })}
                 >
-                    <h3 style={{ fontSize: '1.3rem', fontWeight: 900, marginBottom: 'var(--space-4)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
-                        MÁS ALLÁ DEL DISEÑO
-                    </h3>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
-                        {['🎹 Música', '🌌 Cosmos', '📸 Fotografía', '🗣️ Social'].map((tag) => (
-                            <span key={tag} style={{ 
-                                padding: '6px 12px', 
-                                borderRadius: '50px', 
-                                border: '1px solid var(--border-inactive)', 
-                                fontSize: '0.9rem', 
-                                fontWeight: 600,
-                                opacity: 0.85
-                            }}>
-                                {tag}
-                            </span>
-                        ))}
-                    </div>
-                    <p style={{ fontSize: '1rem', marginTop: 'var(--space-4)', opacity: 0.8, lineHeight: 1.5 }}>
-                        Soy una persona muy social: me encanta charlar, observar el cielo y capturar momentos a través del lente.
-                    </p>
+                    <InterestCardContent isMobile={isMobile} />
                 </motion.div>
 
                 {/* Block 7: Descargar CV */}
