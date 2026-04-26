@@ -167,27 +167,39 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                             onClick={toggleZoom}
                         />
 
-                        {/* Counter - High contrast WHITE on DARK */}
-                        {imageList.length > 1 && scale === 1 && (
-                            <div style={{
-                                marginTop: '2rem',
-                                color: 'white',
-                                background: 'rgba(255,255,255,0.1)',
-                                border: '2px solid white', // Strong white border
-                                padding: '10px 24px',
-                                borderRadius: '30px',
-                                fontSize: '1rem',
-                                fontWeight: '900',
-                                letterSpacing: '0.15em',
-                                backdropFilter: 'blur(10px)',
-                                pointerEvents: 'none'
-                            }}>
-                                {currentIndex + 1} / {imageList.length}
-                            </div>
-                        )}
                     </div>
                 </motion.div>
             </AnimatePresence>
+
+            {/* Top Header Pill - iOS Style (Matching Carousel) */}
+            {imageList.length > 1 && scale === 1 && (
+                <div style={{
+                    position: 'absolute',
+                    top: '30px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    zIndex: 3010,
+                    pointerEvents: 'none'
+                }}>
+                    <div style={{
+                        color: 'rgba(255,255,255,0.9)',
+                        fontSize: '11px',
+                        fontWeight: 700,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.15em',
+                        background: 'rgba(0,0,0,0.4)',
+                        padding: '8px 24px',
+                        borderRadius: '30px',
+                        backdropFilter: 'blur(10px)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        border: '1px solid rgba(255,255,255,0.1)'
+                    }}>
+                        Explorar Galería <span style={{ opacity: 0.5 }}>[{currentIndex + 1} / {imageList.length}]</span>
+                    </div>
+                </div>
+            )}
 
             {/* Navigation Arrows - iOS Style */}
             {imageList.length > 1 && scale === 1 && (
@@ -246,8 +258,8 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                 aria-label="Cerrar imagen ampliada"
                 style={{
                     position: 'absolute',
-                    top: 'clamp(16px, 4vw, 40px)',
-                    right: 'clamp(16px, 4vw, 40px)',
+                    top: '30px',
+                    right: '30px',
                     background: 'transparent',
                     border: 'none',
                     color: 'white',
@@ -259,7 +271,7 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                     transition: 'all 0.3s ease'
                 }}
             >
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
