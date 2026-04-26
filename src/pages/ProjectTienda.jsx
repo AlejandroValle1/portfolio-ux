@@ -67,10 +67,10 @@ const ProjectTienda = () => {
                 figmaLink={TIENDA_DATA.figmaLink}
                 mainImage={null}
                 indexItems={[
-                    { label: 'Contexto y Punto de Partida', id: 'tienda-contexto' },
-                    { label: 'Investigación',               id: 'tienda-investigacion' },
-                    { label: 'Proceso de Diseño',           id: 'tienda-proceso' },
-                    { label: 'Impacto del Diseño',          id: 'tienda-impacto' },
+                    { label: 'Contexto y Desafío',      id: 'tienda-contexto' },
+                    { label: 'Investigación y Usuarios', id: 'tienda-investigacion' },
+                    { label: 'Proceso de Diseño',       id: 'tienda-proceso' },
+                    { label: 'Impacto y Resultados',     id: 'tienda-impacto' },
                 ]}
             />
 
@@ -86,7 +86,7 @@ const ProjectTienda = () => {
             {/* ════════════════════════════════
                 GRUPO 1: Contexto
             ════════════════════════════════ */}
-            <ProjectGroupLabel label="Contexto y Punto de Partida" id="tienda-contexto" />
+            <ProjectGroupLabel label="Contexto y Desafío" id="tienda-contexto" />
 
             <ProjectSection
                 icon="○"
@@ -97,7 +97,7 @@ const ProjectTienda = () => {
             {/* ════════════════════════════════
                 GRUPO 2: Investigación
             ════════════════════════════════ */}
-            <ProjectGroupLabel label="Investigación" id="tienda-investigacion" />
+            <ProjectGroupLabel label="Investigación y Usuarios" id="tienda-investigacion" />
 
             <ProjectSection
                 icon="◎"
@@ -222,9 +222,9 @@ const ProjectTienda = () => {
             </ProjectSection>
 
             {/* ════════════════════════════════
-                GRUPO 4: Reflexión
+                GRUPO 4: Impacto y Resultados
             ════════════════════════════════ */}
-            <ProjectGroupLabel label="Reflexión" id="tienda-impacto" />
+            <ProjectGroupLabel label="Impacto y Resultados" id="tienda-impacto" />
 
             <ProjectSummary
                 title="Impacto del Diseño"

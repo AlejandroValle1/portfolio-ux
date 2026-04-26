@@ -67,9 +67,10 @@ const ProjectSepara = () => {
                 figmaLink={SEPARA_DATA.figmaLink}
                 mainImage={null}
                 indexItems={[
-                    { label: 'Investigación y Diagnóstico', id: 'separa-investigacion' },
-                    { label: 'Proceso de Diseño',            id: 'separa-proceso' },
-                    { label: 'Impacto del Diseño',            id: 'separa-impacto' },
+                    { label: 'Contexto y Desafío',      id: 'separa-contexto' },
+                    { label: 'Investigación y Usuarios', id: 'separa-investigacion' },
+                    { label: 'Proceso de Diseño',       id: 'separa-proceso' },
+                    { label: 'Impacto y Resultados',     id: 'separa-impacto' },
                 ]}
             />
 
@@ -81,15 +82,20 @@ const ProjectSepara = () => {
             />
 
             {/* ════════════════════════════════
-                GRUPO 1: Investigación
+                GRUPO 1: Contexto
             ════════════════════════════════ */}
-            <ProjectGroupLabel label="Investigación y Diagnóstico" id="separa-investigacion" />
+            <ProjectGroupLabel label="Contexto y Desafío" id="separa-contexto" />
 
             <ProjectSection
                 icon="○"
                 title="El punto de partida"
                 text="Mi idea inicial era que la falta de información impedía que la gente separara sus residuos. El programa municipal no estaba funcionando porque los vecinos no sabían cómo hacerlo. Mi objetivo fue transformar este problema en una oportunidad: usar el diseño para educar sobre el reciclaje y sus beneficios, ayudando a lograr una ciudad más limpia."
             />
+
+            {/* ════════════════════════════════
+                GRUPO 2: Investigación
+            ════════════════════════════════ */}
+            <ProjectGroupLabel label="Investigación y Usuarios" id="separa-investigacion" />
 
             <ProjectSection
                 icon="◎"
@@ -208,9 +214,9 @@ const ProjectSepara = () => {
             </ProjectSection>
 
             {/* ════════════════════════════════
-                GRUPO 3: Reflexión
+                GRUPO 4: Impacto y Resultados
             ════════════════════════════════ */}
-            <ProjectGroupLabel label="Reflexión" id="separa-impacto" />
+            <ProjectGroupLabel label="Impacto y Resultados" id="separa-impacto" />
 
             <ProjectSummary
                 title="Impacto del Diseño"
