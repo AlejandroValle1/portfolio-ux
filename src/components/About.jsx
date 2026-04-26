@@ -45,25 +45,12 @@ function useScrollSpotlight(refs, isLowPerformance) {
 const InterestCardContent = ({ isMobile, onOpenGallery }) => {
     const [activeTab, setActiveTab] = React.useState('default');
 
-    const dailySongs = [
-        { title: "Barro Tal Vez", artist: "L. A. Spinetta", link: "https://www.youtube.com/watch?v=6hL903p9-H0" }, // Domingo (Version en vivo Mercedes Sosa)
-        { title: "About Today", artist: "The National", link: "https://www.youtube.com/watch?v=rN2U5XN-58o" }, // Lunes
-        { title: "No Surprises", artist: "Radiohead", link: "https://www.youtube.com/watch?v=u5CVsAu6624" }, // Martes
-        { title: "Crimen", artist: "Gustavo Cerati", link: "https://www.youtube.com/watch?v=uLIs0j2WnlM" }, // Miércoles
-        { title: "Wish You Were Here", artist: "Pink Floyd", link: "https://www.youtube.com/watch?v=IXdNnw99-Ic" }, // Jueves
-        { title: "Do I Wanna Know?", artist: "Arctic Monkeys", link: "https://www.youtube.com/watch?v=bpOSxM0rNPM" }, // Viernes
-        { title: "Let It Happen", artist: "Tame Impala", link: "https://www.youtube.com/watch?v=O2T2R93S_E4" }  // Sábado
-    ];
-
-    const todayIndex = new Date().getDay();
-    const currentSong = dailySongs[todayIndex];
-
     const interests = [
         { 
             id: 'musica', 
             label: '🎹 Música', 
-            content: `Recomendación del día: "${currentSong.title}" - ${currentSong.artist}.`, 
-            link: currentSong.link 
+            content: 'La música es el combustible de mi creatividad. Desde bandas sonoras para concentrarme hasta ritmos que me mantienen motivado; te invito a descubrir qué está sonando hoy en mi perfil.', 
+            link: 'https://open.spotify.com/user/11159312069?si=57cd591e593c401b' 
         },
         { 
             id: 'cosmos', 
@@ -183,30 +170,6 @@ const InterestCardContent = ({ isMobile, onOpenGallery }) => {
                                 ))}
                             </div>
                         </div>
-                    ) : activeTab === 'musica' ? (
-                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                            <p style={{ fontSize: '0.95rem', opacity: 0.9, lineHeight: 1.5, margin: 0 }}>
-                                {interests.find(i => i.id === 'musica').content}
-                            </p>
-                            <div style={{ 
-                                width: '100%', 
-                                height: '130px', 
-                                borderRadius: '12px', 
-                                overflow: 'hidden', 
-                                border: '1px solid var(--border-inactive)',
-                                background: '#000'
-                            }}>
-                                <iframe 
-                                    width="100%" 
-                                    height="100%" 
-                                    src={`https://www.youtube.com/embed/${currentSong.link.split('v=')[1].split('&')[0]}?controls=1&modestbranding=1&rel=0`}
-                                    title="YouTube video player" 
-                                    frameBorder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowFullScreen
-                                />
-                            </div>
-                        </div>
                     ) : (
                         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px', justifyContent: 'center' }}>
                             <p style={{ fontSize: '1.05rem', lineHeight: 1.6, opacity: 0.95, margin: 0 }}>
@@ -215,7 +178,7 @@ const InterestCardContent = ({ isMobile, onOpenGallery }) => {
                         </div>
                     )}
 
-                    {interests.find(i => i.id === activeTab).link && activeTab !== 'musica' && (
+                    {interests.find(i => i.id === activeTab).link && (
                         <a 
                             href={interests.find(i => i.id === activeTab).link} 
                             target="_blank" 
@@ -231,7 +194,7 @@ const InterestCardContent = ({ isMobile, onOpenGallery }) => {
                                 fontWeight: 800
                             }}
                         >
-                            {activeTab === 'musica' ? 'ESCUCHAR EN YOUTUBE ↗' : (activeTab === 'social' ? 'CONECTEMOS EN LINKEDIN ↗' : 'VER MÁS ↗')}
+                            {activeTab === 'musica' ? 'ESCUCHAR EN SPOTIFY ↗' : (activeTab === 'social' ? 'CONECTEMOS EN LINKEDIN ↗' : 'VER MÁS ↗')}
                         </a>
                     )}
                 </motion.div>
