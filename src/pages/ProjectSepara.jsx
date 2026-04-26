@@ -88,7 +88,7 @@ const ProjectSepara = () => {
             <ProjectSection
                 icon="○"
                 title="El punto de partida"
-                text="Mi hipótesis inicial fue que la falta de conocimiento imposibilitaba el correcto funcionamiento de la separación de residuos. El programa SE‑PA‑RÁ no estaba siendo eficiente porque la gente no separaba sus residuos por falta de información e infraestructura. Como UX designer en formación, mi motivación fue transformar esa situación en una oportunidad: mejorar la difusión y el aprendizaje sobre reciclaje y sus beneficios, con la meta de lograr una ciudad más limpia."
+                text="Mi idea inicial era que la falta de información impedía que la gente separara sus residuos. El programa municipal no estaba funcionando porque los vecinos no sabían cómo hacerlo. Mi objetivo fue transformar este problema en una oportunidad: usar el diseño para educar sobre el reciclaje y sus beneficios, ayudando a lograr una ciudad más limpia."
             />
 
             <ProjectSection
@@ -96,7 +96,7 @@ const ProjectSepara = () => {
                 title="Mapear el viaje del usuario"
                 text={
                     <>
-                        Para empatizar con las personas, desarrollé un <strong>Journey Map</strong> y descubrí que en cada etapa (informarse, separar, llevar al eco punto) el proceso se frustraba. Transformé estos hallazgos en requerimientos funcionales:
+                        Para entender mejor a los usuarios, analicé su recorrido diario y descubrí que en cada etapa (informarse, separar, llevar al punto de reciclaje) aparecían dudas. Transformé estos problemas en soluciones necesarias:
                     </>
                 }
             >
@@ -133,8 +133,8 @@ const ProjectSepara = () => {
 
             <ProjectSection
                 icon="→"
-                title="El flujo dentro de la app"
-                text="Con esos hallazgos, definí el user flow de la aplicación. El recorrido empezaba con una bienvenida motivadora, luego el registro o ingreso, y desde el inicio el usuario podía elegir entre aprender sobre reciclaje o conocer eco puntos cercanos."
+                title="El camino del usuario"
+                text="Con esos hallazgos, definí los pasos principales dentro de la app. El recorrido comienza con una bienvenida motivadora y permite al usuario elegir fácilmente entre aprender a reciclar o encontrar puntos de recolección cercanos."
             >
                 <motion.div 
                     variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.15 } } }}
@@ -181,8 +181,8 @@ const ProjectSepara = () => {
 
             <ProjectSection
                 icon="⟳"
-                title="Iteración: de baja a alta fidelidad"
-                text="El proceso pasó de wireframes de baja fidelidad, donde definí la estructura y jerarquía básica, a wireframes de alta fidelidad, donde integré tipografía, color, iconografía y un tono más motivador en el onboarding."
+                title="Evolución: de bocetos a diseño final"
+                text="El proceso pasó de esquemas básicos, donde definí la estructura inicial, a diseños de alta definición donde integré colores, iconos y un lenguaje más cercano para motivar al usuario."
             >
                 <div style={{ margin: 'var(--space-4) auto 0', width: '100%', maxWidth: '900px' }}>
                     <CompareCarousel
@@ -216,7 +216,7 @@ const ProjectSepara = () => {
                 title="Impacto del Diseño"
                 content={
                     <>
-                        Pasar de 0 a 1 requirió eliminar suposiciones mediante investigación real. El resultado es un prototipo escalable que no solo informa, sino que <strong>incentiva la acción a través de gamificación</strong>, transformando el tedio de reciclar en una <strong>experiencia gratificante y de impacto social</strong>.
+                        Pasar de la idea a la realidad requirió escuchar a los usuarios reales. El resultado es un diseño que no solo informa, sino que <strong>motiva a la acción mediante incentivos dinámicos</strong>, transformando el hábito de reciclar en una <strong>experiencia gratificante y con impacto social</strong>.
                     </>
                 }
             />

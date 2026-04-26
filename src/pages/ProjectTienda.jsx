@@ -124,13 +124,13 @@ const ProjectTienda = () => {
             <ProjectSection
                 icon="◉"
                 title="Quiénes son los usuarios"
-                text="Definí tres protopersonas que representan los distintos tipos de compradores: Franco (usuario avanzado que busca specs), Camila (principiante que necesita orientación) y Leonardo (funcional, que solo quiere que funcione). Sus objetivos y frustraciones guiaron cada decisión de diseño."
+                text="Definí tres perfiles de usuario que representan los distintos tipos de compradores: Franco (usuario avanzado que busca detalles técnicos), Camila (principiante que necesita orientación) y Leonardo (práctico, que solo quiere que funcione). Sus objetivos y dudas guiaron cada decisión de diseño."
             >
                 <SpotlightGrid 
                     items={[
                         { name: 'Franco', type: 'Modo Avanzado', desc: 'Busca especificaciones técnicas precisas y rendimiento extremo para gaming o trabajo pesado.' },
                         { name: 'Camila', type: 'Modo Principiante', desc: 'Necesita orientación, explicaciones claras y recomendaciones armadas para su uso diario.' },
-                        { name: 'Leonardo', type: 'Modo Funcional', desc: 'Prioriza que el producto funcione y resuelva su necesidad rápido y sin demasiadas vueltas.' }
+                        { name: 'Leonardo', type: 'Modo Práctico', desc: 'Prioriza que el producto funcione y resuelva su necesidad rápido y sin complicaciones.' }
                     ]}
                     renderItem={(persona) => (
                         <>
@@ -149,8 +149,8 @@ const ProjectTienda = () => {
 
             <ProjectSection
                 icon="→"
-                title="El flujo dentro de la app"
-                text="Con esos hallazgos, definí el user flow de la aplicación. El recorrido empezaba con una bienvenida motivadora, luego el registro o ingreso, y desde el inicio el usuario podía elegir entre aprender sobre reciclaje o conocer eco puntos cercanos."
+                title="El camino del usuario"
+                text="Con esos hallazgos, definí el recorrido principal dentro de la tienda. El proceso comienza con una bienvenida clara, sigue con la búsqueda y termina con una compra segura y sin obstáculos."
             >
                 <motion.div 
                     variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.15 } } }}
@@ -197,8 +197,8 @@ const ProjectTienda = () => {
 
             <ProjectSection
                 icon="⟳"
-                title="Iteración: de baja a alta fidelidad"
-                text="El proceso pasó de wireframes de baja fidelidad a alta fidelidad, integrando tipografía, color y reforzando las breadcrumbs para dar más control y seguridad al usuario durante el checkout."
+                title="Evolución: de bocetos a diseño final"
+                text="El proceso pasó de esquemas básicos a diseños de alta definición, integrando colores y reforzando las guías de navegación (breadcrumbs) para dar más control y seguridad durante la compra."
             >
                 <div style={{ marginTop: 'var(--space-4)', width: '100%' }}>
                     <CompareCarousel
@@ -230,7 +230,7 @@ const ProjectTienda = () => {
                 title="Impacto del Diseño"
                 content={
                     <>
-                        El rediseño transformó un catálogo disperso en una <strong>experiencia de venta guiada</strong>. Al implementar un flujo de checkout transparente y estructurar la información para distintos perfiles de usuario, se logró un prototipo que <strong>reduce la fricción cognitiva y garantiza confianza</strong> en cada paso de la compra.
+                        El rediseño transformó un catálogo confuso en una <strong>experiencia de venta guiada</strong>. Al simplificar los pasos de compra y organizar la información para distintos perfiles, se logró un diseño que <strong>elimina dudas al comprar y garantiza confianza</strong> en cada paso.
                     </>
                 }
             />

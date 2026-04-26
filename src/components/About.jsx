@@ -144,7 +144,7 @@ const About = () => {
                         QUIÉN SOY
                     </h3>
                     <p style={{ fontSize: '1.25rem', lineHeight: 1.6, fontWeight: 500, opacity: 0.9 }}>
-                        Soy Alejandro Valle, <strong>Diseñador UX</strong> con background en <strong>Comunicación</strong>. Transformo la complejidad en experiencias digitales <strong>claras, inclusivas y funcionales</strong>, combinando sensibilidad narrativa con precisión estructural.
+                        Soy Alejandro Valle, <strong>Diseñador UX</strong> con <strong>formación en Comunicación</strong>. Transformo la complejidad en experiencias digitales <strong>claras, fáciles de usar y funcionales</strong>, combinando mi capacidad para contar historias con un diseño bien estructurado.
                     </p>
                 </motion.div>
 
@@ -206,7 +206,7 @@ const About = () => {
                         Formación
                     </h4>
                     <p style={{ fontSize: '1.05rem', lineHeight: 1.5, opacity: 0.9 }}>
-                        Estudié <strong>Comunicación</strong> (UNT). Mi formación en semiótica me permite entender profundamente a las personas y construir arquitecturas de información que generan <strong>confianza y conexión real</strong>.
+                        Estudié <strong>Comunicación</strong> (UNT). Mis conocimientos en lenguaje y análisis me permiten entender profundamente a las personas y construir estructuras de información que generan <strong>confianza y conexión real</strong>.
                     </p>
                 </motion.div>
 
@@ -230,7 +230,7 @@ const About = () => {
                         Evolución UX
                     </h4>
                     <p style={{ fontSize: '1.05rem', lineHeight: 1.5, opacity: 0.9 }}>
-                        Egresado becado del bootcamp <strong>Digitalers (Telecom)</strong>. Aplico investigación de usuarios y diseño atómico para desarrollar interfaces escalables que equilibran usabilidad con <strong>objetivos de negocio</strong>.
+                        Egresado becado del bootcamp <strong>Digitalers (Telecom)</strong>. Utilizo la investigación con usuarios para desarrollar interfaces que crecen de forma organizada, equilibrando la facilidad de uso con los <strong>objetivos del negocio</strong>.
                     </p>
                 </motion.div>
 

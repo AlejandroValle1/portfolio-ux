@@ -5,23 +5,23 @@ import { usePerformance } from '../context/PerformanceContext';
 const steps = [
     {
         title: "Empatizar",
-        subtitle: "Investigación",
-        description: <>Más allá de lo evidente, revelando los verdaderos puntos de dolor. Utilizo <strong>investigación de campo y benchmarks</strong> para entender el contexto real.</>,
+        subtitle: "Escuchar",
+        description: <>Más allá de lo evidente, buscando entender qué es lo que realmente le molesta al usuario. Utilizo <strong>entrevistas y análisis de la competencia</strong> para entender el contexto real.</>,
     },
     {
         title: "Definir",
-        subtitle: "Arquitectura",
-        description: <>Estructuras escalables y <strong>diseño atómico</strong>. Creo sistemas consistentes que responden directamente a los <strong>pain points detectados</strong>.</>,
+        subtitle: "Estructurar",
+        description: <>Organizo la información con <strong>sistemas de diseño consistentes</strong>. Creo estructuras que responden directamente a los <strong>problemas detectados</strong>.</>,
     },
     {
         title: "Idear",
-        subtitle: "Prototipar",
-        description: <>Diseños funcionales y visuales que transforman <strong>insights de usuarios</strong> en <strong>soluciones claras y de alto impacto</strong>.</>,
+        subtitle: "Diseñar",
+        description: <>Soluciones visuales y funcionales que transforman los <strong>hallazgos de la investigación</strong> en <strong>pantallas claras y fáciles de navegar</strong>.</>,
     },
     {
         title: "Iterar",
-        subtitle: "Validar",
-        description: <>Integración de <strong>feedback de usuarios</strong> e <strong>IA generativa</strong> para validación rápida, asegurando la mejora continua del producto.</>,
+        subtitle: "Probar",
+        description: <>Integro los <strong>comentarios de los usuarios</strong> para pulir el diseño. Uso herramientas de vanguardia para asegurar la mejora continua del producto.</>,
     }
 ];
 
