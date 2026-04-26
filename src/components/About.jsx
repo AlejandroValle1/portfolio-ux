@@ -157,24 +157,29 @@ const InterestCardContent = ({ isMobile, onOpenGallery }) => {
                     </div>
                     
                     {activeTab === 'fotografia' ? (
-                        <div style={{ display: 'flex', gap: '10px', flex: 1, overflowX: 'auto', paddingBottom: '12px', scrollbarWidth: 'none' }}>
-                            {interests.find(i => i.id === 'fotografia').images.map((img, i) => (
-                                <motion.img 
-                                    key={i} 
-                                    src={img} 
-                                    alt="Fotografía de Ale" 
-                                    onClick={() => onOpenGallery(interests.find(i => i.id === 'fotografia').images, i)}
-                                    whileHover={{ scale: 1.05 }}
-                                    style={{ 
-                                        height: '130px', 
-                                        minWidth: '100px',
-                                        borderRadius: '12px', 
-                                        objectFit: 'cover',
-                                        border: '1px solid rgba(255,255,255,0.1)',
-                                        cursor: 'pointer'
-                                    }} 
-                                />
-                            ))}
+                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                            <p style={{ fontSize: '0.95rem', opacity: 0.9, lineHeight: 1.4, margin: 0 }}>
+                                {interests.find(i => i.id === 'fotografia').content}
+                            </p>
+                            <div style={{ display: 'flex', gap: '10px', flex: 1, overflowX: 'auto', paddingBottom: '12px', scrollbarWidth: 'none' }}>
+                                {interests.find(i => i.id === 'fotografia').images.map((img, i) => (
+                                    <motion.img 
+                                        key={i} 
+                                        src={img} 
+                                        alt="Fotografía de Ale" 
+                                        onClick={() => onOpenGallery(interests.find(i => i.id === 'fotografia').images, i)}
+                                        whileHover={{ scale: 1.05 }}
+                                        style={{ 
+                                            height: '110px', 
+                                            minWidth: '90px',
+                                            borderRadius: '12px', 
+                                            objectFit: 'cover',
+                                            border: '1px solid rgba(255,255,255,0.1)',
+                                            cursor: 'pointer'
+                                        }} 
+                                    />
+                                ))}
+                            </div>
                         </div>
                     ) : activeTab === 'musica' ? (
                         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '10px' }}>
