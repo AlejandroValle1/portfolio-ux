@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePerformance } from '../context/PerformanceContext';
+import Lightbox from './Lightbox';
 
 // Hook: tracks which card ref is most centered in the viewport
 function useScrollSpotlight(refs, isLowPerformance) {
@@ -41,15 +42,28 @@ function useScrollSpotlight(refs, isLowPerformance) {
     return activeIndex;
 }
 
-const InterestCardContent = ({ isMobile }) => {
+const InterestCardContent = ({ isMobile, onOpenGallery }) => {
     const [activeTab, setActiveTab] = React.useState('default');
+
+    const dailySongs = [
+        { title: "Barro Tal Vez", artist: "L. A. Spinetta", link: "https://www.youtube.com/watch?v=LqUoHNRzI6A" }, // Domingo
+        { title: "About Today", artist: "The National", link: "https://www.youtube.com/watch?v=O37Qr5XqOfg" }, // Lunes
+        { title: "No Surprises", artist: "Radiohead", link: "https://www.youtube.com/watch?v=u5CVsAu6624" }, // Martes
+        { title: "Crimen", artist: "Gustavo Cerati", link: "https://www.youtube.com/watch?v=uLIs0j2WnlM" }, // Miércoles
+        { title: "Wish You Were Here", artist: "Pink Floyd", link: "https://www.youtube.com/watch?v=IXdNnw99-Ic" }, // Jueves
+        { title: "Do I Wanna Know?", artist: "Arctic Monkeys", link: "https://www.youtube.com/watch?v=bpOSxM0rNPM" }, // Viernes
+        { title: "Let It Happen", artist: "Tame Impala", link: "https://www.youtube.com/watch?v=O2T2R93S_E4" }  // Sábado
+    ];
+
+    const todayIndex = new Date().getDay();
+    const currentSong = dailySongs[todayIndex];
 
     const interests = [
         { 
             id: 'musica', 
             label: '🎹 Música', 
-            content: 'Mi recomendación de hoy: "About Today" - The National. Una mezcla perfecta de melancolía y calma.', 
-            link: 'https://www.youtube.com/watch?v=O37Qr5XqOfg' 
+            content: `Recomendación del día: "${currentSong.title}" - ${currentSong.artist}.`, 
+            link: currentSong.link 
         },
         { 
             id: 'cosmos', 
@@ -59,14 +73,14 @@ const InterestCardContent = ({ isMobile }) => {
         { 
             id: 'fotografia', 
             label: '📸 Fotografía', 
-            content: 'Capturando momentos a través del lente. Estas son algunas de mis fotos preferidas:',
+            content: 'Capturando momentos a través del lente. (Tocá para ampliar)',
             images: ['/Fotos para galeria about me.webp', '/Fotos para galeria about me 2.webp', '/Fotos para galeria about me 3.webp'] 
         },
         { 
             id: 'social', 
-            label: '🗣️ Social', 
-            content: 'Me encanta charlar, conocer gente apasionada y construir vínculos reales. (Instagram próximamente)', 
-            link: '#' 
+            label: '💼 LinkedIn', 
+            content: 'Me encanta charlar, conocer gente apasionada y construir vínculos laborales fructíferos.', 
+            link: 'https://www.linkedin.com/in/alejandro-valle-ux/' 
         }
     ];
 
@@ -139,16 +153,19 @@ const InterestCardContent = ({ isMobile }) => {
                     {activeTab === 'fotografia' ? (
                         <div style={{ display: 'flex', gap: '10px', flex: 1, overflowX: 'auto', paddingBottom: '12px', scrollbarWidth: 'none' }}>
                             {interests.find(i => i.id === 'fotografia').images.map((img, i) => (
-                                <img 
+                                <motion.img 
                                     key={i} 
                                     src={img} 
                                     alt="Fotografía de Ale" 
+                                    onClick={() => onOpenGallery(interests.find(i => i.id === 'fotografia').images, i)}
+                                    whileHover={{ scale: 1.05 }}
                                     style={{ 
                                         height: '130px', 
                                         minWidth: '100px',
                                         borderRadius: '12px', 
                                         objectFit: 'cover',
-                                        border: '1px solid rgba(255,255,255,0.1)' 
+                                        border: '1px solid rgba(255,255,255,0.1)',
+                                        cursor: 'pointer'
                                     }} 
                                 />
                             ))}
@@ -159,7 +176,7 @@ const InterestCardContent = ({ isMobile }) => {
                         </p>
                     )}
 
-                    {interests.find(i => i.id === activeTab).link && activeTab !== 'social' && (
+                    {interests.find(i => i.id === activeTab).link && (
                         <a 
                             href={interests.find(i => i.id === activeTab).link} 
                             target="_blank" 
@@ -175,27 +192,8 @@ const InterestCardContent = ({ isMobile }) => {
                                 fontWeight: 800
                             }}
                         >
-                            {activeTab === 'musica' ? 'ESCUCHAR TEMA ↗' : 'VER MÁS ↗'}
+                            {activeTab === 'musica' ? 'ESCUCHAR EN YOUTUBE ↗' : (activeTab === 'social' ? 'CONECTEMOS EN LINKEDIN ↗' : 'VER MÁS ↗')}
                         </a>
-                    )}
-                    
-                    {activeTab === 'social' && (
-                        <div 
-                            style={{ 
-                                marginTop: 'var(--space-2)', 
-                                padding: '12px', 
-                                fontSize: '0.75rem', 
-                                textAlign: 'center', 
-                                borderRadius: '12px',
-                                background: 'rgba(255,255,255,0.05)',
-                                color: 'var(--text-color)',
-                                opacity: 0.5,
-                                fontWeight: 800,
-                                border: '1px solid var(--border-inactive)'
-                            }}
-                        >
-                            INSTAGRAM (PRÓXIMAMENTE)
-                        </div>
                     )}
                 </motion.div>
             )}
@@ -205,6 +203,15 @@ const InterestCardContent = ({ isMobile }) => {
 
 const About = () => {
     const { isLowEnd, isMobile } = usePerformance();
+    const [lightboxState, setLightboxState] = React.useState({ isOpen: false, images: [], index: 0 });
+
+    const openLightbox = (images, index = 0) => {
+        setLightboxState({
+            isOpen: true,
+            images: Array.isArray(images) ? images : [images],
+            index
+        });
+    };
 
     // Refs for each bento card (scroll spotlight)
     const cardRefs = [
@@ -259,6 +266,15 @@ const About = () => {
 
     return (
         <section id="about" className="container" style={{ paddingBottom: 'var(--space-24)', paddingTop: 'var(--space-4)' }}>
+            <AnimatePresence>
+                {lightboxState.isOpen && (
+                    <Lightbox
+                        images={lightboxState.images}
+                        initialIndex={lightboxState.index}
+                        onClose={() => setLightboxState({ ...lightboxState, isOpen: false })}
+                    />
+                )}
+            </AnimatePresence>
             <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -447,7 +463,7 @@ const About = () => {
                         overflow: 'hidden'
                     })}
                 >
-                    <InterestCardContent isMobile={isMobile} />
+                    <InterestCardContent isMobile={isMobile} onOpenGallery={openLightbox} />
                 </motion.div>
 
                 {/* Block 7: Descargar CV */}
