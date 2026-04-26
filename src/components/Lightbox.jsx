@@ -208,13 +208,13 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                     <motion.button
                         onClick={prevImage}
                         aria-label="Ver imagen anterior"
-                        whileHover={{ scale: 1.2, opacity: 1 }}
-                        initial={{ opacity: 0.7 }}
+                        whileHover={{ scale: 1.2, opacity: 1, y: "-50%" }}
+                        initial={{ opacity: 0.7, y: "-50%" }}
+                        animate={{ opacity: 0.7, y: "-50%" }}
                         style={{
                             position: 'absolute',
                             left: 'clamp(12px, 3vw, 40px)',
                             top: '50%',
-                            transform: 'translateY(-50%)',
                             background: 'transparent',
                             border: 'none',
                             color: 'white',
@@ -233,13 +233,13 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                     <motion.button
                         onClick={nextImage}
                         aria-label="Ver imagen siguiente"
-                        whileHover={{ scale: 1.2, opacity: 1 }}
-                        initial={{ opacity: 0.7 }}
+                        whileHover={{ scale: 1.2, opacity: 1, y: "-50%" }}
+                        initial={{ opacity: 0.7, y: "-50%" }}
+                        animate={{ opacity: 0.7, y: "-50%" }}
                         style={{
                             position: 'absolute',
                             right: 'clamp(12px, 3vw, 40px)',
                             top: '50%',
-                            transform: 'translateY(-50%)',
                             background: 'transparent',
                             border: 'none',
                             color: 'white',

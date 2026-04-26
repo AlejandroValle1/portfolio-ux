@@ -444,13 +444,13 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
                 <motion.button
                     aria-label="Anterior"
                     onClick={onPrev}
-                    whileHover={{ scale: 1.2, opacity: 1 }}
-                    initial={{ opacity: 0.7 }}
+                    whileHover={{ scale: 1.2, opacity: 1, y: "-50%" }}
+                    initial={{ opacity: 0.7, y: "-50%" }}
+                    animate={{ opacity: 0.7, y: "-50%" }}
                     style={{
                         position: 'absolute',
                         left: '30px',
                         top: '50%',
-                        transform: 'translateY(-50%)',
                         background: 'transparent',
                         border: 'none',
                         color: 'rgba(255,255,255,0.8)',
@@ -467,13 +467,13 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
                 <motion.button
                     aria-label="Siguiente"
                     onClick={onNext}
-                    whileHover={{ scale: 1.2, opacity: 1 }}
-                    initial={{ opacity: 0.7 }}
+                    whileHover={{ scale: 1.2, opacity: 1, y: "-50%" }}
+                    initial={{ opacity: 0.7, y: "-50%" }}
+                    animate={{ opacity: 0.7, y: "-50%" }}
                     style={{
                         position: 'absolute',
                         right: '30px',
                         top: '50%',
-                        transform: 'translateY(-50%)',
                         background: 'transparent',
                         border: 'none',
                         color: 'rgba(255,255,255,0.8)',
