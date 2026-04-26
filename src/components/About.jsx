@@ -52,6 +52,7 @@ const About = () => {
         React.useRef(null),
         React.useRef(null),
         React.useRef(null),
+        React.useRef(null),
     ];
     const activeIndex = useScrollSpotlight(cardRefs, isLowEnd || isMobile);
 
@@ -141,10 +142,10 @@ const About = () => {
                     })}
                 >
                     <h3 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: 'var(--space-4)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
-                        QUIÉN SOY
+                        HOLA, SOY ALE
                     </h3>
                     <p style={{ fontSize: '1.25rem', lineHeight: 1.6, fontWeight: 500, opacity: 0.9 }}>
-                        Soy Alejandro Valle, <strong>Diseñador UX</strong> con <strong>formación en Comunicación</strong>. Transformo la complejidad en experiencias digitales <strong>claras, fáciles de usar y funcionales</strong>, combinando mi capacidad para contar historias con un diseño bien estructurado.
+                        Soy Alejandro Valle, <strong>Diseñador UX</strong> con formación en <strong>Comunicación</strong>. Me apasiona crear soluciones que ayuden a las personas en su día a día, transformando tareas complejas en experiencias <strong>simples y eficientes</strong>.
                     </p>
                 </motion.div>
 
@@ -186,7 +187,7 @@ const About = () => {
                     />
                 </motion.div>
 
-                {/* Block 3: Mi recorrido (Comunicación) */}
+                {/* Block 3: Formación */}
                 <motion.div
                     ref={cardRefs[2]}
                     variants={itemVariants}
@@ -206,7 +207,7 @@ const About = () => {
                         Formación
                     </h4>
                     <p style={{ fontSize: '1.05rem', lineHeight: 1.5, opacity: 0.9 }}>
-                        Estudié <strong>Comunicación</strong> (UNT). Mis conocimientos en lenguaje y análisis me permiten entender profundamente a las personas y construir estructuras de información que generan <strong>confianza y conexión real</strong>.
+                        Estudié <strong>Comunicación</strong> (UNT). Mis conocimientos en lenguaje y análisis me permiten construir estructuras de información que generan <strong>confianza y conexión real</strong>.
                     </p>
                 </motion.div>
 
@@ -256,16 +257,57 @@ const About = () => {
                     })}
                 >
                     <h3 style={{ fontSize: '1.6rem', fontWeight: 900, marginBottom: 'var(--space-3)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
-                        MI FILOSOFÍA
+                        EN EQUIPO
                     </h3>
                     <p style={{ fontSize: '1.15rem', opacity: 0.9, lineHeight: 1.6 }}>
-                        Soy detallista, metódico y transparente. Mi visión va más allá de dibujar pantallas: <strong>construyo puentes entre los objetivos de la empresa y las necesidades de las personas</strong>, apoyándome en datos, claridad visual y decisiones estratégicas.
+                        Busco rodearme de personas apasionadas para <strong>aprender y crecer juntos</strong>. Creo en los lazos laborales fructíferos, la transparencia y la curiosidad constante.
                     </p>
                 </motion.div>
 
-                {/* Block 6: Descargar CV */}
-                <motion.a
+                {/* Block 6: Intereses (NEW) */}
+                <motion.div
                     ref={cardRefs[5]}
+                    variants={itemVariants}
+                    whileHover={!isMobile ? "hover" : undefined}
+                    whileInView={isMobile ? "mobileScroll" : undefined}
+                    whileTap={{ scale: 0.98 }}
+                    className="bento-about-6 about-bento-card"
+                    style={getCardStyle(5, {
+                        backgroundColor: 'var(--surface-color)',
+                        backdropFilter: 'blur(12px)',
+                        padding: isMobile ? 'var(--space-6)' : 'var(--space-8)',
+                        borderRadius: '24px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        border: '1.5px solid var(--border-inactive)',
+                    })}
+                >
+                    <h3 style={{ fontSize: '1.3rem', fontWeight: 900, marginBottom: 'var(--space-4)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
+                        MÁS ALLÁ DEL DISEÑO
+                    </h3>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+                        {['🎹 Música', '🌌 Cosmos', '📸 Fotografía', '🗣️ Social'].map((tag) => (
+                            <span key={tag} style={{ 
+                                padding: '6px 12px', 
+                                borderRadius: '50px', 
+                                border: '1px solid var(--border-inactive)', 
+                                fontSize: '0.9rem', 
+                                fontWeight: 600,
+                                opacity: 0.85
+                            }}>
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+                    <p style={{ fontSize: '1rem', marginTop: 'var(--space-4)', opacity: 0.8, lineHeight: 1.5 }}>
+                        Soy una persona muy social: me encanta charlar, observar el cielo y capturar momentos a través del lente.
+                    </p>
+                </motion.div>
+
+                {/* Block 7: Descargar CV */}
+                <motion.a
+                    ref={cardRefs[6]}
                     href="/CV - ALEJANDRO VALLE.pdf"
                     download="CV - ALEJANDRO VALLE.pdf"
                     variants={itemVariants}
@@ -275,7 +317,7 @@ const About = () => {
                     whileTap={{ scale: 0.98 }}
                     viewport={{ once: true, amount: 0.1 }}
                     className="bento-about-cv about-bento-card btn-elegant"
-                    style={getCardStyle(5, {
+                    style={getCardStyle(6, {
                         backdropFilter: 'blur(12px)',
                         border: '1.5px solid var(--border-inactive)',
                         padding: 'var(--space-8)',

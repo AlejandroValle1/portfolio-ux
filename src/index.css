@@ -549,13 +549,15 @@ section {
   }
 
   .bento-about-5 {
-    grid-column: 1 / span 8;
-    grid-row: 3;
+    grid-column: span 4;
+  }
+
+  .bento-about-6 {
+    grid-column: span 4;
   }
 
   .bento-about-cv {
-    grid-column: 9 / span 4;
-    grid-row: 3;
+    grid-column: span 4;
     display: flex !important;
   }
 
