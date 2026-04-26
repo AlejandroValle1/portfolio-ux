@@ -142,7 +142,7 @@ const About = () => {
                     })}
                 >
                     <h3 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: 'var(--space-4)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
-                        HOLA, SOY ALE
+                        ¡HOLA! ME PRESENTO
                     </h3>
                     <p style={{ fontSize: '1.25rem', lineHeight: 1.6, fontWeight: 500, opacity: 0.9 }}>
                         Soy Alejandro Valle, <strong>Diseñador UX</strong> con formación en <strong>Comunicación</strong>. Me apasiona crear soluciones que ayuden a las personas en su día a día, transformando tareas complejas en experiencias <strong>simples y eficientes</strong>.
