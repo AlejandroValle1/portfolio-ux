@@ -135,6 +135,12 @@ body:not(.using-keyboard) * {
   font-feature-settings: "lnum" 1;
 }
 
+/* Specific fix for Titles over Sun gradient in Light Mode */
+[data-theme="light"] .hero-container .brutalist-title {
+  color: var(--text-color);
+  text-shadow: 0 0 40px rgba(169, 222, 249, 0.5); /* Sutil aura celeste para separar del sol */
+}
+
 /* Optimized Noise Texture Overlay - Using a subtle static image pattern if possible, 
    or reducing the complexity of the SVG to prevent scroll lag with backdrop-filters */
 body::after {
@@ -165,15 +171,7 @@ div[role="button"] {
   border-radius: var(--radius);
 }
 
-/* Typography Utilities */
-.brutalist-title {
-  font-family: 'Inter', sans-serif;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: -0.04em;
-  line-height: 1.1;
-  font-feature-settings: "lnum" 1;
-}
+
 
 .serif-title {
   font-family: 'Playfair Display', serif;
@@ -240,11 +238,7 @@ div[role="button"] {
   }
 }
 
-/* Specific fix for Titles over Sun gradient */
-[data-theme="light"] .brutalist-title {
-  color: var(--text-color); /* Forzar color oscuro en lugar de acento para legibilidad */
-  text-shadow: 0 0 40px rgba(169, 222, 249, 0.5); /* Sutil aura celeste para separar del sol */
-}
+
 
 .project-chapter-text {
   font-size: 1.25rem;
@@ -283,13 +277,7 @@ html {
   }
 }
 
-.brutalist-title {
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-  /* Relaxed slightly from 0.9 for readability */
-}
+
 
 section {
   padding-top: var(--space-12);
@@ -400,17 +388,7 @@ section {
 }
 
 
-.nav-link {
-  transition: color 0.3s ease;
-  padding: var(--space-1) var(--space-2);
-}
 
-.nav-link:hover {
-  color: var(--accent-primary) !important;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  background-color: transparent !important;
-}
 
 .skip-link {
   position: absolute;
@@ -440,6 +418,7 @@ section {
   cursor: pointer;
   padding: 8px 12px;
   position: relative;
+  text-decoration: none !important;
   /* Only transition color — transform is handled by Framer Motion */
   transition: color 0.3s ease;
   font-family: 'Inter', sans-serif;
@@ -455,16 +434,19 @@ section {
   right: 12px;
   height: 2px;
   background: var(--accent-primary);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+  will-change: transform;
 }
 
 .nav-link-elegant:hover {
   color: var(--accent-primary) !important;
+  text-decoration: none !important;
 }
 
 .nav-link-elegant:hover::after {
-  opacity: 1;
+  transform: scaleX(1);
 }
 
 /* :active states — feedback táctil inmediato antes de Framer Motion */
