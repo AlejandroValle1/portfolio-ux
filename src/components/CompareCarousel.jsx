@@ -279,13 +279,18 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            paddingTop: '80px', // Añadido para que la pill no tape la foto
+            paddingBottom: '40px'
         }}
     >
         {/* Navigation Buttons (Close, Next, Prev) */}
-        <button
+        <motion.button
             aria-label="Cerrar"
             onClick={onClose}
+            whileHover={{ scale: 1.1, color: '#ff4444' }}
+            initial={{ opacity: 0.7 }}
+            animate={{ opacity: 1 }}
             style={{
                 position: 'absolute',
                 top: isMobile ? '16px' : '30px',
@@ -298,11 +303,11 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                transition: 'all 0.3s'
+                transition: 'color 0.2s ease'
             }}
         >
             <svg width={isMobile ? "28" : "24"} height={isMobile ? "28" : "24"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
+        </motion.button>
 
         {isMobile && (
             <div style={{
@@ -436,9 +441,11 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
                     </div>
                 </div>
 
-                <button
+                <motion.button
                     aria-label="Anterior"
                     onClick={onPrev}
+                    whileHover={{ scale: 1.2, opacity: 1 }}
+                    initial={{ opacity: 0.7 }}
                     style={{
                         position: 'absolute',
                         left: '30px',
@@ -456,10 +463,12 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
                     }}
                 >
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                </button>
-                <button
+                </motion.button>
+                <motion.button
                     aria-label="Siguiente"
                     onClick={onNext}
+                    whileHover={{ scale: 1.2, opacity: 1 }}
+                    initial={{ opacity: 0.7 }}
                     style={{
                         position: 'absolute',
                         right: '30px',
@@ -477,7 +486,7 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
                     }}
                 >
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                </button>
+                </motion.button>
             </>
         )}
 

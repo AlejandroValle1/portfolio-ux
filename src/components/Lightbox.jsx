@@ -147,7 +147,8 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                         width: '100%',
                         height: '100%',
                         pointerEvents: 'none',
-                        padding: '0 12vw'
+                        paddingTop: '80px', // Añadido para que la pill no tape la foto
+                        paddingBottom: '40px'
                     }}
                 >
                     <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -204,9 +205,11 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
             {/* Navigation Arrows - iOS Style */}
             {imageList.length > 1 && scale === 1 && (
                 <>
-                    <button
+                    <motion.button
                         onClick={prevImage}
                         aria-label="Ver imagen anterior"
+                        whileHover={{ scale: 1.2, opacity: 1 }}
+                        initial={{ opacity: 0.7 }}
                         style={{
                             position: 'absolute',
                             left: 'clamp(12px, 3vw, 40px)',
@@ -226,10 +229,12 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="15 18 9 12 15 6"></polyline>
                         </svg>
-                    </button>
-                    <button
+                    </motion.button>
+                    <motion.button
                         onClick={nextImage}
                         aria-label="Ver imagen siguiente"
+                        whileHover={{ scale: 1.2, opacity: 1 }}
+                        initial={{ opacity: 0.7 }}
                         style={{
                             position: 'absolute',
                             right: 'clamp(12px, 3vw, 40px)',
@@ -249,13 +254,16 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="9 18 15 12 9 6"></polyline>
                         </svg>
-                    </button>
+                    </motion.button>
                 </>
             )}
 
-            <button
+            <motion.button
                 onClick={onClose}
                 aria-label="Cerrar imagen ampliada"
+                whileHover={{ scale: 1.1, color: '#ff4444' }}
+                initial={{ opacity: 0.7 }}
+                animate={{ opacity: 1 }}
                 style={{
                     position: 'absolute',
                     top: '30px',
@@ -268,14 +276,14 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     zIndex: 3020,
-                    transition: 'all 0.3s ease'
+                    transition: 'color 0.2s ease'
                 }}
             >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
-            </button>
+            </motion.button>
         </motion.div>,
         document.body
     );
