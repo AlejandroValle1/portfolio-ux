@@ -46,8 +46,8 @@ const InterestCardContent = ({ isMobile, onOpenGallery }) => {
     const [activeTab, setActiveTab] = React.useState('default');
 
     const dailySongs = [
-        { title: "Barro Tal Vez", artist: "L. A. Spinetta", link: "https://www.youtube.com/watch?v=LqUoHNRzI6A" }, // Domingo
-        { title: "About Today", artist: "The National", link: "https://www.youtube.com/watch?v=O37Qr5XqOfg" }, // Lunes
+        { title: "Barro Tal Vez", artist: "L. A. Spinetta", link: "https://www.youtube.com/watch?v=6hL903p9-H0" }, // Domingo (Version en vivo Mercedes Sosa)
+        { title: "About Today", artist: "The National", link: "https://www.youtube.com/watch?v=rN2U5XN-58o" }, // Lunes
         { title: "No Surprises", artist: "Radiohead", link: "https://www.youtube.com/watch?v=u5CVsAu6624" }, // Martes
         { title: "Crimen", artist: "Gustavo Cerati", link: "https://www.youtube.com/watch?v=uLIs0j2WnlM" }, // Miércoles
         { title: "Wish You Were Here", artist: "Pink Floyd", link: "https://www.youtube.com/watch?v=IXdNnw99-Ic" }, // Jueves
