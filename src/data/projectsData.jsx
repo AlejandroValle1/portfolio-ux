@@ -6,6 +6,7 @@ export const SEPARA_DATA = {
     figmaLink: "https://www.figma.com/proto/9tZ8o95QpwKsMJEE9Iqw96/Proyecto-SE-PA-RA?node-id=65-59&starting-point-node-id=65%3A55&t=ethJmLuKXdVEIEMc-1&hide-ui=1",
     metadata: [
         { label: "Rol", value: "UX/UI Designer" },
+        { label: "Alcance", value: "MVP" },
         { label: "Tiempo", value: "4 Semanas" },
         { label: "Herramientas", value: "Figma, FigJam" }
     ]
@@ -17,6 +18,7 @@ export const TIENDA_DATA = {
     figmaLink: "https://www.figma.com/proto/BerM7QNvQfAiNONrNjHLVX/Wireframe-Tienda-Tecno.?node-id=232-705&t=WoaQTWZcyQQrxDfD-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=232%3A705&hide-ui=1",
     metadata: [
         { label: "Rol", value: "UX/UI Designer" },
+        { label: "Alcance", value: "Diseño Integral" },
         { label: "Tiempo", value: "4 Meses" },
         { label: "Herramientas", value: "Figma, FigJam" }
     ]
