@@ -189,7 +189,7 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                 </motion.div>
             </AnimatePresence>
 
-            {/* Navigation Arrows - AAA Standard & Perfect Alignment */}
+            {/* Navigation Arrows - iOS Style */}
             {imageList.length > 1 && scale === 1 && (
                 <>
                     <button
@@ -200,25 +200,30 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                             left: 'clamp(12px, 3vw, 40px)',
                             top: '50%',
                             transform: 'translateY(-50%)',
-                            background: 'transparent',
+                            background: 'rgba(0,0,0,0.3)',
                             border: 'none',
+                            borderRadius: '50%',
+                            width: '48px',
+                            height: '48px',
                             color: 'white',
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             zIndex: 3001,
-                            transition: 'all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)',
-                            padding: '10px'
+                            transition: 'all 0.3s ease',
+                            backdropFilter: 'blur(8px)'
                         }}
                         onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = 'translateY(-50%) scale(1.2)';
+                            e.currentTarget.style.background = 'rgba(0,0,0,0.5)';
+                            e.currentTarget.style.scale = '1.1';
                         }}
                         onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                            e.currentTarget.style.background = 'rgba(0,0,0,0.3)';
+                            e.currentTarget.style.scale = '1';
                         }}
                     >
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'translateX(-2px)' }}>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="15 18 9 12 15 6"></polyline>
                         </svg>
                     </button>
@@ -230,25 +235,30 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                             right: 'clamp(12px, 3vw, 40px)',
                             top: '50%',
                             transform: 'translateY(-50%)',
-                            background: 'transparent',
+                            background: 'rgba(0,0,0,0.3)',
                             border: 'none',
+                            borderRadius: '50%',
+                            width: '48px',
+                            height: '48px',
                             color: 'white',
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             zIndex: 3001,
-                            transition: 'all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)',
-                            padding: '10px'
+                            transition: 'all 0.3s ease',
+                            backdropFilter: 'blur(8px)'
                         }}
                         onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = 'translateY(-50%) scale(1.2)';
+                            e.currentTarget.style.background = 'rgba(0,0,0,0.5)';
+                            e.currentTarget.style.scale = '1.1';
                         }}
                         onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                            e.currentTarget.style.background = 'rgba(0,0,0,0.3)';
+                            e.currentTarget.style.scale = '1';
                         }}
                     >
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'translateX(2px)' }}>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="9 18 15 12 9 6"></polyline>
                         </svg>
                     </button>
@@ -260,13 +270,13 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                 aria-label="Cerrar imagen ampliada"
                 style={{
                     position: 'absolute',
-                    top: 'clamp(10px, 4vw, 40px)',
-                    right: 'clamp(10px, 4vw, 40px)',
-                    background: 'rgba(255,255,255,0.1)',
-                    border: '3px solid white',
+                    top: 'clamp(16px, 4vw, 40px)',
+                    right: 'clamp(16px, 4vw, 40px)',
+                    background: 'rgba(0,0,0,0.3)',
+                    border: 'none',
                     borderRadius: '50%',
-                    width: '56px',
-                    height: '56px',
+                    width: '48px',
+                    height: '48px',
                     color: 'white',
                     cursor: 'pointer',
                     display: 'flex',
@@ -274,19 +284,19 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                     justifyContent: 'center',
                     zIndex: 3020,
                     transition: 'all 0.3s ease',
-                    padding: 0
+                    backdropFilter: 'blur(8px)'
                 }}
                 onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#ff4444';
-                    e.currentTarget.style.borderColor = '#ff4444';
+                    e.currentTarget.style.background = 'rgba(255,68,68,0.4)';
+                    e.currentTarget.style.scale = '1.1';
                 }}
                 onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
-                    e.currentTarget.style.borderColor = 'white';
+                    e.currentTarget.style.background = 'rgba(0,0,0,0.3)';
+                    e.currentTarget.style.scale = '1';
                 }}
                 title="Cerrar imagen"
             >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>

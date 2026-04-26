@@ -49,7 +49,7 @@ const Hero = () => {
                     fontWeight: 400
                 }}
             >
-                Diseño productos digitales que conectan objetivos de negocio con necesidades reales. Mi enfoque combina la <span className="serif-title" style={{ fontSize: '1.2em' }}>narrativa visual</span> con la arquitectura de información para crear experiencias coherentes.
+                Diseño productos digitales que conectan objetivos de negocio con necesidades reales. Mi enfoque combina la <span style={{ fontWeight: 700, color: 'var(--text-color)' }}>narrativa visual</span> con la arquitectura de información para crear experiencias coherentes.
             </motion.p>
 
             <motion.div
