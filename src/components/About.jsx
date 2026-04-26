@@ -185,16 +185,23 @@ const InterestCardContent = ({ isMobile, onOpenGallery }) => {
                             rel="noopener noreferrer" 
                             className="btn-elegant" 
                             style={{ 
-                                marginTop: 'var(--space-2)', 
-                                padding: '12px', 
+                                marginTop: 'var(--space-4)', 
+                                padding: '12px 24px', 
                                 fontSize: '0.75rem', 
                                 textAlign: 'center', 
-                                borderRadius: '12px',
+                                borderRadius: '50px',
                                 textDecoration: 'none',
-                                fontWeight: 800
+                                fontWeight: 800,
+                                color: 'var(--text-color)',
+                                border: '1.5px solid var(--accent-primary)',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.08em',
+                                display: 'inline-block',
+                                alignSelf: 'center',
+                                width: isMobile ? '100%' : 'auto'
                             }}
                         >
-                            {activeTab === 'musica' ? 'ESCUCHAR EN SPOTIFY ↗' : (activeTab === 'social' ? 'CONECTEMOS EN LINKEDIN ↗' : 'VER MÁS ↗')}
+                            {activeTab === 'musica' ? 'ABRIR MI SPOTIFY ↗' : (activeTab === 'social' ? 'CONECTEMOS EN LINKEDIN ↗' : 'VER MÁS ↗')}
                         </a>
                     )}
                 </motion.div>
