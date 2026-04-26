@@ -98,9 +98,15 @@ const InterestCardContent = ({ isMobile, onOpenGallery }) => {
                     </h3>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                         {interests.map((item) => (
-                            <button 
+                            <motion.button 
                                 key={item.id} 
                                 onClick={() => setActiveTab(item.id)}
+                                whileHover={{ 
+                                    scale: 1.05, 
+                                    borderColor: 'var(--accent-primary)',
+                                    backgroundColor: 'rgba(255,255,255,0.1)'
+                                }}
+                                whileTap={{ scale: 0.95 }}
                                 style={{ 
                                     padding: '8px 16px', 
                                     borderRadius: '50px', 
@@ -115,7 +121,7 @@ const InterestCardContent = ({ isMobile, onOpenGallery }) => {
                                 }}
                             >
                                 {item.label}
-                            </button>
+                            </motion.button>
                         ))}
                     </div>
                     <p style={{ fontSize: '1rem', marginTop: 'var(--space-4)', opacity: 0.8, lineHeight: 1.5 }}>
