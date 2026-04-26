@@ -134,10 +134,10 @@ const InterestCardContent = ({ isMobile, onOpenGallery }) => {
                     initial={{ opacity: 0, x: 20 }} 
                     animate={{ opacity: 1, x: 0 }} 
                     exit={{ opacity: 0, x: -20 }} 
-                    style={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                    style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
                 >
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--space-4)' }}>
-                        <span style={{ fontWeight: 800, fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--space-4)', width: '100%' }}>
+                        <span style={{ fontWeight: 800, fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '8px' }}>
                             {interests.find(i => i.id === activeTab).label}
                         </span>
                         <button 
@@ -149,7 +149,9 @@ const InterestCardContent = ({ isMobile, onOpenGallery }) => {
                                 fontWeight: 800, 
                                 cursor: 'pointer', 
                                 fontSize: '0.8rem',
-                                padding: '4px 8px'
+                                padding: '4px 0',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.05em'
                             }}
                         >
                             VOLVER
@@ -157,11 +159,11 @@ const InterestCardContent = ({ isMobile, onOpenGallery }) => {
                     </div>
                     
                     {activeTab === 'fotografia' ? (
-                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                            <p style={{ fontSize: '0.95rem', opacity: 0.9, lineHeight: 1.4, margin: 0 }}>
+                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                            <p style={{ fontSize: '0.95rem', opacity: 0.9, lineHeight: 1.5, margin: 0 }}>
                                 {interests.find(i => i.id === 'fotografia').content}
                             </p>
-                            <div style={{ display: 'flex', gap: '10px', flex: 1, overflowX: 'auto', paddingBottom: '12px', scrollbarWidth: 'none' }}>
+                            <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', paddingBottom: '8px', scrollbarWidth: 'none' }}>
                                 {interests.find(i => i.id === 'fotografia').images.map((img, i) => (
                                     <motion.img 
                                         key={i} 
@@ -182,13 +184,13 @@ const InterestCardContent = ({ isMobile, onOpenGallery }) => {
                             </div>
                         </div>
                     ) : activeTab === 'musica' ? (
-                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                            <p style={{ fontSize: '0.95rem', opacity: 0.9, lineHeight: 1.4, margin: 0 }}>
+                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                            <p style={{ fontSize: '0.95rem', opacity: 0.9, lineHeight: 1.5, margin: 0 }}>
                                 {interests.find(i => i.id === 'musica').content}
                             </p>
                             <div style={{ 
                                 width: '100%', 
-                                height: '140px', 
+                                height: '130px', 
                                 borderRadius: '12px', 
                                 overflow: 'hidden', 
                                 border: '1px solid var(--border-inactive)',
@@ -206,9 +208,11 @@ const InterestCardContent = ({ isMobile, onOpenGallery }) => {
                             </div>
                         </div>
                     ) : (
-                        <p style={{ fontSize: '1.05rem', lineHeight: 1.5, flex: 1, opacity: 0.95 }}>
-                            {interests.find(i => i.id === activeTab).content}
-                        </p>
+                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px', justifyContent: 'center' }}>
+                            <p style={{ fontSize: '1.05rem', lineHeight: 1.6, opacity: 0.95, margin: 0 }}>
+                                {interests.find(i => i.id === activeTab).content}
+                            </p>
+                        </div>
                     )}
 
                     {interests.find(i => i.id === activeTab).link && activeTab !== 'musica' && (
