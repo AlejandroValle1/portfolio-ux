@@ -176,13 +176,37 @@ const InterestCardContent = ({ isMobile, onOpenGallery }) => {
                                 />
                             ))}
                         </div>
+                    ) : activeTab === 'musica' ? (
+                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                            <p style={{ fontSize: '0.95rem', opacity: 0.9, lineHeight: 1.4, margin: 0 }}>
+                                {interests.find(i => i.id === 'musica').content}
+                            </p>
+                            <div style={{ 
+                                width: '100%', 
+                                height: '140px', 
+                                borderRadius: '12px', 
+                                overflow: 'hidden', 
+                                border: '1px solid var(--border-inactive)',
+                                background: '#000'
+                            }}>
+                                <iframe 
+                                    width="100%" 
+                                    height="100%" 
+                                    src={`https://www.youtube.com/embed/${currentSong.link.split('v=')[1].split('&')[0]}?controls=1&modestbranding=1&rel=0`}
+                                    title="YouTube video player" 
+                                    frameBorder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowFullScreen
+                                />
+                            </div>
+                        </div>
                     ) : (
                         <p style={{ fontSize: '1.05rem', lineHeight: 1.5, flex: 1, opacity: 0.95 }}>
                             {interests.find(i => i.id === activeTab).content}
                         </p>
                     )}
 
-                    {interests.find(i => i.id === activeTab).link && (
+                    {interests.find(i => i.id === activeTab).link && activeTab !== 'musica' && (
                         <a 
                             href={interests.find(i => i.id === activeTab).link} 
                             target="_blank" 
