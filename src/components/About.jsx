@@ -163,7 +163,7 @@ const InterestCardContent = ({ isMobile, onOpenGallery }) => {
                             <p style={{ fontSize: '0.95rem', opacity: 0.9, lineHeight: 1.5, margin: 0 }}>
                                 {interests.find(i => i.id === 'fotografia').content}
                             </p>
-                            <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', paddingBottom: '8px', scrollbarWidth: 'none' }}>
+                            <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', paddingBottom: '8px', scrollbarWidth: 'none', justifyContent: 'center' }}>
                                 {interests.find(i => i.id === 'fotografia').images.map((img, i) => (
                                     <motion.img 
                                         key={i} 
