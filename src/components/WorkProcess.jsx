@@ -6,12 +6,12 @@ const steps = [
     {
         title: "Empatizar",
         subtitle: "Investigar",
-        description: <>Analizo el contexto del problema a través de investigación de escritorio, benchmarking competitivo y análisis heurístico. Mi punto de partida es entender el problema real antes de pensar en soluciones.</>,
+        description: <>Analizo el contexto del problema a través de <strong>investigación de escritorio</strong>, benchmarking competitivo y <strong>análisis heurístico</strong>. Mi punto de partida es entender el <strong>problema real</strong> antes de pensar en soluciones.</>,
     },
     {
         title: "Definir",
         subtitle: "Sintetizar",
-        description: <>Traduzco lo que aprendí en un problema concreto: mapeo los flujos de usuario y la arquitectura de información que guían cada decisión de diseño.</>,
+        description: <>Traduzco lo que aprendí en un problema concreto: mapeo los <strong>flujos de usuario</strong> y la <strong>arquitectura de información</strong> que guían cada decisión de diseño.</>,
     },
     {
         title: "Idear",
