@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Fondo sólido oscuro -->
+  <rect width="32" height="32" rx="6" fill="#0B1118"/>
+  <!-- U en blanco -->
+  <text
+    x="3"
+    y="24"
+    font-family="Inter, Arial, sans-serif"
+    font-size="20"
+    font-weight="900"
+    fill="#FFFFFF"
+    letter-spacing="-1"
+  >U</text>
+  <!-- X en color acento -->
+  <text
+    x="16"
+    y="24"
+    font-family="Inter, Arial, sans-serif"
+    font-size="20"
+    font-weight="900"
+    fill="#D14D23"
+    letter-spacing="-1"
+  >X</text>
+</svg>
