@@ -170,6 +170,10 @@ const Projects = () => {
         transform: 'translateZ(0)',
         WebkitTransform: 'translateZ(0)',
         transition: 'all 0.4s ease',
+        backgroundColor: 'var(--surface-color)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        border: '1px solid var(--border-inactive)',
     });
 
     // Preload images
