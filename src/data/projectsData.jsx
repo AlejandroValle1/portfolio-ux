@@ -1,4 +1,5 @@
 import React from 'react';
+import ToolIcons from '../components/ToolIcons';
 
 export const SEPARA_DATA = {
     title: "SE-PA-RÁ",
@@ -8,7 +9,7 @@ export const SEPARA_DATA = {
         { label: "Rol", value: "UX/UI Designer" },
         { label: "Alcance", value: "MVP" },
         { label: "Tiempo", value: "4 Semanas" },
-        { label: "Herramientas", value: "Figma, FigJam" }
+        { label: "Herramientas", value: <ToolIcons /> }
     ]
 };
 
@@ -20,6 +21,6 @@ export const TIENDA_DATA = {
         { label: "Rol", value: "UX/UI Designer" },
         { label: "Alcance", value: "Diseño Integral" },
         { label: "Tiempo", value: "4 Meses" },
-        { label: "Herramientas", value: "Figma, FigJam" }
+        { label: "Herramientas", value: <ToolIcons /> }
     ]
 };
