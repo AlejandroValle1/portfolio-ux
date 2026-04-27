@@ -222,7 +222,7 @@ const ProjectSepara = () => {
                 title="Impacto del Diseño"
                 content={
                     <>
-                        Pasar de la idea a la realidad requirió escuchar a los usuarios reales. El resultado es un diseño que no solo informa, sino que <strong>motiva a la acción mediante incentivos dinámicos</strong>, transformando el hábito de reciclar en una <strong>experiencia gratificante y con impacto social</strong>.
+                        Pasar de la idea a la solución requirió una profunda investigación de escritorio, análisis heurístico y el uso estratégico de Inteligencia Artificial para iterar hipótesis de diseño. El resultado es una interfaz que no solo informa, sino que <strong>motiva a la acción mediante incentivos dinámicos</strong>, transformando el hábito de reciclar en una <strong>experiencia gratificante y con impacto social</strong>.
                     </>
                 }
             />
