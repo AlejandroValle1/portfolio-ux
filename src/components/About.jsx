@@ -43,7 +43,7 @@ function useScrollSpotlight(refs, isLowPerformance) {
     return activeIndex;
 }
 
-const InterestCardContent = ({ isMobile, onOpenGallery }) => {
+const InterestCardContent = ({ isMobile, onOpenGallery, isActive }) => {
     const [activeTab, setActiveTab] = React.useState('default');
 
     const interests = [
@@ -84,14 +84,17 @@ const InterestCardContent = ({ isMobile, onOpenGallery }) => {
                     <h3 style={{ fontSize: '1.3rem', fontWeight: 900, marginBottom: 'var(--space-4)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
                         MÁS ALLÁ DEL DISEÑO
                     </h3>
+                    <p style={{ fontSize: '1rem', marginBottom: 'var(--space-4)', opacity: 0.8, lineHeight: 1.5 }}>
+                        Tocá las etiquetas para conocer un poco más sobre mis intereses personales.
+                    </p>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                         {interests.map((item) => (
                             <motion.button 
                                 key={item.id} 
+                                className="interest-tag"
                                 onClick={() => setActiveTab(item.id)}
                                 whileHover={{ 
                                     scale: 1.05, 
-                                    borderColor: 'var(--accent-primary)',
                                     backgroundColor: 'rgba(255,255,255,0.1)'
                                 }}
                                 whileTap={{ scale: 0.95 }}
@@ -112,9 +115,6 @@ const InterestCardContent = ({ isMobile, onOpenGallery }) => {
                             </motion.button>
                         ))}
                     </div>
-                    <p style={{ fontSize: '1rem', marginTop: 'var(--space-4)', opacity: 0.8, lineHeight: 1.5 }}>
-                        Tocá las etiquetas para conocer un poco más sobre mis intereses personales.
-                    </p>
                 </motion.div>
             ) : (
                 <motion.div 
@@ -122,7 +122,7 @@ const InterestCardContent = ({ isMobile, onOpenGallery }) => {
                     initial={{ opacity: 0, x: 20 }} 
                     animate={{ opacity: 1, x: 0 }} 
                     exit={{ opacity: 0, x: -20 }} 
-                    style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+                    style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
                 >
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--space-4)', width: '100%' }}>
                         <span style={{ fontWeight: 800, fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -164,7 +164,8 @@ const InterestCardContent = ({ isMobile, onOpenGallery }) => {
                                             borderRadius: '12px', 
                                             objectFit: 'cover',
                                             border: '1px solid rgba(255,255,255,0.1)',
-                                            cursor: 'pointer'
+                                            cursor: 'pointer',
+                                            flexShrink: 0
                                         }} 
                                     />
                                 ))}
@@ -318,7 +319,7 @@ const About = () => {
                     style={getCardStyle(0, {
                         backgroundColor: 'var(--surface-color)',
                         backdropFilter: 'blur(12px)',
-                        padding: isMobile ? 'var(--space-6)' : 'var(--space-8)',
+                        padding: isMobile ? 'var(--space-4)' : 'var(--space-8)',
                         borderRadius: '24px',
                         display: 'flex',
                         flexDirection: 'column',
@@ -381,7 +382,7 @@ const About = () => {
                     style={getCardStyle(2, {
                         backgroundColor: 'var(--surface-color)',
                         backdropFilter: 'blur(12px)',
-                        padding: isMobile ? 'var(--space-6)' : 'var(--space-6)',
+                        padding: isMobile ? 'var(--space-4)' : 'var(--space-6)',
                         borderRadius: '24px',
                         border: '1.5px solid var(--border-inactive)',
                     })}
@@ -405,7 +406,7 @@ const About = () => {
                     style={getCardStyle(3, {
                         backgroundColor: 'var(--surface-color)',
                         backdropFilter: 'blur(12px)',
-                        padding: isMobile ? 'var(--space-6)' : 'var(--space-6)',
+                        padding: isMobile ? 'var(--space-4)' : 'var(--space-6)',
                         borderRadius: '24px',
                         border: '1.5px solid var(--border-inactive)',
                     })}
@@ -429,7 +430,7 @@ const About = () => {
                     style={getCardStyle(4, {
                         backgroundColor: 'var(--surface-color)',
                         backdropFilter: 'blur(12px)',
-                        padding: isMobile ? 'var(--space-6)' : 'var(--space-8)',
+                        padding: isMobile ? 'var(--space-4)' : 'var(--space-8)',
                         borderRadius: '24px',
                         display: 'flex',
                         flexDirection: 'column',
@@ -451,13 +452,14 @@ const About = () => {
                 <motion.div
                     ref={cardRefs[5]}
                     variants={itemVariants}
+                    whileHover={!isMobile ? "hover" : undefined}
                     whileInView={isMobile ? "mobileScroll" : undefined}
                     whileTap={{ scale: 0.98 }}
-                    className="bento-about-6 about-bento-card"
+                    className={`bento-about-6 about-bento-card ${isMobile && activeIndex === 5 ? 'is-active' : ''}`}
                     style={getCardStyle(5, {
                         backgroundColor: 'var(--surface-color)',
                         backdropFilter: 'blur(12px)',
-                        padding: 'var(--space-6)',
+                        padding: isMobile ? 'var(--space-4)' : 'var(--space-6)',
                         borderRadius: '24px',
                         display: 'flex',
                         flexDirection: 'column',
@@ -468,7 +470,7 @@ const About = () => {
                         overflow: 'hidden'
                     })}
                 >
-                    <InterestCardContent isMobile={isMobile} onOpenGallery={openLightbox} />
+                    <InterestCardContent isMobile={isMobile} onOpenGallery={openLightbox} isActive={activeIndex === 5} />
                 </motion.div>
 
                 {/* Block 7: Descargar CV */}

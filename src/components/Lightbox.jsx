@@ -184,18 +184,19 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                 }}>
                     <div style={{
                         color: 'rgba(255,255,255,0.9)',
-                        fontSize: '11px',
+                        fontSize: 'clamp(9px, 2.5vw, 11px)',
                         fontWeight: 700,
                         textTransform: 'uppercase',
                         letterSpacing: '0.15em',
                         background: 'rgba(0,0,0,0.4)',
-                        padding: '8px 24px',
+                        padding: 'clamp(6px, 2vw, 8px) clamp(16px, 4vw, 24px)',
                         borderRadius: '30px',
                         backdropFilter: 'blur(10px)',
                         display: 'flex',
                         alignItems: 'center',
                         gap: '8px',
-                        border: '1px solid rgba(255,255,255,0.1)'
+                        border: '1px solid rgba(255,255,255,0.1)',
+                        whiteSpace: 'nowrap'
                     }}>
                         Explorar Galería <span style={{ opacity: 0.5 }}>[{currentIndex + 1} / {imageList.length}]</span>
                     </div>

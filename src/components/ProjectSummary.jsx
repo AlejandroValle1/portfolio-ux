@@ -14,7 +14,7 @@ const ProjectSummary = ({ title, content, type = 'learning' }) => {
                     backgroundColor: isEpilogue ? 'rgba(255,255,255,0.02)' : 'var(--surface-color)',
                     backdropFilter: 'blur(20px)',
                     border: '1px solid var(--border-inactive)',
-                    padding: 'var(--space-12) var(--space-8)',
+                    padding: 'clamp(2rem, 6vw, var(--space-12)) clamp(1.5rem, 5vw, var(--space-8))',
                     borderRadius: '40px',
                     textAlign: isEpilogue ? 'left' : 'center',
                     boxShadow: '0 30px 60px rgba(0,0,0,0.05)',
@@ -49,7 +49,7 @@ const ProjectSummary = ({ title, content, type = 'learning' }) => {
                     className="project-chapter-text" 
                     style={{ 
                         fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', 
-                        maxWidth: isEpilogue ? 'none' : '900px', 
+                        maxWidth: isEpilogue ? 'none' : 'min(900px, 100%)', 
                         margin: isEpilogue ? '0' : '0 auto',
                         fontWeight: 500,
                         lineHeight: 1.6

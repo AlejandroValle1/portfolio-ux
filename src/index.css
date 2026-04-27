@@ -502,6 +502,12 @@ section {
   transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
+/* Interest tags inside Block 6 light up when the card itself is hovered */
+.bento-about-6:hover .interest-tag,
+.bento-about-6.is-active .interest-tag {
+  border-color: var(--accent-primary) !important;
+}
+
 .bento-about-cv {
   color: var(--text-color) !important;
   display: flex !important;
