@@ -44,7 +44,7 @@ const ProjectSection = ({
                             lineHeight: 1,
                             fontWeight: 900
                         }}>{icon}</span>
-                        <h3 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 700, fontFamily: 'Inter, sans-serif', letterSpacing: '-0.02em', lineHeight: 1.2, margin: 0 }}>
+                        <h3 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 700, fontFamily: 'Inter, sans-serif', letterSpacing: '-0.02em', lineHeight: 1.2, margin: 0, textWrap: 'balance' }}>
                             {title}
                         </h3>
                     </div>
