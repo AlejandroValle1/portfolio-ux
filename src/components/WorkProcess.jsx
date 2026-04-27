@@ -5,23 +5,23 @@ import { usePerformance } from '../context/PerformanceContext';
 const steps = [
     {
         title: "Empatizar",
-        subtitle: "Escuchar",
-        description: <>Más allá de lo evidente, buscando entender qué es lo que realmente le molesta al usuario. Utilizo <strong>entrevistas y análisis de la competencia</strong> para entender el contexto real.</>,
+        subtitle: "Investigar",
+        description: <>Analizo el contexto del problema a través de investigación de escritorio, benchmarking competitivo y análisis heurístico. Mi punto de partida es entender el problema real antes de pensar en soluciones.</>,
     },
     {
         title: "Definir",
-        subtitle: "Estructurar",
-        description: <>Organizo la información con <strong>sistemas de diseño consistentes</strong>. Creo estructuras que responden directamente a los <strong>problemas detectados</strong>.</>,
+        subtitle: "Sintetizar",
+        description: <>Traduzco lo que aprendí en un problema concreto: mapeo los flujos de usuario y la arquitectura de información que guían cada decisión de diseño.</>,
     },
     {
         title: "Idear",
-        subtitle: "Diseñar",
-        description: <>Soluciones visuales y funcionales que transforman los <strong>hallazgos de la investigación</strong> en <strong>pantallas claras y fáciles de navegar</strong>.</>,
+        subtitle: "Explorar",
+        description: <>De los bocetos iniciales al diseño de alta definición. Construyo sistemas visuales coherentes que transforman el problema en <strong>pantallas claras y fáciles de navegar</strong>.</>,
     },
     {
         title: "Iterar",
-        subtitle: "Probar",
-        description: <>Integro los <strong>comentarios de los usuarios</strong> para pulir el diseño. Uso herramientas de vanguardia para asegurar la mejora continua del producto.</>,
+        subtitle: "Refinar",
+        description: <>Valido el diseño con <strong>feedback de usuarios</strong> y ciclos de revisión asistidos con IA. Cada iteración busca mayor claridad, coherencia y funcionalidad.</>,
     }
 ];
 
