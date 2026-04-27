@@ -235,18 +235,19 @@ const ProjectSepara = () => {
                         <div style={{ flex: isMobile ? '1 1 100%' : '1 1 400px', fontSize: '1rem', lineHeight: 1.75 }}>
                             SE-PA-RÁ fue mi primer desafío integral de UX/UI. Nació de mi frustración al intentar reciclar en mi ciudad, demostrando cómo una correcta arquitectura de información puede transformar un <strong>problema ambiental complejo en una solución digital accesible</strong>.
                         </div>
-                        <motion.div
-                            whileHover={!isMobile ? { rotate: 1, scale: 1.03 } : {}}
-                            style={{
-                                flex: isMobile ? '1 1 100%' : '0 0 280px',
-                                padding: 'var(--space-2)',
-                                backgroundColor: 'white',
-                                transform: !isMobile ? 'rotate(-1.5deg)' : 'none',
-                                boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
-                                cursor: 'pointer',
-                                borderRadius: '4px',
-                                marginTop: isMobile ? 'var(--space-4)' : '0'
-                            }}
+                            <motion.div
+                                whileHover={!isMobile ? { rotate: 1, scale: 1.03 } : {}}
+                                style={{
+                                    flex: isMobile ? '0 1 100%' : '0 0 280px',
+                                    maxWidth: isMobile ? '240px' : '280px',
+                                    margin: isMobile ? 'var(--space-4) auto 0' : '0',
+                                    padding: 'var(--space-2)',
+                                    backgroundColor: 'white',
+                                    transform: !isMobile ? 'rotate(-1.5deg)' : 'none',
+                                    boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+                                    cursor: 'pointer',
+                                    borderRadius: '4px'
+                                }}
                             onClick={() => openLightbox("/Cerificado-Udemy.webp")}
                         >
                             <img src="/Cerificado-Udemy.webp" alt="Certificado Udemy" style={{ width: '100%', display: 'block' }} />

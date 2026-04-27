@@ -248,17 +248,19 @@ const ProjectTienda = () => {
                         }}>
                             Tienda Tecno fue desarrollado como proyecto final para el bootcamp intensivo <strong>Digitalers (Telecom)</strong>, donde fui becado. Fue un desafío clave para consolidar metodologías de investigación y diseño orientado a conversión (e-commerce).
                         </div>
-                        <motion.div
-                            whileHover={!isMobile ? { rotate: 1, scale: 1.03 } : {}}
-                            style={{
-                                flex: '0 0 320px',
-                                padding: 'var(--space-2)',
-                                backgroundColor: 'white',
-                                transform: !isMobile ? 'rotate(-1.5deg)' : 'none',
-                                boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
-                                cursor: 'pointer',
-                                borderRadius: '4px'
-                            }}
+                            <motion.div
+                                whileHover={!isMobile ? { rotate: 1, scale: 1.03 } : {}}
+                                style={{
+                                    flex: isMobile ? '0 1 100%' : '0 0 320px',
+                                    maxWidth: isMobile ? '240px' : '320px',
+                                    margin: isMobile ? 'var(--space-4) auto 0' : '0',
+                                    padding: 'var(--space-2)',
+                                    backgroundColor: 'white',
+                                    transform: !isMobile ? 'rotate(-1.5deg)' : 'none',
+                                    boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+                                    cursor: 'pointer',
+                                    borderRadius: '4px'
+                                }}
                             onClick={() => openLightbox("/Certificado-Asistencia-digitalers-2025_page-0001.webp")}
                         >
                             <img
