@@ -35,7 +35,7 @@ const ProjectSection = ({
                 <div>
                     <div style={{
                         display: 'flex',
-                        alignItems: 'baseline',
+                        alignItems: 'center',
                         gap: 'var(--space-2)'
                     }}>
                         <span style={{ 
