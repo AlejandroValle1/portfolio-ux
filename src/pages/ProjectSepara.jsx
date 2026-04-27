@@ -89,7 +89,7 @@ const ProjectSepara = () => {
             <ProjectSection
                 icon="○"
                 title="El punto de partida"
-                text="Mi idea inicial era que la falta de información impedía que la gente separara sus residuos. El programa municipal no estaba funcionando porque los vecinos no sabían cómo hacerlo. Mi objetivo fue transformar este problema en una oportunidad: usar el diseño para educar sobre el reciclaje y sus beneficios, ayudando a lograr una ciudad más limpia."
+                text="El proyecto surgió al identificar que la baja participación en el programa municipal de reciclaje no se debía a una falta de interés, sino a la dispersión y complejidad de la información disponible. El objetivo fue transformar esta fricción en una oportunidad: diseñar una solución digital que centralice los datos, simplifique el proceso educativo y motive la participación ciudadana para contribuir a una ciudad más sustentable."
             />
 
             {/* ════════════════════════════════
