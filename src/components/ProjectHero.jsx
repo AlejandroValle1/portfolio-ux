@@ -240,15 +240,15 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                     transition={{ delay: 0.3, duration: 0.7 }}
                     style={{
                         display: 'grid',
-                        gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
-                        gap: isMobile ? 'var(--space-4)' : 'var(--space-8)',
+                        gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(4, 1fr)',
+                        gap: isMobile ? '16px' : 'var(--space-8)',
                         borderTop: '1px solid var(--border-inactive)',
                         borderBottom: '1px solid var(--border-inactive)',
                         padding: 'var(--space-8) 0',
                         marginBottom: 'var(--space-12)',
-                        alignItems: 'start'
+                        alignItems: 'start',
+                        width: '100%'
                     }}
-                    className="project-hero-metadata"
                 >
                     {metadata.map((item, i) => {
                         const isTools = item.label.toLowerCase().includes('herramientas');
@@ -259,7 +259,8 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                 flexDirection: 'column', 
                                 gap: 'var(--space-2)',
                                 borderLeft: (i === 0 || (isMobile && i % 2 === 0)) ? 'none' : '1px solid var(--border-inactive)',
-                                paddingLeft: (i === 0 || (isMobile && i % 2 === 0)) ? 0 : 'var(--space-6)'
+                                paddingLeft: (i === 0 || (isMobile && i % 2 === 0)) ? 0 : 'var(--space-6)',
+                                minWidth: 0 // Evita que el contenido ensanche la columna
                             }}>
                                 <span style={{
                                     fontSize: '0.7rem',
