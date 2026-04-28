@@ -263,31 +263,43 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                 minWidth: 0 // Evita que el contenido ensanche la columna
                             }}>
                                 <span style={{
-                                    fontSize: '0.7rem',
+                                    fontSize: '0.65rem',
                                     textTransform: 'uppercase',
-                                    letterSpacing: '0.15em',
+                                    letterSpacing: '0.1em',
                                     color: 'var(--accent-primary)',
-                                    fontWeight: 800,
-                                    display: 'block'
+                                    fontWeight: 900, // Más presencia
+                                    display: 'block',
+                                    opacity: 0.9
                                 }}>
                                     {item.label}
                                 </span>
                                 
                                 {isTools && item.tools ? (
-                                    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginTop: '4px' }}>
+                                    <div style={{ 
+                                        display: 'flex', 
+                                        gap: isMobile ? '10px' : '16px', 
+                                        flexWrap: 'nowrap', // Forzamos una línea
+                                        marginTop: '4px' 
+                                    }}>
                                         {item.tools.map((tool, idx) => (
                                             <div key={idx} style={{ 
                                                 display: 'flex', 
                                                 flexDirection: 'column', 
                                                 alignItems: 'center', 
-                                                gap: '6px' 
+                                                gap: '4px' 
                                             }}>
                                                 {tool.icon && (
-                                                    <div style={{ width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                    <div style={{ 
+                                                        width: isMobile ? '18px' : '22px', 
+                                                        height: isMobile ? '18px' : '22px', 
+                                                        display: 'flex', 
+                                                        alignItems: 'center', 
+                                                        justifyContent: 'center' 
+                                                    }}>
                                                         <img src={tool.icon} alt={tool.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                                                     </div>
                                                 )}
-                                                <span style={{ fontSize: '0.65rem', fontWeight: 700, opacity: 0.8, textTransform: 'uppercase' }}>
+                                                <span style={{ fontSize: '0.6rem', fontWeight: 700, opacity: 0.8, textTransform: 'uppercase' }}>
                                                     {tool.name}
                                                 </span>
                                             </div>
@@ -295,10 +307,11 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                     </div>
                                 ) : (
                                     <span style={{ 
-                                        fontSize: 'clamp(1rem, 1.2vw, 1.15rem)', 
+                                        fontSize: isMobile ? '0.9rem' : 'clamp(1rem, 1.2vw, 1.15rem)', 
                                         fontWeight: 700,
                                         lineHeight: 1.2,
-                                        color: 'var(--text-color)'
+                                        color: 'var(--text-color)',
+                                        letterSpacing: '-0.01em'
                                     }}>
                                         {item.value}
                                     </span>
