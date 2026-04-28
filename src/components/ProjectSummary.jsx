@@ -3,9 +3,17 @@ import { motion } from 'framer-motion';
 
 const ProjectSummary = ({ title, content, type = 'learning' }) => {
     const isEpilogue = type === 'epilogue';
+    const [isMobile, setIsMobile] = React.useState(false);
+
+    React.useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 992);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     return (
-        <section className="container" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
+        <section className="container" style={{ paddingTop: isMobile ? '40px' : '80px', paddingBottom: isMobile ? '40px' : '80px' }}>
             <motion.div
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -15,8 +23,8 @@ const ProjectSummary = ({ title, content, type = 'learning' }) => {
                     backdropFilter: 'blur(20px)',
                     border: '1.5px solid var(--border-inactive)',
                     padding: 'clamp(2rem, 6vw, var(--space-12)) clamp(1.5rem, 5vw, var(--space-8))',
-                    borderRadius: '40px',
-                    textAlign: isEpilogue ? 'left' : 'center',
+                    borderRadius: isMobile ? '24px' : '40px',
+                    textAlign: (isEpilogue || isMobile) ? 'left' : 'center',
                     boxShadow: '0 10px 30px rgba(0, 0, 0, 0.05)',
                     position: 'relative',
                     overflow: 'hidden'
@@ -27,8 +35,8 @@ const ProjectSummary = ({ title, content, type = 'learning' }) => {
                     <div style={{
                         position: 'absolute',
                         top: 0,
-                        left: '50%',
-                        transform: 'translateX(-50%)',
+                        left: isMobile ? 'var(--space-8)' : '50%',
+                        transform: isMobile ? 'none' : 'translateX(-50%)',
                         width: '150px',
                         height: '4px',
                         backgroundColor: 'var(--accent-primary)',
@@ -37,10 +45,11 @@ const ProjectSummary = ({ title, content, type = 'learning' }) => {
                 )}
 
                 <h3 className="brutalist-title" style={{
-                    fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+                    fontSize: isMobile ? '1.8rem' : 'clamp(2rem, 5vw, 3.5rem)',
                     marginBottom: 'var(--space-6)',
                     color: isEpilogue ? 'var(--text-color)' : 'var(--accent-primary)',
-                    letterSpacing: '-0.02em'
+                    letterSpacing: '-0.02em',
+                    lineHeight: 1.1
                 }}>
                     {title}
                 </h3>
@@ -48,9 +57,9 @@ const ProjectSummary = ({ title, content, type = 'learning' }) => {
                 <div 
                     className="project-chapter-text" 
                     style={{ 
-                        fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', 
+                        fontSize: isMobile ? '1rem' : 'clamp(1.1rem, 2vw, 1.4rem)', 
                         maxWidth: isEpilogue ? 'none' : 'min(900px, 100%)', 
-                        margin: isEpilogue ? '0' : '0 auto',
+                        margin: (isEpilogue || isMobile) ? '0' : '0 auto',
                         fontWeight: 500,
                         lineHeight: 1.6
                     }}
