@@ -10,10 +10,10 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
     const { scrollY } = useScroll();
     const imageY = useTransform(scrollY, [0, 800], [0, 150]);
     const [hoveredIndex, setHoveredIndex] = React.useState(null);
-    const [isMobile, setIsMobile] = React.useState(typeof window !== 'undefined' && window.innerWidth <= 768);
+    const [isMobile, setIsMobile] = React.useState(typeof window !== 'undefined' && window.innerWidth <= 1024);
 
     React.useEffect(() => {
-        const handleResize = () => setIsMobile(window.innerWidth <= 768);
+        const handleResize = () => setIsMobile(window.innerWidth <= 1024);
         handleResize();
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
@@ -241,7 +241,8 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                     style={{
                         display: 'grid',
                         gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(4, 1fr)',
-                        gap: isMobile ? '16px' : 'var(--space-8)',
+                        rowGap: isMobile ? 'var(--space-10)' : 'var(--space-8)', // Más espacio entre filas
+                        columnGap: isMobile ? '16px' : 'var(--space-8)',
                         borderTop: '1px solid var(--border-inactive)',
                         borderBottom: '1px solid var(--border-inactive)',
                         padding: 'var(--space-8) 0',
@@ -277,9 +278,10 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                 {isTools && item.tools ? (
                                     <div style={{ 
                                         display: 'flex', 
-                                        gap: isMobile ? '10px' : '16px', 
-                                        flexWrap: 'nowrap', // Forzamos una línea
-                                        marginTop: '4px' 
+                                        gap: isMobile ? '8px' : '16px', // Menos espacio para que entren
+                                        flexWrap: 'nowrap',
+                                        marginTop: '4px',
+                                        width: '100%'
                                     }}>
                                         {item.tools.map((tool, idx) => (
                                             <div key={idx} style={{ 
@@ -290,8 +292,8 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                             }}>
                                                 {tool.icon && (
                                                     <div style={{ 
-                                                        width: isMobile ? '18px' : '22px', 
-                                                        height: isMobile ? '18px' : '22px', 
+                                                        width: isMobile ? '16px' : '22px', 
+                                                        height: isMobile ? '16px' : '22px', 
                                                         display: 'flex', 
                                                         alignItems: 'center', 
                                                         justifyContent: 'center' 
@@ -299,7 +301,7 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                                         <img src={tool.icon} alt={tool.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                                                     </div>
                                                 )}
-                                                <span style={{ fontSize: '0.6rem', fontWeight: 700, opacity: 0.8, textTransform: 'uppercase' }}>
+                                                <span style={{ fontSize: isMobile ? '0.55rem' : '0.65rem', fontWeight: 700, opacity: 0.8, textTransform: 'uppercase' }}>
                                                     {tool.name}
                                                 </span>
                                             </div>
