@@ -19,7 +19,7 @@ const Hero = () => {
     return (
         <section style={{
             minHeight: isMobile ? 'auto' : '100vh',
-            paddingTop: isMobile ? '90px' : '160px', 
+            paddingTop: isMobile ? '60px' : '160px', 
             paddingBottom: isMobile ? 'var(--space-12)' : 'var(--space-12)',
             position: 'relative',
             overflow: 'hidden',
