@@ -35,8 +35,8 @@ const ProjectSummary = ({ title, content, type = 'learning' }) => {
                     <div style={{
                         position: 'absolute',
                         top: 0,
-                        left: isMobile ? 'var(--space-8)' : '50%',
-                        transform: isMobile ? 'none' : 'translateX(-50%)',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
                         width: '150px',
                         height: '4px',
                         backgroundColor: 'var(--accent-primary)',
