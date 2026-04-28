@@ -107,7 +107,11 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                         </div>
 
                         {figmaLink && (
-                            <div style={{ marginTop: 'var(--space-2)' }}>
+                            <div style={{ 
+                                marginTop: 'var(--space-2)',
+                                display: isMobile ? 'flex' : 'block',
+                                justifyContent: isMobile ? 'center' : 'flex-start' 
+                            }}>
                                 <motion.a
                                     href={figmaLink}
                                     target="_blank"
