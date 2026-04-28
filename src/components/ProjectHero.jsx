@@ -35,13 +35,22 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                 backgroundImage: 'var(--hero-gradient-muted)',
                 backgroundSize: 'cover',
                 zIndex: 0,
-                // Máscara para que el sol se esfume antes de los metadatos
-                WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
-                maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)'
+                // Máscara más agresiva en móvil para despejar el texto
+                WebkitMaskImage: isMobile 
+                    ? 'linear-gradient(to bottom, black 40%, transparent 90%)' 
+                    : 'linear-gradient(to bottom, black 60%, transparent 100%)',
+                maskImage: isMobile 
+                    ? 'linear-gradient(to bottom, black 40%, transparent 90%)' 
+                    : 'linear-gradient(to bottom, black 60%, transparent 100%)'
             }} />
 
             {/* Content Wrapper */}
-            <div className="container" style={{ position: 'relative', zIndex: 1, paddingTop: '140px' }}>
+            <div className="container" style={{ 
+                position: 'relative', 
+                zIndex: 1, 
+                paddingTop: isMobile ? '160px' : '140px', // Más aire en móvil
+                paddingBottom: 'var(--space-8)'
+            }}>
                 {/* Top Section: Rebalanced Editorial Grid */}
                 <div style={{
                     display: 'grid',
@@ -76,7 +85,9 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                 lineHeight: 0.9,
                                 color: 'var(--accent-primary)',
                                 marginBottom: 'var(--space-4)',
-                                textShadow: '0 2px 10px rgba(0,0,0,0.08)'
+                                textShadow: isMobile 
+                                    ? '0 4px 25px rgba(0,0,0,0.15)' // Sombra más fuerte en móvil para contraste
+                                    : '0 2px 10px rgba(0,0,0,0.08)'
                             }}>
                                 {title}
                             </h1>
@@ -224,8 +235,8 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                     transition={{ delay: 0.3, duration: 0.7 }}
                     style={{
                         display: 'grid',
-                        gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
-                        gap: isMobile ? 'var(--space-6)' : 'var(--space-8)',
+                        gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)',
+                        gap: isMobile ? 'var(--space-8)' : 'var(--space-8)',
                         borderTop: '1px solid var(--border-inactive)',
                         borderBottom: '1px solid var(--border-inactive)',
                         padding: 'var(--space-8) 0',
@@ -242,8 +253,8 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                 display: 'flex', 
                                 flexDirection: 'column', 
                                 gap: 'var(--space-2)',
-                                borderLeft: i === 0 || (isMobile && i % 2 === 0) ? 'none' : '1px solid var(--border-inactive)',
-                                paddingLeft: i === 0 || (isMobile && i % 2 === 0) ? 0 : 'var(--space-6)'
+                                borderLeft: isMobile || i === 0 ? 'none' : '1px solid var(--border-inactive)',
+                                paddingLeft: isMobile || i === 0 ? 0 : 'var(--space-6)'
                             }}>
                                 <span style={{
                                     fontSize: '0.7rem',

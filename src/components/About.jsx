@@ -87,7 +87,12 @@ const InterestCardContent = ({ isMobile, onOpenGallery, isActive }) => {
                     <p style={{ fontSize: '1rem', marginBottom: 'var(--space-4)', opacity: 0.8, lineHeight: 1.5 }}>
                         Tocá las etiquetas para conocer un poco más sobre mis intereses personales.
                     </p>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                    <div style={{ 
+                        display: 'grid', 
+                        gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(auto-fill, minmax(140px, 1fr))',
+                        gap: isMobile ? '12px' : '10px',
+                        width: '100%'
+                    }}>
                         {interests.map((item) => (
                             <motion.button 
                                 key={item.id} 
@@ -104,16 +109,17 @@ const InterestCardContent = ({ isMobile, onOpenGallery, isActive }) => {
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     gap: '8px',
-                                    padding: '8px 20px', 
+                                    padding: isMobile ? '10px 12px' : '8px 20px', 
                                     borderRadius: '50px', 
                                     border: '1.5px solid var(--border-inactive)', 
-                                    fontSize: '0.85rem', 
+                                    fontSize: isMobile ? '0.75rem' : '0.85rem', 
                                     fontWeight: 700,
                                     background: 'rgba(255,255,255,0.05)',
                                     color: 'var(--text-color)',
                                     cursor: 'pointer',
                                     transition: 'all 0.3s ease',
-                                    fontFamily: 'Inter, sans-serif'
+                                    fontFamily: 'Inter, sans-serif',
+                                    width: '100%'
                                 }}
                             >
                                 {(() => {

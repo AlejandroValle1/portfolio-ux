@@ -211,7 +211,7 @@ const Projects = () => {
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: isMobile ? 'var(--space-6)' : 'var(--space-12)'
+                gap: isMobile ? 'var(--space-12)' : 'var(--space-12)' // Más espacio en móvil para evitar pisado
             }}>
                 {projectsSummary.map((project, index) => (
                     <Link
@@ -340,15 +340,16 @@ const Projects = () => {
                                             justifyContent: 'center',
                                             gap: '10px',
                                             width: '100%',
-                                            padding: '14px 20px',
+                                            padding: '14px 16px',
                                             borderRadius: '12px',
                                             border: '2px solid var(--accent-primary)',
                                             color: 'var(--text-color)',
-                                            fontSize: '0.9rem',
+                                            fontSize: '0.85rem',
                                             fontWeight: 800,
                                             background: 'transparent',
                                             textTransform: 'uppercase',
-                                            letterSpacing: '0.08em',
+                                            letterSpacing: '0.05em',
+                                            whiteSpace: 'nowrap' // Evita palabras huérfanas
                                         } : {
                                             display: 'inline-flex',
                                             alignItems: 'center',
