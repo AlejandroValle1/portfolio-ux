@@ -19,7 +19,7 @@ const Hero = () => {
     return (
         <section style={{
             minHeight: isMobile ? 'auto' : '100vh',
-            paddingTop: isMobile ? '130px' : '160px', 
+            paddingTop: isMobile ? '90px' : '160px', 
             paddingBottom: isMobile ? 'var(--space-12)' : 'var(--space-12)',
             position: 'relative',
             overflow: 'hidden',
@@ -36,7 +36,7 @@ const Hero = () => {
                     className="brutalist-title"
                     style={{
                         fontSize: 'clamp(2.5rem, 10vw, 7.5rem)', 
-                        marginBottom: isMobile ? 'var(--space-2)' : 'var(--space-3)', 
+                        marginBottom: isMobile ? 'var(--space-4)' : 'var(--space-3)', 
                         lineHeight: 1, 
                         letterSpacing: '-0.04em'
                     }}
@@ -52,9 +52,9 @@ const Hero = () => {
                     style={{
                         fontSize: isMobile ? '1rem' : 'clamp(1rem, 1.6vw, 1.3rem)', 
                         maxWidth: '700px', 
-                        marginBottom: isMobile ? 'var(--space-6)' : 'var(--space-6)',
+                        marginBottom: isMobile ? 'var(--space-12)' : 'var(--space-6)',
                         opacity: 0.9,
-                        lineHeight: 1.5,
+                        lineHeight: 1.6,
                         fontWeight: 400
                     }}
                 >

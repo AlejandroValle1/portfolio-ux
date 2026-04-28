@@ -16,10 +16,12 @@
   --skill-hover: #FF5C28;
   --cursor-color: #05101A;
   --accent-glow: rgba(255, 92, 40, 0.2);
+  --sun-size: 10%; /* Tamaño por defecto para desktop */
+  --sun-core: 25%;
 
   /* Gradiente: Sol radiante arriba der. + resplandor de horizonte abajo izq. */
   --main-gradient:
-    radial-gradient(circle at 94% 20px, #FFF5E6 0%, #FFB347 10%, rgba(255, 92, 40, 0.75) 25%, rgba(195, 235, 255, 0) 50%),
+    radial-gradient(circle at 94% 20px, #FFF5E6 0%, #FFB347 var(--sun-size), rgba(255, 92, 40, 0.75) var(--sun-core), rgba(195, 235, 255, 0) 50%),
     radial-gradient(circle at 10% 90%, rgba(255, 255, 255, 0.3) 0%, rgba(195, 235, 255, 0) 50%);
   
   --hero-gradient-muted: 
@@ -68,10 +70,21 @@
   --scrollbar-thumb: #4DAFFF;
   --scrollbar-track: rgba(255, 255, 255, 0.03);
   --accent-glow: rgba(77, 175, 255, 0.15);
+  --moon-size: 5%;
+  --moon-core: 30%;
   /* Gradiente: Estructura exacta de la luna anterior pero en azul eléctrico */
-  --main-gradient: radial-gradient(circle at 88% 40px, #4DAFFF 0%, #3080A0 5%, #0D1930 30%, #080E17 80%);
+  --main-gradient: radial-gradient(circle at 88% 40px, #4DAFFF 0%, #3080A0 var(--moon-size), #0D1930 var(--moon-core), #080E17 80%);
   --hero-gradient-muted: radial-gradient(circle at 88% 40px, rgba(77, 175, 255, 0.4) 0%, rgba(48, 128, 160, 0.3) 15%, #0D1930 50%, #080E17 100%);
   --nav-mobile-bg: #040810;
+}
+
+@media (max-width: 991px) {
+  :root {
+    --sun-size: 5%;   /* Achicamos el sol en móvil */
+    --sun-core: 15%;
+    --moon-size: 2%;  /* Achicamos la luna en móvil */
+    --moon-core: 20%;
+  }
 }
 
 
