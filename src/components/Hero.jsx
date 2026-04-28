@@ -76,7 +76,7 @@ const Hero = () => {
                         }
                     }}
                     style={{
-                        marginLeft: isMobile ? '0' : '42%',
+                        margin: isMobile ? '0 auto' : '0 0 0 42%', 
                         width: 'fit-content',
                         zIndex: 10
                     }}

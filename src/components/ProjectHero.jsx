@@ -72,7 +72,7 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                 fontSize: '0.8rem',
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.3em',
-                                opacity: 0.85,
+                                opacity: 1, // Opacidad máxima para contraste
                                 display: 'block',
                                 marginBottom: 'var(--space-3)',
                                 fontWeight: 700
@@ -173,7 +173,7 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                             fontWeight: 900,
                             marginBottom: 'var(--space-4)',
                             color: 'var(--text-color)',
-                            opacity: 0.8
+                            opacity: 0.9
                         }}>
                             Índice
                         </span>
@@ -205,7 +205,7 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                         fontSize: '0.75rem', 
                                         fontWeight: 900, 
                                         color: 'var(--text-color)', 
-                                        opacity: isHovered ? 1 : 0.4,
+                                        opacity: isHovered ? 1 : 0.7,
                                         fontFamily: 'var(--font-heading)',
                                         width: '24px',
                                         transition: 'opacity 0.3s ease'
