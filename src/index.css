@@ -1117,6 +1117,10 @@ section {
     text-transform: uppercase;
 }
 
+.project-stats-value {
+    margin-top: 4px;
+}
+
 @media (max-width: 1024px) {
     .project-stats-grid {
         grid-template-columns: 1fr 1fr !important;
@@ -1150,6 +1154,8 @@ section {
         font-size: 10px !important;
         letter-spacing: 0 !important;
         opacity: 0.9 !important;
+    .project-stats-value {
+        margin-top: 8px !important; /* El empujoncito para alinear con iconos */
     }
 }
 

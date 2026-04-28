@@ -278,7 +278,7 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                         ))}
                                     </div>
                                 ) : (
-                                    <span style={{ 
+                                    <span className="project-stats-value" style={{ 
                                         fontSize: isMobile ? '0.9rem' : 'clamp(1rem, 1.2vw, 1.15rem)', 
                                         fontWeight: 700,
                                         lineHeight: 1.2,
