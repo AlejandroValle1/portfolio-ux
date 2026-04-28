@@ -13,11 +13,11 @@ const ProjectSummary = ({ title, content, type = 'learning' }) => {
                 style={{
                     backgroundColor: isEpilogue ? 'rgba(255,255,255,0.02)' : 'var(--surface-color)',
                     backdropFilter: 'blur(20px)',
-                    border: '1px solid var(--border-inactive)',
+                    border: '1.5px solid var(--border-inactive)',
                     padding: 'clamp(2rem, 6vw, var(--space-12)) clamp(1.5rem, 5vw, var(--space-8))',
                     borderRadius: '40px',
                     textAlign: isEpilogue ? 'left' : 'center',
-                    boxShadow: '0 30px 60px rgba(0,0,0,0.05)',
+                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.05)',
                     position: 'relative',
                     overflow: 'hidden'
                 }}

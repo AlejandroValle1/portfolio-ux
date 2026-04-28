@@ -95,23 +95,43 @@ const InterestCardContent = ({ isMobile, onOpenGallery, isActive }) => {
                                 onClick={() => setActiveTab(item.id)}
                                 whileHover={{ 
                                     scale: 1.05, 
-                                    backgroundColor: 'rgba(255,255,255,0.1)'
+                                    backgroundColor: 'var(--accent-glow)', // Adaptable al tema (Naranja en Día, Azul en Noche)
+                                    borderColor: 'var(--accent-primary)' 
                                 }}
                                 whileTap={{ scale: 0.95 }}
-                                style={{ 
-                                    padding: '8px 16px', 
+                                style={{
+                                    display: 'flex', 
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    gap: '8px',
+                                    padding: '8px 20px', 
                                     borderRadius: '50px', 
-                                    border: '1px solid var(--border-inactive)', 
+                                    border: '1.5px solid var(--border-inactive)', 
                                     fontSize: '0.85rem', 
                                     fontWeight: 700,
                                     background: 'rgba(255,255,255,0.05)',
                                     color: 'var(--text-color)',
                                     cursor: 'pointer',
-                                    transition: 'all 0.2s ease',
+                                    transition: 'all 0.3s ease',
                                     fontFamily: 'Inter, sans-serif'
                                 }}
                             >
-                                {item.label}
+                                {(() => {
+                                    const [emoji, ...textParts] = item.label.split(' ');
+                                    return (
+                                        <>
+                                            <span style={{ 
+                                                fontSize: '1.1rem', 
+                                                display: 'inline-flex', 
+                                                alignItems: 'center',
+                                                transform: 'translateY(-1px)' // Micro-ajuste para nivelar
+                                            }}>
+                                                {emoji}
+                                            </span>
+                                            <span>{textParts.join(' ')}</span>
+                                        </>
+                                    );
+                                })()}
                             </motion.button>
                         ))}
                     </div>

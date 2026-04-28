@@ -1,25 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap');
 
 :root {
-  /* Day/Sun Mode - Vibrant & Clear */
+  /* Day/Sun Mode - Radiant & Sky Blue */
   --bg-color: #A9DEF9;
-  /* Cielo despejado */
-  --text-color: #0A141F;
-  /* Azul profundo para lectura */
-  --surface-color: rgba(255, 255, 255, 0.4); /* Volviendo a la transparencia elegante */
-  --accent-primary: #D14D23; /* Terracota: garantiza contraste accesible 4.6:1 en Light Mode */
-  --accent-secondary: #FFD166;
-  /* Amarillo sol */
-  --accent-detail: #2B4162;
-  --hover-color: #FFD166;
-  --skill-hover: #D14D23;
-  --cursor-color: #0A141F; 
-  --accent-glow: rgba(209, 77, 35, 0.18);
+  /* Celeste vibrante - Cielo despejado */
+  --text-color: #05101A;
+  /* Contraste máximo para lectura */
+  --surface-color: rgba(255, 255, 255, 0.85);
+  --accent-primary: #FF5C28;
+  /* Naranja vibrante - Sol de mediodía */
+  --accent-secondary: #FFB347;
+  /* Amarillo sol intenso */
+  --accent-detail: #1A3350;
+  --hover-color: #FF5C28;
+  --skill-hover: #FF5C28;
+  --cursor-color: #05101A;
+  --accent-glow: rgba(255, 92, 40, 0.2);
 
-  /* Composición de dos gradientes: Sol (sup. der.) y Anochecer sutil (inf. izq.) */
+  /* Gradiente: Sol radiante arriba der. + resplandor de horizonte abajo izq. */
   --main-gradient:
-    radial-gradient(circle at 88% 40px, #FFB347 0%, #FF9E5E 5%, rgba(169, 222, 249, 0) 35%),
-    radial-gradient(circle at 10% 90%, rgba(75, 93, 139, 0.25) 0%, rgba(169, 222, 249, 0) 50%);
+    radial-gradient(circle at 94% 20px, #FFF5E6 0%, #FFB347 10%, rgba(255, 92, 40, 0.75) 25%, rgba(195, 235, 255, 0) 50%),
+    radial-gradient(circle at 10% 90%, rgba(255, 255, 255, 0.3) 0%, rgba(195, 235, 255, 0) 50%);
+  
+  --hero-gradient-muted: 
+    radial-gradient(circle at 94% 20px, #FFF5E6 0%, #FFD59A 12%, rgba(255, 92, 40, 0.55) 30%, rgba(195, 235, 255, 0) 60%),
+    radial-gradient(circle at 10% 90%, rgba(255, 255, 255, 0.2) 0%, rgba(195, 235, 255, 0) 50%);
   /* El celeste de base cubre el resto a traves de var(--bg-color) */
 
   /* 8px Grid System Variables */
@@ -43,31 +48,32 @@
   --nav-mobile-bg: #80C8F2; /* Darker than bg-color for contrast in Light Mode */
 }
 
-[data-theme="dark"] {
-  /* Night/Moon Mode - Deep & Mystical */
-  --bg-color: #0B1118;
-  /* Negro noche */
-  --text-color: #F0F4F8;
-  /* Plateado lunar */
-  --surface-color: rgba(26, 42, 64, 0.4);
-  --accent-primary: #D69E7C;
-  /* Brillo del horizonte */
-  --accent-secondary: #FF6F91;
-  /* Luz magenta tenue */
-  --cv-glow: white;
+[data-theme='dark'] {
+  /* Night Mode — Noche de verano tucumana */
+  --bg-color: #080E17;
+  /* Azul medianoche profundo */
+  --text-color: #E8F1FA;
+  /* Blanco estrellado */
+  --surface-color: rgba(13, 25, 48, 0.7);
+  --accent-primary: #4DAFFF;
+  /* Azul eléctrico — constelación boreal */
+  --accent-secondary: #A78BFA;
+  /* Violeta nebulosa */
+  --cv-glow: #4DAFFF;
   --skill-hover: var(--hover-color);
-  /* En modo oscuro el arena tiene buen contraste */
-  --accent-detail: #1A2A40;
-  --hover-color: #D69E7C;
-  --cursor-color: #F0F4F8;
-  --border-inactive: rgba(240, 244, 248, 0.1);
-  --scrollbar-thumb: #D1D5DB; /* Gris claro/plateado sólido para máximo contraste en dark mode */
-  --scrollbar-track: rgba(255, 255, 255, 0.05);
-  --accent-glow: rgba(214, 158, 124, 0.18);
-  /* Gradiente Radial que simula la Luna centrada con el icono en el header */
-  --main-gradient: radial-gradient(circle at 88% 40px, #F0F4F8 0%, #BCC6D1 5%, #1A2A40 30%, #0B1118 80%);
-  --nav-mobile-bg: #070B10; /* Extra dark for contrast in mobile menu */
+  --accent-detail: #0D1930;
+  --hover-color: #4DAFFF;
+  --cursor-color: #E8F1FA;
+  --border-inactive: rgba(77, 175, 255, 0.12);
+  --scrollbar-thumb: #4DAFFF;
+  --scrollbar-track: rgba(255, 255, 255, 0.03);
+  --accent-glow: rgba(77, 175, 255, 0.15);
+  /* Gradiente: Estructura exacta de la luna anterior pero en azul eléctrico */
+  --main-gradient: radial-gradient(circle at 88% 40px, #4DAFFF 0%, #3080A0 5%, #0D1930 30%, #080E17 80%);
+  --hero-gradient-muted: radial-gradient(circle at 88% 40px, rgba(77, 175, 255, 0.4) 0%, rgba(48, 128, 160, 0.3) 15%, #0D1930 50%, #080E17 100%);
+  --nav-mobile-bg: #040810;
 }
+
 
 * {
   box-sizing: border-box;
@@ -84,9 +90,6 @@
 body {
   font-family: 'Inter', sans-serif;
   background-color: var(--bg-color);
-  background-image: var(--main-gradient);
-  background-attachment: fixed;
-  /* Gradiente estático para mayor profundidad */
   color: var(--text-color);
   transition: all 0.3s ease;
   overflow-x: hidden;
@@ -502,10 +505,10 @@ section {
   transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
-/* Interest tags inside Block 6 light up when the card itself is hovered */
+/* Las etiquetas se manejan internamente en el componente para evitar conflictos de tema */
 .bento-about-6:hover .interest-tag,
 .bento-about-6.is-active .interest-tag {
-  border-color: var(--accent-primary) !important;
+  /* Eliminamos el !important que forzaba el naranja */
 }
 
 .bento-about-cv {

@@ -77,7 +77,8 @@ const ProjectSection = ({
                         width: '100%',
                         borderRadius: '24px',
                         overflow: 'hidden',
-                        border: '1px solid var(--border-inactive)',
+                        border: '1.5px solid var(--border-inactive)',
+                        boxShadow: '0 8px 24px rgba(0, 0, 0, 0.05)',
                         cursor: onImageClick ? 'pointer' : 'default',
                         marginTop: 'var(--space-12)',
                         ...imageStyle

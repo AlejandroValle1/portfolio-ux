@@ -10,15 +10,15 @@ const Hero = () => {
     return (
         <section style={{
             minHeight: '100vh',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'flex-start',
-            paddingTop: '160px', // Reducido de 240px para subir todo el bloque
+            paddingTop: '160px',
             paddingBottom: 'var(--space-12)',
             position: 'relative',
             overflow: 'hidden',
+            backgroundImage: 'var(--main-gradient)',
+            backgroundSize: 'cover',
             color: 'var(--text-color)'
-        }} className="container hero-container">
+        }}>
+            <div className="container hero-container" style={{ position: 'relative', zIndex: 2 }}>
 
             <motion.h1
                 initial={{ opacity: 0, y: 30 }}
@@ -80,7 +80,7 @@ const Hero = () => {
                     style={{
                         padding: '1.2rem 3.5rem',
                         fontSize: '1rem',
-                        backgroundColor: 'transparent',
+                        backgroundColor: 'rgba(255, 255, 255, 0.03)',
                         color: 'var(--text-color)',
                         border: '1.5px solid var(--accent-primary)',
                         display: 'inline-flex',
@@ -110,6 +110,20 @@ const Hero = () => {
                     </motion.span>
                 </motion.button>
             </motion.div>
+
+            </div>
+
+            {/* Gradiente de transición al fondo sólido - Ahora detrás del contenido */}
+            <div style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: '150px',
+                background: 'linear-gradient(to bottom, transparent, var(--bg-color))',
+                pointerEvents: 'none',
+                zIndex: 0
+            }} />
         </section>
     );
 };

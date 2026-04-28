@@ -10,6 +10,13 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
     const { scrollY } = useScroll();
     const imageY = useTransform(scrollY, [0, 800], [0, 150]);
     const [hoveredIndex, setHoveredIndex] = React.useState(null);
+    const [isMobile, setIsMobile] = React.useState(typeof window !== 'undefined' && window.innerWidth < 992);
+
+    React.useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 992);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const scrollToSection = (id) => {
         const el = document.getElementById(id);
@@ -17,87 +24,119 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
     };
 
     return (
-        <header style={{ paddingTop: '140px', paddingBottom: 0 }}>
-            <div className="container">
+        <div style={{ position: 'relative', backgroundColor: 'var(--bg-color)' }}>
+            {/* Atmosphere Layer: Only for Title & Index */}
+            <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: isMobile ? '700px' : '550px',
+                backgroundImage: 'var(--hero-gradient-muted)',
+                backgroundSize: 'cover',
+                zIndex: 0,
+                // Máscara para que el sol se esfume antes de los metadatos
+                WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+                maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)'
+            }} />
 
-                {/* Top Section: Title Area (Left) + Index (Right) */}
+            {/* Content Wrapper */}
+            <div className="container" style={{ position: 'relative', zIndex: 1, paddingTop: '140px' }}>
+                {/* Top Section: Rebalanced Editorial Grid */}
                 <div style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    justifyContent: 'space-between',
+                    display: 'grid',
+                    gridTemplateColumns: isMobile ? '1fr' : '1.6fr 1fr',
                     alignItems: 'flex-start',
-                    gap: 'var(--space-8)',
-                    marginBottom: 'var(--space-8)'
+                    gap: isMobile ? 'var(--space-8)' : 'clamp(var(--space-12), 8vw, var(--space-24))',
+                    marginBottom: 'var(--space-12)'
                 }}>
-                    {/* Left: label + title + tagline */}
+                    {/* Left: Content Area */}
                     <motion.div
                         initial={{ opacity: 0, y: 24 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.7 }}
-                        style={{ flex: '1 1 500px', maxWidth: '100%' }}
+                        style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}
                     >
-                        <span style={{
-                            fontFamily: 'monospace',
-                            fontSize: '0.8rem',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.3em',
-                            opacity: 0.85,
-                            display: 'block',
-                            marginBottom: 'var(--space-3)',
-                            fontWeight: 700
-                        }}>
-                            Caso de Estudio
-                        </span>
+                        <div>
+                            <span style={{
+                                fontFamily: 'monospace',
+                                fontSize: '0.8rem',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.3em',
+                                opacity: 0.85,
+                                display: 'block',
+                                marginBottom: 'var(--space-3)',
+                                fontWeight: 700
+                            }}>
+                                Caso de Estudio
+                            </span>
 
-                        <h1 className="brutalist-title" style={{
-                            fontSize: 'clamp(3.5rem, 9vw, 7rem)',
-                            lineHeight: 0.9,
-                            color: 'var(--accent-primary)',
-                            marginBottom: 'var(--space-6)'
-                        }}>
-                            {title}
-                        </h1>
+                            <h1 className="brutalist-title" style={{
+                                fontSize: 'clamp(3.5rem, 9vw, 6.5rem)',
+                                lineHeight: 0.9,
+                                color: 'var(--accent-primary)',
+                                marginBottom: 'var(--space-4)',
+                                textShadow: '0 2px 10px rgba(0,0,0,0.08)'
+                            }}>
+                                {title}
+                            </h1>
+
+                            {tagline && (
+                                <p style={{
+                                    fontSize: 'clamp(1.1rem, 2vw, 1.35rem)',
+                                    lineHeight: 1.5,
+                                    opacity: 0.9,
+                                    maxWidth: '60ch',
+                                    fontWeight: 500,
+                                    margin: 0
+                                }}>
+                                    {tagline}
+                                </p>
+                            )}
+                        </div>
 
                         {figmaLink && (
-                            <motion.a
-                                href={figmaLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn-elegant"
-                                initial="initial"
-                                whileHover="hover"
-                                style={{
-                                    display: 'inline-flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    gap: '10px',
-                                    padding: '14px 32px',
-                                    borderRadius: '50px',
-                                    border: '1.5px solid var(--accent-primary)',
-                                    color: 'var(--text-color)',
-                                    textDecoration: 'none',
-                                    fontSize: '0.9rem',
-                                    fontWeight: 800,
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '0.08em'
-                                }}
-                            >
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                    <path fill="currentColor" d="M8.667 9.417a2.583 2.583 0 1 0 0 5.166h2.583V9.417zm2.583-1.5H8.667a2.583 2.583 0 0 1 0-5.167h2.583zm1.5-5.167v5.167h2.583a2.584 2.584 0 0 0 0-5.167zm2.583 6.666a2.583 2.583 0 0 0-2.583 2.542v.083a2.583 2.583 0 1 0 2.583-2.625m-6.666 6.667a2.584 2.584 0 1 0 2.583 2.584v-2.584z" />
-                                </svg>
-                                Ver Prototipo
-                                <motion.span 
-                                    variants={{ initial: { x: 0, y: 0 }, hover: { x: 3, y: -3 } }} 
-                                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                                    style={{ display: 'inline-block', fontWeight: 900 }}
+                            <div style={{ marginTop: 'var(--space-2)' }}>
+                                <motion.a
+                                    href={figmaLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="btn-elegant"
+                                    initial="initial"
+                                    whileHover="hover"
+                                    style={{
+                                        display: 'inline-flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        gap: '12px',
+                                        padding: '16px 36px',
+                                        borderRadius: '50px',
+                                        border: '1.5px solid var(--accent-primary)',
+                                        color: 'var(--text-color)',
+                                        textDecoration: 'none',
+                                        fontSize: '0.9rem',
+                                        fontWeight: 800,
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.08em'
+                                    }}
                                 >
-                                    ↗
-                                </motion.span>
-                            </motion.a>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                        <path fill="currentColor" d="M8.667 9.417a2.583 2.583 0 1 0 0 5.166h2.583V9.417zm2.583-1.5H8.667a2.583 2.583 0 0 1 0-5.167h2.583zm1.5-5.167v5.167h2.583a2.584 2.584 0 0 0 0-5.167zm2.583 6.666a2.583 2.583 0 0 0-2.583 2.542v.083a2.583 2.583 0 1 0 2.583-2.625m-6.666 6.667a2.584 2.584 0 1 0 2.583 2.584v-2.584z" />
+                                    </svg>
+                                    Ver Prototipo
+                                    <motion.span 
+                                        variants={{ initial: { x: 0, y: 0 }, hover: { x: 3, y: -3 } }} 
+                                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                        style={{ display: 'inline-block', fontWeight: 900 }}
+                                    >
+                                        ↗
+                                    </motion.span>
+                                </motion.a>
+                            </div>
                         )}
                     </motion.div>
 
-                    {/* Right: Editorial Index */}
+                    {/* Right: Editorial Index — Now more balanced */}
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -105,21 +144,25 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                         style={{
                             display: 'flex',
                             flexDirection: 'column',
-                            gap: 'var(--space-2)',
-                            minWidth: '220px',
-                            borderLeft: '2px solid var(--accent-primary)',
-                            paddingLeft: 'var(--space-4)',
+                            gap: 'var(--space-1)',
+                            minWidth: isMobile ? '100%' : '260px',
+                            borderLeft: '4px solid var(--accent-primary)',
+                            padding: 'var(--space-6) var(--space-8)',
                             flex: '0 0 auto',
-                            marginTop: 'var(--space-4)'
+                            backgroundColor: 'rgba(255, 255, 255, 0.12)',
+                            backdropFilter: 'blur(8px)',
+                            borderRadius: '16px',
+                            alignSelf: isMobile ? 'stretch' : 'center',
                         }}
                     >
                         <span style={{ 
-                            fontSize: '0.7rem', 
+                            fontSize: '0.75rem', 
                             textTransform: 'uppercase', 
-                            letterSpacing: '0.15em', 
-                            fontWeight: 800,
-                            marginBottom: 'var(--space-2)',
-                            opacity: 0.85
+                            letterSpacing: '0.25em', 
+                            fontWeight: 900,
+                            marginBottom: 'var(--space-4)',
+                            color: 'var(--text-color)',
+                            opacity: 0.8
                         }}>
                             Índice
                         </span>
@@ -135,36 +178,36 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                     onMouseLeave={() => setHoveredIndex(null)}
                                     style={{
                                         display: 'flex',
-                                        alignItems: 'baseline',
-                                        gap: '8px',
+                                        alignItems: 'center',
+                                        gap: '16px',
                                         background: 'none',
                                         border: 'none',
-                                        padding: '4px 0',
+                                        padding: '8px 0',
                                         cursor: id ? 'pointer' : 'default',
                                         textAlign: 'left',
-                                        transition: 'transform 0.2s ease',
-                                        transform: isHovered && id ? 'translateX(4px)' : 'translateX(0)'
+                                        transition: 'all 0.3s ease',
+                                        color: 'var(--text-color)',
                                     }}
                                     aria-label={`Ir a la sección: ${label}`}
                                 >
                                     <span style={{ 
-                                        fontSize: '0.7rem', 
-                                        fontWeight: 800, 
-                                        color: 'var(--accent-primary)', 
-                                        opacity: isHovered ? 1 : 0.7,
-                                        transition: 'opacity 0.2s'
+                                        fontSize: '0.75rem', 
+                                        fontWeight: 900, 
+                                        color: 'var(--text-color)', 
+                                        opacity: isHovered ? 1 : 0.4,
+                                        fontFamily: 'var(--font-heading)',
+                                        width: '24px',
+                                        transition: 'opacity 0.3s ease'
                                     }}>
-                                        {String(i + 1).padStart(2, '0')}
+                                        {(i + 1).toString().padStart(2, '0')}
                                     </span>
                                     <span style={{ 
-                                        fontSize: '0.95rem', 
-                                        fontWeight: 600, 
-                                        letterSpacing: '-0.02em', 
-                                        color: 'var(--text-color)',
-                                        opacity: isHovered ? 1 : 0.85,
-                                        transition: 'opacity 0.2s',
-                                        borderBottom: isHovered && id ? '1px solid var(--accent-primary)' : '1px solid transparent',
-                                        paddingBottom: '1px'
+                                        fontSize: '1rem', 
+                                        fontWeight: 600,
+                                        letterSpacing: '-0.01em',
+                                        opacity: isHovered ? 1 : 0.8,
+                                        transition: 'all 0.3s ease',
+                                        borderBottom: isHovered ? '1px solid var(--text-color)' : '1px solid transparent'
                                     }}>
                                         {label}
                                     </span>
@@ -174,62 +217,78 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                     </motion.div>
                 </div>
 
-                {/* Two-column metadata block */}
+                {/* Technical Dashboard Metadata Block */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3, duration: 0.7 }}
                     style={{
                         display: 'grid',
-                        gridTemplateColumns: '2fr 1fr',
-                        gap: 'var(--space-8)',
+                        gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+                        gap: isMobile ? 'var(--space-6)' : 'var(--space-8)',
                         borderTop: '1px solid var(--border-inactive)',
                         borderBottom: '1px solid var(--border-inactive)',
-                        padding: 'var(--space-6) 0',
-                        marginBottom: 'var(--space-8)',
+                        padding: 'var(--space-8) 0',
+                        marginBottom: 'var(--space-12)',
                         alignItems: 'start'
                     }}
                     className="project-hero-metadata"
                 >
-                    {/* Left: overview paragraph */}
-                    <div style={{ paddingRight: 'var(--space-8)' }}>
-                        <span style={{
-                            fontSize: '0.75rem',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.12em',
-                            opacity: 0.85,
-                            fontWeight: 800,
-                            display: 'block',
-                            marginBottom: 'var(--space-3)'
-                        }}>
-                            Resumen
-                        </span>
-                        <p style={{ fontSize: '1.1rem', lineHeight: 1.8, opacity: 0.95, fontWeight: 500, margin: 0 }}>
-                            {tagline}
-                        </p>
-                    </div>
-
-                    {/* Right: key-value list */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-                        {metadata.map((item, i) => (
-                            <div key={i}>
+                    {metadata.map((item, i) => {
+                        const isTools = item.label.toLowerCase().includes('herramientas');
+                        
+                        return (
+                            <div key={i} style={{ 
+                                display: 'flex', 
+                                flexDirection: 'column', 
+                                gap: 'var(--space-2)',
+                                borderLeft: i === 0 || (isMobile && i % 2 === 0) ? 'none' : '1px solid var(--border-inactive)',
+                                paddingLeft: i === 0 || (isMobile && i % 2 === 0) ? 0 : 'var(--space-6)'
+                            }}>
                                 <span style={{
-                                    fontSize: '0.75rem',
+                                    fontSize: '0.7rem',
                                     textTransform: 'uppercase',
-                                    letterSpacing: '0.12em',
-                                    opacity: 0.85,
+                                    letterSpacing: '0.15em',
+                                    color: 'var(--accent-primary)',
                                     fontWeight: 800,
-                                    display: 'block',
-                                    marginBottom: '4px'
+                                    display: 'block'
                                 }}>
                                     {item.label}
                                 </span>
-                                <span style={{ fontSize: '1.05rem', fontWeight: 600 }}>
-                                    {item.value}
-                                </span>
+                                
+                                {isTools && item.tools ? (
+                                    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginTop: '4px' }}>
+                                        {item.tools.map((tool, idx) => (
+                                            <div key={idx} style={{ 
+                                                display: 'flex', 
+                                                flexDirection: 'column', 
+                                                alignItems: 'center', 
+                                                gap: '6px' 
+                                            }}>
+                                                {tool.icon && (
+                                                    <div style={{ width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                        <img src={tool.icon} alt={tool.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                                                    </div>
+                                                )}
+                                                <span style={{ fontSize: '0.65rem', fontWeight: 700, opacity: 0.8, textTransform: 'uppercase' }}>
+                                                    {tool.name}
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <span style={{ 
+                                        fontSize: 'clamp(1rem, 1.2vw, 1.15rem)', 
+                                        fontWeight: 700,
+                                        lineHeight: 1.2,
+                                        color: 'var(--text-color)'
+                                    }}>
+                                        {item.value}
+                                    </span>
+                                )}
                             </div>
-                        ))}
-                    </div>
+                        );
+                    })}
                 </motion.div>
 
                 {/* Full-width Hero Image */}
@@ -240,8 +299,9 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                         overflow: 'hidden',
                         border: '1px solid var(--border-inactive)',
                         boxShadow: '0 40px 100px rgba(0,0,0,0.08)',
-                        marginBottom: 'var(--space-4)',
-                        position: 'relative'
+                        marginBottom: 'var(--space-16)',
+                        position: 'relative',
+                        zIndex: 1
                     }}>
                         <motion.div
                             initial={{ opacity: 0 }}
@@ -278,7 +338,7 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                     </div>
                 )}
             </div>
-        </header>
+        </div>
     );
 };
 

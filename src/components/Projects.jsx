@@ -163,7 +163,8 @@ const Projects = () => {
         alignItems: 'stretch',
         cursor: 'pointer',
         width: '100%',
-        height: isMobile ? 'auto' : 'clamp(480px, 65vh, 620px)',
+        minHeight: isMobile ? 'auto' : '520px', 
+        height: isMobile ? 'auto' : 'auto', 
         borderRadius: '32px',
         overflow: 'hidden',
         willChange: 'transform',
@@ -171,9 +172,10 @@ const Projects = () => {
         WebkitTransform: 'translateZ(0)',
         transition: 'all 0.4s ease',
         backgroundColor: 'var(--surface-color)',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
-        border: '1px solid var(--border-inactive)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        border: '1.5px solid var(--border-inactive)',
+        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.05)', // Sombra suave para despegar del fondo
     });
 
     // Preload images
@@ -255,6 +257,7 @@ const Projects = () => {
                                 display: isMobile ? 'flex' : 'block',
                                 alignItems: isMobile ? 'center' : undefined,
                                 justifyContent: isMobile ? 'center' : undefined,
+                                backgroundColor: '#fff', // Fondo blanco puro para ocultar bordes de imagen
                                 borderBottom: isMobile ? '1px solid var(--border-inactive)' : 'none',
                                 borderRight: isMobile ? 'none' : '1px solid var(--border-inactive)',
                             }}>
@@ -320,9 +323,15 @@ const Projects = () => {
                                     {project.intro}
                                 </p>
 
-                                {/* CTA — derecha en desktop | full-width acento en mobile */}
-                                <div style={{ flex: 1, minHeight: isMobile ? 'var(--space-3)' : 0 }} />
-                                <div style={{ display: 'flex', justifyContent: isMobile ? 'stretch' : 'flex-end' }}>
+                                {/* CTA — Alineación consistente a la derecha con margen de seguridad */}
+                                <div style={{ flex: 1, minHeight: isMobile ? 'var(--space-3)' : 'var(--space-2)' }} />
+                                <div style={{ 
+                                    display: 'flex', 
+                                    justifyContent: isMobile ? 'stretch' : 'flex-end',
+                                    width: '100%',
+                                    paddingBottom: 'var(--space-2)',
+                                    paddingRight: isMobile ? 0 : 'var(--space-2)'
+                                }}>
                                     <div
                                         className="btn-elegant"
                                         style={isMobile ? {
