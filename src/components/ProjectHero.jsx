@@ -238,37 +238,19 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3, duration: 0.7 }}
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(4, 1fr)',
-                        rowGap: isMobile ? 'var(--space-10)' : 'var(--space-8)', // Más espacio entre filas
-                        columnGap: isMobile ? '16px' : 'var(--space-8)',
-                        borderTop: '1px solid var(--border-inactive)',
-                        borderBottom: '1px solid var(--border-inactive)',
-                        padding: 'var(--space-8) 0',
-                        marginBottom: 'var(--space-12)',
-                        alignItems: 'start',
-                        width: '100%'
-                    }}
+                    className="project-stats-grid"
                 >
                     {metadata.map((item, i) => {
                         const isTools = item.label.toLowerCase().includes('herramientas');
                         
                         return (
-                            <div key={i} style={{ 
-                                display: 'flex', 
-                                flexDirection: 'column', 
-                                gap: 'var(--space-2)',
-                                borderLeft: (i === 0 || (isMobile && i % 2 === 0)) ? 'none' : '1px solid var(--border-inactive)',
-                                paddingLeft: (i === 0 || (isMobile && i % 2 === 0)) ? 0 : 'var(--space-6)',
-                                minWidth: 0 // Evita que el contenido ensanche la columna
-                            }}>
+                            <div key={i} className="project-stats-item">
                                 <span style={{
                                     fontSize: '0.65rem',
                                     textTransform: 'uppercase',
                                     letterSpacing: '0.1em',
                                     color: 'var(--accent-primary)',
-                                    fontWeight: 900, // Más presencia
+                                    fontWeight: 900,
                                     display: 'block',
                                     opacity: 0.9
                                 }}>
@@ -276,13 +258,7 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                 </span>
                                 
                                 {isTools && item.tools ? (
-                                    <div style={{ 
-                                        display: 'flex', 
-                                        gap: isMobile ? '8px' : '16px', // Menos espacio para que entren
-                                        flexWrap: 'nowrap',
-                                        marginTop: '4px',
-                                        width: '100%'
-                                    }}>
+                                    <div className="tools-container">
                                         {item.tools.map((tool, idx) => (
                                             <div key={idx} style={{ 
                                                 display: 'flex', 
@@ -291,17 +267,11 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                                 gap: '4px' 
                                             }}>
                                                 {tool.icon && (
-                                                    <div style={{ 
-                                                        width: isMobile ? '16px' : '22px', 
-                                                        height: isMobile ? '16px' : '22px', 
-                                                        display: 'flex', 
-                                                        alignItems: 'center', 
-                                                        justifyContent: 'center' 
-                                                    }}>
-                                                        <img src={tool.icon} alt={tool.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                                                    <div className="tool-icon-wrapper">
+                                                        <img src={tool.icon} alt={tool.name} />
                                                     </div>
                                                 )}
-                                                <span style={{ fontSize: isMobile ? '0.55rem' : '0.65rem', fontWeight: 700, opacity: 0.8, textTransform: 'uppercase' }}>
+                                                <span className="tool-name-label">
                                                     {tool.name}
                                                 </span>
                                             </div>

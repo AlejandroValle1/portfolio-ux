@@ -1058,6 +1058,100 @@ section {
 .project-hero-metadata {
   grid-template-columns: 1fr 2fr;
 }
+/* ==========================================================================
+   Project Stats Dashboard (Refined Mobile)
+   ========================================================================== */
+.project-stats-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-8);
+    border-top: 1px solid var(--border-inactive);
+    border-bottom: 1px solid var(--border-inactive);
+    padding: var(--space-8) 0;
+    margin-bottom: var(--space-12);
+    align-items: start;
+    width: 100%;
+}
+
+.project-stats-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    border-left: 1px solid var(--border-inactive);
+    padding-left: var(--space-6);
+    min-width: 0;
+}
+
+.project-stats-item:first-child {
+    border-left: none;
+    padding-left: 0;
+}
+
+.tools-container {
+    display: flex;
+    gap: 16px;
+    flex-wrap: nowrap;
+    margin-top: 4px;
+    width: 100%;
+    align-items: center;
+}
+
+.tool-icon-wrapper {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tool-icon-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.tool-name-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    opacity: 0.8;
+    text-transform: uppercase;
+}
+
+@media (max-width: 1024px) {
+    .project-stats-grid {
+        grid-template-columns: 1fr 1fr !important;
+        row-gap: var(--space-12) !important; /* Más espacio entre filas */
+        column-gap: var(--space-4) !important;
+    }
+
+    .project-stats-item {
+        border-left: 1px solid var(--border-inactive);
+        padding-left: var(--space-2) !important; /* Reducido de space-4 (16px) para ganar espacio */
+    }
+
+    /* Quitar borde al primer y tercer elemento (columna izquierda en 2 cols) */
+    .project-stats-item:nth-child(2n+1) {
+        border-left: none !important;
+        padding-left: 0 !important;
+    }
+
+    .tools-container {
+        gap: 8px !important;
+        flex-wrap: nowrap !important;
+        justify-content: flex-start !important;
+    }
+
+    .tool-icon-wrapper {
+        width: 14px !important;
+        height: 14px !important;
+    }
+
+    .tool-name-label {
+        font-size: 10px !important;
+        letter-spacing: 0 !important;
+        opacity: 0.9 !important;
+    }
+}
 
 .section-grid {
   display: grid;
