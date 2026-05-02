@@ -127,6 +127,7 @@ const ProjectTienda = () => {
                 text="Definí tres perfiles de usuario que representan los distintos tipos de compradores: Franco (usuario avanzado que busca detalles técnicos), Camila (principiante que necesita orientación) y Leonardo (práctico, que solo quiere que funcione). Sus objetivos y dudas guiaron cada decisión de diseño."
             >
                 <SpotlightGrid 
+                    showCelestial={true}
                     items={[
                         { name: 'Franco', type: 'Modo Avanzado', desc: 'Busca especificaciones técnicas precisas y rendimiento extremo para gaming o trabajo pesado.' },
                         { name: 'Camila', type: 'Modo Principiante', desc: 'Necesita orientación, explicaciones claras y recomendaciones armadas para su uso diario.' },

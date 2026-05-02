@@ -94,14 +94,7 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                             </h1>
 
                             {tagline && (
-                                <p style={{
-                                    fontSize: 'clamp(1.1rem, 2vw, 1.35rem)',
-                                    lineHeight: 1.5,
-                                    opacity: 0.9,
-                                    maxWidth: '60ch',
-                                    fontWeight: 500,
-                                    margin: 0
-                                }}>
+                                <p className="editorial-paragraph" style={{ maxWidth: '60ch', margin: 0 }}>
                                     {tagline}
                                 </p>
                             )}

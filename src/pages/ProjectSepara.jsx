@@ -107,6 +107,7 @@ const ProjectSepara = () => {
                 }
             >
                 <SpotlightGrid 
+                    showCelestial={true}
                     items={[
                         { problem: 'Información dispersa y confusa', opportunity: 'Módulo de educación centralizado (Talleres)' },
                         { problem: 'Poco incentivo y escasez de bolsas verdes', opportunity: 'Programa de Recompensas por comprometerse' },

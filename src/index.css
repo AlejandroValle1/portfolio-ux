@@ -72,9 +72,13 @@
   --accent-glow: rgba(77, 175, 255, 0.15);
   --moon-size: 5%;
   --moon-core: 30%;
-  /* Gradiente: Estructura exacta de la luna anterior pero en azul eléctrico */
+  /* Gradiente: Estructura EXACTA de la versión GitHub (Azul Eléctrico) */
   --main-gradient: radial-gradient(circle at 88% 40px, #4DAFFF 0%, #3080A0 var(--moon-size), #0D1930 var(--moon-core), #080E17 80%);
+  --bg-gradient: 
+    radial-gradient(circle at 88% 40px, #4DAFFF 0%, #3080A0 var(--moon-size), #0D1930 var(--moon-core), #080E17 80%),
+    linear-gradient(to bottom, #0D1930 0%, #080E17 100%);
   --hero-gradient-muted: radial-gradient(circle at 88% 40px, rgba(77, 175, 255, 0.4) 0%, rgba(48, 128, 160, 0.3) 15%, #0D1930 50%, #080E17 100%);
+  
   --nav-mobile-bg: #040810;
 }
 
@@ -248,16 +252,22 @@ div[role="button"] {
 
 
 
-.project-chapter-text {
-  font-size: 1.25rem;
-  line-height: 1.6;
+.editorial-paragraph {
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  line-height: 1.65;
+  font-weight: 400;
+  opacity: 0.9;
+  letter-spacing: -0.01em;
   color: var(--text-color);
-  opacity: 1; /* Eliminando opacidad para mejorar contraste */
 }
 
-[data-theme="light"] .project-chapter-text {
-  /* Sutil sombra para "despegar" el texto del gradiente vibrante */
+[data-theme="light"] .editorial-paragraph {
   text-shadow: 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.editorial-highlight {
+  font-weight: 700;
+  color: var(--text-color);
 }
 
 
@@ -1154,6 +1164,8 @@ section {
         font-size: 10px !important;
         letter-spacing: 0 !important;
         opacity: 0.9 !important;
+    }
+
     .project-stats-value {
         margin-top: 8px !important; /* El empujoncito para alinear con iconos */
     }
@@ -1171,4 +1183,57 @@ section {
     grid-template-columns: 1fr !important;
     gap: var(--space-6) !important;
   }
+}
+
+/* Celestial Card Micro-interaction */
+.celestial-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.celestial-card::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(0.5) translate(20px, -20px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Sun for Light Mode */
+[data-theme='light'] .celestial-card::after {
+  background: radial-gradient(circle at 30% 30%, #FFF5E6 0%, #FFB347 50%, #FF5C28 100%);
+  box-shadow: 0 0 20px rgba(255, 179, 71, 0.3);
+}
+
+/* Moon for Dark Mode — Waning Gibbous with Texture */
+[data-theme='dark'] .celestial-card::after {
+  background: 
+    radial-gradient(circle at 40% 40%, rgba(0, 0, 0, 0.2) 0%, transparent 30%), /* Cráter mayor */
+    radial-gradient(circle at 25% 65%, rgba(0, 0, 0, 0.15) 0%, transparent 25%), /* Cráter medio */
+    radial-gradient(circle at 55% 20%, rgba(0, 0, 0, 0.12) 0%, transparent 20%), /* Cráter pequeño */
+    radial-gradient(circle at 30% 30%, #FFFFFF 0%, #F1F5F9 45%, #E2E8F0 100%);
+  background-blend-mode: multiply;
+  box-shadow: 
+    inset -10px 0 15px rgba(13, 25, 48, 0.5), /* Sombra para fase gibosa */
+    0 0 25px rgba(255, 255, 255, 0.12);
+  filter: contrast(1.2) brightness(1.1); /* Resaltar la textura y el brillo */
+}
+
+.celestial-card:hover::after {
+  opacity: 0.6;
+  top: 15px;
+  right: 15px;
+  transform: scale(1) translate(0, 0);
+}
+
+/* Adjustments for better visual hierarchy on hover */
+.celestial-card:hover {
+  box-shadow: 0 20px 40px var(--accent-glow) !important;
 }

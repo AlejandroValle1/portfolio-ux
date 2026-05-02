@@ -49,16 +49,13 @@ const Hero = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.8 }}
+                    className="editorial-paragraph"
                     style={{
-                        fontSize: isMobile ? '1rem' : 'clamp(1rem, 1.6vw, 1.3rem)', 
                         maxWidth: '700px', 
-                        marginBottom: isMobile ? 'var(--space-12)' : 'var(--space-6)',
-                        opacity: 0.9,
-                        lineHeight: 1.6,
-                        fontWeight: 400
+                        marginBottom: isMobile ? 'var(--space-12)' : 'var(--space-6)'
                     }}
                 >
-                    Diseño productos digitales que conectan objetivos de negocio con necesidades reales. Mi enfoque combina la <span style={{ fontWeight: 700, color: 'var(--text-color)' }}>narrativa visual</span> con la arquitectura de información para crear experiencias coherentes.
+                    Diseño productos digitales que conectan objetivos de negocio con necesidades reales. Mi enfoque combina la <span className="editorial-highlight">narrativa visual</span> con la arquitectura de información para crear experiencias coherentes.
                 </motion.p>
 
                 <motion.div

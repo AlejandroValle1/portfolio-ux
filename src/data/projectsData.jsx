@@ -3,7 +3,7 @@ import ToolIcons from '../components/ToolIcons';
 
 export const SEPARA_DATA = {
     title: "SE-PA-RÁ",
-    tagline: <>SE‑PA‑RÁ nació de una <span className="serif-title" style={{ fontSize: '1.2em' }}>inquietud concreta</span>: ¿cómo logramos que separar residuos sea parte de la rutina diaria? Mi objetivo fue diseñar una experiencia digital clara que motivara al <span className="serif-title" style={{ fontSize: '1.2em' }}>accionar</span> ciudadano.</>,
+    tagline: <>SE‑PA‑RÁ nació de una <span className="editorial-highlight">inquietud concreta</span>: ¿cómo logramos que separar residuos sea parte de la rutina diaria? Mi objetivo fue diseñar una experiencia digital clara que motivara al <span className="editorial-highlight">accionar</span> ciudadano.</>,
     figmaLink: "https://www.figma.com/proto/9tZ8o95QpwKsMJEE9Iqw96/Proyecto-SE-PA-RA?node-id=65-59&starting-point-node-id=65%3A55&t=ethJmLuKXdVEIEMc-1&hide-ui=1",
     metadata: [
         { label: "Rol", value: "UX/UI Designer" },
@@ -15,7 +15,7 @@ export const SEPARA_DATA = {
 
 export const TIENDA_DATA = {
     title: "TIENDA TECNO",
-    tagline: <>Tienda Tecno nace como respuesta a la necesidad de expandirse al <span className="serif-title" style={{ fontSize: '1.2em' }}>mundo digital</span>. El objetivo era crear un <span style={{ whiteSpace: 'nowrap' }}>e-commerce</span> que no solo venda hardware, sino que asesore y acompañe al usuario en su compra.</>,
+    tagline: <>Tienda Tecno nace como respuesta a la necesidad de expandirse al <span className="editorial-highlight">mundo digital</span>. El objetivo era crear un <span style={{ whiteSpace: 'nowrap' }}>e-commerce</span> que no solo venda hardware, sino que asesore y acompañe al usuario en su compra.</>,
     figmaLink: "https://www.figma.com/proto/BerM7QNvQfAiNONrNjHLVX/Wireframe-Tienda-Tecno.?node-id=232-705&t=WoaQTWZcyQQrxDfD-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=232%3A705&hide-ui=1",
     metadata: [
         { label: "Rol", value: "UX/UI Designer" },
