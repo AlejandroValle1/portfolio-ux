@@ -7,16 +7,49 @@ const ComparisonSlider = ({ itemOne, itemTwo, mobileFrame, desktopFrame }) => {
     const [sliderPosition, setSliderPosition] = useState(50);
     const [isDragging, setIsDragging] = useState(false);
     const containerRef = useRef(null);
+    const imageRef = useRef(null);
 
     const handleMove = (event) => {
         if (!isDragging && event.type !== 'mousemove' && event.type !== 'touchmove') return;
         
         const containerRect = containerRef.current.getBoundingClientRect();
+        const img = imageRef.current;
         const x = 'touches' in event ? event.touches[0].clientX : event.clientX;
-        const relativeX = x - containerRect.left;
-        const position = Math.max(0, Math.min(100, (relativeX / containerRect.width) * 100));
         
-        setSliderPosition(position);
+        if (img) {
+            const containerWidth = containerRect.width;
+            const containerHeight = containerRect.height;
+            const imageRatio = img.naturalWidth / img.naturalHeight;
+            const containerRatio = containerWidth / containerHeight;
+
+            // Calculamos el grosor del borde (12px cada lado en mobile, 16px en desktop)
+            const borderWidth = mobileFrame ? 24 : (desktopFrame ? 32 : 0);
+
+            let renderWidth;
+            if (containerRatio > imageRatio) {
+                // Limitado por altura
+                renderWidth = (containerHeight * imageRatio) + borderWidth;
+            } else {
+                // Limitado por ancho
+                renderWidth = containerWidth;
+            }
+
+            const leftOffset = (containerWidth - renderWidth) / 2;
+            const rightOffset = leftOffset + renderWidth;
+
+            // Añadimos 20px de "aire" después de cada borde
+            const padding = 20;
+            const leftLimit = Math.max(0, leftOffset - padding);
+            const rightLimit = Math.min(containerWidth, rightOffset + padding);
+
+            const relativeX = x - containerRect.left;
+            const position = Math.max(
+                (leftLimit / containerWidth) * 100, 
+                Math.min((rightLimit / containerWidth) * 100, (relativeX / containerWidth) * 100)
+            );
+            
+            setSliderPosition(position);
+        }
     };
 
     const handleMouseDown = () => setIsDragging(true);
@@ -65,6 +98,7 @@ const ComparisonSlider = ({ itemOne, itemTwo, mobileFrame, desktopFrame }) => {
                 zIndex: 1
             }}>
                 <img 
+                    ref={imageRef}
                     src={itemTwo} 
                     alt="High Fidelity"
                     style={{

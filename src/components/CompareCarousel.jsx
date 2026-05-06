@@ -34,6 +34,7 @@ const ZoomableComparisonSlider = ({ srcLow, srcHigh, alt, mobileFrame, desktopFr
     const [isDraggingSlider, setIsDraggingSlider] = useState(false);
     const [isPanning, setIsPanning] = useState(false);
     const containerRef = useRef(null);
+    const imageRef = useRef(null);
 
     const handleWheel = (e) => {
         e.stopPropagation();
@@ -45,6 +46,7 @@ const ZoomableComparisonSlider = ({ srcLow, srcHigh, alt, mobileFrame, desktopFr
 
     const handleMove = (e) => {
         const containerRect = containerRef.current.getBoundingClientRect();
+        const img = imageRef.current;
         const x = 'touches' in e ? e.touches[0].clientX : e.clientX;
         const y = 'touches' in e ? e.touches[0].clientY : e.clientY;
 
@@ -55,15 +57,39 @@ const ZoomableComparisonSlider = ({ srcLow, srcHigh, alt, mobileFrame, desktopFr
             const moveX = (0.5 - xPct) * (containerRect.width * (scale - 1));
             const moveY = (0.5 - yPct) * (containerRect.height * (scale - 1));
             setPosition({ x: moveX, y: moveY });
-        } else if (!isMobile) {
-            // Slider sigue al cursor en escritorio
+        } else if (img && (!isMobile || (isMobile && isDraggingSlider))) {
+            // Slider sigue al cursor o se arrastra
+            const containerWidth = containerRect.width;
+            const containerHeight = containerRect.height;
+            const imageRatio = img.naturalWidth / img.naturalHeight;
+            const containerRatio = containerWidth / containerHeight;
+
+            // Calculamos el grosor del borde (12px cada lado en mobile, 16px en desktop)
+            const borderWidth = mobileFrame ? 24 : (desktopFrame ? 32 : 0);
+
+            let renderWidth;
+            if (containerRatio > imageRatio) {
+                // Limitado por altura
+                renderWidth = (containerHeight * imageRatio) + borderWidth;
+            } else {
+                // Limitado por ancho
+                renderWidth = containerWidth;
+            }
+
+            const leftOffset = (containerWidth - renderWidth) / 2;
+            const rightOffset = leftOffset + renderWidth;
+
+            // Añadimos 20px de "aire" después de cada borde
+            const padding = 20;
+            const leftLimit = Math.max(0, leftOffset - padding);
+            const rightLimit = Math.min(containerWidth, rightOffset + padding);
+
             const relativeX = x - containerRect.left;
-            const pos = Math.max(0, Math.min(100, (relativeX / containerRect.width) * 100));
-            setSliderPosition(pos);
-        } else if (isMobile && isDraggingSlider) {
-            // Slider se mueve arrastrando el handle en móvil
-            const relativeX = x - containerRect.left;
-            const pos = Math.max(0, Math.min(100, (relativeX / containerRect.width) * 100));
+            const pos = Math.max(
+                (leftLimit / containerWidth) * 100, 
+                Math.min((rightLimit / containerWidth) * 100, (relativeX / containerWidth) * 100)
+            );
+            
             setSliderPosition(pos);
         }
     };
@@ -140,6 +166,7 @@ const ZoomableComparisonSlider = ({ srcLow, srcHigh, alt, mobileFrame, desktopFr
                     pointerEvents: 'none'
                 }}>
                     <img
+                        ref={imageRef}
                         src={srcHigh}
                         alt={alt}
                         draggable={false}
