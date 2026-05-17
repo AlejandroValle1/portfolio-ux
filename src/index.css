@@ -72,12 +72,12 @@
   --accent-glow: rgba(77, 175, 255, 0.15);
   --moon-size: 5%;
   --moon-core: 30%;
-  /* Gradiente: Estructura EXACTA de la versión GitHub (Azul Eléctrico) */
-  --main-gradient: radial-gradient(circle at 88% 40px, #4DAFFF 0%, #3080A0 var(--moon-size), #0D1930 var(--moon-core), #080E17 80%);
+  /* Gradiente: Estructura de la luna original en blanco y plateado celestial (alineada al 94% 20px como el sol) */
+  --main-gradient: radial-gradient(circle at 94% 20px, #F0F4F8 0%, #BCC6D1 var(--moon-size), #0D1930 var(--moon-core), #080E17 80%);
   --bg-gradient: 
-    radial-gradient(circle at 88% 40px, #4DAFFF 0%, #3080A0 var(--moon-size), #0D1930 var(--moon-core), #080E17 80%),
+    radial-gradient(circle at 94% 20px, #F0F4F8 0%, #BCC6D1 var(--moon-size), #0D1930 var(--moon-core), #080E17 80%),
     linear-gradient(to bottom, #0D1930 0%, #080E17 100%);
-  --hero-gradient-muted: radial-gradient(circle at 88% 40px, rgba(77, 175, 255, 0.4) 0%, rgba(48, 128, 160, 0.3) 15%, #0D1930 50%, #080E17 100%);
+  --hero-gradient-muted: radial-gradient(circle at 94% 20px, rgba(240, 244, 248, 0.4) 0%, rgba(188, 198, 209, 0.3) 15%, #0D1930 50%, #080E17 100%);
   
   --nav-mobile-bg: #040810;
 }
