@@ -8,7 +8,7 @@ export const SEPARA_DATA = {
     metadata: [
         { label: "Rol", value: "UX/UI Designer" },
         { label: "Alcance", value: "MVP" },
-        { label: "Tiempo", value: "4 Semanas" },
+        { label: "Contexto", value: "Proyecto Académico" },
         { label: "Herramientas", value: <ToolIcons /> }
     ]
 };
