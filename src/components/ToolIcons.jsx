@@ -65,8 +65,23 @@ export const ChatGPTIcon = () => (
 
 export const FigJamIcon = () => (
     <svg viewBox="0 0 28 28" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="28" height="28" rx="6" fill="#A259FF" />
-        <path d="M7 14C7 10 10 7 14 7C18 7 21 10 21 14C21 18 18 21 14 21C11.5 21 9 19 8 17.5L12 14" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <rect width="28" height="28" rx="6" fill="#9747FF" />
+        {/* Sticky note outline centered at 7 to 21 */}
+        <path 
+            d="M 8 7 H 20 V 15 L 16 19 H 8 Z" 
+            stroke="#FFFFFF" 
+            strokeWidth="2" 
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+        {/* The fold */}
+        <path 
+            d="M 16 19 V 15 H 20" 
+            stroke="#FFFFFF" 
+            strokeWidth="2" 
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
     </svg>
 );
 
