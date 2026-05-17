@@ -223,7 +223,7 @@ const ProjectSepara = () => {
                 title="Impacto del Diseño"
                 content={
                     <>
-                        Pasar de la idea a la solución requirió una profunda investigación de escritorio, análisis heurístico y el uso estratégico de Inteligencia Artificial para iterar hipótesis de diseño. El resultado es una interfaz que no solo informa, sino que <strong>motiva a la acción mediante incentivos dinámicos</strong>, transformando el hábito de reciclar en una <strong>experiencia gratificante y con impacto social</strong>.
+                        El resultado es una interfaz que transforma el reciclaje en una rutina motivadora: <strong>módulo educativo centralizado</strong>, mapa de EcoPuntos en tiempo real y un sistema de recompensas que convierte cada acción en un logro. <strong>Diseño que cambia comportamientos, no solo pantallas.</strong>
                     </>
                 }
             />

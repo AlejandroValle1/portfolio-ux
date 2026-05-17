@@ -81,7 +81,7 @@ const InterestCardContent = ({ isMobile, onOpenGallery, isActive }) => {
                     animate={{ opacity: 1, y: 0 }} 
                     exit={{ opacity: 0, y: -10 }}
                 >
-                    <h3 style={{ fontSize: '1.3rem', fontWeight: 900, marginBottom: 'var(--space-4)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
+                    <h3 style={{ fontSize: '1.4rem', fontWeight: 900, marginBottom: 'var(--space-3)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
                         MÁS ALLÁ DEL DISEÑO
                     </h3>
                     <p style={{ fontSize: '1rem', marginBottom: 'var(--space-4)', opacity: 0.8, lineHeight: 1.5 }}>
@@ -356,10 +356,10 @@ const About = () => {
                     })}
                 >
                     <h3 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: 'var(--space-4)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
-                        ¡HOLA! ME PRESENTO
+                        DISEÑADOR UX/UI CON VISIÓN EDITORIAL
                     </h3>
                     <p style={{ fontSize: '1.25rem', lineHeight: 1.6, fontWeight: 500, opacity: 0.9 }}>
-                        Soy Alejandro Valle, <strong>Diseñador UX</strong> con formación en <strong>Comunicación</strong>. Me apasiona crear soluciones que ayuden a las personas en su día a día, transformando tareas complejas en experiencias <strong>simples y eficientes</strong>.
+                        Soy Alejandro Valle. Combino formación en <strong>Comunicación</strong> con metodologías UX para crear productos que no solo funcionan, sino que <strong>conectan y generan confianza</strong> desde el primer contacto.
                     </p>
                 </motion.div>
 
@@ -438,10 +438,10 @@ const About = () => {
                     })}
                 >
                     <h4 style={{ fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 'var(--space-3)', opacity: 0.6, fontWeight: 700 }}>
-                        Evolución UX
+                        Logro
                     </h4>
                     <p style={{ fontSize: '1.05rem', lineHeight: 1.5, opacity: 0.9 }}>
-                        Egresado becado del bootcamp <strong>Digitalers (Telecom)</strong>. Utilizo la investigación con usuarios para desarrollar interfaces que crecen de forma organizada, equilibrando la facilidad de uso con los <strong>objetivos del negocio</strong>.
+                        <strong>Becado en el bootcamp Digitalers (Telecom)</strong> — seleccionado entre cientos de postulantes. Formación intensiva en investigación de usuarios, prototipado y diseño orientado a <strong>conversión y negocio</strong>. El curso también me marcó la importancia de la <strong>accesibilidad</strong> y el diseño funcional <strong>para todas las personas</strong>.
                     </p>
                 </motion.div>
 
@@ -460,17 +460,17 @@ const About = () => {
                         borderRadius: '24px',
                         display: 'flex',
                         flexDirection: 'column',
-                        justifyContent: 'center',
+                        justifyContent: 'flex-start',
                         boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
                         border: '1.5px solid var(--border-inactive)',
                         cursor: 'default',
                     })}
                 >
-                    <h3 style={{ fontSize: '1.6rem', fontWeight: 900, marginBottom: 'var(--space-3)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
-                        EN EQUIPO
+                    <h3 style={{ fontSize: '1.4rem', fontWeight: 900, marginBottom: 'var(--space-3)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
+                        CRECER EN EQUIPO
                     </h3>
                     <p style={{ fontSize: '1.15rem', opacity: 0.9, lineHeight: 1.6 }}>
-                        Busco rodearme de personas apasionadas para <strong>aprender y crecer juntos</strong>. Creo en los lazos laborales fructíferos, la transparencia y la curiosidad constante.
+                        Creo en la colaboración <strong>transparente y sin egos</strong>. Aporto curiosidad constante, apertura para recibir <strong>feedback constructivo</strong> y el compromiso de iterar para mejorar el producto en conjunto.
                     </p>
                 </motion.div>
 
@@ -485,11 +485,11 @@ const About = () => {
                     style={getCardStyle(5, {
                         backgroundColor: 'var(--surface-color)',
                         backdropFilter: 'blur(12px)',
-                        padding: isMobile ? 'var(--space-4)' : 'var(--space-6)',
+                        padding: isMobile ? 'var(--space-4)' : 'var(--space-8)',
                         borderRadius: '24px',
                         display: 'flex',
                         flexDirection: 'column',
-                        justifyContent: 'center',
+                        justifyContent: 'flex-start',
                         border: '1.5px solid var(--border-inactive)',
                         minHeight: '240px',
                         position: 'relative',

@@ -26,9 +26,9 @@ const Home = () => {
             transition={{ duration: 0.5, ease: "easeInOut" }}
         >
             <Hero />
-            <About />
-            <WorkProcess />
             <Projects />
+            <WorkProcess />
+            <About />
         </motion.div>
     );
 };

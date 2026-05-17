@@ -231,7 +231,7 @@ const ProjectTienda = () => {
                 title="Impacto del Diseño"
                 content={
                     <>
-                        Este proyecto transformó la necesidad de un catálogo digital en una <strong>experiencia de venta guiada</strong>. Al diseñar cada paso desde cero y organizar la información para distintos perfiles, se logró un producto que <strong>elimina dudas al comprar y garantiza confianza</strong> en cada etapa.
+                        Se diseñó una tienda que adapta su experiencia a <strong>3 perfiles distintos de comprador</strong>. El resultado: navegación fluida, breadcrumbs para orientación en tiempo real y un checkout que elimina las barreras más frecuentes del e-commerce argentino. <strong>De cero presencia digital a experiencia de compra guiada.</strong>
                     </>
                 }
             />

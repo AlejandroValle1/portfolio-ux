@@ -14,9 +14,9 @@ const steps = [
         description: <>Traduzco lo que aprendí en un problema concreto: mapeo los <strong>flujos de usuario</strong> y la <strong>arquitectura de información</strong> que guían cada decisión de diseño.</>,
     },
     {
-        title: "Idear",
-        subtitle: "Explorar",
-        description: <>De los bocetos iniciales al diseño de alta definición. Construyo sistemas visuales coherentes que transforman el problema en <strong>pantallas claras y fáciles de navegar</strong>.</>,
+        title: "Diseñar",
+        subtitle: "Construir",
+        description: <>De los bocetos iniciales al diseño de alta definición. Construyo <strong>sistemas visuales coherentes</strong> que transforman el problema en <strong>pantallas claras y fáciles de navegar</strong>.</>,
     },
     {
         title: "Iterar",
@@ -88,9 +88,9 @@ const WorkProcess = () => {
         display: 'flex',
         flexDirection: 'column',
         gap: 'var(--space-4)',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         cursor: 'default',
-        minHeight: '280px',
+        minHeight: isMobile ? 'auto' : '250px',
         transition: 'all 0.4s ease',
         ...((isLowEnd || isMobile) && activeIndex !== null ? {
             borderColor: activeIndex === index ? 'var(--accent-primary)' : 'var(--border-inactive)',

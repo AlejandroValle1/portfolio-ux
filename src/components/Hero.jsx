@@ -55,7 +55,7 @@ const Hero = () => {
                         marginBottom: isMobile ? 'var(--space-12)' : 'var(--space-6)'
                     }}
                 >
-                    Diseño productos digitales que conectan objetivos de negocio con necesidades reales. Mi enfoque combina la <span className="editorial-highlight">narrativa visual</span> con la arquitectura de información para crear experiencias coherentes.
+                    Soy Alejandro Valle, Diseñador UX/UI. Creo productos digitales que conectan objetivos de negocio con necesidades reales, combinando <span className="editorial-highlight">investigación de usuarios</span> con <span className="editorial-highlight">narrativa visual</span> para construir experiencias que generan confianza.
                 </motion.p>
 
                 <motion.div
@@ -97,7 +97,7 @@ const Hero = () => {
                             letterSpacing: '0.05em'
                         }}
                     >
-                        VER PROYECTOS
+                        EXPLORÁ MI TRABAJO
                         <motion.span 
                             animate={{ y: [-3, 3, -3] }}
                             transition={{ 
