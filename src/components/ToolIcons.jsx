@@ -63,12 +63,20 @@ export const ChatGPTIcon = () => (
     </svg>
 );
 
+export const FigJamIcon = () => (
+    <svg viewBox="0 0 28 28" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="28" height="28" rx="6" fill="#A259FF" />
+        <path d="M7 14C7 10 10 7 14 7C18 7 21 10 21 14C21 18 18 21 14 21C11.5 21 9 19 8 17.5L12 14" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+);
+
 /**
- * ToolIcons — renders a row of tools: Figma + Gemini + ChatGPT
+ * ToolIcons — renders a row of tools: Figma + FigJam + Gemini + ChatGPT
  */
 const ToolIcons = () => (
     <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
         <ToolItem name="Figma"><FigmaIcon /></ToolItem>
+        <ToolItem name="FigJam"><FigJamIcon /></ToolItem>
         <ToolItem name="Gemini"><GeminiIcon /></ToolItem>
         <ToolItem name="ChatGPT"><ChatGPTIcon /></ToolItem>
     </div>
