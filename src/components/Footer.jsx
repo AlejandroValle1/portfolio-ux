@@ -15,7 +15,7 @@ const contactLinks = [
     {
         label: "WhatsApp",
         sub: "Escribime directo",
-        url: "https://wa.me/5493815000000", // Reemplazar con número real
+        url: "https://wa.me/5493815477722",
         brandColor: "#25D366",
         icon: (
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

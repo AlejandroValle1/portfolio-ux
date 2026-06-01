@@ -281,6 +281,19 @@ html {
   scroll-padding-top: 120px;
 }
 
+/* Scroll Snapping for Desktop */
+@media (min-width: 1025px) {
+  html {
+    scroll-snap-type: y proximity;
+    scroll-padding-top: 80px; /* Account for sticky header when calculating snap center */
+  }
+
+  .project-card {
+    scroll-snap-align: center;
+    scroll-snap-stop: normal;
+  }
+}
+
 .container {
   max-width: 1400px;
   margin: 0 auto;

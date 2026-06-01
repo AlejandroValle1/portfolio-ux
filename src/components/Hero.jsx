@@ -73,7 +73,7 @@ const Hero = () => {
                         }
                     }}
                     style={{
-                        margin: isMobile ? '0 auto' : '0 0 0 42%', 
+                        margin: '0 auto', 
                         width: 'fit-content',
                         zIndex: 10
                     }}

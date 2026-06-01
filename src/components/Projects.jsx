@@ -226,11 +226,7 @@ const Projects = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-80px" }}
                             transition={{ duration: 0.6, delay: index * 0.1 }}
-                            whileHover={!isMobile ? {
-                                borderColor: 'var(--accent-primary)',
-                                boxShadow: '0 15px 50px rgba(0,0,0,0.1), 0 0 30px var(--accent-glow)',
-                                transition: { duration: 0.3 }
-                            } : undefined}
+                            whileHover={!isMobile ? "cardHover" : undefined}
                             whileTap={{ scale: 0.98 }}
                             className="project-card"
                             style={{
@@ -243,6 +239,13 @@ const Projects = () => {
                                     opacity: activeIndex === index ? 1 : 0.45,
                                 } : {})
                             }}
+                            variants={{
+                                cardHover: {
+                                    borderColor: 'var(--accent-primary)',
+                                    boxShadow: '0 15px 50px rgba(0,0,0,0.1), 0 0 30px var(--accent-glow)',
+                                    transition: { duration: 0.3 }
+                                }
+                            }}
                         >
                             {/* Imagen — izquierda en desktop, arriba en mobile */}
                             <div style={{
@@ -250,7 +253,6 @@ const Projects = () => {
                                 width: isMobile ? '100%' : '55%',
                                 height: isMobile ? '240px' : 'auto',
                                 minHeight: isMobile ? '240px' : 'auto',
-                                backgroundColor: '#fff',
                                 overflow: 'hidden',
                                 position: 'relative',
                                 // Flex centering en mobile para centrar la imagen content
@@ -332,8 +334,10 @@ const Projects = () => {
                                     paddingBottom: 'var(--space-2)',
                                     paddingRight: isMobile ? 0 : 'var(--space-2)'
                                 }}>
-                                    <div
+                                    <motion.div
                                         className="btn-elegant"
+                                        initial="initial"
+                                        whileHover="hover"
                                         style={isMobile ? {
                                             display: 'flex',
                                             alignItems: 'center',
@@ -349,7 +353,7 @@ const Projects = () => {
                                             background: 'transparent',
                                             textTransform: 'uppercase',
                                             letterSpacing: '0.05em',
-                                            whiteSpace: 'nowrap' // Evita palabras huérfanas
+                                            whiteSpace: 'nowrap'
                                         } : {
                                             display: 'inline-flex',
                                             alignItems: 'center',
@@ -367,8 +371,17 @@ const Projects = () => {
                                         }}
                                     >
                                         Ver caso de estudio
-                                        <span style={{ fontSize: isMobile ? '1.1rem' : '1.2rem' }}>↗</span>
-                                    </div>
+                                        <motion.span 
+                                            variants={{ 
+                                                initial: { x: 0, y: 0 },
+                                                hover: { x: 3, y: -3 } 
+                                            }}
+                                            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                            style={{ display: 'inline-block', fontSize: isMobile ? '1.1rem' : '1.2rem' }}
+                                        >
+                                            ↗
+                                        </motion.span>
+                                    </motion.div>
                                 </div>
                             </div>
                         </motion.article>
