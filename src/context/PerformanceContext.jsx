@@ -25,7 +25,7 @@ export const PerformanceProvider = ({ children }) => {
             const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
             
             // 4. Tamaño de pantalla
-            const isMobile = window.innerWidth <= 768;
+            const isMobile = window.innerWidth <= 1024;
 
             // Definimos "Low End" como dispositivos con menos de 4GB RAM o menos de 4 núcleos
             // O si el usuario explícitamente pide menos movimiento

@@ -164,7 +164,7 @@ const ComparisonSlider = ({ itemOne, itemTwo, mobileFrame, desktopFrame }) => {
                         gap: '2px',
                         color: 'var(--accent-primary)',
                         fontSize: isMobile ? '10px' : '12px',
-                        fontWeight: 'bold'
+                        fontWeight: 'var(--fw-bold)'
                     }}>
                         <span>◀</span>
                         <span>▶</span>
@@ -182,7 +182,7 @@ const ComparisonSlider = ({ itemOne, itemTwo, mobileFrame, desktopFrame }) => {
                 padding: '6px 14px',
                 borderRadius: '20px',
                 fontSize: '10px',
-                fontWeight: 600,
+                fontWeight: 'var(--fw-medium)',
                 textTransform: 'uppercase',
                 letterSpacing: '0.1em',
                 zIndex: 10,
@@ -201,7 +201,7 @@ const ComparisonSlider = ({ itemOne, itemTwo, mobileFrame, desktopFrame }) => {
                 padding: '6px 14px',
                 borderRadius: '20px',
                 fontSize: '10px',
-                fontWeight: 600,
+                fontWeight: 'var(--fw-medium)',
                 textTransform: 'uppercase',
                 letterSpacing: '0.1em',
                 zIndex: 10,

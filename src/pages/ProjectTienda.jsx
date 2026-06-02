@@ -10,19 +10,14 @@ import CompareCarousel from '../components/CompareCarousel';
 import ParallaxGallery from '../components/ParallaxGallery';
 import { TIENDA_DATA } from '../data/projectsData';
 import SpotlightGrid from '../components/SpotlightGrid';
+import { usePerformance } from '../context/PerformanceContext';
 
 const ProjectTienda = () => {
     const [lightboxState, setLightboxState] = useState({ isOpen: false, images: [], index: 0 });
     const [hoveredFlowStep, setHoveredFlowStep] = useState(0);
     const [isFlowPaused, setIsFlowPaused] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
+    const { isMobile } = usePerformance();
 
-    useEffect(() => {
-        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
 
     useEffect(() => {
         if (isFlowPaused) return;
@@ -112,10 +107,10 @@ const ProjectTienda = () => {
                     ]}
                     renderItem={(item, i) => (
                         <>
-                            <p style={{ fontSize: '0.75rem', opacity: 0.85, margin: '0 0 6px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: i === 2 ? 'var(--accent-primary)' : 'inherit' }}>
+                            <p style={{ fontSize: '0.75rem', opacity: 0.85, margin: '0 0 6px', fontWeight: 'var(--fw-bold)', textTransform: 'uppercase', letterSpacing: '0.05em', color: i === 2 ? 'var(--accent-primary)' : 'inherit' }}>
                                 {item.label}
                             </p>
-                            <p style={{ fontWeight: 600, margin: 0, fontSize: '0.95rem' }}>{item.text}</p>
+                            <p style={{ fontWeight: 'var(--fw-medium)', margin: 0, fontSize: '0.95rem' }}>{item.text}</p>
                         </>
                     )}
                 />
@@ -135,8 +130,8 @@ const ProjectTienda = () => {
                     ]}
                     renderItem={(persona) => (
                         <>
-                            <p style={{ fontSize: '0.75rem', opacity: 0.85, margin: '0 0 6px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{persona.type}</p>
-                            <p style={{ fontWeight: 600, margin: '0 0 var(--space-2)', fontSize: '1.05rem', color: 'var(--accent-primary)' }}>{persona.name}</p>
+                            <p style={{ fontSize: '0.75rem', opacity: 0.85, margin: '0 0 6px', fontWeight: 'var(--fw-bold)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{persona.type}</p>
+                            <p style={{ fontWeight: 'var(--fw-medium)', margin: '0 0 var(--space-2)', fontSize: '1.05rem', color: 'var(--accent-primary)' }}>{persona.name}</p>
                             <p style={{ fontSize: '0.9rem', margin: 0, opacity: 0.8, lineHeight: 1.6 }}>{persona.desc}</p>
                         </>
                     )}
@@ -167,12 +162,12 @@ const ProjectTienda = () => {
                                 animate={hoveredFlowStep === i ? { y: -4, scale: 1.03, borderColor: 'var(--accent-primary)' } : { y: 0, scale: 1, borderColor: 'rgba(255,255,255,0.1)' }}
                                 transition={{ type: 'spring', stiffness: 300, damping: 24 }}
                                 className="glass-card capsule-flow" 
-                                style={{ padding: 'var(--space-2) var(--space-4)', borderRadius: '50px', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-color)' }}
+                                style={{ padding: 'var(--space-2) var(--space-4)', borderRadius: 'var(--radius-pill)', fontSize: '0.85rem', fontWeight: 'var(--fw-medium)', color: 'var(--text-color)' }}
                             >
                                 {step}
                             </motion.div>
                             {i < arr.length - 1 && (
-                                <motion.span variants={{ hidden: { opacity: 0 }, show: { opacity: 1 } }} style={{ fontWeight: 700, display: 'inline-block' }}>
+                                <motion.span variants={{ hidden: { opacity: 0 }, show: { opacity: 1 } }} style={{ fontWeight: 'var(--fw-bold)', display: 'inline-block' }}>
                                     <motion.span 
                                         animate={{ 
                                             opacity: hoveredFlowStep === i ? 1 : 0.3, 
@@ -279,9 +274,9 @@ const ProjectTienda = () => {
                 <Link to="/separa" style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
                     <motion.div
                         className="glass-card btn-elegant"
-                        style={{ padding: 'var(--space-12)', borderRadius: '32px', textAlign: 'center', cursor: 'pointer' }}
+                        style={{ padding: 'var(--space-12)', borderRadius: 'var(--radius-card)', textAlign: 'center', cursor: 'pointer' }}
                     >
-                        <span style={{ fontSize: '0.75rem', opacity: 0.4, textTransform: 'uppercase', letterSpacing: '0.25em' }}>Siguiente Proyecto</span>
+                        <span style={{ fontSize: '0.75rem', opacity: 0.65, textTransform: 'uppercase', letterSpacing: '0.25em' }}>Siguiente Proyecto</span>
                         <h4 className="brutalist-title" style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', marginTop: 'var(--space-2)' }}>SE-PA-RÁ →</h4>
                     </motion.div>
                 </Link>

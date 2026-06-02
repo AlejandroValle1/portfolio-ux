@@ -69,7 +69,7 @@ const ParallaxGallery = ({
                     width: '100%',
                     height: '85vh', 
                     maxHeight: '1000px', 
-                    borderRadius: '32px',
+                    borderRadius: 'var(--radius-card)',
                     overflow: 'hidden',
                     /* Background sync */
                     backgroundColor: theme === 'light' ? '#A9DEF9' : '#0B1118',

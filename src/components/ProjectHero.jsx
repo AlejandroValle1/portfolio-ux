@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import ImageWithSkeleton from './ImageWithSkeleton';
+import { usePerformance } from '../context/PerformanceContext';
 
 /**
  * ProjectHero — Stacked Editorial Layout
@@ -10,14 +11,7 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
     const { scrollY } = useScroll();
     const imageY = useTransform(scrollY, [0, 800], [0, 150]);
     const [hoveredIndex, setHoveredIndex] = React.useState(null);
-    const [isMobile, setIsMobile] = React.useState(typeof window !== 'undefined' && window.innerWidth <= 1024);
-
-    React.useEffect(() => {
-        const handleResize = () => setIsMobile(window.innerWidth <= 1024);
-        handleResize();
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    const { isMobile } = usePerformance();
 
     const scrollToSection = (id) => {
         const el = document.getElementById(id);
@@ -76,7 +70,7 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                 opacity: 1, // Opacidad máxima para contraste
                                 display: 'block',
                                 marginBottom: 'var(--space-3)',
-                                fontWeight: 700
+                                fontWeight: 'var(--fw-bold)'
                             }}>
                                 Caso de Estudio
                             </span>
@@ -119,12 +113,12 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                         alignItems: 'center',
                                         gap: '12px',
                                         padding: '16px 36px',
-                                        borderRadius: '50px',
+                                        borderRadius: 'var(--radius-pill)',
                                         border: '1.5px solid var(--accent-primary)',
                                         color: 'var(--text-color)',
                                         textDecoration: 'none',
                                         fontSize: '0.9rem',
-                                        fontWeight: 800,
+                                        fontWeight: 'var(--fw-bold)',
                                         textTransform: 'uppercase',
                                         letterSpacing: '0.08em'
                                     }}
@@ -136,7 +130,7 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                     <motion.span 
                                         variants={{ initial: { x: 0, y: 0 }, hover: { x: 3, y: -3 } }} 
                                         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                                        style={{ display: 'inline-block', fontWeight: 900 }}
+                                        style={{ display: 'inline-block', fontWeight: 'var(--fw-black)' }}
                                     >
                                         ↗
                                     </motion.span>
@@ -168,7 +162,7 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                             fontSize: '0.75rem', 
                             textTransform: 'uppercase', 
                             letterSpacing: '0.25em', 
-                            fontWeight: 900,
+                            fontWeight: 'var(--fw-black)',
                             marginBottom: 'var(--space-4)',
                             color: 'var(--text-color)',
                             opacity: 0.9
@@ -201,7 +195,7 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                 >
                                     <span style={{ 
                                         fontSize: '0.75rem', 
-                                        fontWeight: 900, 
+                                        fontWeight: 'var(--fw-black)', 
                                         color: 'var(--text-color)', 
                                         opacity: isHovered ? 1 : 0.7,
                                         fontFamily: 'var(--font-heading)',
@@ -212,7 +206,7 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                     </span>
                                     <span style={{ 
                                         fontSize: '1rem', 
-                                        fontWeight: 600,
+                                        fontWeight: 'var(--fw-medium)',
                                         letterSpacing: '-0.01em',
                                         opacity: isHovered ? 1 : 0.8,
                                         transition: 'all 0.3s ease',
@@ -243,7 +237,7 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                     textTransform: 'uppercase',
                                     letterSpacing: '0.1em',
                                     color: 'var(--accent-primary)',
-                                    fontWeight: 900,
+                                    fontWeight: 'var(--fw-black)',
                                     display: 'block',
                                     opacity: 0.9
                                 }}>
@@ -273,7 +267,7 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                                 ) : (
                                     <span className="project-stats-value" style={{ 
                                         fontSize: isMobile ? '0.9rem' : 'clamp(1rem, 1.2vw, 1.15rem)', 
-                                        fontWeight: 700,
+                                        fontWeight: 'var(--fw-bold)',
                                         lineHeight: 1.2,
                                         color: 'var(--text-color)',
                                         letterSpacing: '-0.01em'
@@ -290,7 +284,7 @@ const ProjectHero = ({ title, tagline, metadata, figmaLink, mainImage, indexItem
                 {mainImage && (
                     <div style={{
                         width: '100%',
-                        borderRadius: '32px',
+                        borderRadius: 'var(--radius-card)',
                         overflow: 'hidden',
                         border: '1px solid var(--border-inactive)',
                         boxShadow: '0 40px 100px rgba(0,0,0,0.08)',

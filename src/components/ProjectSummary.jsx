@@ -60,7 +60,7 @@ const ProjectSummary = ({ title, content, type = 'learning' }) => {
                         fontSize: isMobile ? '1rem' : 'clamp(1.1rem, 2vw, 1.4rem)', 
                         maxWidth: isEpilogue ? 'none' : 'min(900px, 100%)', 
                         margin: (isEpilogue || isMobile) ? '0' : '0 auto',
-                        fontWeight: 500,
+                        fontWeight: 'var(--fw-medium)',
                         lineHeight: 1.6
                     }}
                 >

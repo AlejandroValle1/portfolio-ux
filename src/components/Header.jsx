@@ -47,6 +47,7 @@ const Header = ({ theme, toggleTheme }) => {
             <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--text-color)' }}>
                 <Link
                     to="/"
+                    aria-current={location.pathname === '/' ? 'page' : undefined}
                     onClick={(e) => {
                         if (location.pathname === '/') {
                             e.preventDefault();
@@ -55,15 +56,15 @@ const Header = ({ theme, toggleTheme }) => {
                     }}
                     style={{ textDecoration: 'none', color: 'inherit' }}
                 >
-                    <h1 style={{
+                    <span style={{
                         fontSize: '1.2rem',
-                        fontWeight: 900,
+                        fontWeight: 'var(--fw-black)',
                         textTransform: 'uppercase',
                         cursor: 'pointer',
                         margin: 0,
                     }}>
                         Alejandro Valle
-                    </h1>
+                    </span>
                 </Link>
 
                 {/* Mobile Menu Toggle */}

@@ -1,0 +1,38 @@
+const fs = require('fs');
+const path = require('path');
+
+function walk(dir) {
+    let results = [];
+    const list = fs.readdirSync(dir);
+    list.forEach(file => {
+        file = path.resolve(dir, file);
+        const stat = fs.statSync(file);
+        if (stat && stat.isDirectory()) {
+            results = results.concat(walk(file));
+        } else if (file.endsWith('.jsx')) {
+            results.push(file);
+        }
+    });
+    return results;
+}
+
+const files = walk('c:/Users/ale_v/Desktop/Ale/portfolio-ale-valle/src');
+let totalReplaced = 0;
+
+files.forEach(file => {
+    let content = fs.readFileSync(file, 'utf8');
+    let original = content;
+
+    content = content.replace(/fontWeight:\s*400/g, "fontWeight: 'var(--fw-normal)'");
+    content = content.replace(/fontWeight:\s*(500|600)/g, "fontWeight: 'var(--fw-medium)'");
+    content = content.replace(/fontWeight:\s*(700|800)/g, "fontWeight: 'var(--fw-bold)'");
+    content = content.replace(/fontWeight:\s*900/g, "fontWeight: 'var(--fw-black)'");
+    content = content.replace(/fontWeight:\s*'bold'/g, "fontWeight: 'var(--fw-bold)'");
+
+    if (content !== original) {
+        fs.writeFileSync(file, content);
+        totalReplaced++;
+    }
+});
+
+console.log('Reemplazo completado en ' + totalReplaced + ' archivos');

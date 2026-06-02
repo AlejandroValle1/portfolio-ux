@@ -3,45 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { usePerformance } from '../context/PerformanceContext';
 import Lightbox from './Lightbox';
 import ImageWithSkeleton from './ImageWithSkeleton';
-
-// Hook: tracks which card ref is most centered in the viewport
-function useScrollSpotlight(refs, isLowPerformance) {
-    const [activeIndex, setActiveIndex] = React.useState(null);
-
-    React.useEffect(() => {
-        const observers = [];
-        const ratios = new Array(refs.length).fill(0);
-
-        const updateActive = () => {
-            let maxRatio = 0;
-            let maxIndex = null;
-            ratios.forEach((r, i) => {
-                if (r > maxRatio) { maxRatio = r; maxIndex = i; }
-            });
-            setActiveIndex(maxRatio > 0.5 ? maxIndex : null);
-        };
-
-        refs.forEach((ref, i) => {
-            if (!ref.current) return;
-            const obs = new IntersectionObserver(
-                ([entry]) => {
-                    ratios[i] = entry.intersectionRatio;
-                    updateActive();
-                },
-                { 
-                    threshold: isLowPerformance ? [0.5] : [0.2, 0.5, 0.8],
-                    rootMargin: isLowPerformance ? "-20% 0px -20% 0px" : "-35% 0px -35% 0px"
-                }
-            );
-            obs.observe(ref.current);
-            observers.push(obs);
-        });
-
-        return () => observers.forEach(o => o.disconnect());
-    }, [refs, isLowPerformance]);
-
-    return activeIndex;
-}
+import { useScrollSpotlight } from '../hooks/useScrollSpotlight';
 
 const InterestCardContent = ({ isMobile, onOpenGallery, isActive }) => {
     const [activeTab, setActiveTab] = React.useState('default');
@@ -68,7 +30,7 @@ const InterestCardContent = ({ isMobile, onOpenGallery, isActive }) => {
             id: 'social', 
             label: '🗣️ Social', 
             content: 'Me encanta charlar, conocer gente apasionada y construir vínculos laborales fructíferos. ¿Hablamos?', 
-            link: 'https://www.linkedin.com/in/alejandro-valle-ux/' 
+            link: 'https://www.linkedin.com/in/alejandro-valle-295a13306' 
         }
     ];
 
@@ -81,7 +43,7 @@ const InterestCardContent = ({ isMobile, onOpenGallery, isActive }) => {
                     animate={{ opacity: 1, y: 0 }} 
                     exit={{ opacity: 0, y: -10 }}
                 >
-                    <h3 style={{ fontSize: '1.4rem', fontWeight: 900, marginBottom: 'var(--space-3)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
+                    <h3 style={{ fontSize: '1.4rem', fontWeight: 'var(--fw-black)', marginBottom: 'var(--space-3)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
                         MÁS ALLÁ DEL DISEÑO
                     </h3>
                     <p style={{ fontSize: '1rem', marginBottom: 'var(--space-4)', opacity: 0.8, lineHeight: 1.5 }}>
@@ -110,10 +72,10 @@ const InterestCardContent = ({ isMobile, onOpenGallery, isActive }) => {
                                     justifyContent: 'center',
                                     gap: '8px',
                                     padding: isMobile ? '10px 12px' : '8px 20px', 
-                                    borderRadius: '50px', 
+                                    borderRadius: 'var(--radius-pill)', 
                                     border: '1.5px solid var(--border-inactive)', 
                                     fontSize: isMobile ? '0.75rem' : '0.85rem', 
-                                    fontWeight: 700,
+                                    fontWeight: 'var(--fw-bold)',
                                     background: 'rgba(255,255,255,0.05)',
                                     color: 'var(--text-color)',
                                     cursor: 'pointer',
@@ -151,7 +113,7 @@ const InterestCardContent = ({ isMobile, onOpenGallery, isActive }) => {
                     style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
                 >
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--space-4)', width: '100%' }}>
-                        <span style={{ fontWeight: 800, fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span style={{ fontWeight: 'var(--fw-bold)', fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '8px' }}>
                             {interests.find(i => i.id === activeTab).label}
                         </span>
                         <button 
@@ -160,7 +122,7 @@ const InterestCardContent = ({ isMobile, onOpenGallery, isActive }) => {
                                 background: 'none', 
                                 border: 'none', 
                                 color: 'var(--accent-primary)', 
-                                fontWeight: 800, 
+                                fontWeight: 'var(--fw-bold)', 
                                 cursor: 'pointer', 
                                 fontSize: '0.8rem',
                                 padding: '4px 0',
@@ -182,12 +144,12 @@ const InterestCardContent = ({ isMobile, onOpenGallery, isActive }) => {
                                     <ImageWithSkeleton 
                                         key={i} 
                                         src={img} 
-                                        alt="Fotografía de Ale" 
+                                        alt={`Fotografía ${i + 1} de Ale`} 
                                         onClick={() => onOpenGallery(interests.find(i => i.id === 'fotografia').images, i)}
                                         style={{ 
                                             height: '110px', 
                                             width: '90px',
-                                            borderRadius: '12px', 
+                                            borderRadius: 'var(--radius-small)', 
                                             objectFit: 'cover',
                                             border: '1px solid rgba(255,255,255,0.1)',
                                             cursor: 'pointer',
@@ -216,9 +178,9 @@ const InterestCardContent = ({ isMobile, onOpenGallery, isActive }) => {
                                 padding: '12px 24px', 
                                 fontSize: '0.75rem', 
                                 textAlign: 'center', 
-                                borderRadius: '50px',
+                                borderRadius: 'var(--radius-pill)',
                                 textDecoration: 'none',
-                                fontWeight: 800,
+                                fontWeight: 'var(--fw-bold)',
                                 color: 'var(--text-color)',
                                 border: '1.5px solid var(--accent-primary)',
                                 textTransform: 'uppercase',
@@ -320,7 +282,7 @@ const About = () => {
                     fontSize: 'clamp(3rem, 8vw, 6rem)',
                     marginBottom: 'var(--space-12)',
                     color: 'var(--accent-primary)',
-                    fontWeight: 900,
+                    fontWeight: 'var(--fw-black)',
                     textAlign: 'center'
                 }}
             >
@@ -346,7 +308,7 @@ const About = () => {
                         backgroundColor: 'var(--surface-color)',
                         backdropFilter: 'blur(12px)',
                         padding: isMobile ? 'var(--space-4)' : 'var(--space-8)',
-                        borderRadius: '24px',
+                        borderRadius: 'var(--radius-inner)',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'center',
@@ -355,10 +317,10 @@ const About = () => {
                         cursor: 'default',
                     })}
                 >
-                    <h3 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: 'var(--space-4)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
+                    <h3 style={{ fontSize: '2rem', fontWeight: 'var(--fw-black)', marginBottom: 'var(--space-4)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
                         DISEÑADOR UX/UI CON VISIÓN EDITORIAL
                     </h3>
-                    <p style={{ fontSize: '1.25rem', lineHeight: 1.6, fontWeight: 500, opacity: 0.9 }}>
+                    <p style={{ fontSize: '1.25rem', lineHeight: 1.6, fontWeight: 'var(--fw-medium)', opacity: 0.9 }}>
                         Soy Alejandro Valle. Combino formación en <strong>Comunicación</strong> con metodologías UX para crear productos que no solo funcionan, sino que <strong>conectan y generan confianza</strong> desde el primer contacto.
                     </p>
                 </motion.div>
@@ -377,7 +339,7 @@ const About = () => {
                     style={getCardStyle(1, {
                         backgroundColor: 'var(--surface-color)',
                         backdropFilter: 'blur(12px)',
-                        borderRadius: '24px',
+                        borderRadius: 'var(--radius-inner)',
                         border: '1.5px solid var(--border-inactive)',
                         overflow: 'hidden',
                         position: 'relative'
@@ -392,7 +354,7 @@ const About = () => {
                             minHeight: '300px',
                             objectFit: 'cover',
                             filter: 'grayscale(10%) contrast(110%)',
-                            borderRadius: '24px'
+                            borderRadius: 'var(--radius-inner)'
                         }}
                     />
                 </motion.div>
@@ -409,11 +371,11 @@ const About = () => {
                         backgroundColor: 'var(--surface-color)',
                         backdropFilter: 'blur(12px)',
                         padding: isMobile ? 'var(--space-4)' : 'var(--space-6)',
-                        borderRadius: '24px',
+                        borderRadius: 'var(--radius-inner)',
                         border: '1.5px solid var(--border-inactive)',
                     })}
                 >
-                    <h4 style={{ fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 'var(--space-3)', opacity: 0.6, fontWeight: 700 }}>
+                    <h4 style={{ fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 'var(--space-3)', opacity: 0.7, fontWeight: 'var(--fw-bold)' }}>
                         Formación
                     </h4>
                     <p style={{ fontSize: '1.05rem', lineHeight: 1.5, opacity: 0.9 }}>
@@ -433,11 +395,11 @@ const About = () => {
                         backgroundColor: 'var(--surface-color)',
                         backdropFilter: 'blur(12px)',
                         padding: isMobile ? 'var(--space-4)' : 'var(--space-6)',
-                        borderRadius: '24px',
+                        borderRadius: 'var(--radius-inner)',
                         border: '1.5px solid var(--border-inactive)',
                     })}
                 >
-                    <h4 style={{ fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 'var(--space-3)', opacity: 0.6, fontWeight: 700 }}>
+                    <h4 style={{ fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 'var(--space-3)', opacity: 0.7, fontWeight: 'var(--fw-bold)' }}>
                         Logro
                     </h4>
                     <p style={{ fontSize: '1.05rem', lineHeight: 1.5, opacity: 0.9 }}>
@@ -457,7 +419,7 @@ const About = () => {
                         backgroundColor: 'var(--surface-color)',
                         backdropFilter: 'blur(12px)',
                         padding: isMobile ? 'var(--space-4)' : 'var(--space-8)',
-                        borderRadius: '24px',
+                        borderRadius: 'var(--radius-inner)',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'flex-start',
@@ -466,7 +428,7 @@ const About = () => {
                         cursor: 'default',
                     })}
                 >
-                    <h3 style={{ fontSize: '1.4rem', fontWeight: 900, marginBottom: 'var(--space-3)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
+                    <h3 style={{ fontSize: '1.4rem', fontWeight: 'var(--fw-black)', marginBottom: 'var(--space-3)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
                         CRECER EN EQUIPO
                     </h3>
                     <p style={{ fontSize: '1.15rem', opacity: 0.9, lineHeight: 1.6 }}>
@@ -486,7 +448,7 @@ const About = () => {
                         backgroundColor: 'var(--surface-color)',
                         backdropFilter: 'blur(12px)',
                         padding: isMobile ? 'var(--space-4)' : 'var(--space-8)',
-                        borderRadius: '24px',
+                        borderRadius: 'var(--radius-inner)',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'flex-start',
@@ -515,7 +477,7 @@ const About = () => {
                         backdropFilter: 'blur(12px)',
                         border: '1.5px solid var(--border-inactive)',
                         padding: 'var(--space-8)',
-                        borderRadius: '24px',
+                        borderRadius: 'var(--radius-inner)',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -539,7 +501,9 @@ const About = () => {
                         }}
                         style={{ fontSize: '3.5rem', marginBottom: '4px' }}
                     >
-                        📄
+                        <span style={{ fontSize: '0.8rem', fontWeight: 'var(--fw-black)', letterSpacing: '0.1em' }}>
+                            VOLVER
+                            </span>
                     </motion.div>
 
                     <motion.div
@@ -549,7 +513,7 @@ const About = () => {
                     >
                         <h3 style={{
                             fontSize: '1.4rem',
-                            fontWeight: 900,
+                            fontWeight: 'var(--fw-black)',
                             margin: 0,
                             textTransform: 'uppercase',
                             letterSpacing: '0.05em',
@@ -562,7 +526,7 @@ const About = () => {
                             opacity: 0.7,
                             margin: 0,
                             marginTop: '2px',
-                            fontWeight: 600,
+                            fontWeight: 'var(--fw-medium)',
                             color: 'inherit'
                         }}>
                             PDF

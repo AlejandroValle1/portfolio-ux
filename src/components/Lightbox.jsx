@@ -185,7 +185,7 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                     <div style={{
                         color: 'rgba(255,255,255,0.9)',
                         fontSize: 'clamp(9px, 2.5vw, 11px)',
-                        fontWeight: 700,
+                        fontWeight: 'var(--fw-bold)',
                         textTransform: 'uppercase',
                         letterSpacing: '0.15em',
                         background: 'rgba(0,0,0,0.4)',

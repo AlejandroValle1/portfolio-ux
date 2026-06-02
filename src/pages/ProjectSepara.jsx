@@ -10,19 +10,14 @@ import CompareCarousel from '../components/CompareCarousel';
 import ParallaxGallery from '../components/ParallaxGallery';
 import { SEPARA_DATA } from '../data/projectsData';
 import SpotlightGrid from '../components/SpotlightGrid';
+import { usePerformance } from '../context/PerformanceContext';
 
 const ProjectSepara = () => {
     const [lightboxState, setLightboxState] = useState({ isOpen: false, images: [], index: 0 });
     const [hoveredFlowStep, setHoveredFlowStep] = useState(0);
     const [isFlowPaused, setIsFlowPaused] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
+    const { isMobile } = usePerformance();
 
-    useEffect(() => {
-        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
 
     useEffect(() => {
         if (isFlowPaused) return;
@@ -115,17 +110,17 @@ const ProjectSepara = () => {
                     ]}
                     renderItem={(item) => (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-                            <p style={{ fontSize: '0.75rem', opacity: 0.85, margin: 0, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                            <p style={{ fontSize: '0.75rem', opacity: 0.85, margin: 0, fontWeight: 'var(--fw-bold)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                                 Problema
                             </p>
-                            <p style={{ fontWeight: 600, margin: 0, fontSize: '0.95rem' }}>
+                            <p style={{ fontWeight: 'var(--fw-medium)', margin: 0, fontSize: '0.95rem' }}>
                                 {item.problem}
                             </p>
                             <div style={{ height: '1px', background: 'var(--border-inactive)', margin: 'var(--space-1) 0' }} />
-                            <p style={{ fontSize: '0.75rem', opacity: 0.85, margin: 0, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--accent-primary)' }}>
+                            <p style={{ fontSize: '0.75rem', opacity: 0.85, margin: 0, fontWeight: 'var(--fw-bold)', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--accent-primary)' }}>
                                 Oportunidad ↳
                             </p>
-                            <p style={{ fontWeight: 600, margin: 0, fontSize: '0.95rem' }}>
+                            <p style={{ fontWeight: 'var(--fw-medium)', margin: 0, fontSize: '0.95rem' }}>
                                 {item.opportunity}
                             </p>
                         </div>
@@ -157,12 +152,12 @@ const ProjectSepara = () => {
                                 animate={hoveredFlowStep === i ? { y: -4, scale: 1.03, borderColor: 'var(--accent-primary)' } : { y: 0, scale: 1, borderColor: 'rgba(255,255,255,0.1)' }}
                                 transition={{ type: 'spring', stiffness: 300, damping: 24 }}
                                 className="glass-card capsule-flow" 
-                                style={{ padding: 'var(--space-2) var(--space-4)', borderRadius: '50px', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-color)' }}
+                                style={{ padding: 'var(--space-2) var(--space-4)', borderRadius: 'var(--radius-pill)', fontSize: '0.85rem', fontWeight: 'var(--fw-medium)', color: 'var(--text-color)' }}
                             >
                                 {step}
                             </motion.div>
                             {i < arr.length - 1 && (
-                                <motion.span variants={{ hidden: { opacity: 0 }, show: { opacity: 1 } }} style={{ fontWeight: 700, display: 'inline-block' }}>
+                                <motion.span variants={{ hidden: { opacity: 0 }, show: { opacity: 1 } }} style={{ fontWeight: 'var(--fw-bold)', display: 'inline-block' }}>
                                     <motion.span 
                                         animate={{ 
                                             opacity: hoveredFlowStep === i ? 1 : 0.3, 
@@ -249,9 +244,9 @@ const ProjectSepara = () => {
                                     cursor: 'pointer',
                                     borderRadius: '4px'
                                 }}
-                            onClick={() => openLightbox("/Cerificado-Udemy.webp")}
+                            onClick={() => openLightbox("/Certificado-Udemy.webp")}
                         >
-                            <img src="/Cerificado-Udemy.webp" alt="Certificado Udemy" style={{ width: '100%', display: 'block' }} />
+                            <img src="/Certificado-Udemy.webp" alt="Certificado Udemy" style={{ width: '100%', display: 'block' }} />
                         </motion.div>
                     </div>
                 }
@@ -262,9 +257,9 @@ const ProjectSepara = () => {
                 <Link to="/tienda-tecno" style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
                     <motion.div
                         className="glass-card btn-elegant"
-                        style={{ padding: 'var(--space-12)', borderRadius: '32px', textAlign: 'center', cursor: 'pointer' }}
+                        style={{ padding: 'var(--space-12)', borderRadius: 'var(--radius-card)', textAlign: 'center', cursor: 'pointer' }}
                     >
-                        <span style={{ fontSize: '0.75rem', opacity: 0.4, textTransform: 'uppercase', letterSpacing: '0.25em' }}>Siguiente Proyecto</span>
+                        <span style={{ fontSize: '0.75rem', opacity: 0.65, textTransform: 'uppercase', letterSpacing: '0.25em' }}>Siguiente Proyecto</span>
                         <h4 className="brutalist-title" style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', marginTop: 'var(--space-2)' }}>TIENDA TECNO →</h4>
                     </motion.div>
                 </Link>

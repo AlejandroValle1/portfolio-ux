@@ -1,15 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { usePerformance } from '../context/PerformanceContext';
 
 const Hero = () => {
-    const [isMobile, setIsMobile] = React.useState(false);
-
-    React.useEffect(() => {
-        const checkMobile = () => setIsMobile(window.innerWidth < 992);
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
+    const { isMobile } = usePerformance();
 
     const scrollToProjects = () => {
         const element = document.getElementById('projects');
@@ -92,8 +86,8 @@ const Hero = () => {
                             display: 'inline-flex',
                             alignItems: 'center',
                             gap: '12px',
-                            borderRadius: '50px',
-                            fontWeight: 600,
+                            borderRadius: 'var(--radius-pill)',
+                            fontWeight: 'var(--fw-bold)',
                             letterSpacing: '0.05em'
                         }}
                     >

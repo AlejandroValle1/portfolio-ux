@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, MotionConfig } from 'framer-motion';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -9,6 +9,7 @@ import ProjectTienda from './pages/ProjectTienda';
 import Cursor from './components/Cursor';
 import ScrollUpButton from './components/ScrollToTop';
 import { PerformanceProvider } from './context/PerformanceContext';
+import NotFound from './pages/NotFound';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -60,7 +61,8 @@ function App() {
   return (
     <div className="App">
       <PerformanceProvider>
-        <a href="#main-content" className="skip-link">Saltar al contenido principal</a>
+        <MotionConfig reducedMotion="user">
+          <a href="#main-content" className="skip-link">Saltar al contenido principal</a>
         <Cursor />
         <ScrollToTop />
         <ScrollUpButton />
@@ -71,10 +73,12 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/separa" element={<ProjectSepara />} />
               <Route path="/tienda-tecno" element={<ProjectTienda />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </AnimatePresence>
         </main>
         <Footer />
+        </MotionConfig>
       </PerformanceProvider>
     </div>
   );

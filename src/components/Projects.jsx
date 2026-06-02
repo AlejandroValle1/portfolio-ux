@@ -3,44 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { usePerformance } from '../context/PerformanceContext';
 
-// Hook: detecta qué card está más centrada en el viewport
-function useScrollSpotlight(refs, isLowPerformance) {
-    const [activeIndex, setActiveIndex] = React.useState(null);
-
-    React.useEffect(() => {
-        const observers = [];
-        const ratios = new Array(refs.length).fill(0);
-
-        const updateActive = () => {
-            let maxRatio = 0;
-            let maxIndex = null;
-            ratios.forEach((r, i) => {
-                if (r > maxRatio) { maxRatio = r; maxIndex = i; }
-            });
-            setActiveIndex(maxRatio > 0.5 ? maxIndex : null);
-        };
-
-        refs.forEach((ref, i) => {
-            if (!ref.current) return;
-            const obs = new IntersectionObserver(
-                ([entry]) => {
-                    ratios[i] = entry.intersectionRatio;
-                    updateActive();
-                },
-                { 
-                    threshold: isLowPerformance ? [0.5] : [0.2, 0.5, 0.8],
-                    rootMargin: isLowPerformance ? "-20% 0px -20% 0px" : "-35% 0px -35% 0px"
-                }
-            );
-            obs.observe(ref.current);
-            observers.push(obs);
-        });
-
-        return () => observers.forEach(o => o.disconnect());
-    }, [refs, isLowPerformance]);
-
-    return activeIndex;
-}
+import { useScrollSpotlight } from '../hooks/useScrollSpotlight';
 
 const projectsSummary = [
     {
@@ -165,7 +128,7 @@ const Projects = () => {
         width: '100%',
         minHeight: isMobile ? 'auto' : '520px', 
         height: isMobile ? 'auto' : 'auto', 
-        borderRadius: '32px',
+        borderRadius: 'var(--radius-card)',
         overflow: 'hidden',
         willChange: 'transform',
         transform: 'translateZ(0)',
@@ -288,11 +251,11 @@ const Projects = () => {
                                         fontSize: isMobile ? '0.7rem' : '0.8rem',
                                         textTransform: 'uppercase',
                                         letterSpacing: '0.12em',
-                                        fontWeight: 700,
+                                        fontWeight: 'var(--fw-bold)',
                                         color: 'var(--text-color)',
                                         border: '1px solid var(--border-inactive)',
                                         padding: isMobile ? '4px 10px' : '6px 14px',
-                                        borderRadius: '50px',
+                                        borderRadius: 'var(--radius-pill)',
                                         display: 'inline-block',
                                         width: 'fit-content',
                                     }}
@@ -305,7 +268,7 @@ const Projects = () => {
                                     fontSize: isMobile ? 'clamp(1.5rem, 8vw, 2.25rem)' : 'clamp(2.5rem, 5vw, 4.5rem)',
                                     lineHeight: 1.0,
                                     margin: '0',
-                                    fontWeight: 900,
+                                    fontWeight: 'var(--fw-black)',
                                     textTransform: 'uppercase',
                                     fontFamily: 'Inter, sans-serif',
                                     letterSpacing: '-0.04em'
@@ -318,7 +281,7 @@ const Projects = () => {
                                     fontSize: isMobile ? '0.95rem' : '1.1rem',
                                     lineHeight: 1.6,
                                     opacity: 0.9,
-                                    fontWeight: 500,
+                                    fontWeight: 'var(--fw-medium)',
                                     margin: '0',
                                     maxWidth: isMobile ? 'none' : '38ch'
                                 }}>
@@ -345,11 +308,11 @@ const Projects = () => {
                                             gap: '10px',
                                             width: '100%',
                                             padding: '14px 16px',
-                                            borderRadius: '12px',
+                                            borderRadius: 'var(--radius-small)',
                                             border: '2px solid var(--accent-primary)',
                                             color: 'var(--text-color)',
                                             fontSize: '0.85rem',
-                                            fontWeight: 800,
+                                            fontWeight: 'var(--fw-bold)',
                                             background: 'transparent',
                                             textTransform: 'uppercase',
                                             letterSpacing: '0.05em',
@@ -359,11 +322,11 @@ const Projects = () => {
                                             alignItems: 'center',
                                             gap: '10px',
                                             padding: '14px 36px',
-                                            borderRadius: '50px',
+                                            borderRadius: 'var(--radius-pill)',
                                             border: '1.5px solid var(--accent-primary)',
                                             color: 'var(--text-color)',
                                             fontSize: '1rem',
-                                            fontWeight: 800,
+                                            fontWeight: 'var(--fw-bold)',
                                             background: 'transparent',
                                             textTransform: 'uppercase',
                                             letterSpacing: '0.06em',

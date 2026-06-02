@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap');
 
 :root {
+  --font-heading: 'Inter', sans-serif;
   /* Day/Sun Mode - Radiant & Sky Blue */
   --bg-color: #A9DEF9;
   /* Celeste vibrante - Cielo despejado */
@@ -40,6 +41,18 @@
   --space-16: 8rem;
   --space-24: 12rem;
   --space-32: 16rem;
+
+  /* Border Radius */
+  --radius-card: 32px;
+  --radius-inner: 24px;
+  --radius-pill: 50px;
+  --radius-small: 12px;
+
+  /* Font Weights */
+  --fw-normal: 400;
+  --fw-medium: 600;
+  --fw-bold: 800;
+  --fw-black: 900;
 
   --radius: 4px;
   --cv-glow: var(--accent-primary);
@@ -144,9 +157,11 @@ body {
 }
 
 /* Cursor management - Global hide of native cursor unless keyboard navigating */
-body:not(.using-keyboard),
-body:not(.using-keyboard) * {
-  cursor: none !important;
+@media (pointer: fine) {
+  body:not(.using-keyboard),
+  body:not(.using-keyboard) * {
+    cursor: none !important;
+  }
 }
 
 .brutalist-title {
@@ -227,7 +242,7 @@ div[role="button"] {
 
 .btn-elegant:hover,
 .btn-elegant:active {
-  color: #1A2A40 !important;
+  color: #0D1520 !important;
   border-color: transparent;
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);

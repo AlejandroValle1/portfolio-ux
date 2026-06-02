@@ -25,44 +25,7 @@ const steps = [
     }
 ];
 
-// Hook: detecta qué card está más centrada en el viewport
-function useScrollSpotlight(refs, isLowPerformance) {
-    const [activeIndex, setActiveIndex] = React.useState(null);
-
-    React.useEffect(() => {
-        const observers = [];
-        const ratios = new Array(refs.length).fill(0);
-
-        const updateActive = () => {
-            let maxRatio = 0;
-            let maxIndex = null;
-            ratios.forEach((r, i) => {
-                if (r > maxRatio) { maxRatio = r; maxIndex = i; }
-            });
-            setActiveIndex(maxRatio > 0.5 ? maxIndex : null);
-        };
-
-        refs.forEach((ref, i) => {
-            if (!ref.current) return;
-            const obs = new IntersectionObserver(
-                ([entry]) => {
-                    ratios[i] = entry.intersectionRatio;
-                    updateActive();
-                },
-                { 
-                    threshold: isLowPerformance ? [0.5] : [0.2, 0.5, 0.8],
-                    rootMargin: isLowPerformance ? "-20% 0px -20% 0px" : "-35% 0px -35% 0px"
-                }
-            );
-            obs.observe(ref.current);
-            observers.push(obs);
-        });
-
-        return () => observers.forEach(o => o.disconnect());
-    }, [refs, isLowPerformance]);
-
-    return activeIndex;
-}
+import { useScrollSpotlight } from '../hooks/useScrollSpotlight';
 
 const WorkProcess = () => {
     const { isLowEnd, isMobile } = usePerformance();
@@ -80,7 +43,7 @@ const WorkProcess = () => {
         backgroundColor: 'var(--surface-color)',
         padding: isMobile ? 'var(--space-4)' : 'var(--space-8)',
         paddingLeft: isMobile ? 'var(--space-4)' : 'var(--space-12)',
-        borderRadius: '32px',
+        borderRadius: 'var(--radius-card)',
         border: '1.5px solid var(--border-inactive)',
         backdropFilter: (isLowEnd || isMobile) ? 'none' : 'blur(12px)',
         position: 'relative',
@@ -154,7 +117,7 @@ const WorkProcess = () => {
                                     y: '-50%',
                                     transformOrigin: 'left center',
                                     fontSize: 'clamp(8rem, 15vw, 12rem)',
-                                    fontWeight: 900,
+                                    fontWeight: 'var(--fw-black)',
                                     lineHeight: 1,
                                     fontFamily: 'var(--font-heading)',
                                     pointerEvents: 'none',
@@ -180,7 +143,7 @@ const WorkProcess = () => {
                                 <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
                                     <div style={{
                                         fontSize: '4.5rem',
-                                        fontWeight: 900,
+                                        fontWeight: 'var(--fw-black)',
                                         lineHeight: 0.8,
                                         color: activeIndex === index ? 'var(--accent-primary)' : 'var(--text-color)',
                                         opacity: activeIndex === index ? 0.9 : 0.15,
@@ -196,7 +159,7 @@ const WorkProcess = () => {
                                             textTransform: 'uppercase',
                                             letterSpacing: '0.25em',
                                             color: 'var(--accent-primary)',
-                                            fontWeight: 800,
+                                            fontWeight: 'var(--fw-bold)',
                                             marginBottom: 'var(--space-1)',
                                             display: 'block'
                                         }}>
@@ -204,7 +167,7 @@ const WorkProcess = () => {
                                         </span>
                                         <h3 style={{
                                             fontSize: '2rem',
-                                            fontWeight: 900,
+                                            fontWeight: 'var(--fw-black)',
                                             textTransform: 'uppercase',
                                             lineHeight: 1,
                                             letterSpacing: '-0.03em',
@@ -221,7 +184,7 @@ const WorkProcess = () => {
                                         textTransform: 'uppercase',
                                         letterSpacing: '0.25em',
                                         color: 'var(--accent-primary)',
-                                        fontWeight: 800,
+                                        fontWeight: 'var(--fw-bold)',
                                         marginBottom: 'var(--space-1)',
                                         display: 'block'
                                     }}>
@@ -229,7 +192,7 @@ const WorkProcess = () => {
                                     </span>
                                     <h3 style={{
                                         fontSize: 'clamp(2rem, 4vw, 2.8rem)',
-                                        fontWeight: 900,
+                                        fontWeight: 'var(--fw-black)',
                                         textTransform: 'uppercase',
                                         lineHeight: 1,
                                         letterSpacing: '-0.03em',

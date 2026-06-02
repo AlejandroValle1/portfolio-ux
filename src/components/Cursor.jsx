@@ -132,7 +132,7 @@ const Cursor = () => {
                         style={{
                             color: 'white',
                             fontSize: '12px',
-                            fontWeight: 'bold',
+                            fontWeight: 'var(--fw-bold)',
                             letterSpacing: '0.05em',
                             textTransform: 'uppercase',
                             pointerEvents: 'none'

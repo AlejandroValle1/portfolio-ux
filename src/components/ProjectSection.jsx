@@ -42,9 +42,9 @@ const ProjectSection = ({
                             fontSize: '1.2rem', 
                             color: 'var(--accent-primary)', 
                             lineHeight: 1,
-                            fontWeight: 900
+                            fontWeight: 'var(--fw-black)'
                         }}>{icon}</span>
-                        <h3 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 700, fontFamily: 'Inter, sans-serif', letterSpacing: '-0.02em', lineHeight: 1.2, margin: 0, textWrap: 'balance' }}>
+                        <h3 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 'var(--fw-bold)', fontFamily: 'Inter, sans-serif', letterSpacing: '-0.02em', lineHeight: 1.2, margin: 0, textWrap: 'balance' }}>
                             {title}
                         </h3>
                     </div>
@@ -73,7 +73,7 @@ const ProjectSection = ({
                     onClick={() => onImageClick && onImageClick(image)}
                     style={{
                         width: '100%',
-                        borderRadius: '24px',
+                        borderRadius: 'var(--radius-inner)',
                         overflow: 'hidden',
                         border: '1.5px solid var(--border-inactive)',
                         boxShadow: '0 8px 24px rgba(0, 0, 0, 0.05)',

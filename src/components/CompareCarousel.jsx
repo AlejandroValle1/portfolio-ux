@@ -240,7 +240,7 @@ const ZoomableComparisonSlider = ({ srcLow, srcHigh, alt, mobileFrame, desktopFr
                         justifyContent: 'center',
                         boxShadow: '0 4px 20px rgba(0,0,0,0.4)'
                     }}>
-                        <div style={{ display: 'flex', gap: '4px', color: 'var(--accent-primary)', fontWeight: 'bold' }}>
+                        <div style={{ display: 'flex', gap: '4px', color: 'var(--accent-primary)', fontWeight: 'var(--fw-bold)' }}>
                             <span>◀</span><span>▶</span>
                         </div>
                     </div>
@@ -256,7 +256,7 @@ const ZoomableComparisonSlider = ({ srcLow, srcHigh, alt, mobileFrame, desktopFr
                     padding: isMobile ? '4px 10px' : '8px 16px',
                     borderRadius: '20px',
                     fontSize: isMobile ? '9px' : '11px',
-                    fontWeight: 600,
+                    fontWeight: 'var(--fw-medium)',
                     textTransform: 'uppercase',
                     letterSpacing: '0.1em',
                     zIndex: 20,
@@ -275,7 +275,7 @@ const ZoomableComparisonSlider = ({ srcLow, srcHigh, alt, mobileFrame, desktopFr
                     padding: isMobile ? '4px 10px' : '8px 16px',
                     borderRadius: '20px',
                     fontSize: isMobile ? '9px' : '11px',
-                    fontWeight: 600,
+                    fontWeight: 'var(--fw-medium)',
                     textTransform: 'uppercase',
                     letterSpacing: '0.1em',
                     zIndex: 20,
@@ -375,7 +375,7 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
                 <div style={{
                     color: 'rgba(255,255,255,0.9)',
                     fontSize: '9px',
-                    fontWeight: 700,
+                    fontWeight: 'var(--fw-bold)',
                     textTransform: 'uppercase',
                     letterSpacing: '0.1em',
                     display: 'flex',
@@ -422,7 +422,7 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
                     <div style={{
                         color: 'rgba(255,255,255,0.9)',
                         fontSize: '11px',
-                        fontWeight: 700,
+                        fontWeight: 'var(--fw-bold)',
                         textTransform: 'uppercase',
                         letterSpacing: '0.15em',
                         background: 'rgba(0,0,0,0.4)',
@@ -452,7 +452,7 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
                     <div style={{
                         color: 'rgba(255,255,255,0.6)',
                         fontSize: '11px',
-                        fontWeight: 500,
+                        fontWeight: 'var(--fw-medium)',
                         letterSpacing: '0.05em',
                         display: 'flex',
                         alignItems: 'center',
@@ -462,9 +462,9 @@ const FullscreenOverlay = ({ srcLow, srcHigh, title, mobileFrame, desktopFrame, 
                         borderRadius: '20px',
                         backdropFilter: 'blur(10px)'
                     }}>
-                        <span><span style={{fontWeight: 700, color: 'white'}}>Rueda</span> para hacer zoom</span>
+                        <span><span style={{fontWeight: 'var(--fw-bold)', color: 'white'}}>Rueda</span> para hacer zoom</span>
                         <span style={{ opacity: 0.3 }}>|</span>
-                        <span><span style={{fontWeight: 700, color: 'white'}}>Clic + Arrastrar</span> para paneo</span>
+                        <span><span style={{fontWeight: 'var(--fw-bold)', color: 'white'}}>Clic + Arrastrar</span> para paneo</span>
                     </div>
                 </div>
 
@@ -617,7 +617,7 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                 color: 'var(--text-color)',
                 opacity: 0.9,
                 fontSize: '0.9rem',
-                fontWeight: 700,
+                fontWeight: 'var(--fw-bold)',
                 textTransform: 'uppercase',
                 letterSpacing: '0.15em',
                 display: 'flex',
@@ -627,7 +627,7 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
             }}>
                 <div>
                     {isMobile ? 'Explorar Galería' : 'Deslizá para comparar'}
-                    <span style={{ marginLeft: '12px', opacity: 0.5, fontWeight: 400 }}>
+                    <span style={{ marginLeft: '12px', opacity: 0.5, fontWeight: 'var(--fw-normal)' }}>
                         [{currentIndex + 1} / {lowFiImages.length}]
                     </span>
                 </div>
@@ -644,7 +644,7 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                             padding: '10px 20px',
                             borderRadius: '30px',
                             fontSize: '11px',
-                            fontWeight: 800,
+                            fontWeight: 'var(--fw-bold)',
                             textTransform: 'uppercase',
                             letterSpacing: '0.05em',
                             display: 'flex',
@@ -755,7 +755,7 @@ const CompareCarousel = ({ lowFiImages, highFiImages, title, mobileFrame = false
                                         padding: '4px 12px',
                                         borderRadius: '20px',
                                         fontSize: '9px',
-                                        fontWeight: 600,
+                                        fontWeight: 'var(--fw-medium)',
                                         textTransform: 'uppercase',
                                         pointerEvents: 'none'
                                     }}>

@@ -15,7 +15,7 @@ const ToolItem = ({ name, children }) => (
         </div>
         <span style={{
             fontSize: '0.65rem',
-            fontWeight: 700,
+            fontWeight: 'var(--fw-bold)',
             letterSpacing: '0.05em',
             textTransform: 'uppercase',
             opacity: 0.7,

@@ -31,7 +31,7 @@ const ProjectGroupLabel = ({ label, id }) => (
                 textTransform: 'uppercase',
                 letterSpacing: '0.2em',
                 opacity: 0.4,
-                fontWeight: 700,
+                fontWeight: 'var(--fw-bold)',
                 whiteSpace: 'nowrap'
             }}>
                 {label}

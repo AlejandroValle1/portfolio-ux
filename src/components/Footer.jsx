@@ -45,6 +45,7 @@ const ContactLink = ({ label, sub, url, icon, brandColor }) => {
             href={url}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`Contactar por ${label}`}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
             style={{
@@ -74,7 +75,7 @@ const ContactLink = ({ label, sub, url, icon, brandColor }) => {
             {/* Label principal cambo a Accent */}
             <span style={{
                 fontSize: '0.8rem',
-                fontWeight: 800,
+                fontWeight: 'var(--fw-bold)',
                 textTransform: 'uppercase',
                 letterSpacing: '0.1em',
                 lineHeight: 1,
@@ -87,8 +88,8 @@ const ContactLink = ({ label, sub, url, icon, brandColor }) => {
             {/* Sublabel descriptivo - también acompaña */}
             <span style={{
                 fontSize: '0.72rem',
-                fontWeight: 600, /* Un poco más fuerte para mejor lectura de color */
-                opacity: hovered ? 0.9 : 0.5,
+                fontWeight: 'var(--fw-medium)', /* Un poco más fuerte para mejor lectura de color */
+                opacity: hovered ? 0.9 : 0.65,
                 letterSpacing: '0.02em',
                 color: hovered ? 'var(--accent-primary)' : 'var(--text-color)',
                 transition: 'color 0.4s ease, opacity 0.4s ease',
@@ -101,7 +102,7 @@ const ContactLink = ({ label, sub, url, icon, brandColor }) => {
 
 const Footer = () => {
     return (
-        <footer id="contact" className="container" style={{ padding: 'var(--space-12) 0 var(--space-8) 0', borderTop: '20px solid var(--accent-primary)', textAlign: 'center' }}>
+        <footer id="contact" aria-label="Contacto" className="container" style={{ padding: 'var(--space-12) 0 var(--space-8) 0', borderTop: '20px solid var(--accent-primary)', textAlign: 'center' }}>
             <h2 className="brutalist-title" style={{
                 fontSize: 'clamp(2.2rem, 9vw, 6rem)',
                 lineHeight: 0.95,
@@ -114,7 +115,7 @@ const Footer = () => {
             </h2>
 
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 'var(--space-8)', maxWidth: '800px', margin: '0 auto' }}>
-                <p style={{ fontSize: '1.5rem', opacity: 0.8, lineHeight: 1.4, textTransform: 'uppercase', fontWeight: 600 }}>
+                <p style={{ fontSize: '1.5rem', opacity: 0.8, lineHeight: 1.4, textTransform: 'uppercase', fontWeight: 'var(--fw-medium)' }}>
                     ESTOY LISTO PARA UN NUEVO PROYECTO
                 </p>
 
@@ -132,7 +133,7 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div style={{ marginTop: 'var(--space-16)', fontSize: '0.8rem', opacity: 0.5, fontWeight: 500 }}>
+            <div style={{ marginTop: 'var(--space-16)', fontSize: '0.8rem', opacity: 0.6, fontWeight: 'var(--fw-medium)' }}>
                 &copy; {new Date().getFullYear()} ALEJANDRO VALLE.
             </div>
         </footer>
