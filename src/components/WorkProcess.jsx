@@ -146,14 +146,16 @@ const WorkProcess = () => {
     }, []);
 
     const SPRING = { stiffness: 130, damping: 30 };
-    const seg0 = useSpring(useTransform(scrollY, y => calcSeg(y, 0)), SPRING);
-    const seg1 = useSpring(useTransform(scrollY, y => calcSeg(y, 1)), SPRING);
-    const seg2 = useSpring(useTransform(scrollY, y => calcSeg(y, 2)), SPRING);
-    const seg3 = useSpring(useTransform(scrollY, y => calcSeg(y, 3)), SPRING);
+    const smoothY = useSpring(scrollY, SPRING);
+
+    const seg0 = useTransform(smoothY, y => calcSeg(y, 0));
+    const seg1 = useTransform(smoothY, y => calcSeg(y, 1));
+    const seg2 = useTransform(smoothY, y => calcSeg(y, 2));
+    const seg3 = useTransform(smoothY, y => calcSeg(y, 3));
     const smoothSegs = [seg0, seg1, seg2, seg3];
 
     /* ── Active index driven by scroll ── */
-    useMotionValueEvent(scrollY, 'change', (y) => {
+    useMotionValueEvent(smoothY, 'change', (y) => {
         const t = thresholdsRef.current;
         if (!t || !t.length) return;
         let active = null;
