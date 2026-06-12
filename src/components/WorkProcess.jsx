@@ -166,24 +166,32 @@ const WorkProcess = () => {
     }, [isMobile]);
 
     /*
-     * Active step: observe the FULL STEP ROW (not the tiny dot).
-     * rootMargin '-38% 0px -38% 0px' creates a ~24% band in the center of
-     * the viewport. A step becomes active when it enters that band.
+     * Active step: en cada scroll, busca qué step tiene su centro
+     * más cerca del centro del viewport. Preciso en cualquier tamaño de pantalla.
      */
     React.useEffect(() => {
-        const observers = stepRefs.current.map((el, i) => {
-            if (!el) return null;
-            const obs = new IntersectionObserver(
-                ([entry]) => { if (entry.isIntersecting) setActiveIndex(i); },
-                {
-                    rootMargin: '-38% 0px -38% 0px',
-                    threshold: 0,
+        const handleScroll = () => {
+            const vpCenter = window.innerHeight / 2;
+            let closestIdx = 0;
+            let minDist = Infinity;
+
+            stepRefs.current.forEach((el, i) => {
+                if (!el) return;
+                const rect = el.getBoundingClientRect();
+                const elCenter = rect.top + rect.height / 2;
+                const dist = Math.abs(elCenter - vpCenter);
+                if (dist < minDist) {
+                    minDist = dist;
+                    closestIdx = i;
                 }
-            );
-            obs.observe(el);
-            return obs;
-        });
-        return () => observers.forEach(obs => obs?.disconnect());
+            });
+
+            setActiveIndex(closestIdx);
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll(); // estado inicial
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     return (
