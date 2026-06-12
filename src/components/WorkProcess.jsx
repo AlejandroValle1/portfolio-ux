@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion, useScroll, useSpring, useTransform, useMotionValueEvent } from 'framer-motion';
 import { usePerformance } from '../context/PerformanceContext';
 
 const steps = [
@@ -118,20 +118,45 @@ StepCard.displayName = 'StepCard';
 const WorkProcess = () => {
     const { isLowEnd, isMobile } = usePerformance();
     const containerRef = React.useRef(null);
-    const dotRefs   = React.useRef(steps.map(() => null)); // central dots (for SVG measurement)
-    const stepRefs  = React.useRef(steps.map(() => null)); // full step rows (kept for compat)
-    const cardRefs  = React.useRef(steps.map(() => null)); // actual card elements (for activation)
-    const [svgData, setSvgData] = React.useState(null);
+    const dotRefs  = React.useRef(steps.map(() => null)); // central dots → SVG measurement
+    const cardRefs = React.useRef(steps.map(() => null)); // card elements → activation
+    const stepRefs = React.useRef(steps.map(() => null)); // full rows → mobile ref
+    const thresholdsRef = React.useRef([]);               // scroll-Y when each dot hits center
+
+    const [svgData, setSvgData]     = React.useState(null);
     const [activeIndex, setActiveIndex] = React.useState(null);
 
-    /* Scroll-driven path drawing — starts when section enters, ends when it leaves */
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ['start 0.85', 'end 0.15'],
-    });
-    const pathLength = useSpring(scrollYProgress, { stiffness: 60, damping: 20, restDelta: 0.001 });
+    /* ── Global scroll Y (Framer Motion MotionValue) ── */
+    const { scrollY } = useScroll();
 
-    /* Build SVG curved path from real DOM dot positions */
+    /* ── Segment progress: 0 when dot[i] at center → 1 when dot[i+1] at center ── */
+    const calcSeg = React.useCallback((y, idx) => {
+        const t = thresholdsRef.current;
+        if (t.length < idx + 2) return 0;
+        const start = t[idx], end = t[idx + 1];
+        if (end <= start) return 0;
+        return Math.max(0, Math.min(1, (y - start) / (end - start)));
+    }, []);
+
+    const SPRING = { stiffness: 130, damping: 30 };
+    const seg0 = useSpring(useTransform(scrollY, y => calcSeg(y, 0)), SPRING);
+    const seg1 = useSpring(useTransform(scrollY, y => calcSeg(y, 1)), SPRING);
+    const seg2 = useSpring(useTransform(scrollY, y => calcSeg(y, 2)), SPRING);
+    const seg3 = useSpring(useTransform(scrollY, y => calcSeg(y, 3)), SPRING);
+    const smoothSegs = [seg0, seg1, seg2, seg3];
+
+    /* ── Active index: step whose dot is closest (above) viewport center ── */
+    useMotionValueEvent(scrollY, 'change', (y) => {
+        const t = thresholdsRef.current;
+        if (!t.length) return;
+        let active = null;
+        for (let i = 0; i < t.length; i++) {
+            if (y >= t[i]) active = i;
+        }
+        setActiveIndex(active);
+    });
+
+    /* ── Build SVG path + thresholds from real DOM positions ── */
     React.useEffect(() => {
         if (isMobile) return;
 
@@ -142,61 +167,74 @@ const WorkProcess = () => {
             const H = cRect.height;
             const cx = W / 2;
             const amplitude = W * 0.22;
+            const vh = window.innerHeight;
 
+            /* Y of each dot relative to the SVG container */
             const dots = dotRefs.current.map(el => {
                 if (!el) return null;
                 const r = el.getBoundingClientRect();
                 return r.top + r.height / 2 - cRect.top;
             });
-
             if (dots.some(d => d === null)) return;
 
-            let path = `M ${cx},${dots[0]}`;
+            /* Full background path + individual segment paths */
+            let bgPath = `M ${cx},${dots[0]}`;
+            const segments = [];
             for (let i = 1; i < dots.length; i++) {
-                const py = dots[i - 1];
-                const cy = dots[i];
+                const py = dots[i - 1], cy = dots[i];
                 const mid = (py + cy) / 2;
                 const bx = i % 2 === 1 ? cx + amplitude : cx - amplitude;
-                path += ` C ${bx},${mid} ${bx},${mid} ${cx},${cy}`;
+                segments.push(`M ${cx},${py} C ${bx},${mid} ${bx},${mid} ${cx},${cy}`);
+                bgPath += ` C ${bx},${mid} ${bx},${mid} ${cx},${cy}`;
             }
 
-            setSvgData({ path, W, H, dots, cx });
+            /*
+             * Thresholds: absolute scrollY at which each dot hits the viewport center.
+             * dot.top (relative to viewport) + scrollY = absolute top → center = absTop + h/2
+             * We want: absCenter - vh/2 = scrollY → threshold
+             */
+            thresholdsRef.current = dotRefs.current.map(el => {
+                if (!el) return 0;
+                const r = el.getBoundingClientRect();
+                const absCenter = r.top + window.scrollY + r.height / 2;
+                return absCenter - vh / 2;
+            });
+
+            setSvgData({ bgPath, W, H, dots, cx, segments });
+
+            /* Set initial active based on current scroll */
+            const y = window.scrollY;
+            const t = thresholdsRef.current;
+            let active = null;
+            for (let i = 0; i < t.length; i++) {
+                if (y >= t[i]) active = i;
+            }
+            setActiveIndex(active);
         };
 
-        const t = setTimeout(calculate, 150);
+        const timer = setTimeout(calculate, 150);
         window.addEventListener('resize', calculate);
-        return () => { clearTimeout(t); window.removeEventListener('resize', calculate); };
+        return () => { clearTimeout(timer); window.removeEventListener('resize', calculate); };
     }, [isMobile]);
 
-    /*
-     * Active step: en cada scroll, busca qué step tiene su centro
-     * más cerca del centro del viewport. Preciso en cualquier tamaño de pantalla.
-     */
+    /* ── Mobile: activate the card whose center is closest to viewport center ── */
     React.useEffect(() => {
+        if (!isMobile) return;
         const handleScroll = () => {
             const vpCenter = window.innerHeight / 2;
-            let closestIdx = 0;
-            let minDist = Infinity;
-
-            // Usar el centro de la CARD real, no del row completo
+            let closestIdx = 0, minDist = Infinity;
             cardRefs.current.forEach((el, i) => {
                 if (!el) return;
                 const rect = el.getBoundingClientRect();
-                const elCenter = rect.top + rect.height / 2;
-                const dist = Math.abs(elCenter - vpCenter);
-                if (dist < minDist) {
-                    minDist = dist;
-                    closestIdx = i;
-                }
+                const dist = Math.abs(rect.top + rect.height / 2 - vpCenter);
+                if (dist < minDist) { minDist = dist; closestIdx = i; }
             });
-
             setActiveIndex(closestIdx);
         };
-
         window.addEventListener('scroll', handleScroll, { passive: true });
-        handleScroll(); // estado inicial
+        handleScroll();
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [isMobile]);
 
     return (
         <section id="process" className="container" style={{ paddingBottom: 'var(--space-24)', paddingTop: 'var(--space-12)' }}>
@@ -219,14 +257,13 @@ const WorkProcess = () => {
             {/* Timeline wrapper */}
             <div ref={containerRef} style={{ position: 'relative' }}>
 
-                {/* ── SVG Curved Snake Line (desktop only) ── */}
+                {/* ── SVG with per-segment animated paths ── */}
                 {!isMobile && svgData && (
                     <svg
                         aria-hidden="true"
                         style={{
                             position: 'absolute',
-                            left: 0,
-                            top: 0,
+                            left: 0, top: 0,
                             width: '100%',
                             height: `${svgData.H}px`,
                             pointerEvents: 'none',
@@ -236,51 +273,56 @@ const WorkProcess = () => {
                         viewBox={`0 0 ${svgData.W} ${svgData.H}`}
                         preserveAspectRatio="none"
                     >
-                        {/* Static background path */}
+                        {/* Static grey background path */}
                         <path
-                            d={svgData.path}
+                            d={svgData.bgPath}
                             fill="none"
                             stroke="var(--border-inactive)"
                             strokeWidth="1.5"
                             strokeLinecap="round"
                         />
 
-                        {/* Animated glow path */}
-                        {!isLowEnd && (
+                        {/* Animated accent segments — one per connection */}
+                        {!isLowEnd && svgData.segments.map((segPath, i) => (
                             <motion.path
-                                d={svgData.path}
+                                key={i}
+                                d={segPath}
                                 fill="none"
                                 stroke="var(--accent-primary)"
                                 strokeWidth="2.5"
                                 strokeLinecap="round"
                                 style={{
-                                    pathLength,
+                                    pathLength: smoothSegs[i],
                                     filter: 'drop-shadow(0 0 6px var(--accent-primary))',
                                 }}
                             />
-                        )}
-
-                        {/* Dots on the path */}
-                        {svgData.dots.map((dy, i) => (
-                            <motion.circle
-                                key={i}
-                                cx={svgData.cx}
-                                cy={dy}
-                                r={activeIndex === i ? 8 : 5}
-                                fill={activeIndex === i ? 'var(--accent-primary)' : 'var(--surface-color)'}
-                                stroke="var(--accent-primary)"
-                                strokeWidth="2"
-                                style={{ transition: 'r 0.3s ease, fill 0.3s ease' }}
-                            />
                         ))}
+
+                        {/* Dots: filled when step is active or past */}
+                        {svgData.dots.map((dy, i) => {
+                            const visited = activeIndex !== null && activeIndex >= i;
+                            return (
+                                <circle
+                                    key={i}
+                                    cx={svgData.cx}
+                                    cy={dy}
+                                    r={activeIndex === i ? 8 : 5}
+                                    fill={visited ? 'var(--accent-primary)' : 'var(--surface-color)'}
+                                    stroke="var(--accent-primary)"
+                                    strokeWidth="2"
+                                    style={{ transition: 'r 0.35s ease, fill 0.35s ease' }}
+                                />
+                            );
+                        })}
                     </svg>
                 )}
 
-                {/* ── Steps ── */}
+                {/* ── Step rows ── */}
                 {steps.map((step, index) => {
                     const isLeft = index % 2 === 0;
                     const isActive = activeIndex === index;
 
+                    /* ── MOBILE ── */
                     if (isMobile) {
                         return (
                             <div
@@ -293,16 +335,9 @@ const WorkProcess = () => {
                                     width: '100%',
                                 }}
                             >
-                                {/* Line above dot (except first) */}
                                 {index > 0 && (
-                                    <div style={{
-                                        width: '2px',
-                                        height: '28px',
-                                        background: 'var(--border-inactive)',
-                                    }} />
+                                    <div style={{ width: '2px', height: '28px', background: 'var(--border-inactive)' }} />
                                 )}
-
-                                {/* Centered dot */}
                                 <div
                                     ref={el => dotRefs.current[index] = el}
                                     style={{
@@ -321,15 +356,7 @@ const WorkProcess = () => {
                                 >
                                     {index + 1}
                                 </div>
-
-                                {/* Short line between dot and card */}
-                                <div style={{
-                                    width: '2px',
-                                    height: '16px',
-                                    background: 'var(--border-inactive)',
-                                }} />
-
-                                {/* Card — full width */}
+                                <div style={{ width: '2px', height: '16px', background: 'var(--border-inactive)' }} />
                                 <div style={{ width: '100%', marginBottom: 'var(--space-2)' }}>
                                     <StepCard ref={el => cardRefs.current[index] = el} step={step} index={index} isActive={isActive} isLeft={true} isMobile={isMobile} isLowEnd={isLowEnd} />
                                 </div>
@@ -337,6 +364,7 @@ const WorkProcess = () => {
                         );
                     }
 
+                    /* ── DESKTOP ── */
                     return (
                         <div
                             key={index}
@@ -359,18 +387,17 @@ const WorkProcess = () => {
                                 )}
                             </div>
 
-                            {/* Central dot (measured by ref) */}
+                            {/* Central dot */}
                             <div
                                 ref={el => dotRefs.current[index] = el}
                                 style={{
                                     width: '14px', height: '14px',
                                     borderRadius: '50%',
-                                    border: `2px solid ${isActive ? 'var(--accent-primary)' : 'var(--border-inactive)'}`,
-                                    backgroundColor: isActive ? 'var(--accent-primary)' : 'var(--surface-color)',
                                     flexShrink: 0,
                                     zIndex: 3,
-                                    transition: 'all 0.4s ease',
-                                    boxShadow: isActive ? '0 0 10px var(--accent-primary)' : 'none',
+                                    /* visual handled by SVG circle on top */
+                                    backgroundColor: 'transparent',
+                                    border: 'none',
                                 }}
                             />
 
