@@ -398,9 +398,9 @@ const WorkProcess = () => {
                             }}
                         >
                             {/* Left slot */}
-                            <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', paddingRight: '40px' }}>
+                            <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start', paddingRight: '40px' }}>
                                 {isLeft && (
-                                    <div style={{ width: '100%', maxWidth: '420px' }}>
+                                    <div style={{ width: '100%', maxWidth: '540px' }}>
                                         <StepCard
                                             ref={el => cardRefs.current[index] = el}
                                             step={step} index={index}
@@ -415,9 +415,9 @@ const WorkProcess = () => {
                             <div style={{ width: '80px', flexShrink: 0 }} />
 
                             {/* Right slot */}
-                            <div style={{ flex: 1, paddingLeft: '40px' }}>
+                            <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', paddingLeft: '40px' }}>
                                 {!isLeft && (
-                                    <div style={{ width: '100%', maxWidth: '420px' }}>
+                                    <div style={{ width: '100%', maxWidth: '540px' }}>
                                         <StepCard
                                             ref={el => cardRefs.current[index] = el}
                                             step={step} index={index}
