@@ -280,7 +280,7 @@ const WorkProcess = () => {
                             width: '100%',
                             height: `${svgData.H}px`,
                             pointerEvents: 'none',
-                            zIndex: 3,
+                            zIndex: 1,
                             overflow: 'visible',
                         }}
                         viewBox={`0 0 ${svgData.W} ${svgData.H}`}
