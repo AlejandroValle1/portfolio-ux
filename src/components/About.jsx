@@ -318,10 +318,10 @@ const About = () => {
                     })}
                 >
                     <h3 style={{ fontSize: '2rem', fontWeight: 'var(--fw-black)', marginBottom: 'var(--space-4)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
-                        DISEÑADOR UX/UI CON VISIÓN EDITORIAL
+                        DISEÑADOR UX/UI · DISEÑO CON DIRECCIÓN
                     </h3>
                     <p style={{ fontSize: '1.25rem', lineHeight: 1.6, fontWeight: 'var(--fw-medium)', opacity: 0.9 }}>
-                        Soy Alejandro Valle. Combino formación en <strong>Comunicación</strong> con metodologías UX para crear productos que no solo funcionan, sino que <strong>conectan y generan confianza</strong> desde el primer contacto.
+                        Diseño experiencias digitales combinando metodologías de investigación UX con un enfoque estratégico. Mi objetivo es crear interfaces limpias, accesibles y estructuradas que resuelvan problemas reales de usabilidad y eviten la saturación visual.
                     </p>
                 </motion.div>
 
@@ -379,7 +379,7 @@ const About = () => {
                         Formación
                     </h4>
                     <p style={{ fontSize: '1.05rem', lineHeight: 1.5, opacity: 0.9 }}>
-                        Estudié <strong>Comunicación</strong> (UNT). Mis conocimientos en lenguaje y análisis me permiten construir estructuras de información que generan <strong>confianza y conexión real</strong>.
+                        Estudié 4 años de la carrera de <strong>Ciencias de la Comunicación</strong> (UNT), lo que me dio una base sólida en análisis de discurso, lenguaje y procesos de información. Aplico estos conocimientos para estructurar contenidos claros y flujos lógicos en productos digitales.
                     </p>
                 </motion.div>
 
@@ -501,9 +501,7 @@ const About = () => {
                         }}
                         style={{ fontSize: '3.5rem', marginBottom: '4px' }}
                     >
-                        <span style={{ fontSize: '0.8rem', fontWeight: 'var(--fw-black)', letterSpacing: '0.1em' }}>
-                            VOLVER
-                            </span>
+                        📄
                     </motion.div>
 
                     <motion.div

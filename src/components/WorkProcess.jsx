@@ -4,24 +4,29 @@ import { usePerformance } from '../context/PerformanceContext';
 
 const steps = [
     {
-        title: "Empatizar",
-        subtitle: "Investigar",
-        description: <>Analizo el contexto del problema a través de <strong>investigación de escritorio</strong>, benchmarking competitivo y <strong>análisis heurístico</strong>. Mi punto de partida es entender el <strong>problema real</strong> antes de pensar en soluciones.</>,
+        title: "Claridad & Kick-off",
+        subtitle: "Alineación",
+        description: <>Alineación inicial para definir objetivos, analizar el problema y trazar la dirección del proyecto.</>,
     },
     {
-        title: "Definir",
-        subtitle: "Sintetizar",
-        description: <>Traduzco lo que aprendí en un problema concreto: mapeo los <strong>flujos de usuario</strong> y la <strong>arquitectura de información</strong> que guían cada decisión de diseño.</>,
+        title: "Investigación",
+        subtitle: "Entendimiento",
+        description: <>Inmersión en el contexto del negocio, benchmark competitivo y análisis profundo del público objetivo.</>,
     },
     {
-        title: "Diseñar",
-        subtitle: "Construir",
-        description: <>De los bocetos iniciales al diseño de alta definición. Construyo <strong>sistemas visuales coherentes</strong> que transforman el problema en <strong>pantallas claras y fáciles de navegar</strong>.</>,
+        title: "Ideación",
+        subtitle: "Estructura",
+        description: <>Creación de flujos de usuario, wireframes y prototipos interactivos para estructurar la información.</>,
     },
     {
-        title: "Iterar",
-        subtitle: "Refinar",
-        description: <>Valido el diseño con <strong>feedback de usuarios</strong> y ciclos de revisión asistidos con IA. Cada iteración busca mayor claridad, coherencia y funcionalidad.</>,
+        title: "Testeo & Iteración",
+        subtitle: "Validación",
+        description: <>Validación de usabilidad mediante pruebas con usuarios reales y ciclos de feedback para refinar la experiencia.</>,
+    },
+    {
+        title: "Entrega & Handover",
+        subtitle: "Implementación",
+        description: <>Preparación y documentación de los assets finales listos para desarrollo y objetivos de negocio.</>,
     }
 ];
 
@@ -32,6 +37,7 @@ const WorkProcess = () => {
     const [hoveredIndex, setHoveredIndex] = React.useState(null);
 
     const cardRefs = [
+        React.useRef(null),
         React.useRef(null),
         React.useRef(null),
         React.useRef(null),

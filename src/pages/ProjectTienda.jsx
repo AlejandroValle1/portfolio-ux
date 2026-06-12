@@ -86,7 +86,7 @@ const ProjectTienda = () => {
             <ProjectSection
                 icon="○"
                 title="El desafío"
-                text="El cliente tenía dos locales físicos en Buenos Aires pero ninguna presencia digital. La meta era clara: crear una tienda online accesible y funcional, capaz de mostrar el catálogo completo, ampliar el alcance geográfico y generar confianza en un mercado competitivo."
+                text="Para expandir sus locales físicos al entorno digital, la meta fue diseñar un e-commerce accesible y funcional que no solo presentara el catálogo, sino que estructurara un flujo de compra claro y confiable que acompañara al usuario en cada paso."
             />
 
             {/* ════════════════════════════════
@@ -146,7 +146,7 @@ const ProjectTienda = () => {
             <ProjectSection
                 icon="→"
                 title="El camino del usuario"
-                text="Con esos hallazgos, definí el recorrido principal dentro de la tienda. El proceso comienza con una bienvenida clara, sigue con la búsqueda y termina con una compra segura y sin obstáculos."
+                text="A partir de la investigación, diseñé un recorrido de compra limpio y guiado, reduciendo la fricción cognitiva en la búsqueda y asegurando un proceso fluido desde el onboarding hasta el checkout."
             >
                 <motion.div 
                     variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.15 } } }}

@@ -84,7 +84,7 @@ const ProjectSepara = () => {
             <ProjectSection
                 icon="○"
                 title="El punto de partida"
-                text="El proyecto surgió al identificar que la baja participación en el programa municipal de reciclaje no se debía a una falta de interés, sino a la dispersión y complejidad de la información disponible. El objetivo fue transformar esta fricción en una oportunidad: diseñar una solución digital que centralice los datos, simplifique el proceso educativo y motive la participación ciudadana para contribuir a una ciudad más sustentable."
+                text="El proyecto surgió al identificar que la baja participación en el reciclaje municipal se debía a la complejidad y dispersión de la información. El objetivo fue diseñar una solución digital que centralizara los datos de manera clara y estructurada, simplificando la carga cognitiva para motivar la participación ciudadana."
             />
 
             {/* ════════════════════════════════
@@ -136,7 +136,7 @@ const ProjectSepara = () => {
             <ProjectSection
                 icon="→"
                 title="El camino del usuario"
-                text="Con esos hallazgos, definí los pasos principales dentro de la app. El recorrido comienza con una bienvenida motivadora y permite al usuario elegir fácilmente entre aprender a reciclar o encontrar puntos de recolección cercanos."
+                text="Con esos hallazgos, estructuré un flujo intuitivo enfocado en la claridad de las acciones principales, permitiendo al usuario decidir fácilmente si desea aprender a reciclar o ubicar su EcoPunto más cercano."
             >
                 <motion.div 
                     variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.15 } } }}

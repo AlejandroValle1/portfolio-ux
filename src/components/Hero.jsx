@@ -36,7 +36,7 @@ const Hero = () => {
                     }}
                 >
                     DISEÑO CON <br />
-                    PROPÓSITO
+                    DIRECCIÓN
                 </motion.h1>
 
                 <motion.p
@@ -49,7 +49,7 @@ const Hero = () => {
                         marginBottom: isMobile ? 'var(--space-12)' : 'var(--space-6)'
                     }}
                 >
-                    Soy Alejandro Valle, Diseñador UX/UI. Creo productos digitales que conectan objetivos de negocio con necesidades reales, combinando <span className="editorial-highlight">investigación de usuarios</span> con <span className="editorial-highlight">narrativa visual</span> para construir experiencias que generan confianza.
+                    Diseño productos digitales estructurando flujos de comunicación claros que conectan las necesidades del usuario con los objetivos de negocio, reduciendo la fricción y la carga cognitiva en cada interacción.
                 </motion.p>
 
                 <motion.div
