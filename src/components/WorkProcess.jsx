@@ -119,7 +119,6 @@ const WorkProcess = () => {
     const cardRefs      = React.useRef(steps.map(() => null)); // card elements → SVG points + activation
     const stepRefs      = React.useRef(steps.map(() => null)); // rows → mobile layout
     const thresholdsRef = React.useRef([]);                    // scrollY when each card hits viewport center
-    const segmentBoundsRef = React.useRef([]);                 // scroll bounds for each path segment
 
     const [svgData, setSvgData]         = React.useState(null);
     const [activeIndex, setActiveIndex] = React.useState(null);
@@ -127,11 +126,11 @@ const WorkProcess = () => {
     /* ── Global scroll Y ── */
     const { scrollY } = useScroll();
 
-    /* ── Per-segment progress: 0 at segment start (bottom of card i) → 1 at segment end (top of card i+1) ── */
+    /* ── Per-segment progress: 0 at threshold[i] → 1 at threshold[i+1] ── */
     const calcSeg = React.useCallback((y, idx) => {
-        const bounds = segmentBoundsRef.current;
-        if (!bounds || bounds.length <= idx) return 0;
-        const { start, end } = bounds[idx];
+        const t = thresholdsRef.current;
+        if (t.length < idx + 2) return 0;
+        const start = t[idx], end = t[idx + 1];
         if (end <= start) return 0;
         return Math.max(0, Math.min(1, (y - start) / (end - start)));
     }, []);
@@ -162,62 +161,52 @@ const WorkProcess = () => {
             const W = cRect.width;
             const H = cRect.height;
             const vh = window.innerHeight;
+            const cx = W / 2; // center X of the container
 
             /*
-             * Connection points:
-             * Entrance point (top center): top edge of the card, centered horizontally
-             * Exit point (bottom center): bottom edge of the card, centered horizontally
+             * Connection points: for each card we pick the edge closest to center.
+             * Left cards  (index even)  → right edge (x = rect.right - cRect.left)
+             * Right cards (index odd)   → left  edge (x = rect.left  - cRect.left)
+             * Y = vertical center of the card
              */
-            const points = cardRefs.current.map((el) => {
+            const points = cardRefs.current.map((el, i) => {
                 if (!el) return null;
                 const r = el.getBoundingClientRect();
+                const isLeft = i % 2 === 0;
                 return {
-                    topX: r.left - cRect.left + r.width / 2,
-                    topY: r.top - cRect.top,
-                    botX: r.left - cRect.left + r.width / 2,
-                    botY: r.bottom - cRect.top,
-                    absTop: r.top + window.scrollY,
-                    absBottom: r.bottom + window.scrollY,
+                    x: isLeft ? (r.right - cRect.left) : (r.left - cRect.left),
+                    y: r.top - cRect.top + r.height / 2,
                 };
             });
             if (points.some(p => p === null)) return;
 
             /*
-             * Cubic bezier curves connecting the bottom-center of card i-1 to top-center of card i.
-             * The control points extend vertically from the exit and entrance to create elegant S-curves.
+             * Cubic bezier between connection points.
+             * Control points go toward the horizontal center of the container
+             * so the curve bows naturally through the gap between cards.
              */
             const segments = [];
-            let bgPath = "";
+            let bgPath = `M ${points[0].x},${points[0].y}`;
             for (let i = 1; i < points.length; i++) {
                 const p0 = points[i - 1];
                 const p1 = points[i];
-                const dy = p1.topY - p0.botY;
-                const controlY0 = p0.botY + dy / 2;
-                const controlY1 = p1.topY - dy / 2;
-
-                const seg = `M ${p0.botX},${p0.botY} C ${p0.botX},${controlY0} ${p1.topX},${controlY1} ${p1.topX},${p1.topY}`;
+                // Both control points pull toward the container center X
+                const seg = `M ${p0.x},${p0.y} C ${cx},${p0.y} ${cx},${p1.y} ${p1.x},${p1.y}`;
                 segments.push(seg);
-                if (i === 1) {
-                    bgPath += `M ${p0.botX},${p0.botY}`;
-                }
-                bgPath += ` C ${p0.botX},${controlY0} ${p1.topX},${controlY1} ${p1.topX},${p1.topY}`;
+                bgPath += ` C ${cx},${p0.y} ${cx},${p1.y} ${p1.x},${p1.y}`;
             }
 
-            /* Thresholds: scrollY at which each card's top hits viewport center */
-            thresholdsRef.current = points.map(pt => pt.absTop - vh / 2);
-
-            /* Bounds for each curve segment between cards */
-            segmentBoundsRef.current = [];
-            for (let i = 0; i < points.length - 1; i++) {
-                segmentBoundsRef.current.push({
-                    start: points[i].absBottom - vh / 2,
-                    end: points[i + 1].absTop - vh / 2
-                });
-            }
+            /* Thresholds: scrollY at which each card's center hits viewport center */
+            thresholdsRef.current = cardRefs.current.map(el => {
+                if (!el) return 0;
+                const r = el.getBoundingClientRect();
+                const absCenter = r.top + window.scrollY + r.height / 2;
+                return absCenter - vh / 2;
+            });
 
             setSvgData({ bgPath, W, H, points, segments });
 
-            /* Set initial active index */
+            /* Set initial active */
             const y = window.scrollY;
             const t = thresholdsRef.current;
             let active = null;
@@ -311,14 +300,14 @@ const WorkProcess = () => {
                             />
                         ))}
 
-                        {/* Small dot at each entrance (top center of each card) */}
+                        {/* Small dot at each connection point */}
                         {svgData.points.map((pt, i) => {
                             const visited = activeIndex !== null && activeIndex >= i;
                             return (
                                 <circle
                                     key={i}
-                                    cx={pt.topX}
-                                    cy={pt.topY}
+                                    cx={pt.x}
+                                    cy={pt.y}
                                     r={activeIndex === i ? 7 : 4}
                                     fill={visited ? 'var(--accent-primary)' : 'var(--surface-color)'}
                                     stroke="var(--accent-primary)"
