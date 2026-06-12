@@ -197,10 +197,10 @@ const WorkProcess = () => {
                                         {step.subtitle}
                                     </span>
                                     <h3 style={{
-                                        fontSize: 'clamp(2rem, 4vw, 2.8rem)',
+                                        fontSize: 'clamp(1.4rem, 2.5vw, 2.1rem)',
                                         fontWeight: 'var(--fw-black)',
                                         textTransform: 'uppercase',
-                                        lineHeight: 1,
+                                        lineHeight: 1.1,
                                         letterSpacing: '-0.03em',
                                         marginBottom: 'var(--space-2)'
                                     }}>

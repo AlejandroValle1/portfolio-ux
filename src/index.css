@@ -624,13 +624,14 @@ section {
   }
 
   .process-step-0,
-  .process-step-3 {
-    grid-column: span 7;
-  }
-
   .process-step-1,
   .process-step-2 {
-    grid-column: span 5;
+    grid-column: span 4;
+  }
+
+  .process-step-3,
+  .process-step-4 {
+    grid-column: span 6;
   }
 
   .hero-mockup-wrapper {
@@ -705,7 +706,8 @@ section {
   .process-step-0,
   .process-step-1,
   .process-step-2,
-  .process-step-3 {
+  .process-step-3,
+  .process-step-4 {
     grid-column: span 1 !important;
   }
 
