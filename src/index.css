@@ -582,7 +582,7 @@ section {
 @media (min-width: 769px) {
   .about-bento-layout {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
+    grid-template-columns: repeat(12, minmax(0, 1fr));
     gap: 20px;
   }
 
@@ -671,7 +671,7 @@ section {
   /* Grids: 2 columnas en tablet */
   .about-bento-layout {
     display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     gap: 20px !important;
   }
 
@@ -680,6 +680,7 @@ section {
   .bento-about-3 { grid-column: span 1 !important; }
   .bento-about-4 { grid-column: span 1 !important; }
   .bento-about-5 { grid-column: span 1 !important; }
+  .bento-about-6 { grid-column: span 1 !important; }
   .bento-about-cv { grid-column: span 2 !important; display: flex !important; }
 
   .process-grid-layout {
