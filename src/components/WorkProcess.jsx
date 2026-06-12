@@ -31,85 +31,96 @@ const steps = [
 ];
 
 /* ─── Step Card ──────────────────────────────────────────── */
-const StepCard = React.forwardRef(({ step, index, isActive, isLeft, isMobile, isLowEnd }, ref) => (
-    <motion.div
-        ref={ref}
-        initial={{ opacity: 0, x: isMobile ? 0 : (isLeft ? -40 : 40), y: isMobile ? 20 : 0 }}
-        whileInView={{ opacity: 1, x: 0, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        whileHover={!isMobile ? {
-            y: -6,
-            borderColor: 'var(--accent-primary)',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
-            transition: { duration: 0.3 }
-        } : undefined}
-        style={{
-            backgroundColor: 'var(--surface-color)',
-            backdropFilter: (isLowEnd || isMobile) ? 'none' : 'blur(12px)',
-            border: `1.5px solid ${isActive ? 'var(--accent-primary)' : 'var(--border-inactive)'}`,
-            borderRadius: 'var(--radius-card)',
-            padding: isMobile ? 'var(--space-4)' : 'var(--space-8)',
-            position: 'relative',
-            overflow: 'hidden',
-            width: '100%',
-            transition: 'border-color 0.4s ease, box-shadow 0.4s ease',
-            cursor: 'default',
-        }}
-    >
-        {/* Número de fondo - Siempre a la derecha y limpio para evitar taparse */}
-        <div style={{
-            position: 'absolute',
-            top: '50%',
-            right: '8%',
-            transform: 'translateY(-50%)',
-            fontSize: 'clamp(5.5rem, 8.5vw, 8rem)',
-            fontWeight: 'var(--fw-black)',
-            fontFamily: 'var(--font-heading)',
-            lineHeight: 1,
-            color: isActive ? 'var(--accent-primary)' : 'var(--text-color)',
-            opacity: isActive ? 0.14 : 0.05,
-            pointerEvents: 'none',
-            transition: 'color 0.5s ease, opacity 0.5s ease',
-            userSelect: 'none',
-        }}>
-            {index + 1}
-        </div>
+const StepCard = React.forwardRef(({ step, index, isActive, isLeft, isMobile, isLowEnd }, ref) => {
+    // Determine number position and layout alignment
+    const numberOnLeft = !isLeft && !isMobile;
 
-        {/* Contenido - Ancho limitado para que nunca se encime con el número */}
-        <div style={{ position: 'relative', zIndex: 1, maxWidth: isMobile ? '75%' : '340px' }}>
-            <span style={{
-                fontSize: '0.7rem',
-                textTransform: 'uppercase',
-                letterSpacing: '0.25em',
-                color: 'var(--accent-primary)',
-                fontWeight: 'var(--fw-bold)',
-                display: 'block',
-                marginBottom: 'var(--space-2)',
-            }}>
-                {step.subtitle}
-            </span>
-            <h3 style={{
-                fontSize: isMobile ? '1.8rem' : 'clamp(1.6rem, 2.5vw, 2.2rem)',
+    return (
+        <motion.div
+            ref={ref}
+            initial={{ opacity: 0, x: isMobile ? 0 : (isLeft ? -40 : 40), y: isMobile ? 20 : 0 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={!isMobile ? {
+                y: -6,
+                borderColor: 'var(--accent-primary)',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
+                transition: { duration: 0.3 }
+            } : undefined}
+            style={{
+                backgroundColor: 'var(--surface-color)',
+                backdropFilter: (isLowEnd || isMobile) ? 'none' : 'blur(12px)',
+                border: `1.5px solid ${isActive ? 'var(--accent-primary)' : 'var(--border-inactive)'}`,
+                borderRadius: 'var(--radius-card)',
+                padding: isMobile ? 'var(--space-4)' : 'var(--space-8)',
+                position: 'relative',
+                overflow: 'hidden',
+                width: '100%',
+                transition: 'border-color 0.4s ease, box-shadow 0.4s ease',
+                cursor: 'default',
+            }}
+        >
+            {/* Número de fondo - Zigzag: a la izquierda para cards derechas, a la derecha para cards izquierdas */}
+            <div style={{
+                position: 'absolute',
+                top: '50%',
+                left: numberOnLeft ? '8%' : undefined,
+                right: !numberOnLeft ? '8%' : undefined,
+                transform: 'translateY(-50%)',
+                fontSize: 'clamp(5.5rem, 8.5vw, 8rem)',
                 fontWeight: 'var(--fw-black)',
-                textTransform: 'uppercase',
-                letterSpacing: '-0.03em',
-                lineHeight: 1.05,
-                marginBottom: 'var(--space-3)',
-                color: 'var(--text-color)',
+                fontFamily: 'var(--font-heading)',
+                lineHeight: 1,
+                color: isActive ? 'var(--accent-primary)' : 'var(--text-color)',
+                opacity: isActive ? 0.14 : 0.05,
+                pointerEvents: 'none',
+                transition: 'color 0.5s ease, opacity 0.5s ease',
+                userSelect: 'none',
             }}>
-                {step.title}
-            </h3>
-            <p style={{
-                fontSize: '1rem',
-                lineHeight: 1.6,
-                opacity: 0.8,
+                {index + 1}
+            </div>
+
+            {/* Contenido - Si el número está a la izquierda, desplazamos el texto a la derecha con marginLeft: auto */}
+            <div style={{
+                position: 'relative',
+                zIndex: 1,
+                maxWidth: isMobile ? '75%' : '340px',
+                marginLeft: numberOnLeft ? 'auto' : undefined
             }}>
-                {step.description}
-            </p>
-        </div>
-    </motion.div>
-));
+                <span style={{
+                    fontSize: '0.7rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.25em',
+                    color: 'var(--accent-primary)',
+                    fontWeight: 'var(--fw-bold)',
+                    display: 'block',
+                    marginBottom: 'var(--space-2)',
+                }}>
+                    {step.subtitle}
+                </span>
+                <h3 style={{
+                    fontSize: isMobile ? '1.8rem' : 'clamp(1.6rem, 2.5vw, 2.2rem)',
+                    fontWeight: 'var(--fw-black)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '-0.03em',
+                    lineHeight: 1.05,
+                    marginBottom: 'var(--space-3)',
+                    color: 'var(--text-color)',
+                }}>
+                    {step.title}
+                </h3>
+                <p style={{
+                    fontSize: '1rem',
+                    lineHeight: 1.6,
+                    opacity: 0.8,
+                }}>
+                    {step.description}
+                </p>
+            </div>
+        </motion.div>
+    );
+});
 StepCard.displayName = 'StepCard';
 
 /* ─── WorkProcess ────────────────────────────────────────── */
@@ -269,7 +280,7 @@ const WorkProcess = () => {
                             width: '100%',
                             height: `${svgData.H}px`,
                             pointerEvents: 'none',
-                            zIndex: 1,
+                            zIndex: 3,
                             overflow: 'visible',
                         }}
                         viewBox={`0 0 ${svgData.W} ${svgData.H}`}
