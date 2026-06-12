@@ -617,23 +617,7 @@ section {
     display: flex !important;
   }
 
-  .process-grid-layout {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 20px;
-  }
-
-  /* 2+2+1 layout: pasos 1-4 en pares, paso 5 a ancho completo */
-  .process-step-0,
-  .process-step-1,
-  .process-step-2,
-  .process-step-3 {
-    grid-column: span 6;
-  }
-
-  .process-step-4 {
-    grid-column: span 12;
-  }
+  /* Process timeline — layout manejado por JS/Framer */
 
   .hero-mockup-wrapper {
     transform: none !important;
@@ -704,13 +688,7 @@ section {
     gap: 20px !important;
   }
 
-  .process-step-0,
-  .process-step-1,
-  .process-step-2,
-  .process-step-3,
-  .process-step-4 {
-    grid-column: span 1 !important;
-  }
+  /* Process timeline: mobile — manejado inline en el componente */
 
   /* Hero */
   .hero-container {
