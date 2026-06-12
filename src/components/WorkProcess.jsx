@@ -116,18 +116,19 @@ const StepCard = ({ step, index, isActive, isLeft, isMobile, isLowEnd }) => (
 const WorkProcess = () => {
     const { isLowEnd, isMobile } = usePerformance();
     const containerRef = React.useRef(null);
-    const dotRefs = React.useRef(steps.map(() => null));
+    const dotRefs   = React.useRef(steps.map(() => null)); // central dots (for SVG measurement)
+    const stepRefs  = React.useRef(steps.map(() => null)); // full step rows (for activation)
     const [svgData, setSvgData] = React.useState(null);
     const [activeIndex, setActiveIndex] = React.useState(null);
 
-    /* Scroll-driven path drawing */
+    /* Scroll-driven path drawing — starts when section enters, ends when it leaves */
     const { scrollYProgress } = useScroll({
         target: containerRef,
-        offset: ['start 0.75', 'end 0.25'],
+        offset: ['start 0.85', 'end 0.15'],
     });
-    const pathLength = useSpring(scrollYProgress, { stiffness: 80, damping: 25 });
+    const pathLength = useSpring(scrollYProgress, { stiffness: 60, damping: 20, restDelta: 0.001 });
 
-    /* Build SVG curved path from real DOM positions */
+    /* Build SVG curved path from real DOM dot positions */
     React.useEffect(() => {
         if (isMobile) return;
 
@@ -137,7 +138,7 @@ const WorkProcess = () => {
             const W = cRect.width;
             const H = cRect.height;
             const cx = W / 2;
-            const amplitude = W * 0.22; // how far the curve bows out
+            const amplitude = W * 0.22;
 
             const dots = dotRefs.current.map(el => {
                 if (!el) return null;
@@ -147,13 +148,11 @@ const WorkProcess = () => {
 
             if (dots.some(d => d === null)) return;
 
-            // Build smooth cubic bezier snake path
             let path = `M ${cx},${dots[0]}`;
             for (let i = 1; i < dots.length; i++) {
                 const py = dots[i - 1];
                 const cy = dots[i];
                 const mid = (py + cy) / 2;
-                // Odd segments bow right, even segments bow left
                 const bx = i % 2 === 1 ? cx + amplitude : cx - amplitude;
                 path += ` C ${bx},${mid} ${bx},${mid} ${cx},${cy}`;
             }
@@ -161,18 +160,25 @@ const WorkProcess = () => {
             setSvgData({ path, W, H, dots, cx });
         };
 
-        const t = setTimeout(calculate, 120);
+        const t = setTimeout(calculate, 150);
         window.addEventListener('resize', calculate);
         return () => { clearTimeout(t); window.removeEventListener('resize', calculate); };
     }, [isMobile]);
 
-    /* Active step observer */
+    /*
+     * Active step: observe the FULL STEP ROW (not the tiny dot).
+     * rootMargin '-38% 0px -38% 0px' creates a ~24% band in the center of
+     * the viewport. A step becomes active when it enters that band.
+     */
     React.useEffect(() => {
-        const observers = dotRefs.current.map((el, i) => {
+        const observers = stepRefs.current.map((el, i) => {
             if (!el) return null;
             const obs = new IntersectionObserver(
                 ([entry]) => { if (entry.isIntersecting) setActiveIndex(i); },
-                { threshold: 0.9 }
+                {
+                    rootMargin: '-38% 0px -38% 0px',
+                    threshold: 0,
+                }
             );
             obs.observe(el);
             return obs;
@@ -267,6 +273,7 @@ const WorkProcess = () => {
                         return (
                             <div
                                 key={index}
+                                ref={el => stepRefs.current[index] = el}
                                 style={{
                                     display: 'flex',
                                     flexDirection: 'column',
@@ -321,6 +328,7 @@ const WorkProcess = () => {
                     return (
                         <div
                             key={index}
+                            ref={el => stepRefs.current[index] = el}
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',
