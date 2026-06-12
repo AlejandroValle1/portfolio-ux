@@ -31,8 +31,9 @@ const steps = [
 ];
 
 /* ─── Step Card ──────────────────────────────────────────── */
-const StepCard = ({ step, index, isActive, isLeft, isMobile, isLowEnd }) => (
+const StepCard = React.forwardRef(({ step, index, isActive, isLeft, isMobile, isLowEnd }, ref) => (
     <motion.div
+        ref={ref}
         initial={{ opacity: 0, x: isMobile ? 0 : (isLeft ? -40 : 40), y: isMobile ? 20 : 0 }}
         whileInView={{ opacity: 1, x: 0, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
@@ -110,14 +111,16 @@ const StepCard = ({ step, index, isActive, isLeft, isMobile, isLowEnd }) => (
             </p>
         </div>
     </motion.div>
-);
+));
+StepCard.displayName = 'StepCard';
 
 /* ─── WorkProcess ────────────────────────────────────────── */
 const WorkProcess = () => {
     const { isLowEnd, isMobile } = usePerformance();
     const containerRef = React.useRef(null);
     const dotRefs   = React.useRef(steps.map(() => null)); // central dots (for SVG measurement)
-    const stepRefs  = React.useRef(steps.map(() => null)); // full step rows (for activation)
+    const stepRefs  = React.useRef(steps.map(() => null)); // full step rows (kept for compat)
+    const cardRefs  = React.useRef(steps.map(() => null)); // actual card elements (for activation)
     const [svgData, setSvgData] = React.useState(null);
     const [activeIndex, setActiveIndex] = React.useState(null);
 
@@ -175,7 +178,8 @@ const WorkProcess = () => {
             let closestIdx = 0;
             let minDist = Infinity;
 
-            stepRefs.current.forEach((el, i) => {
+            // Usar el centro de la CARD real, no del row completo
+            cardRefs.current.forEach((el, i) => {
                 if (!el) return;
                 const rect = el.getBoundingClientRect();
                 const elCenter = rect.top + rect.height / 2;
@@ -327,7 +331,7 @@ const WorkProcess = () => {
 
                                 {/* Card — full width */}
                                 <div style={{ width: '100%', marginBottom: 'var(--space-2)' }}>
-                                    <StepCard step={step} index={index} isActive={isActive} isLeft={true} isMobile={isMobile} isLowEnd={isLowEnd} />
+                                    <StepCard ref={el => cardRefs.current[index] = el} step={step} index={index} isActive={isActive} isLeft={true} isMobile={isMobile} isLowEnd={isLowEnd} />
                                 </div>
                             </div>
                         );
@@ -350,7 +354,7 @@ const WorkProcess = () => {
                             <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', paddingRight: '52px' }}>
                                 {isLeft && (
                                     <div style={{ width: '100%', maxWidth: '420px' }}>
-                                        <StepCard step={step} index={index} isActive={isActive} isLeft={true} isMobile={isMobile} isLowEnd={isLowEnd} />
+                                        <StepCard ref={el => cardRefs.current[index] = el} step={step} index={index} isActive={isActive} isLeft={true} isMobile={isMobile} isLowEnd={isLowEnd} />
                                     </div>
                                 )}
                             </div>
@@ -374,7 +378,7 @@ const WorkProcess = () => {
                             <div style={{ flex: 1, paddingLeft: '52px' }}>
                                 {!isLeft && (
                                     <div style={{ width: '100%', maxWidth: '420px' }}>
-                                        <StepCard step={step} index={index} isActive={isActive} isLeft={false} isMobile={isMobile} isLowEnd={isLowEnd} />
+                                        <StepCard ref={el => cardRefs.current[index] = el} step={step} index={index} isActive={isActive} isLeft={false} isMobile={isMobile} isLowEnd={isLowEnd} />
                                     </div>
                                 )}
                             </div>
