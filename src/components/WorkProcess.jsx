@@ -206,12 +206,15 @@ const WorkProcess = () => {
                 bgPath += ` C ${cx},${p0.y} ${cx},${p1.y} ${p1.x},${p1.y}`;
             }
 
-            /* Thresholds: scrollY at which each card's center hits viewport center */
+            /* Thresholds: scrollY at which each card's center hits the snapping viewport center */
+            const scrollPadding = isMobile ? 120 : 80;
+            const targetViewportCenter = vh / 2 + scrollPadding / 2;
+
             thresholdsRef.current = cardRefs.current.map(el => {
                 if (!el) return 0;
                 const r = el.getBoundingClientRect();
                 const absCenter = r.top + window.scrollY + r.height / 2;
-                return absCenter - vh / 2;
+                return absCenter - targetViewportCenter;
             });
 
             setSvgData({ bgPath, W, H, points, segments });
