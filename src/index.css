@@ -256,7 +256,7 @@ div[role="button"] {
   background-color: var(--surface-color);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-inactive);
+  border: 1.5px solid var(--border-inactive);
 }
 
 @media (max-width: 768px) {
@@ -990,7 +990,7 @@ section {
   background-color: var(--surface-color);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-inactive);
+  border: 1.5px solid var(--border-inactive);
   transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.4s ease;
   will-change: transform, opacity;
 }
