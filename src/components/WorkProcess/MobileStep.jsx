@@ -21,7 +21,7 @@ const MobileStep = ({
     isMobile,
     isLowEnd,
 }) => {
-    const lineAboveActive = activeIndex !== null && activeIndex >= index - 1;
+    const lineAboveActive = activeIndex !== null && activeIndex >= index;
 
     return (
         <div
@@ -33,49 +33,20 @@ const MobileStep = ({
                 width:          '100%',
             }}
         >
-            {/* Vertical line above circle (between steps) */}
+            {/* Vertical conector line leading directly to the card */}
             {index > 0 && (
                 <div style={{
                     width:      '2px',
-                    height:     '28px',
+                    height:     '40px',
                     background: lineAboveActive ? 'var(--accent-primary)' : 'var(--border-inactive)',
                     transition: 'background-color 0.4s ease, box-shadow 0.4s ease',
                     boxShadow:  lineAboveActive ? '0 0 8px var(--accent-primary)' : 'none',
+                    zIndex:     1,
                 }} />
             )}
 
-            {/* Numbered circle indicator */}
-            <div style={{
-                width:           '32px',
-                height:          '32px',
-                borderRadius:    '50%',
-                border:          `2px solid ${isVisited ? 'var(--accent-primary)' : 'var(--border-inactive)'}`,
-                backgroundColor: isVisited ? 'var(--accent-primary)' : 'var(--surface-color)',
-                display:         'flex',
-                alignItems:      'center',
-                justifyContent:  'center',
-                fontSize:        '0.75rem',
-                fontWeight:      'var(--fw-black)',
-                color:           isVisited ? 'var(--bg-color)' : 'var(--text-color)',
-                transition:      'all 0.4s ease',
-                flexShrink:      0,
-                boxShadow:       isActive ? '0 0 10px var(--accent-primary)' : 'none',
-                zIndex:          2,
-            }}>
-                {index + 1}
-            </div>
-
-            {/* Short vertical line below circle */}
-            <div style={{
-                width:      '2px',
-                height:     '16px',
-                background: isVisited ? 'var(--accent-primary)' : 'var(--border-inactive)',
-                transition: 'background-color 0.4s ease, box-shadow 0.4s ease',
-                boxShadow:  isVisited ? '0 0 8px var(--accent-primary)' : 'none',
-            }} />
-
-            {/* Card */}
-            <div ref={cardRef} style={{ width: '100%', marginBottom: 'var(--space-2)' }}>
+            {/* Card wrapper */}
+            <div ref={cardRef} style={{ width: '100%', marginBottom: 'var(--space-8)', position: 'relative' }}>
                 <StepCard
                     step={step}
                     index={index}

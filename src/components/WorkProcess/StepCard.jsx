@@ -60,25 +60,57 @@ const StepCard = ({ step, index, isActive, isLeft, isMobile, isLowEnd }) => {
                 transition:      'border-color 0.35s ease',
             }}
         >
-            {/* ── Active glow accent bar at the inner edge ── */}
+            {/* ── Active glow accent bar (desktop: side, mobile: top) ── */}
             <motion.div
                 aria-hidden="true"
-                animate={{ opacity: isActive ? 1 : 0, scaleY: isActive ? 1 : 0.4 }}
+                animate={isMobile ? {
+                    opacity: isActive ? 1 : 0,
+                    scaleX:  isActive ? 1 : 0.4,
+                } : {
+                    opacity: isActive ? 1 : 0,
+                    scaleY:  isActive ? 1 : 0.4,
+                }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
                 style={{
                     position:        'absolute',
-                    top:             '15%',
-                    bottom:          '15%',
-                    // Glow bar on the INNER side (facing the SVG line)
-                    left:            numberOnLeft ? 0 : undefined,
-                    right:           !numberOnLeft ? 0 : undefined,
-                    width:           '3px',
+                    top:             isMobile ? 0 : '15%',
+                    bottom:          isMobile ? undefined : '15%',
+                    left:            isMobile ? '50%' : (numberOnLeft ? 0 : undefined),
+                    right:           isMobile ? undefined : (!numberOnLeft ? 0 : undefined),
+                    x:               isMobile ? '-50%' : undefined,
+                    width:           isMobile ? '60px' : '3px',
+                    height:          isMobile ? '3px' : undefined,
                     borderRadius:    '99px',
                     background:      'var(--accent-primary)',
                     boxShadow:       '0 0 12px 4px var(--accent-primary)',
                     transformOrigin: 'center',
                 }}
             />
+
+            {/* ── Mobile connection dot on top border (acts as half-dot timeline node) ── */}
+            {isMobile && (
+                <motion.div
+                    aria-hidden="true"
+                    animate={{
+                        backgroundColor: isActive ? 'var(--accent-primary)' : 'var(--surface-color)',
+                        borderColor:     isActive ? 'var(--accent-primary)' : 'var(--border-inactive)',
+                        scale:           isActive ? 1.15 : 1,
+                        boxShadow:       isActive ? '0 0 10px var(--accent-primary)' : 'none',
+                    }}
+                    transition={{ duration: 0.35 }}
+                    style={{
+                        position:     'absolute',
+                        top:          '-6px',
+                        left:         '50%',
+                        x:            '-50%',
+                        width:        '12px',
+                        height:       '12px',
+                        borderRadius: '50%',
+                        border:       '1.5px solid var(--border-inactive)',
+                        zIndex:       10,
+                    }}
+                />
+            )}
 
             {/* ── Background number — zigzag inner side ── */}
             <motion.div
