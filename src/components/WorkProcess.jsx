@@ -269,34 +269,49 @@ const WorkProcess = () => {
                                 key={index}
                                 style={{
                                     display: 'flex',
-                                    gap: '16px',
-                                    alignItems: 'flex-start',
-                                    marginBottom: index < steps.length - 1 ? 'var(--space-6)' : 0,
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    width: '100%',
                                 }}
                             >
-                                {/* Mobile dot + line */}
-                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: '4px', flexShrink: 0 }}>
-                                    <div
-                                        ref={el => dotRefs.current[index] = el}
-                                        style={{
-                                            width: '28px', height: '28px',
-                                            borderRadius: '50%',
-                                            border: `2px solid ${isActive ? 'var(--accent-primary)' : 'var(--border-inactive)'}`,
-                                            backgroundColor: isActive ? 'var(--accent-primary)' : 'transparent',
-                                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                            fontSize: '0.7rem', fontWeight: 'var(--fw-black)',
-                                            color: isActive ? 'var(--bg-color)' : 'var(--text-color)',
-                                            transition: 'all 0.4s ease',
-                                            flexShrink: 0,
-                                        }}
-                                    >
-                                        {index + 1}
-                                    </div>
-                                    {index < steps.length - 1 && (
-                                        <div style={{ width: '2px', flex: 1, minHeight: '40px', background: 'var(--border-inactive)', marginTop: '4px' }} />
-                                    )}
+                                {/* Line above dot (except first) */}
+                                {index > 0 && (
+                                    <div style={{
+                                        width: '2px',
+                                        height: '28px',
+                                        background: 'var(--border-inactive)',
+                                    }} />
+                                )}
+
+                                {/* Centered dot */}
+                                <div
+                                    ref={el => dotRefs.current[index] = el}
+                                    style={{
+                                        width: '32px', height: '32px',
+                                        borderRadius: '50%',
+                                        border: `2px solid ${isActive ? 'var(--accent-primary)' : 'var(--border-inactive)'}`,
+                                        backgroundColor: isActive ? 'var(--accent-primary)' : 'var(--surface-color)',
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        fontSize: '0.75rem', fontWeight: 'var(--fw-black)',
+                                        color: isActive ? 'var(--bg-color)' : 'var(--text-color)',
+                                        transition: 'all 0.4s ease',
+                                        flexShrink: 0,
+                                        boxShadow: isActive ? '0 0 10px var(--accent-primary)' : 'none',
+                                        zIndex: 2,
+                                    }}
+                                >
+                                    {index + 1}
                                 </div>
-                                <div style={{ flex: 1 }}>
+
+                                {/* Short line between dot and card */}
+                                <div style={{
+                                    width: '2px',
+                                    height: '16px',
+                                    background: 'var(--border-inactive)',
+                                }} />
+
+                                {/* Card — full width */}
+                                <div style={{ width: '100%', marginBottom: 'var(--space-2)' }}>
                                     <StepCard step={step} index={index} isActive={isActive} isLeft={true} isMobile={isMobile} isLowEnd={isLowEnd} />
                                 </div>
                             </div>
