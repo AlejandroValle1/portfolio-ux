@@ -137,8 +137,8 @@ const Projects = () => {
         backgroundColor: 'var(--surface-color)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        border: '1.5px solid var(--border-inactive)',
-        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.05)', // Sombra suave para despegar del fondo
+        border: 'none',
+        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.05), 0 0 0 1.5px var(--border-inactive)', // Use outset shadow instead of border to prevent child bleed
     });
 
     // Preload images
@@ -195,17 +195,15 @@ const Projects = () => {
                             style={{
                                 ...getCardStyle(),
                                 ...((isLowEnd || isMobile) && activeIndex !== null ? {
-                                    borderColor: activeIndex === index ? 'var(--accent-primary)' : 'var(--border-inactive)',
                                     boxShadow: activeIndex === index
-                                        ? '0 20px 60px var(--accent-glow)'
-                                        : 'none',
+                                        ? '0 20px 60px var(--accent-glow), 0 0 0 1.5px var(--accent-primary)'
+                                        : '0 10px 30px rgba(0,0,0,0.05), 0 0 0 1.5px var(--border-inactive)',
                                     opacity: activeIndex === index ? 1 : 0.45,
                                 } : {})
                             }}
                             variants={{
                                 cardHover: {
-                                    borderColor: 'var(--accent-primary)',
-                                    boxShadow: '0 15px 50px rgba(0,0,0,0.1), 0 0 30px var(--accent-glow)',
+                                    boxShadow: '0 15px 50px rgba(0,0,0,0.1), 0 0 0 1.5px var(--accent-primary), 0 0 30px var(--accent-glow)',
                                     transition: { duration: 0.3 }
                                 }
                             }}

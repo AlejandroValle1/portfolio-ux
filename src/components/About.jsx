@@ -223,16 +223,24 @@ const About = () => {
     ];
     const activeIndex = useScrollSpotlight(cardRefs, isLowEnd || isMobile);
 
-    const getCardStyle = (index, baseStyle = {}) => ({
-        ...baseStyle,
-        transition: 'all 0.4s ease',
-        ...((isLowEnd || isMobile) && activeIndex !== null ? {
-            borderColor: activeIndex === index ? 'var(--accent-primary)' : 'var(--border-inactive)',
-            opacity: activeIndex === index ? 1 : 0.4,
-            transform: 'none',
-        } : {}),
-        backdropFilter: (isLowEnd || isMobile) ? 'none' : (baseStyle.backdropFilter || 'blur(12px)'),
-    });
+    const getCardStyle = (index, baseStyle = {}) => {
+        const styleCopy = { ...baseStyle };
+        if (styleCopy.border) {
+            delete styleCopy.border;
+        }
+        return {
+            ...styleCopy,
+            transition: 'all 0.4s ease',
+            ...((isLowEnd || isMobile) && activeIndex !== null ? {
+                boxShadow: activeIndex === index
+                    ? '0 10px 30px rgba(0,0,0,0.1), 0 0 0 1.5px var(--accent-primary)'
+                    : '0 4px 20px rgba(0,0,0,0.05), 0 0 0 1.5px var(--border-inactive)',
+                opacity: activeIndex === index ? 1 : 0.4,
+                transform: 'none',
+            } : {}),
+            backdropFilter: (isLowEnd || isMobile) ? 'none' : (baseStyle.backdropFilter || 'blur(12px)'),
+        };
+    };
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -247,12 +255,12 @@ const About = () => {
         visible: {
             opacity: 1,
             y: 0,
-            borderColor: 'var(--border-inactive)',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.05), 0 0 0 1.5px var(--border-inactive)',
             transition: { duration: 0.6, ease: "easeOut" }
         },
         hover: {
             y: -8,
-            borderColor: 'var(--accent-primary)',
+            boxShadow: '0 15px 40px rgba(0,0,0,0.1), 0 0 0 1.5px var(--accent-primary)',
             transition: { duration: 0.3, ease: "easeOut" }
         },
         mobileScroll: {
