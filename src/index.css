@@ -623,15 +623,16 @@ section {
     gap: 20px;
   }
 
+  /* 2+2+1 layout: pasos 1-4 en pares, paso 5 a ancho completo */
   .process-step-0,
   .process-step-1,
-  .process-step-2 {
-    grid-column: span 4;
+  .process-step-2,
+  .process-step-3 {
+    grid-column: span 6;
   }
 
-  .process-step-3,
   .process-step-4 {
-    grid-column: span 6;
+    grid-column: span 12;
   }
 
   .hero-mockup-wrapper {

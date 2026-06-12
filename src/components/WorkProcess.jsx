@@ -50,16 +50,17 @@ const WorkProcess = () => {
         padding: isMobile ? 'var(--space-4)' : 'var(--space-8)',
         paddingLeft: isMobile ? 'var(--space-4)' : 'var(--space-12)',
         borderRadius: 'var(--radius-card)',
-        border: '1.5px solid var(--border-inactive)',
+        border: index === 4 && !isMobile ? '1.5px solid var(--accent-primary)' : '1.5px solid var(--border-inactive)',
         backdropFilter: (isLowEnd || isMobile) ? 'none' : 'blur(12px)',
         position: 'relative',
         overflow: 'hidden',
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: index === 4 && !isMobile ? 'row' : 'column',
+        alignItems: index === 4 && !isMobile ? 'center' : 'flex-start',
         gap: 'var(--space-4)',
-        justifyContent: 'flex-start',
+        justifyContent: index === 4 && !isMobile ? 'space-between' : 'flex-start',
         cursor: 'default',
-        minHeight: isMobile ? 'auto' : '250px',
+        minHeight: isMobile ? 'auto' : index === 4 ? '160px' : '250px',
         transition: 'all 0.4s ease',
         ...((isLowEnd || isMobile) && activeIndex !== null ? {
             borderColor: activeIndex === index ? 'var(--accent-primary)' : 'var(--border-inactive)',
@@ -197,10 +198,10 @@ const WorkProcess = () => {
                                         {step.subtitle}
                                     </span>
                                     <h3 style={{
-                                        fontSize: 'clamp(1.4rem, 2.5vw, 2.1rem)',
+                                        fontSize: 'clamp(1.8rem, 3vw, 2.4rem)',
                                         fontWeight: 'var(--fw-black)',
                                         textTransform: 'uppercase',
-                                        lineHeight: 1.1,
+                                        lineHeight: 1.05,
                                         letterSpacing: '-0.03em',
                                         marginBottom: 'var(--space-2)'
                                     }}>
