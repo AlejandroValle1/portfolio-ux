@@ -402,6 +402,8 @@ const WorkProcess = () => {
                                 marginBottom: index < steps.length - 1 ? 'var(--space-8)' : 0,
                                 position: 'relative',
                                 zIndex: 2,
+                                scrollSnapAlign: 'center',
+                                scrollSnapStop: 'normal',
                             }}
                         >
                             {/* Left slot */}
