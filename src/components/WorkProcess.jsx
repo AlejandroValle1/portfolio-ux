@@ -31,13 +31,13 @@ const steps = [
 ];
 
 /* ─── Step Card ──────────────────────────────────────────── */
-const StepCard = React.forwardRef(({ step, index, isActive, isLeft, isMobile, isLowEnd }, ref) => {
+/* ─── Step Card ──────────────────────────────────────────── */
+const StepCard = ({ step, index, isActive, isLeft, isMobile, isLowEnd }) => {
     // Determine number position and layout alignment
     const numberOnLeft = !isLeft && !isMobile;
 
     return (
         <motion.div
-            ref={ref}
             initial={{ opacity: 0, x: isMobile ? 0 : (isLeft ? -40 : 40), y: isMobile ? 20 : 0 }}
             whileInView={{ opacity: 1, x: 0, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
@@ -120,8 +120,7 @@ const StepCard = React.forwardRef(({ step, index, isActive, isLeft, isMobile, is
             </div>
         </motion.div>
     );
-});
-StepCard.displayName = 'StepCard';
+};
 
 /* ─── WorkProcess ────────────────────────────────────────── */
 const WorkProcess = () => {
@@ -380,9 +379,8 @@ const WorkProcess = () => {
                                     transition: 'background-color 0.4s ease, box-shadow 0.4s ease',
                                     boxShadow: isVisited ? '0 0 8px var(--accent-primary)' : 'none',
                                 }} />
-                                <div style={{ width: '100%', marginBottom: 'var(--space-2)' }}>
+                                <div ref={el => cardRefs.current[index] = el} style={{ width: '100%', marginBottom: 'var(--space-2)' }}>
                                     <StepCard
-                                        ref={el => cardRefs.current[index] = el}
                                         step={step} index={index}
                                         isActive={isActive} isLeft={true}
                                         isMobile={isMobile} isLowEnd={isLowEnd}
@@ -409,9 +407,8 @@ const WorkProcess = () => {
                             {/* Left slot */}
                             <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start', paddingRight: '40px' }}>
                                 {isLeft && (
-                                    <div style={{ width: '100%', maxWidth: '540px' }}>
+                                    <div ref={el => cardRefs.current[index] = el} style={{ width: '100%', maxWidth: '540px' }}>
                                         <StepCard
-                                            ref={el => cardRefs.current[index] = el}
                                             step={step} index={index}
                                             isActive={isActive} isLeft={true}
                                             isMobile={isMobile} isLowEnd={isLowEnd}
@@ -426,9 +423,8 @@ const WorkProcess = () => {
                             {/* Right slot */}
                             <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', paddingLeft: '40px' }}>
                                 {!isLeft && (
-                                    <div style={{ width: '100%', maxWidth: '540px' }}>
+                                    <div ref={el => cardRefs.current[index] = el} style={{ width: '100%', maxWidth: '540px' }}>
                                         <StepCard
-                                            ref={el => cardRefs.current[index] = el}
                                             step={step} index={index}
                                             isActive={isActive} isLeft={false}
                                             isMobile={isMobile} isLowEnd={isLowEnd}
