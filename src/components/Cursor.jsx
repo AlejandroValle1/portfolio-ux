@@ -11,15 +11,11 @@ const Cursor = () => {
 
     useEffect(() => {
         // No mostrar cursor en dispositivos táctiles, pantallas pequeñas o gama baja
-        const checkMobile = () => {
-            const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-            const isSmallScreen = window.innerWidth <= 1024;
-            // Si es gama baja, mejor usar el cursor nativo para evitar lag
-            setIsVisible(!isTouch && !isSmallScreen && !isLowEnd);
-        };
+        const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        setIsVisible(!isTouch && !isMobilePerf && !isLowEnd);
+    }, [isMobilePerf, isLowEnd]);
 
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
+    useEffect(() => {
 
         const updateMousePosition = (e) => {
             if (!isVisible) return;
@@ -55,7 +51,6 @@ const Cursor = () => {
         window.addEventListener('mouseover', handleMouseOver);
 
         return () => {
-            window.removeEventListener('resize', checkMobile);
             window.removeEventListener('mousemove', updateMousePosition);
             window.removeEventListener('mouseover', handleMouseOver);
         };

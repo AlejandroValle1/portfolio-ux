@@ -1,16 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+import { usePerformance } from '../context/PerformanceContext';
+
 const ProjectSummary = ({ title, content, type = 'learning' }) => {
     const isEpilogue = type === 'epilogue';
-    const [isMobile, setIsMobile] = React.useState(false);
-
-    React.useEffect(() => {
-        const checkMobile = () => setIsMobile(window.innerWidth < 992);
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
+    const { isMobile } = usePerformance();
 
     return (
         <section className="container" style={{ paddingTop: isMobile ? '40px' : '80px', paddingBottom: isMobile ? '40px' : '80px' }}>
