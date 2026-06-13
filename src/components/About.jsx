@@ -9,38 +9,38 @@ const InterestCardContent = ({ isMobile, onOpenGallery, isActive }) => {
     const [activeTab, setActiveTab] = React.useState('default');
 
     const interests = [
-        { 
-            id: 'musica', 
-            label: '🎹 Música', 
-            content: 'La música es el combustible de mi creatividad. Desde bandas sonoras para concentrarme hasta ritmos que me mantienen motivado; te invito a descubrir qué está sonando hoy en mi perfil.', 
-            link: 'https://open.spotify.com/user/11159312069?si=57cd591e593c401b' 
+        {
+            id: 'musica',
+            label: '🎹 Música',
+            content: 'La música es el combustible de mi creatividad. Desde bandas sonoras para concentrarme hasta ritmos que me mantienen motivado; te invito a descubrir qué está sonando hoy en mi perfil.',
+            link: 'https://open.spotify.com/user/11159312069?si=57cd591e593c401b'
         },
-        { 
-            id: 'cosmos', 
-            label: '🌌 Cosmos', 
-            content: 'Fascinado por la inmensidad. Me encanta observar las estrellas para recordar lo pequeña y a la vez inmensa que es nuestra historia.' 
+        {
+            id: 'cosmos',
+            label: '🌌 Cosmos',
+            content: 'Fascinado por la inmensidad. Me encanta observar las estrellas para recordar lo pequeña y a la vez inmensa que es nuestra historia.'
         },
-        { 
-            id: 'fotografia', 
-            label: '📸 Fotografía', 
+        {
+            id: 'fotografia',
+            label: '📸 Fotografía',
             content: 'La fotografía me permite observar el mundo con otros ojos. Aquí comparto algunos fragmentos de mi mirada; te invito a explorarlos y ampliarlos para ver los detalles.',
-            images: ['/Fotos para galeria about me.webp', '/Fotos para galeria about me 2.webp', '/Fotos para galeria about me 3.webp'] 
+            images: ['/Fotos para galeria about me.webp', '/Fotos para galeria about me 2.webp', '/Fotos para galeria about me 3.webp']
         },
-        { 
-            id: 'social', 
-            label: '🗣️ Social', 
-            content: 'Me encanta charlar, conocer gente apasionada y construir vínculos laborales fructíferos. ¿Hablamos?', 
-            link: 'https://www.linkedin.com/in/alejandro-valle-295a13306' 
+        {
+            id: 'social',
+            label: '🗣️ Social',
+            content: 'Me encanta charlar, conocer gente apasionada y construir vínculos laborales fructíferos. ¿Hablamos?',
+            link: 'https://www.linkedin.com/in/alejandro-valle-295a13306'
         }
     ];
 
     return (
         <AnimatePresence mode="wait">
             {activeTab === 'default' ? (
-                <motion.div 
-                    key="default" 
-                    initial={{ opacity: 0, y: 10 }} 
-                    animate={{ opacity: 1, y: 0 }} 
+                <motion.div
+                    key="default"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                 >
                     <h3 style={{ fontSize: '1.4rem', fontWeight: 'var(--fw-black)', marginBottom: 'var(--space-3)', color: 'var(--text-color)', letterSpacing: '-0.02em' }}>
@@ -49,32 +49,32 @@ const InterestCardContent = ({ isMobile, onOpenGallery, isActive }) => {
                     <p style={{ fontSize: '1rem', marginBottom: 'var(--space-4)', opacity: 0.8, lineHeight: 1.5 }}>
                         Tocá las etiquetas para conocer un poco más sobre mis intereses personales.
                     </p>
-                    <div style={{ 
-                        display: 'grid', 
+                    <div style={{
+                        display: 'grid',
                         gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(auto-fill, minmax(140px, 1fr))',
                         gap: isMobile ? '12px' : '10px',
                         width: '100%'
                     }}>
                         {interests.map((item) => (
-                            <motion.button 
-                                key={item.id} 
+                            <motion.button
+                                key={item.id}
                                 className="interest-tag"
                                 onClick={() => setActiveTab(item.id)}
-                                whileHover={{ 
-                                    scale: 1.05, 
+                                whileHover={{
+                                    scale: 1.05,
                                     backgroundColor: 'var(--accent-glow)', // Adaptable al tema (Naranja en Día, Azul en Noche)
-                                    borderColor: 'var(--accent-primary)' 
+                                    borderColor: 'var(--accent-primary)'
                                 }}
                                 whileTap={{ scale: 0.95 }}
                                 style={{
-                                    display: 'flex', 
+                                    display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     gap: '8px',
-                                    padding: isMobile ? '10px 12px' : '8px 20px', 
-                                    borderRadius: 'var(--radius-pill)', 
-                                    border: '1.5px solid var(--border-inactive)', 
-                                    fontSize: isMobile ? '0.75rem' : '0.85rem', 
+                                    padding: isMobile ? '10px 12px' : '8px 20px',
+                                    borderRadius: 'var(--radius-pill)',
+                                    border: '1.5px solid var(--border-inactive)',
+                                    fontSize: isMobile ? '0.75rem' : '0.85rem',
                                     fontWeight: 'var(--fw-bold)',
                                     background: 'rgba(255,255,255,0.05)',
                                     color: 'var(--text-color)',
@@ -88,9 +88,9 @@ const InterestCardContent = ({ isMobile, onOpenGallery, isActive }) => {
                                     const [emoji, ...textParts] = item.label.split(' ');
                                     return (
                                         <>
-                                            <span style={{ 
-                                                fontSize: '1.1rem', 
-                                                display: 'inline-flex', 
+                                            <span style={{
+                                                fontSize: '1.1rem',
+                                                display: 'inline-flex',
                                                 alignItems: 'center',
                                                 transform: 'translateY(-1px)' // Micro-ajuste para nivelar
                                             }}>
@@ -105,25 +105,25 @@ const InterestCardContent = ({ isMobile, onOpenGallery, isActive }) => {
                     </div>
                 </motion.div>
             ) : (
-                <motion.div 
-                    key="active" 
-                    initial={{ opacity: 0, x: 20 }} 
-                    animate={{ opacity: 1, x: 0 }} 
-                    exit={{ opacity: 0, x: -20 }} 
+                <motion.div
+                    key="active"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
                     style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
                 >
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--space-4)', width: '100%' }}>
                         <span style={{ fontWeight: 'var(--fw-bold)', fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '8px' }}>
                             {interests.find(i => i.id === activeTab).label}
                         </span>
-                        <button 
-                            onClick={() => setActiveTab('default')} 
-                            style={{ 
-                                background: 'none', 
-                                border: 'none', 
-                                color: 'var(--accent-primary)', 
-                                fontWeight: 'var(--fw-bold)', 
-                                cursor: 'pointer', 
+                        <button
+                            onClick={() => setActiveTab('default')}
+                            style={{
+                                background: 'none',
+                                border: 'none',
+                                color: 'var(--accent-primary)',
+                                fontWeight: 'var(--fw-bold)',
+                                cursor: 'pointer',
                                 fontSize: '0.8rem',
                                 padding: '4px 0',
                                 textTransform: 'uppercase',
@@ -133,7 +133,7 @@ const InterestCardContent = ({ isMobile, onOpenGallery, isActive }) => {
                             VOLVER
                         </button>
                     </div>
-                    
+
                     {activeTab === 'fotografia' ? (
                         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
                             <p style={{ fontSize: '0.95rem', opacity: 0.9, lineHeight: 1.5, margin: 0 }}>
@@ -141,20 +141,20 @@ const InterestCardContent = ({ isMobile, onOpenGallery, isActive }) => {
                             </p>
                             <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', paddingBottom: '8px', scrollbarWidth: 'none', justifyContent: 'center' }}>
                                 {interests.find(i => i.id === 'fotografia').images.map((img, i) => (
-                                    <ImageWithSkeleton 
-                                        key={i} 
-                                        src={img} 
-                                        alt={`Fotografía ${i + 1} de Ale`} 
+                                    <ImageWithSkeleton
+                                        key={i}
+                                        src={img}
+                                        alt={`Fotografía ${i + 1} de Ale`}
                                         onClick={() => onOpenGallery(interests.find(i => i.id === 'fotografia').images, i)}
-                                        style={{ 
-                                            height: '110px', 
+                                        style={{
+                                            height: '110px',
                                             width: '90px',
-                                            borderRadius: 'var(--radius-small)', 
+                                            borderRadius: 'var(--radius-small)',
                                             objectFit: 'cover',
                                             border: '1px solid rgba(255,255,255,0.1)',
                                             cursor: 'pointer',
                                             flexShrink: 0
-                                        }} 
+                                        }}
                                     />
                                 ))}
                             </div>
@@ -168,16 +168,16 @@ const InterestCardContent = ({ isMobile, onOpenGallery, isActive }) => {
                     )}
 
                     {interests.find(i => i.id === activeTab).link && (
-                        <a 
-                            href={interests.find(i => i.id === activeTab).link} 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            className="btn-elegant" 
-                            style={{ 
-                                marginTop: 'var(--space-4)', 
-                                padding: '12px 24px', 
-                                fontSize: '0.75rem', 
-                                textAlign: 'center', 
+                        <a
+                            href={interests.find(i => i.id === activeTab).link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn-elegant"
+                            style={{
+                                marginTop: 'var(--space-4)',
+                                padding: '12px 24px',
+                                fontSize: '0.75rem',
+                                textAlign: 'center',
                                 borderRadius: 'var(--radius-pill)',
                                 textDecoration: 'none',
                                 fontWeight: 'var(--fw-bold)',
