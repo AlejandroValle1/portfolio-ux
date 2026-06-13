@@ -472,8 +472,8 @@ const About = () => {
                 {/* Block 7: Descargar CV */}
                 <motion.a
                     ref={cardRefs[6]}
-                    href="/CV - Alejandro Valle.pdf"
-                    download="CV - Alejandro Valle.pdf"
+                    href="/CV-Alejandro Valle.pdf"
+                    download="CV-Alejandro Valle.pdf"
                     variants={itemVariants}
                     initial="hidden"
                     whileInView={isMobile ? "mobileScroll" : "visible"}
