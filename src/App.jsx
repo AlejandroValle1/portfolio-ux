@@ -6,6 +6,8 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import ProjectSepara from './pages/ProjectSepara';
 import ProjectTienda from './pages/ProjectTienda';
+import ProjectAzafran from './pages/ProjectAzafran';
+import ProjectSmartock from './pages/ProjectSmartock';
 import Cursor from './components/Cursor';
 import ScrollUpButton from './components/ScrollToTop';
 import { PerformanceProvider } from './context/PerformanceContext';
@@ -73,6 +75,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/separa" element={<ProjectSepara />} />
               <Route path="/tienda-tecno" element={<ProjectTienda />} />
+              <Route path="/azafran" element={<ProjectAzafran />} />
+              <Route path="/smartock" element={<ProjectSmartock />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AnimatePresence>

@@ -88,13 +88,25 @@ export const FigJamIcon = () => (
 /**
  * ToolIcons — renders a row of tools: Figma + FigJam + Gemini + ChatGPT
  */
-const ToolIcons = () => (
-    <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
-        <ToolItem name="Figma"><FigmaIcon /></ToolItem>
-        <ToolItem name="FigJam"><FigJamIcon /></ToolItem>
-        <ToolItem name="Gemini"><GeminiIcon /></ToolItem>
-        <ToolItem name="ChatGPT"><ChatGPTIcon /></ToolItem>
-    </div>
-);
+const ToolIcons = ({ tools = ['Figma', 'FigJam', 'Gemini', 'ChatGPT'] }) => {
+    const iconMap = {
+        'Figma': <FigmaIcon />,
+        'FigJam': <FigJamIcon />,
+        'Gemini': <GeminiIcon />,
+        'ChatGPT': <ChatGPTIcon />
+    };
+
+    return (
+        <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+            {tools.map(tool => (
+                iconMap[tool] ? (
+                    <ToolItem key={tool} name={tool}>
+                        {iconMap[tool]}
+                    </ToolItem>
+                ) : null
+            ))}
+        </div>
+    );
+};
 
 export default ToolIcons;

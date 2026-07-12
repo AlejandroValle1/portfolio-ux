@@ -300,10 +300,15 @@ html {
 @media (min-width: 1025px) {
   html {
     scroll-snap-type: y proximity;
-    scroll-padding-top: 80px; /* Account for sticky header when calculating snap center */
+    scroll-padding-top: 80px;
   }
 
   .project-card {
+    scroll-snap-align: center;
+    scroll-snap-stop: normal;
+  }
+
+  .evolution-snap-item {
     scroll-snap-align: center;
     scroll-snap-stop: normal;
   }

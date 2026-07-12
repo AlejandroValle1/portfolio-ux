@@ -24,3 +24,29 @@ export const TIENDA_DATA = {
         { label: "Herramientas", value: <ToolIcons /> }
     ]
 };
+
+export const AZAFRAN_DATA = {
+    title: "AZAFRÁN MENDOZA",
+    tagline: <>Rediseñando la alta hospitalidad digital. Un sistema de reservas nativo y elástico para un restaurante con <span className="editorial-highlight">estrella Michelin</span>.</>,
+    figmaLink: "https://www.figma.com",
+    metadata: [
+        { label: "Rol", value: "Product Designer" },
+        { label: "Alcance", value: "Rediseño de Producto" },
+        { label: "Enfoque", value: "UX/UI & Animación" },
+        { label: "Herramientas", value: <ToolIcons /> }
+    ]
+};
+
+export const SMARTOCK_DATA = {
+    title: "SMARTOCK",
+    tagline: <>Optimizando la gestión de inventario inteligente. Un producto digital en desarrollo para el <span className="editorial-highlight">control de stock</span> en tiempo real.</>,
+    figmaLink: "https://www.figma.com",
+    metadata: [
+        { label: "Rol", value: "Product Designer" },
+        { label: "Alcance", value: "Producto en uso" },
+        { label: "Enfoque", value: "UX/UI" },
+        { label: "Herramientas", value: <ToolIcons tools={['Figma', 'Gemini']} /> }
+    ]
+};
+
+

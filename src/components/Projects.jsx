@@ -18,11 +18,29 @@ const projectsSummary = [
     {
         id: 'tienda-tecno',
         title: "TIENDA TECNO",
-        intro: <>E-commerce de hardware diseñado para <strong>3 perfiles de usuario distintos</strong>. Del wireframe al prototipo final en 4 meses.</>,
+        intro: <>E-commerce de hardware diseñado para <strong>3 perfiles de usuario distintos</strong>. Del wireframe al prototipo final en 4 meses.</>,
         type: "Web Design / UX Research",
         link: "/tienda-tecno",
         image: "/Mockup-home-tienda_tecno.webp",
         imgStyle: { objectFit: 'contain', scale: 1.6, backgroundColor: '#fff' }
+    },
+    {
+        id: 'azafran',
+        title: "AZAFRÁN MENDOZA",
+        intro: <>Rediseño de la experiencia digital de un restaurante estrella Michelin. Creación de un <strong>sistema de reservas nativo, asimétrico y elástico</strong>.</>,
+        type: "Product Redesign / UX/UI",
+        link: "/azafran",
+        image: "/Mockup-home-azafran.webp", // Will act as placeholder or we can use an existing image if needed
+        imgStyle: { objectFit: 'contain', scale: 1.1, backgroundColor: '#fff' }
+    },
+    {
+        id: 'smartock',
+        title: "SMARTOCK",
+        intro: <>Plataforma de gestión de inventario inteligente en tiempo real. <strong>Optimizando flujos operativos y reduciendo mermas</strong> para comercios minoristas.</>,
+        type: "Product Design / SaaS",
+        link: "/smartock",
+        image: "/Mockup-home-smartock.webp", // Will act as placeholder
+        imgStyle: { objectFit: 'contain', scale: 1.2, backgroundColor: '#fff' }
     }
 ];
 
