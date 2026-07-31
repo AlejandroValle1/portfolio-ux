@@ -28,7 +28,7 @@ export const TIENDA_DATA = {
 export const AZAFRAN_DATA = {
     title: "AZAFRÁN MENDOZA",
     tagline: <>Rediseñando la alta hospitalidad digital. Un sistema de reservas nativo y elástico para un restaurante con <span className="editorial-highlight">estrella Michelin</span>.</>,
-    figmaLink: "https://www.figma.com",
+    figmaLink: "https://www.figma.com/make/a7RsHw8auTSX3JrWlGsz7g/Azafr%C3%A1n.resto.com?fullscreen=1&t=hzaBqowg5FKRjxoN-1&code-node-id=0-9",
     metadata: [
         { label: "Rol", value: "Product Designer" },
         { label: "Alcance", value: "Rediseño de Producto" },
