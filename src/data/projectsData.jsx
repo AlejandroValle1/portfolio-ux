@@ -40,7 +40,7 @@ export const AZAFRAN_DATA = {
 export const SMARTOCK_DATA = {
     title: "SMARTOCK",
     tagline: <>Optimizando la gestión de inventario inteligente. Un producto digital en desarrollo para el <span className="editorial-highlight">control de stock</span> en tiempo real.</>,
-    figmaLink: "https://www.figma.com",
+    figmaLink: "https://www.figma.com/design/A9KfW3BHOCaqBsTmKqzJEa/Smartock-Original?node-id=0-1&t=ENi9VSmvRBqclzMT-1",
     metadata: [
         { label: "Rol", value: "Product Designer" },
         { label: "Alcance", value: "Producto en uso" },
