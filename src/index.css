@@ -309,8 +309,9 @@ html {
   }
 
   .evolution-snap-item {
-    scroll-snap-align: center;
-    scroll-snap-stop: normal;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    scroll-margin-top: 80px;
   }
 }
 

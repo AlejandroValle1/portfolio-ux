@@ -173,9 +173,9 @@ const ProjectSmartock = () => {
                                     fontSize: '0.65rem', 
                                     padding: '4px 8px', 
                                     borderRadius: '4px', 
-                                    backgroundColor: 'rgba(255,255,255,0.05)', 
+                                    backgroundColor: 'var(--surface-color)', 
                                     color: 'var(--text-color)', 
-                                    border: '1px solid rgba(255,255,255,0.1)', 
+                                    border: '1px solid var(--border-inactive)', 
                                     textTransform: 'uppercase', 
                                     letterSpacing: '0.05em', 
                                     fontWeight: 'var(--fw-bold)' 
@@ -236,415 +236,250 @@ const ProjectSmartock = () => {
                 text="Cada pantalla del sistema atravesó tres etapas claras de evolución. A continuación se muestra el recorrido cronológico de las pantallas clave, desde la versión original hasta el resultado final refinado con asistencia de IA en Figma."
             >
                 <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: isMobile ? '1fr' : '260px 1fr',
-                    gap: 'var(--space-10)',
+                    width: '100vw',
                     position: 'relative',
-                    alignItems: 'start'
+                    left: '50%',
+                    right: '50%',
+                    marginLeft: '-50vw',
+                    marginRight: '-50vw',
+                    padding: isMobile ? '0 var(--space-4)' : '0 var(--space-8)',
+                    boxSizing: 'border-box',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0px',
                 }}>
-                    {/* ── COLUMNA IZQUIERDA: Sticky Index ── */}
-                    {!isMobile && (
-                        <div style={{
-                            position: 'sticky',
-                            top: '100px',
-                            height: 'calc(100vh - 160px)',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: 'var(--space-2)',
-                            paddingRight: 'var(--space-4)',
-                            overflow: 'hidden',
-                        }}>
-                            <p style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', opacity: 0.4, margin: '0 0 var(--space-4)' }}>Índice de Pantallas</p>
-
-                            {/* Solo mostrar pantalla activa + hint de la siguiente */}
-                            {EVOLUTION_SCREENS.map((screen, sIdx) => {
-                                const isActive = activeScreenIdx === sIdx;
-                                const isNext = sIdx === activeScreenIdx + 1;
-
-                                // Ocultar todo lo que no sea activo ni el siguiente
-                                if (!isActive && !isNext) return null;
-
-                                if (isNext) {
-                                    // Hint en gris de la pantalla siguiente — FIJO al fondo
-                                    return (
-                                        <div key={sIdx} style={{
-                                            position: 'absolute',
-                                            bottom: 0,
-                                            left: 0,
-                                            right: 'var(--space-4)',
-                                            paddingTop: 'var(--space-5)',
-                                            borderTop: '1px solid var(--border-inactive)',
-                                            opacity: 0.35,
-                                        }}>
-                                            <p style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 4px', color: 'var(--text-color)' }}>A continuación</p>
-                                            <a
-                                                href={`#smartock-version-${sIdx}-0`}
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    document.getElementById(`smartock-version-${sIdx}-0`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                                }}
-                                                style={{
-                                                    textDecoration: 'none',
-                                                    fontSize: '0.88rem',
-                                                    fontWeight: 'var(--fw-medium)',
-                                                    color: 'var(--text-color)',
-                                                    lineHeight: 1.3,
-                                                    display: 'block',
-                                                }}
-                                            >
-                                                Pantalla {sIdx + 1}: {screen.screen.split(' (')[0]}
-                                            </a>
-                                        </div>
-                                    );
+                    {EVOLUTION_SCREENS.map((screen, screenIdx) => (
+                        <motion.div
+                            key={screenIdx}
+                            id={`smartock-screen-${screenIdx}`}
+                            className={isMobile ? '' : 'evolution-snap-item'}
+                            onViewportEnter={() => {
+                                setActiveScreenIdx(screenIdx);
+                                if (activeScreenIdx !== screenIdx) {
+                                    setActiveVersionIdx(0);
                                 }
+                            }}
+                            viewport={{ margin: '-40% 0px -40% 0px' }}
+                            initial={{ opacity: 0.3 }}
+                            whileInView={{ opacity: 1 }}
+                            transition={{ duration: 0.3 }}
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: 'var(--space-3)',
+                                height: isMobile ? 'auto' : 'calc(100vh - 80px)',
+                                justifyContent: 'flex-start',
+                                boxSizing: 'border-box',
+                                paddingTop: isMobile ? '40px' : '64px',
+                                paddingBottom: isMobile ? '40px' : '40px',
+                                maxWidth: '1600px',
+                                margin: '0 auto',
+                                width: '100%',
+                                scrollMarginTop: '80px',
+                                borderTop: screenIdx > 0 ? '1px solid var(--border-inactive)' : 'none',
+                            }}
+                        >
+                            {(() => {
+                                const currentVIdx = (activeScreenIdx === screenIdx && activeVersionIdx >= 0) ? activeVersionIdx : 0;
+                                const currentVersion = screen.versions[currentVIdx];
 
-                                // Pantalla activa — título + sub-bullets completos
                                 return (
-                                    <div key={sIdx} style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-                                        {/* Título activo */}
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', height: '100%', justifyContent: 'flex-start' }}>
+                                        
+                                        {/* 1. CABECERA 2 COLUMNAS CON JERARQUÍA MASIVA */}
                                         <div style={{
-                                            display: 'flex',
-                                            alignItems: 'flex-start',
-                                            gap: '10px',
-                                            marginBottom: 'var(--space-4)',
+                                            display: 'grid',
+                                            gridTemplateColumns: isMobile ? '1fr' : '1.4fr 1fr',
+                                            gap: 'var(--space-8)',
+                                            alignItems: 'start',
                                         }}>
-                                            <div style={{
-                                                width: '6px',
-                                                height: '6px',
-                                                borderRadius: '50%',
-                                                backgroundColor: 'var(--accent-primary)',
-                                                marginTop: '6px',
-                                                flexShrink: 0,
-                                            }} />
-                                            <span style={{
-                                                fontSize: '1rem',
-                                                fontWeight: 'var(--fw-black)',
-                                                color: 'var(--accent-primary)',
-                                                lineHeight: 1.3,
-                                            }}>
-                                                Pantalla {sIdx + 1}: {screen.screen.split(' (')[0]}
-                                            </span>
-                                        </div>
-
-                                        {/* Sub-bullets de versiones */}
-                                        <div style={{
-                                            marginLeft: '16px',
-                                            borderLeft: '1px solid var(--border-inactive)',
-                                            paddingLeft: 'var(--space-4)',
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            gap: 'var(--space-1)',
-                                        }}>
-                                            {screen.versions.map((v, vIdx) => {
-                                                const isVersionActive = activeVersionIdx === vIdx;
-                                                return (
-                                                    <div key={vIdx}>
-                                                        <a
-                                                            href={`#smartock-version-${sIdx}-${vIdx}`}
-                                                            onClick={(e) => {
-                                                                e.preventDefault();
-                                                                document.getElementById(`smartock-version-${sIdx}-${vIdx}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                                            }}
-                                                            style={{
-                                                                textDecoration: 'none',
-                                                                display: 'flex',
-                                                                alignItems: 'center',
-                                                                gap: '8px',
-                                                                padding: '6px 0',
-                                                                fontSize: '0.82rem',
-                                                                fontWeight: isVersionActive ? 'var(--fw-bold)' : 'var(--fw-medium)',
-                                                                color: isVersionActive ? 'var(--accent-primary)' : 'var(--text-color)',
-                                                                opacity: isVersionActive ? 1 : 0.35,
-                                                                transition: 'all 0.3s ease',
-                                                            }}
-                                                        >
-                                                            <div style={{
-                                                                width: '4px',
-                                                                height: '4px',
-                                                                borderRadius: '50%',
-                                                                backgroundColor: isVersionActive ? 'var(--accent-primary)' : 'var(--text-color)',
-                                                                flexShrink: 0,
-                                                                transition: 'background-color 0.3s ease'
-                                                            }} />
-                                                            {vIdx === 0 ? 'Versión 1: Auditoría' : vIdx === 1 ? 'Versión 2: Resultado de auditoría' : 'Versión 3: Iteración visual'}
-                                                        </a>
-
-                                                        {/* Descripción visible solo cuando la versión está activa */}
-                                                        <div style={{
-                                                            maxHeight: isVersionActive ? '200px' : '0px',
-                                                            opacity: isVersionActive ? 1 : 0,
-                                                            overflow: 'hidden',
-                                                            transition: 'max-height 0.4s ease, opacity 0.3s ease',
-                                                            paddingLeft: '12px',
-                                                        }}>
-                                                            <p style={{
-                                                                fontSize: '0.78rem',
-                                                                lineHeight: 1.55,
-                                                                opacity: 0.8,
-                                                                margin: '2px 0 var(--space-3)',
-                                                                fontStyle: 'italic',
-                                                                color: 'var(--text-color)'
-                                                            }}>
-                                                                {v.desc}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                );
-                                            })}
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    )}
-
-                    {/* ── COLUMNA DERECHA: Galería Scrollable ── */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '180px' }}>
-                        {EVOLUTION_SCREENS.map((screen, screenIdx) => (
-                            <div key={screenIdx} id={`smartock-screen-${screenIdx}`} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-8)' }}>
-
-                                {/* Cards de Contexto — Snap item propio, altura de pantalla */}
-                                <motion.div
-                                    className={isMobile ? '' : 'evolution-snap-item'}
-                                    onViewportEnter={() => {
-                                        setActiveScreenIdx(screenIdx);
-                                        setActiveVersionIdx(-1);
-                                    }}
-                                    viewport={{ margin: '-20% 0px -70% 0px' }}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5 }}
-                                    style={{
-                                        minHeight: isMobile ? 'auto' : '85vh',
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        justifyContent: 'center',
-                                        paddingTop: 'var(--space-8)',
-                                        paddingBottom: 'var(--space-8)',
-                                        gap: 'var(--space-6)',
-                                    }}
-                                >
-                                    {/* Eyebrow label */}
-                                    {!isMobile && (
-                                        <p style={{
-                                            fontSize: '0.7rem',
-                                            textTransform: 'uppercase',
-                                            letterSpacing: '0.14em',
-                                            opacity: 0.4,
-                                            margin: 0,
-                                        }}>
-                                            Pantalla {screenIdx + 1} — {screen.screen.split(' (')[0]}
-                                        </p>
-                                    )}
-
-                                    <div style={{
-                                        display: 'grid',
-                                        gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-                                        gap: 'var(--space-6)',
-                                        flex: 1,
-                                        alignItems: 'stretch',
-                                    }}>
-                                        {/* Card: El Contexto */}
-                                        <div className="glass-card" style={{
-                                            padding: 'var(--space-8)',
-                                            borderRadius: '16px',
-                                            border: '1px solid var(--border-inactive)',
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            gap: 'var(--space-5)',
-                                            background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)',
-                                            position: 'relative',
-                                            overflow: 'hidden',
-                                        }}>
-                                            {/* Decorative top bar */}
-                                            <div style={{
-                                                position: 'absolute',
-                                                top: 0, left: 0, right: 0,
-                                                height: '3px',
-                                                background: 'linear-gradient(90deg, transparent, var(--border-inactive), transparent)',
-                                                borderRadius: '16px 16px 0 0',
-                                            }} />
-                                            <div>
-                                                <p style={{
-                                                    fontSize: '0.65rem',
+                                            {/* Columna Izquierda: Titular + Contexto */}
+                                            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                                                <span style={{
+                                                    fontSize: '0.85rem',
                                                     textTransform: 'uppercase',
-                                                    letterSpacing: '0.15em',
-                                                    opacity: 0.45,
-                                                    margin: '0 0 var(--space-3)',
-                                                    fontWeight: 'var(--fw-bold)',
-                                                }}>El Contexto</p>
-                                                <p style={{
-                                                    fontSize: '1.05rem',
-                                                    lineHeight: 1.75,
-                                                    margin: 0,
-                                                    opacity: 0.9,
-                                                    fontWeight: 'var(--fw-medium)',
+                                                    letterSpacing: '0.2em',
+                                                    fontWeight: 'var(--fw-black)',
+                                                    color: 'var(--accent-primary)',
+                                                    display: 'block',
                                                 }}>
+                                                    PANTALLA {screenIdx + 1} DE {EVOLUTION_SCREENS.length}
+                                                </span>
+                                                <h2 style={{
+                                                    fontSize: 'clamp(1.6rem, 2.5vw, 2.4rem)',
+                                                    fontWeight: '900',
+                                                    lineHeight: 1.15,
+                                                    margin: 0,
+                                                    color: 'var(--text-color)',
+                                                    letterSpacing: '-0.02em',
+                                                }}>
+                                                    {screen.screen.split(' (')[0]}
+                                                </h2>
+                                                <p style={{ margin: 0, opacity: 0.7, fontSize: '0.85rem', lineHeight: 1.65 }}>
                                                     {screen.context}
                                                 </p>
                                             </div>
-                                            {/* Número de versiones como indicador */}
-                                            <div style={{
-                                                marginTop: 'auto',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                gap: 'var(--space-2)',
-                                                opacity: 0.4,
-                                            }}>
-                                                {screen.versions.map((_, i) => (
-                                                    <div key={i} style={{
-                                                        width: '24px', height: '3px',
-                                                        borderRadius: '2px',
-                                                        backgroundColor: 'var(--text-color)',
-                                                    }} />
-                                                ))}
-                                                <span style={{ fontSize: '0.7rem', letterSpacing: '0.05em' }}>
-                                                    {screen.versions.length} iteraciones
-                                                </span>
-                                            </div>
-                                        </div>
 
-                                        {/* Card: Decisión Destacada */}
-                                        <div className="glass-card" style={{
-                                            padding: 'var(--space-8)',
-                                            borderRadius: '16px',
-                                            border: '1px solid var(--accent-primary)',
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            gap: 'var(--space-5)',
-                                            background: 'linear-gradient(135deg, rgba(var(--accent-primary-rgb, 139,92,246),0.08) 0%, rgba(var(--accent-primary-rgb, 139,92,246),0.02) 100%)',
-                                            position: 'relative',
-                                            overflow: 'hidden',
-                                            boxShadow: '0 0 40px rgba(139,92,246,0.08)',
-                                        }}>
-                                            {/* Glow top bar */}
-                                            <div style={{
-                                                position: 'absolute',
-                                                top: 0, left: 0, right: 0,
-                                                height: '3px',
-                                                background: 'linear-gradient(90deg, transparent, var(--accent-primary), transparent)',
-                                                borderRadius: '16px 16px 0 0',
-                                            }} />
-                                            <div>
-                                                <p style={{
-                                                    fontSize: '0.65rem',
-                                                    textTransform: 'uppercase',
-                                                    letterSpacing: '0.15em',
-                                                    color: 'var(--accent-primary)',
-                                                    margin: '0 0 var(--space-3)',
-                                                    fontWeight: 'var(--fw-bold)',
-                                                }}>Decisión de Diseño</p>
-                                                <p style={{
-                                                    fontSize: '1.05rem',
-                                                    lineHeight: 1.75,
-                                                    margin: 0,
-                                                    opacity: 0.9,
-                                                    fontWeight: 'var(--fw-medium)',
-                                                }}>
+                                            {/* Columna Derecha: Solo Decisión Clave (Legibilidad Mejorada) */}
+                                            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.9rem', lineHeight: 1.6, paddingTop: '4px' }}>
+                                                <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.14em', fontWeight: 'var(--fw-black)', color: 'var(--accent-primary)' }}>
+                                                    Decisión Clave
+                                                </span>
+                                                <p style={{ margin: 0, opacity: 0.95, color: 'var(--text-color)', fontWeight: 'var(--fw-medium)' }}>
                                                     {screen.highlight}
                                                 </p>
                                             </div>
-                                            {/* Tag de herramienta */}
-                                            <div style={{
-                                                marginTop: 'auto',
-                                                display: 'inline-flex',
-                                                alignItems: 'center',
-                                                gap: '6px',
-                                                opacity: 0.6,
-                                            }}>
-                                                <div style={{
-                                                    width: '6px', height: '6px',
-                                                    borderRadius: '50%',
-                                                    backgroundColor: 'var(--accent-primary)',
-                                                }} />
-                                                <span style={{ fontSize: '0.72rem', color: 'var(--accent-primary)', letterSpacing: '0.05em', fontWeight: 'var(--fw-bold)' }}>
-                                                    Figma + Gemini
-                                                </span>
-                                            </div>
                                         </div>
-                                    </div>
-                                </motion.div>
 
-                                {/* Imágenes de las 3 versiones — cada una snappea al centro */}
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0px' }}>
-                                    {screen.versions.map((version, vIdx) => (
-                                        <motion.div
-                                            key={vIdx}
-                                            id={`smartock-version-${screenIdx}-${vIdx}`}
-                                            className={isMobile ? '' : 'evolution-snap-item'}
-                                            onViewportEnter={() => {
-                                                setActiveScreenIdx(screenIdx);
-                                                setActiveVersionIdx(vIdx);
-                                            }}
-                                            viewport={{ margin: '-35% 0px -35% 0px' }}
-                                            initial={{ opacity: 0, y: 24 }}
-                                            whileInView={{ opacity: 1, y: 0 }}
-                                            transition={{ duration: 0.5 }}
-                                            style={{
+                                        {/* 2. BLOQUE DE TABS VERTICALES (IZQ) + COLUMNA DERECHA (DESCRIPCIÓN + IMAGEN) */}
+                                        <div style={{
+                                            display: 'grid',
+                                            gridTemplateColumns: isMobile ? '1fr' : '180px 1fr',
+                                            gap: 'var(--space-3)',
+                                            alignItems: 'stretch',
+                                            flex: 1,
+                                            minHeight: 0,
+                                            maxHeight: isMobile ? 'auto' : 'calc(100vh - 220px)',
+                                            overflow: 'hidden',
+                                        }}>
+                                            {/* Panel de Tabs Verticales (Alineado arriba) */}
+                                            <div className="glass-card" style={{
+                                                padding: '8px',
+                                                borderRadius: '12px',
+                                                border: '1px solid var(--border-inactive)',
                                                 display: 'flex',
                                                 flexDirection: 'column',
-                                                gap: 'var(--space-3)',
-                                                minHeight: isMobile ? 'auto' : '85vh',
-                                                justifyContent: 'center',
-                                                paddingTop: 'var(--space-8)',
-                                                paddingBottom: 'var(--space-8)',
-                                            }}
-                                        >
-                                            {/* Etiqueta encima de la imagen (solo mobile, en desktop está en el sidebar) */}
-                                            {isMobile && (
-                                                <div>
-                                                    <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 'var(--fw-black)', color: vIdx === 2 ? 'var(--accent-primary)' : 'var(--text-color)', opacity: 0.8, display: 'block', marginBottom: '4px' }}>
-                                                        V{vIdx + 1} — {version.tag}
-                                                    </span>
-                                                    <p style={{ fontSize: '0.88rem', lineHeight: 1.6, opacity: 0.75, margin: 0 }}>{version.desc}</p>
-                                                </div>
-                                            )}
+                                                gap: '6px',
+                                                background: 'var(--surface-color)',
+                                                alignSelf: 'start',
+                                            }}>
+                                                {screen.versions.map((ver, vIdx) => {
+                                                    const isActive = currentVIdx === vIdx;
+                                                    return (
+                                                        <button
+                                                            key={vIdx}
+                                                            onClick={() => {
+                                                                setActiveScreenIdx(screenIdx);
+                                                                setActiveVersionIdx(vIdx);
+                                                            }}
+                                                            style={{
+                                                                padding: '10px 12px',
+                                                                borderRadius: '8px',
+                                                                border: 'none',
+                                                                backgroundColor: isActive ? 'var(--accent-primary)' : 'transparent',
+                                                                color: isActive ? '#fff' : 'var(--text-color)',
+                                                                opacity: isActive ? 1 : 0.6,
+                                                                fontSize: '0.8rem',
+                                                                fontWeight: isActive ? 'var(--fw-bold)' : 'var(--fw-medium)',
+                                                                cursor: 'pointer',
+                                                                transition: 'all 0.25s ease',
+                                                                textAlign: 'left',
+                                                                lineHeight: 1.35,
+                                                                boxShadow: isActive ? '0 3px 12px var(--accent-glow)' : 'none',
+                                                                width: '100%',
+                                                            }}
+                                                        >
+                                                            <span>V{vIdx + 1} — {ver.tag}</span>
+                                                        </button>
+                                                    );
+                                                })}
+                                             </div>
 
-                                            {/* Imagen con badge flotante */}
-                                                <div
-                                                    onClick={() => openLightbox(version.img)}
-                                                    style={{
-                                                        borderRadius: '14px',
-                                                        overflow: 'hidden',
-                                                        border: vIdx === 2 ? '2px solid var(--accent-primary)' : '1px solid var(--border-inactive)',
-                                                        boxShadow: vIdx === 2 ? '0 16px 48px var(--accent-glow)' : '0 8px 28px rgba(0,0,0,0.12)',
-                                                        cursor: 'zoom-in',
-                                                        transition: 'all 0.35s ease',
-                                                        position: 'relative',
-                                                        aspectRatio: '1520/792',
-                                                    }}
-                                                >
-                                                    <img
-                                                        src={version.img}
-                                                        alt={`V${vIdx + 1} — ${version.label}`}
-                                                        style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block' }}
-                                                    />
-                                                {!isMobile && (
-                                                    <div style={{
-                                                        position: 'absolute',
-                                                        top: '12px',
-                                                        left: '12px',
-                                                        padding: '5px 12px',
-                                                        borderRadius: '20px',
-                                                        backgroundColor: 'rgba(10,10,20,0.85)',
-                                                        backdropFilter: 'blur(8px)',
-                                                        border: '1px solid var(--border-inactive)',
-                                                        fontSize: '0.72rem',
-                                                        fontWeight: 'var(--fw-bold)',
-                                                        color: vIdx === 2 ? 'var(--accent-primary)' : 'var(--text-color)',
-                                                        letterSpacing: '0.05em',
-                                                        boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
-                                                    }}>
-                                                        V{vIdx + 1} — {version.tag}
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </motion.div>
-                                    ))}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                                             {/* Columna Derecha: Texto Explicativo + Image Preview */}
+                                             <div style={{
+                                                 display: 'flex',
+                                                 flexDirection: 'column',
+                                                 gap: 'var(--space-3)',
+                                                 height: '100%',
+                                                 minHeight: 0,
+                                                 overflow: 'hidden',
+                                             }}>
+                                                 {/* Tarjeta con Texto Explicativo de la Versión */}
+                                                 <motion.div
+                                                     key={`desc-card-${currentVIdx}`}
+                                                     initial={{ opacity: 0, y: -4 }}
+                                                     animate={{ opacity: 1, y: 0 }}
+                                                     transition={{ duration: 0.25 }}
+                                                     className="glass-card"
+                                                     style={{
+                                                         padding: '12px 18px',
+                                                         borderRadius: '12px',
+                                                         border: '1px solid var(--border-inactive)',
+                                                         background: 'var(--surface-color)',
+                                                         display: 'flex',
+                                                         alignItems: 'center',
+                                                         flexShrink: 0,
+                                                         boxShadow: '0 4px 24px rgba(0,0,0,0.12)',
+                                                     }}
+                                                 >
+                                                     <p style={{ fontSize: '0.92rem', lineHeight: 1.5, margin: 0, fontWeight: 'var(--fw-medium)', opacity: 0.95, color: 'var(--text-color)' }}>
+                                                         {currentVersion.desc}
+                                                     </p>
+                                                 </motion.div>
+
+                                                 {/* Preview de la Imagen HD */}
+                                                 <motion.div
+                                                     key={`img-box-${currentVIdx}`}
+                                                     initial={{ opacity: 0.5, scale: 0.99 }}
+                                                     animate={{ opacity: 1, scale: 1 }}
+                                                     transition={{ duration: 0.35 }}
+                                                     onClick={() => openLightbox(currentVersion.img)}
+                                                     style={{
+                                                         borderRadius: '14px',
+                                                         overflow: 'hidden',
+                                                         border: currentVIdx === 2 ? '2px solid var(--accent-primary)' : '1px solid var(--border-inactive)',
+                                                         boxShadow: currentVIdx === 2 ? '0 16px 48px var(--accent-glow)' : '0 8px 28px rgba(0,0,0,0.12)',
+                                                         cursor: 'zoom-in',
+                                                         position: 'relative',
+                                                         width: '100%',
+                                                         flex: 1,
+                                                         minHeight: 0,
+                                                     }}
+                                                 >
+                                                     <img
+                                                         src={currentVersion.img}
+                                                         alt={`V${currentVIdx + 1} — ${currentVersion.label}`}
+                                                         style={{
+                                                             width: '100%',
+                                                             height: '100%',
+                                                             objectFit: 'cover',
+                                                             objectPosition: 'top center',
+                                                             display: 'block',
+                                                             position: 'absolute',
+                                                             top: 0,
+                                                             left: 0,
+                                                         }}
+                                                     />
+
+                                                     {/* Hint de Zoom */}
+                                                     <div style={{
+                                                         position: 'absolute',
+                                                         bottom: '12px',
+                                                         right: '12px',
+                                                         padding: '5px 12px',
+                                                         borderRadius: '20px',
+                                                         backgroundColor: 'rgba(10,10,20,0.85)',
+                                                         backdropFilter: 'blur(8px)',
+                                                         border: '1px solid var(--border-inactive)',
+                                                         fontSize: '0.72rem',
+                                                         fontWeight: 'var(--fw-bold)',
+                                                         color: '#ffffff',
+                                                         display: 'flex',
+                                                         alignItems: 'center',
+                                                         gap: '6px',
+                                                         boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+                                                         pointerEvents: 'none',
+                                                     }}>
+                                                         🔍 Zoom HD
+                                                     </div>
+                                                 </motion.div>
+                                             </div>
+                                        </div>
+                                    </div>
+                                );
+                            })()}
+                        </motion.div>
+                    ))}
                 </div>
             </ProjectSection>
 
@@ -733,10 +568,14 @@ const ProjectSmartock = () => {
                     <div className="glass-card" style={{ 
                         padding: 'var(--space-4) var(--space-6)', 
                         borderLeft: '4px solid var(--accent-primary)',
-                        backgroundColor: 'rgba(123, 31, 162, 0.05)',
+                        border: '1px solid var(--border-inactive)',
+                        borderLeftWidth: '4px',
+                        backgroundColor: 'var(--surface-color)',
+                        color: 'var(--text-color)',
                         fontSize: '0.95rem',
                         fontWeight: 'var(--fw-medium)',
-                        lineHeight: 1.6
+                        lineHeight: 1.6,
+                        boxShadow: '0 4px 20px rgba(0,0,0,0.08)'
                     }}>
                         💡 <strong>Diseñado con lógica de contraste AAA:</strong> El púrpura noche reduce la fatiga visual en comercios con pantallas activas durante más de 10 horas diarias.
                     </div>
@@ -744,10 +583,14 @@ const ProjectSmartock = () => {
                     <div className="glass-card" style={{ 
                         padding: 'var(--space-4) var(--space-6)', 
                         borderLeft: '4px solid var(--accent-primary)',
-                        backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                        border: '1px solid var(--border-inactive)',
+                        borderLeftWidth: '4px',
+                        backgroundColor: 'var(--surface-color)',
+                        color: 'var(--text-color)',
                         fontSize: '0.95rem',
                         fontWeight: 'var(--fw-medium)',
-                        lineHeight: 1.6
+                        lineHeight: 1.6,
+                        boxShadow: '0 4px 20px rgba(0,0,0,0.08)'
                     }}>
                         🚀 <strong>El verdadero poder de este Design System</strong> es su capacidad de desacoplar la estructura visual de la identidad de marca. Al diseñar una arquitectura white-label, demostramos cómo el diseño UX/UI puede apalancar directamente el modelo de negocio de una startup, permitiendo que Smartock se transforme visualmente en el producto de cualquier cliente corporativo con solo cambiar un archivo de tokens CSS.
                     </div>

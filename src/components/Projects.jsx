@@ -7,10 +7,21 @@ import { useScrollSpotlight } from '../hooks/useScrollSpotlight';
 
 const projectsSummary = [
     {
+        id: 'smartock',
+        title: "SMARTOCK",
+        intro: <>Plataforma de gestión de inventario inteligente en tiempo real. <strong>Optimizando tiempos para comercios</strong> minoristas.</>,
+        type: "Product Design / SaaS",
+        tags: ["UX/UI", "B2B SaaS", "Figma", "IA"],
+        link: "/smartock",
+        image: "/Mockup-home-smartock.webp",
+        imgStyle: { objectFit: 'contain', scale: 1.2, backgroundColor: '#fff' }
+    },
+    {
         id: 'separa',
         title: "SE-PA-RÁ",
-        intro: <>Diseñé una app que convierte el reciclaje urbano en un hábito. <strong>Investigación de usuarios, arquitectura de información y sistema de incentivos</strong> desde cero.</>,
+        intro: <>Diseñé una app que convierte el reciclaje urbano en un hábito. <strong>Investigación de usuarios, arquitectura de información y sistema de incentivos</strong> desde cero.</>,
         type: "App Mobile design",
+        tags: ["Mobile App", "UX Research", "Sistema de incentivos"],
         link: "/separa",
         image: "/Mockup-home-separa.webp",
         imgStyle: { objectFit: 'contain', backgroundColor: '#fff' }
@@ -20,6 +31,7 @@ const projectsSummary = [
         title: "TIENDA TECNO",
         intro: <>E-commerce de hardware diseñado para <strong>3 perfiles de usuario distintos</strong>. Del wireframe al prototipo final en 4 meses.</>,
         type: "Web Design / UX Research",
+        tags: ["E-commerce", "Web Design", "UX Research"],
         link: "/tienda-tecno",
         image: "/Mockup-home-tienda_tecno.webp",
         imgStyle: { objectFit: 'contain', scale: 1.6, backgroundColor: '#fff' }
@@ -29,18 +41,10 @@ const projectsSummary = [
         title: "AZAFRÁN MENDOZA",
         intro: <>Rediseño de la experiencia digital de un restaurante estrella Michelin. Creación de un <strong>sistema de reservas nativo, asimétrico y elástico</strong>.</>,
         type: "Product Redesign / UX/UI",
+        tags: ["Redesign", "UX/UI", "Gastronomía"],
         link: "/azafran",
-        image: "/Mockup-home-azafran.webp", // Will act as placeholder or we can use an existing image if needed
+        image: "/Mockup-home-azafran.webp",
         imgStyle: { objectFit: 'contain', scale: 1.1, backgroundColor: '#fff' }
-    },
-    {
-        id: 'smartock',
-        title: "SMARTOCK",
-        intro: <>Plataforma de gestión de inventario inteligente en tiempo real. <strong>Optimizando flujos operativos y reduciendo mermas</strong> para comercios minoristas.</>,
-        type: "Product Design / SaaS",
-        link: "/smartock",
-        image: "/Mockup-home-smartock.webp", // Will act as placeholder
-        imgStyle: { objectFit: 'contain', scale: 1.2, backgroundColor: '#fff' }
     }
 ];
 
@@ -186,7 +190,7 @@ const Projects = () => {
                     textAlign: 'center'
                 }}
             >
-                PROYECTOS DESTACADOS
+                PROYECTOS
             </motion.h2>
 
             <div style={{
@@ -260,24 +264,29 @@ const Projects = () => {
                                 padding: isMobile ? 'var(--space-4)' : 'var(--space-8)',
                                 gap: isMobile ? 'var(--space-2)' : 'var(--space-3)',
                             }}>
-                                {/* TAG */}
-                                <span
-                                    aria-label={`Categoría: ${project.type}`}
-                                    style={{
-                                        fontSize: isMobile ? '0.7rem' : '0.8rem',
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '0.12em',
-                                        fontWeight: 'var(--fw-bold)',
-                                        color: 'var(--text-color)',
-                                        border: '1px solid var(--border-inactive)',
-                                        padding: isMobile ? '4px 10px' : '6px 14px',
-                                        borderRadius: 'var(--radius-pill)',
-                                        display: 'inline-block',
-                                        width: 'fit-content',
-                                    }}
-                                >
-                                    {project.type}
-                                </span>
+                                {/* TAGS */}
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                                    {project.tags.map((tag, i) => (
+                                        <span
+                                            key={i}
+                                            style={{
+                                                fontSize: isMobile ? '0.68rem' : '0.75rem',
+                                                textTransform: 'uppercase',
+                                                letterSpacing: '0.1em',
+                                                fontWeight: 'var(--fw-bold)',
+                                                color: 'var(--accent-primary)',
+                                                background: 'color-mix(in srgb, var(--accent-primary) 12%, transparent)',
+                                                border: '1px solid color-mix(in srgb, var(--accent-primary) 35%, transparent)',
+                                                padding: isMobile ? '4px 10px' : '5px 12px',
+                                                borderRadius: 'var(--radius-pill)',
+                                                display: 'inline-block',
+                                                whiteSpace: 'nowrap',
+                                            }}
+                                        >
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
 
                                 {/* TÍTULO */}
                                 <h3 style={{

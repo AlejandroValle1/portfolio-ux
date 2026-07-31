@@ -14,7 +14,7 @@ const ProjectSummary = ({ title, content, type = 'learning' }) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 style={{
-                    backgroundColor: isEpilogue ? 'rgba(255,255,255,0.02)' : 'var(--surface-color)',
+                    backgroundColor: 'var(--surface-color)',
                     backdropFilter: 'blur(20px)',
                     border: '1.5px solid var(--border-inactive)',
                     padding: 'clamp(2rem, 6vw, var(--space-12)) clamp(1.5rem, 5vw, var(--space-8))',

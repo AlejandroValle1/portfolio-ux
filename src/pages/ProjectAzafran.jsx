@@ -64,7 +64,7 @@ const ProjectAzafran = () => {
 
             <ProjectSection
                 icon="⚡"
-                title="¿Can a digital interface convey the silence, the air, and the rhythm of a Michelin-starred tasting menu?"
+                title="¿Puede una interfaz digital transmitir el silencio, el aire y el ritmo de un menú de degustación con estrella Michelin?"
                 text="Todo comenzó de manera orgánica. Estaba viendo un video en YouTube del creador de contenido Ramitagram experimentando el ritual de pasos en Azafrán (Mendoza, Argentina). Mientras observaba la obsesión por el detalle, la vajilla artesanal y la coreografía de los mozos y el sommelier en el salón, me surgió una duda de diseño: ¿Cómo es la antesala digital de este lugar? ¿Su web prepara al comensal para esta experiencia?"
             />
 
