@@ -14,7 +14,6 @@ const MobileStep = ({
     step,
     index,
     isActive,
-    isVisited,
     activeIndex,
     cardRef,
     stepRef,

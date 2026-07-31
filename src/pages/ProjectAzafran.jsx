@@ -9,19 +9,9 @@ import Lightbox from '../components/Lightbox';
 import SpotlightGrid from '../components/SpotlightGrid';
 import ComparisonSlider from '../components/ComparisonSlider';
 import { AZAFRAN_DATA } from '../data/projectsData';
-import { usePerformance } from '../context/PerformanceContext';
 
 const ProjectAzafran = () => {
     const [lightboxState, setLightboxState] = useState({ isOpen: false, images: [], index: 0 });
-    const { isMobile } = usePerformance();
-
-    const openLightbox = (images, index = 0) => {
-        setLightboxState({
-            isOpen: true,
-            images: Array.isArray(images) ? images : [images],
-            index
-        });
-    };
 
     useEffect(() => { window.scrollTo(0, 0); }, []);
 
@@ -90,7 +80,7 @@ const ProjectAzafran = () => {
                         { label: 'Pérdida de control del flujo', text: 'Derivar al usuario a un tercero (OpenTable) diluye la identidad de la marca justo en el momento más crítico: la conversión y el pago.' },
                         { label: 'El Falso Supuesto de mesas grupales', text: 'Las interfaces estándar asumen que toda la mesa se comporta de forma homogénea, ignorando restricciones alimentarias individuales o preferencias de maridaje.' }
                     ]}
-                    renderItem={(item, i) => (
+                    renderItem={(item) => (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
                             <p style={{ fontSize: '0.75rem', opacity: 0.85, margin: '0 0 6px', fontWeight: 'var(--fw-bold)', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--accent-primary)' }}>
                                 {item.label}

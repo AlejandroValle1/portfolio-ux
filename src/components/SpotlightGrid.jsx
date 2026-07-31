@@ -1,4 +1,4 @@
-import React, { createRef, useRef } from 'react';
+import React, { createRef, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { usePerformance } from '../context/PerformanceContext';
 import { useScrollSpotlight } from '../hooks/useScrollSpotlight';
@@ -7,8 +7,7 @@ const SpotlightGrid = ({ items, renderItem, columns = 'repeat(auto-fit, minmax(2
     const { isLowEnd, isMobile } = usePerformance();
     const isLowPerf = isLowEnd || isMobile;
     
-    const refsArray = useRef(items.map(() => createRef()));
-    const refs = refsArray.current;
+    const refs = useMemo(() => items.map(() => createRef()), [items]);
     
     const activeIndex = useScrollSpotlight(refs, isLowPerf);
 

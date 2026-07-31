@@ -138,8 +138,7 @@ const ParallaxImage = ({ src, alt, imgStyle = {}, isMobile = false, isLowPerform
 const Projects = () => {
     const { isLowEnd, isMobile } = usePerformance();
 
-    const cardRefsArray = React.useRef(projectsSummary.map(() => React.createRef()));
-    const cardRefs = cardRefsArray.current;
+    const cardRefs = React.useMemo(() => projectsSummary.map(() => React.createRef()), []);
     const activeIndex = useScrollSpotlight(cardRefs, isLowEnd || isMobile);
 
     const getCardStyle = () => ({
